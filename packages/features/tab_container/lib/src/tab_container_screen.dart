@@ -40,26 +40,14 @@ class TabContainerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TabContainerCubit, TabContainerState>(
-      listener: (context, state) {
-        final l10n = TabContainerLocalizations.of(context);
-        if (state.refreshAppDependenciesState ==
-            RefreshAppDependenciesState.success) {
-          showSnackBar(
-            context: context,
-            snackBar: SuccessSnackBar(
-              context: context,
-              message: l10n.appDependenciesFetchSuccessSnackBarMessage,
-            ),
-          );
-        }
-      },
+    return BlocBuilder<TabContainerCubit, TabContainerState>(
       builder: (context, state) {
         final tabPage = TabPage.of(context);
         final l10n = TabContainerLocalizations.of(context);
         final localizedNavBarTabs = localizeNavBarTabs(l10n);
         final colorScheme =
             GrowthInTheme.of(context).materialThemeData.colorScheme;
+        final theme = GrowthInTheme.of(context);
         final textTheme = Theme.of(context).textTheme;
 
         return Scaffold(
@@ -76,31 +64,31 @@ class TabContainerView extends StatelessWidget {
           ),
           bottomNavigationBar: SafeArea(
             child: Container(
-              color: colorScheme.primary,
               height: tabBarHeight,
+              decoration: BoxDecoration(border: Border(top: BorderSide(color: theme.borderColor))),
               child: TabBar(
-                dividerColor: colorScheme.primary,
                 controller: tabPage.controller,
+                labelStyle:
+                    textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w500, fontSize: 10),
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelColor: colorScheme.primary,
+                unselectedLabelColor: theme.dimmedTextColor,
+                dividerColor: Colors.green,
                 indicator: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: colorScheme.secondary,
-                      width: 5,
+                      color: colorScheme.primary,
+                      width: 2,
                     ),
                   ),
                 ),
-                labelStyle:
-                    textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w500),
-                labelPadding: EdgeInsets.zero,
-                indicatorColor: colorScheme.secondary,
-                indicatorSize: TabBarIndicatorSize.tab,
                 tabs: <Widget>[
                   for (int i = 0; i < tabPage.stacks.length; i++)
                     NavBarTab(
                       title: localizedNavBarTabs[i].title,
-                      icon: localizedNavBarTabs[i].icon,
-                      svgPath: localizedNavBarTabs[i].svgPath,
-                      isSelected: tabPage.index == i,
+                      svgPath: tabPage.index == i
+                          ? localizedNavBarTabs[i].selectedSvgPath
+                          : localizedNavBarTabs[i].unselectedSvgPath,
                     ),
                 ],
               ),
@@ -117,23 +105,28 @@ List<NavBarTabModel> localizeNavBarTabs(
 ) {
   final navBarTabs = [
     NavBarTabModel(
-      svgPath: 'assets/icons/tasks.svg',
-      title: l10n.tasksTabLabel,
+      unselectedSvgPath: AssetPathConstants.homeUnselectedPath,
+      selectedSvgPath: AssetPathConstants.homeSelectedPath,
+      title: l10n.homeTabLabel,
     ),
     NavBarTabModel(
-      svgPath: 'assets/icons/contacts.svg',
-      title: l10n.contactsTabLabel,
+      unselectedSvgPath: AssetPathConstants.cmsUnselectedPath,
+      selectedSvgPath: AssetPathConstants.cmsSelectedPath,
+      title: l10n.cmsTabLabel,
     ),
     NavBarTabModel(
-      svgPath: 'assets/icons/company.svg',
-      title: l10n.companiesTabLabel,
+      unselectedSvgPath: AssetPathConstants.messagesUnselectedPath,
+      selectedSvgPath: AssetPathConstants.messagesSelectedPath,
+      title: l10n.messagesTabLabel,
     ),
     NavBarTabModel(
-      svgPath: 'assets/icons/deals.svg',
-      title: l10n.dealsTabLabel,
+      unselectedSvgPath: AssetPathConstants.filesUnselectedPath,
+      selectedSvgPath: AssetPathConstants.filesSelectedPath,
+      title: l10n.filesTabLabel,
     ),
     NavBarTabModel(
-      svgPath: 'assets/icons/menu.svg',
+      unselectedSvgPath: AssetPathConstants.menuUnselectedPath,
+      selectedSvgPath: AssetPathConstants.menuSelectedPath,
       title: l10n.menuTabLabel,
     ),
   ];
@@ -143,11 +136,11 @@ List<NavBarTabModel> localizeNavBarTabs(
 class NavBarTabModel {
   const NavBarTabModel({
     required this.title,
-    this.icon,
-    this.svgPath,
+    required this.unselectedSvgPath,
+    required this.selectedSvgPath,
   });
 
   final String title;
-  final IconData? icon;
-  final String? svgPath;
+  final String unselectedSvgPath;
+  final String selectedSvgPath;
 }

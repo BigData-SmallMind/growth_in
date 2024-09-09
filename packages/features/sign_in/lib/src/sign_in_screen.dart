@@ -94,40 +94,39 @@ class _SignInForm extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final textTheme = Theme.of(context).textTheme;
         final theme = GrowthInTheme.of(context);
-
         return Scaffold(
-          backgroundColor: theme.primaryColor,
-          body: Center(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: Spacing.large),
-                  decoration: BoxDecoration(
-                    color: theme.materialThemeData.colorScheme.surface,
-                    borderRadius: BorderRadius.circular(10),
+          body: SafeArea(
+            child: Center(
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                children: <Widget>[
+                  const Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: SvgAsset(AssetPathConstants.logoPath),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      VerticalGap.large(),
-                      VerticalGap.large(),
-                      if (!state.rememberMeLoading) ...[
-                        const EmailTextField(),
-                        VerticalGap.mediumLarge(),
-                        const PasswordTextField(),
-                        VerticalGap.medium(),
-                      ],
-                      const RememberMeAndForgotPassword(),
-                      VerticalGap.xLarge(),
-                      const SignInButton(),
-                      VerticalGap.large(),
-                    ],
+                  VerticalGap.xxLarge(),
+                  Text(
+                    'l10n.signInGreetingTitle',
+                    style: textTheme.headlineLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              ],
+                  VerticalGap.xLarge(),
+                  if (!state.rememberMeLoading) ...[
+                    const EmailTextField(),
+                    VerticalGap.mediumLarge(),
+                    const PasswordTextField(),
+                    VerticalGap.medium(),
+                  ],
+                  const RememberMeAndForgotPassword(),
+                  VerticalGap.xLarge(),
+                  const SignInButton(),
+                  VerticalGap.large(),
+                ],
+              ),
             ),
           ),
         );
@@ -135,4 +134,3 @@ class _SignInForm extends StatelessWidget {
     );
   }
 }
-

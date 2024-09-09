@@ -5,65 +5,52 @@ part 'user_rm.g.dart';
 @JsonSerializable(createToJson: false)
 class UserRM {
   UserRM({
-    required this.id,
-    this.name,
-    this.lastName,
-    this.sites,
-    this.type,
-    this.email,
-    this.jobTitle,
-    this.phone,
-    this.companyName,
-    this.companyAddress,
-    this.companyCountry,
-    this.token,
+    required this.info,
+    required this.token,
   });
 
-  @JsonKey(name: 'id')
-  final dynamic id;
-  @JsonKey(name: 'name')
-  final String? name;
-  @JsonKey(name: 'last_name')
-  final String? lastName;
-  @JsonKey(name: 'sites')
-  final List<SiteRM>? sites;
-  @JsonKey(name: 'role')
-  final String? type;
-  @JsonKey(name: 'email')
-  final String? email;
-  @JsonKey(name: 'jobTitle')
-  final String? jobTitle;
-  @JsonKey(name: 'phone')
-  final String? phone;
-  @JsonKey(name: 'company_name')
-  final String? companyName;
-  @JsonKey(name: 'company_address')
-  final String? companyAddress;
-  @JsonKey(name: 'company_country')
-  final String? companyCountry;
-  @JsonKey(name: 'auth')
-  final String? token;
+  @JsonKey(name: 'account')
+  final UserInfoRM info;
+  @JsonKey(name: 'token')
+  final String token;
 
   static const fromJson = _$UserRMFromJson;
 }
 
+
+
 @JsonSerializable(createToJson: false)
-class SiteRM {
-  SiteRM({
+class UserInfoRM {
+  UserInfoRM({
     required this.id,
-    required this.path,
-    this.accountName,
-    this.companyDomain,
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.countryCode,
+    this.image,
+    required this.role,
+    required this.companyName,
+    required this.companySector,
   });
 
-  @JsonKey(name: 'userblog_id')
+  @JsonKey(name: 'id')
   final int id;
-  @JsonKey(name: 'path')
-  final String path;
-  @JsonKey(name: 'blogname')
-  final String? accountName;
-  @JsonKey(name: 'siteurl')
-  final String? companyDomain;
+  @JsonKey(name: 'email')
+  final String email;
+  @JsonKey(name: 'role')
+  final String role;
+  @JsonKey(name: 'company_name')
+  final String companyName;
+  @JsonKey(name: 'company_sector')
+  final String companySector;
+  @JsonKey(name: 'user_name')
+  final String name;
+  @JsonKey(name: 'phone')
+  final String phone;
+  @JsonKey(name: 'country_code')
+  final int countryCode;
+  @JsonKey(name: 'profile_image')
+  final String? image;
 
-  static const fromJson = _$SiteRMFromJson;
+  static const fromJson = _$UserInfoRMFromJson;
 }

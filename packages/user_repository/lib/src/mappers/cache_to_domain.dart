@@ -7,19 +7,11 @@ extension UserCMtoDM on UserCM {
       id: id,
       name: name,
       email: email,
-      jobTitle: jobTitle,
       phone: phone,
-      companyName: companyName,
-      companyAddress: companyAddress,
-      companyCountry: companyCountry,
-      accountName: accountName,
-      companyDomain: companyDomain,
-
+      image: image,
     );
   }
 }
-
-
 
 extension LocalePreferenceCMToDomain on LocalePreferenceCM {
   LocalePreferenceDM toDomainModel() {

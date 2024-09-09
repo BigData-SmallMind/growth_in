@@ -52,62 +52,50 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         final l10n = SignInLocalizations.of(context);
         final theme = GrowthInTheme.of(context);
         final textTheme = Theme.of(context).textTheme;
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.passwordTextFieldLabel,
-                style:
-                    textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-              ),
-              VerticalGap.medium(),
-              TextFormField(
-                obscureText: !isPasswordVisible,
-                initialValue: state.rememberMe.password,
-                textInputAction: TextInputAction.done,
-                focusNode: _passwordFocusNode,
-                onChanged: cubit.onPasswordChanged,
-                enabled: !isSubmissionInProgress,
-                onEditingComplete: cubit.onSubmit,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: Spacing.small,
-                    vertical: Spacing.small,
-                  ),
-                  isDense: true,
-                  suffixIconConstraints: const BoxConstraints(
-                    minWidth: 40,
-                    minHeight: 0,
-                  ),
-                  prefixIconConstraints: const BoxConstraints(
-                    minWidth: 40,
-                    minHeight: 0,
-                  ),
-                  suffixIcon: GestureDetector(
-                    onTap: () =>
-                        setState(() => isPasswordVisible = !isPasswordVisible),
-                    child: Icon(
-                      isPasswordVisible
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                    ),
-                  ),
-                  prefixIcon: const Icon(
-                    Icons.password,
-                  ),
-                  hintText: l10n.passwordTextFieldLabel,
-                  errorText: passwordError == PasswordValidationError.empty
-                      ? l10n.requiredFieldErrorMessage
-                      : passwordError ==
-                              PasswordValidationError.invalidCredentials
-                          ? l10n.invalidCredentialsErrorMessage
-                          : null,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${l10n.passwordTextFieldLabel} *',
+              style: textTheme.titleSmall,
+            ),
+            VerticalGap.medium(),
+            TextFormField(
+              obscureText: !isPasswordVisible,
+              initialValue: state.rememberMe.password,
+              textInputAction: TextInputAction.done,
+              focusNode: _passwordFocusNode,
+              onChanged: cubit.onPasswordChanged,
+              enabled: !isSubmissionInProgress,
+              onEditingComplete: cubit.onSubmit,
+              decoration: InputDecoration(
+                isDense: true,
+                suffixIconConstraints: const BoxConstraints(
+                  minWidth: 40,
+                  minHeight: 0,
                 ),
+                prefixIconConstraints: const BoxConstraints(
+                  minWidth: 40,
+                  minHeight: 0,
+                ),
+                suffixIcon: GestureDetector(
+                  onTap: () =>
+                      setState(() => isPasswordVisible = !isPasswordVisible),
+                  child: Icon(
+                    isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    size: 25,
+                  ),
+                ),
+                hintText: l10n.passwordTextFieldLabel,
+                errorText: passwordError == PasswordValidationError.empty
+                    ? l10n.requiredFieldErrorMessage
+                    : passwordError ==
+                            PasswordValidationError.invalidCredentials
+                        ? l10n.invalidCredentialsErrorMessage
+                        : null,
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

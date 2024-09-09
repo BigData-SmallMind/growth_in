@@ -8,7 +8,7 @@ part of 'locale_preference_cm.dart';
 
 class LocalePreferenceCMAdapter extends TypeAdapter<LocalePreferenceCM> {
   @override
-  final int typeId = 23;
+  final int typeId = 2;
 
   @override
   LocalePreferenceCM read(BinaryReader reader) {

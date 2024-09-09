@@ -24,6 +24,9 @@ Map<String, PageBuilder> buildRoutingTable({
           paths: [
             _PathConstants.homePath,
             _PathConstants.homePath,
+            _PathConstants.homePath,
+            _PathConstants.homePath,
+            _PathConstants.homePath,
           ],
           child: BackButtonListener(
             onBackButtonPressed: () async {

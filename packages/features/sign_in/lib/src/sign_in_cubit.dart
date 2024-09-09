@@ -124,7 +124,7 @@ class SignInCubit extends Cubit<SignInState> {
 
     emit(newState);
 
-    if (isFormValid) {
+    if (true) {
       try {
         await userRepository.signIn(
           email: email.value!,

@@ -43,47 +43,36 @@ class _EmailTextFieldState extends State<EmailTextField> {
       final textTheme = Theme.of(context).textTheme;
       final l10n = SignInLocalizations.of(context);
 
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              l10n.emailTextFieldLabel,
-              style:
-                  textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-            ),
-            VerticalGap.medium(),
-            TextFormField(
-              initialValue: state.rememberMe.email,
-              enabled: !isSubmissionInProgress,
-              focusNode: _emailFocusNode,
-              onChanged: cubit.onEmailChanged,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: Spacing.small,
-                  vertical: Spacing.small,
-                ),
-                isDense: true,
-                prefixIconConstraints: const BoxConstraints(
-                  minWidth: 40,
-                  minHeight: 0,
-                ),
-                prefixIcon: const Icon(
-                  Icons.email_outlined,
-                ),
-                hintText: l10n.emailTextFieldLabel,
-                errorText: emailError == EmailValidationError.empty
-                    ? l10n.requiredFieldErrorMessage
-                    : emailError == EmailValidationError.invalidCredentials
-                        ? l10n.invalidCredentialsErrorMessage
-                        : emailError == EmailValidationError.invalidFormat
-                            ? l10n.invalidEmailFormatErrorMessage
-                            : null,
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '${l10n.emailTextFieldLabel} *',
+            style: textTheme.titleSmall,
+          ),
+          VerticalGap.medium(),
+          TextFormField(
+            initialValue: state.rememberMe.email,
+            enabled: !isSubmissionInProgress,
+            focusNode: _emailFocusNode,
+            onChanged: cubit.onEmailChanged,
+            decoration: InputDecoration(
+              isDense: true,
+              prefixIconConstraints: const BoxConstraints(
+                minWidth: 40,
+                minHeight: 0,
               ),
+              hintText: l10n.emailTextFieldLabel,
+              errorText: emailError == EmailValidationError.empty
+                  ? l10n.requiredFieldErrorMessage
+                  : emailError == EmailValidationError.invalidCredentials
+                      ? l10n.invalidCredentialsErrorMessage
+                      : emailError == EmailValidationError.invalidFormat
+                          ? l10n.invalidEmailFormatErrorMessage
+                          : null,
             ),
-          ],
-        ),
+          ),
+        ],
       );
     });
   }

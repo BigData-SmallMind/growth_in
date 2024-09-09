@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-const iconsPath = 'icons';
-
 class SvgAsset extends StatelessWidget {
   const SvgAsset(
     this.assetPath, {
@@ -26,7 +24,7 @@ class SvgAsset extends StatelessWidget {
     return SvgPicture.asset(
       width: width,
       height: height,
-      'assets/$assetPath',
+      assetPath,
       fit: fit ?? BoxFit.scaleDown,
       colorFilter: color == null
           ? null
@@ -36,4 +34,33 @@ class SvgAsset extends StatelessWidget {
             ),
     );
   }
+}
+
+class AssetPathConstants {
+  const AssetPathConstants._();
+
+  static const String assetsPath = 'assets';
+  static const String iconsPath = '$assetsPath/icons';
+  static const String tabContainerIconsPath = '$iconsPath/tab_container';
+  static const String logoPath = '$iconsPath/logo.svg';
+  static const String homeSelectedPath =
+      '$tabContainerIconsPath/home_selected.svg';
+  static const String homeUnselectedPath =
+      '$tabContainerIconsPath/home_unselected.svg';
+  static const String filesSelectedPath =
+      '$tabContainerIconsPath/files_selected.svg';
+  static const String filesUnselectedPath =
+      '$tabContainerIconsPath/files_unselected.svg';
+  static const String messagesSelectedPath =
+      '$tabContainerIconsPath/messages_selected.svg';
+  static const String messagesUnselectedPath =
+      '$tabContainerIconsPath/messages_unselected.svg';
+  static const String cmsSelectedPath =
+      '$tabContainerIconsPath/cms_selected.svg';
+  static const String cmsUnselectedPath =
+      '$tabContainerIconsPath/cms_unselected.svg';
+  static const String menuSelectedPath =
+      '$tabContainerIconsPath/menu_selected.svg';
+  static const String menuUnselectedPath =
+      '$tabContainerIconsPath/menu_unselected.svg';
 }

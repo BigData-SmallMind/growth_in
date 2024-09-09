@@ -60,35 +60,19 @@ class UserRepository {
         password: password,
       );
       await _secureStorage.upsertUser(
-        id: userRM.id,
-        name: userRM.name ?? 'nameRM',
-        lastName: userRM.lastName,
-        slug: userRM.sites?[1].path ?? '/',
-        email: userRM.email,
-        jobTitle: userRM.jobTitle,
-        phone: userRM.phone,
-        companyName: userRM.companyName,
-        companyAddress: userRM.companyAddress,
-        companyCountry: userRM.companyCountry,
-        accountName: userRM.sites?[1].accountName,
-        companyDomain: userRM.sites?[1].companyDomain,
-        token: userRM.token!,
+        id: userRM.info.id,
+        name: userRM.info.name,
+        email: userRM.info.email,
+        phone: userRM.info.phone,
+        token: userRM.token,
       );
 
       _userSubject.add(
         User(
-          id: userRM.id,
-          name: userRM.name,
-          lastName: userRM.lastName,
-          slug: userRM.sites?[1].path ?? '/',
-          email: userRM.email,
-          jobTitle: userRM.jobTitle,
-          phone: userRM.phone,
-          companyName: userRM.companyName,
-          companyAddress: userRM.companyAddress,
-          companyCountry: userRM.companyCountry,
-          accountName: userRM.sites?[1].accountName,
-          companyDomain: userRM.sites?[1].companyDomain,
+          id: userRM.info.id,
+          name: userRM.info.name,
+          email: userRM.info.email,
+          phone: userRM.info.phone,
         ),
       );
     } catch (error) {
@@ -178,7 +162,7 @@ class UserRepository {
     try {
       final user = await getUser().first;
       await remoteApi.changePassword(
-        email: user!.email!,
+        email: user!.email,
         oldPassword: oldPassword,
         newPassword: newPassword,
       );
@@ -208,31 +192,17 @@ class UserRepository {
     // if (!_userSubject.hasValue) {
     final userId = await _secureStorage.getUserId();
     final userName = await _secureStorage.getUserName();
-    final userLastName = await _secureStorage.getUserLastName();
-    final userSlug = await _secureStorage.getUserSlug();
     final userEmail = await _secureStorage.getUserEmail();
-    final userJobTitle = await _secureStorage.getUserJobTitle();
     final userPhone = await _secureStorage.getUserPhone();
-    final userCompanyName = await _secureStorage.getUserCompanyName();
-    final userCompanyAddress = await _secureStorage.getUserCompanyAddress();
-    final userCompanyCountry = await _secureStorage.getUserCompanyCountry();
-    final userAccountName = await _secureStorage.getUserAccountName();
-    final userCompanyDomain = await _secureStorage.getUserCompanyDomain();
 
-    if (userId != null && userName != null && userSlug != null) {
+
+    if (userId != null && userName != null ) {
       final user = User(
         id: userId,
         name: userName,
-        lastName: userLastName,
-        slug: userSlug,
-        email: userEmail,
-        jobTitle: userJobTitle,
-        phone: userPhone,
-        companyName: userCompanyName,
-        companyAddress: userCompanyAddress,
-        companyCountry: userCompanyCountry,
-        accountName: userAccountName,
-        companyDomain: userCompanyDomain,
+        email: userEmail!,
+        phone: userPhone!,
+
       );
       _userSubject.add(user);
     } else {

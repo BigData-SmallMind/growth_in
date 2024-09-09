@@ -8,6 +8,6 @@ part of 'user_credentials_rm.dart';
 
 Map<String, dynamic> _$UserCredentialsRMToJson(UserCredentialsRM instance) =>
     <String, dynamic>{
-      'username': instance.email,
+      'email': instance.email,
       'password': instance.password,
     };

@@ -9,7 +9,7 @@ class UserCredentialsRM {
     required this.password,
   });
 
-  @JsonKey(name: 'username')
+  @JsonKey(name: 'email')
   final String email;
   @JsonKey(name: 'password')
   final String password;

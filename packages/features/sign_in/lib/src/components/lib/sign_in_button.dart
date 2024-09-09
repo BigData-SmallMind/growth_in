@@ -20,28 +20,14 @@ class SignInButton extends StatelessWidget {
         final cubit = context.read<SignInCubit>();
         final theme = GrowthInTheme.of(context);
         final l10n = SignInLocalizations.of(context);
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-          decoration: BoxDecoration(
-            boxShadow: isSubmissionInProgress
-                ? null
-                : [
-                    const BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.25),
-                      offset: Offset(0, 4),
-                      blurRadius: 26,
-                    ),
-                  ],
-          ),
-          child: isSubmissionInProgress
-              ? GrowthInElevatedButton.inProgress(
-                  label: l10n.signInInProgressButtonLabel,
-                )
-              : GrowthInElevatedButton(
-                  onTap: cubit.onSubmit,
-                  label: l10n.signInButtonLabel,
-                ),
-        );
+        return isSubmissionInProgress
+            ? GrowthInElevatedButton.inProgress(
+                label: l10n.signInInProgressButtonLabel,
+              )
+            : GrowthInElevatedButton(
+                onTap: cubit.onSubmit,
+                label: l10n.signInButtonLabel,
+              );
       },
     );
   }

@@ -13,9 +13,12 @@ import 'package:growth_in_api/growth_in_api.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 
 import 'package:routemaster/routemaster.dart';
+import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:tab_container/tab_container.dart';
 
 import 'package:user_repository/user_repository.dart';
+import 'package:verify_otp/verify_otp.dart';
 
 String? fontFamily;
 
@@ -69,10 +72,9 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
     _userRepository.getUser().first.then((user) {
       _signInSuccessVN.value = user?.id != null;
     });
-
+    _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
     WidgetsBinding.instance.addObserver(this);
-    // This is used to fetch the user path from the user repository secure storage
-    // and set the url with it
+
   }
 
   // This callback is invoked every time the platform brightness changes.
@@ -114,9 +116,9 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
 
         final isArabic = localePreference?.toLocale() == const Locale('ar');
         if (Platform.isAndroid) {
-          fontFamily = isArabic ? 'Tajawal' : 'Gotham';
+          fontFamily = isArabic ? 'Cairo' : 'Gotham';
         } else if (Platform.isIOS) {
-          fontFamily = isArabic ? 'Tajawal' : null;
+          fontFamily = isArabic ? 'Cairo' : null;
         }
         return GrowthInTheme(
           context: context,
@@ -168,6 +170,9 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
 
                 // Authentication
                 SignInLocalizations.delegate,
+                TabContainerLocalizations.delegate,
+                SendOtpLocalizations.delegate,
+                VerifyOtpLocalizations.delegate,
 
               ],
               locale: localePreference?.toLocale(),

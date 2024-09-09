@@ -69,15 +69,16 @@ flutter:
   generate: true
 
   fonts:
-    - family: Tajawal
+    - family: Cairo
       fonts:
-        - asset: fonts/Tajawal/Tajawal-Black.ttf
-        - asset: fonts/Tajawal/Tajawal-Bold.ttf
-        - asset: fonts/Tajawal/Tajawal-ExtraBold.ttf
-        - asset: fonts/Tajawal/Tajawal-ExtraLight.ttf
-        - asset: fonts/Tajawal/Tajawal-Light.ttf
-        - asset: fonts/Tajawal/Tajawal-Medium.ttf
-        - asset: fonts/Tajawal/Tajawal-Regular.ttf
+        - asset: fonts/Cairo/Cairo-Black.ttf
+        - asset: fonts/Cairo/Cairo-Bold.ttf
+        - asset: fonts/Cairo/Cairo-ExtraBold.ttf
+        - asset: fonts/Cairo/Cairo-ExtraLight.ttf
+        - asset: fonts/Cairo/Cairo-Light.ttf
+        - asset: fonts/Cairo/Cairo-Medium.ttf
+        - asset: fonts/Cairo/Cairo-Regular.ttf
+        - asset: fonts/Cairo/Cairo-SemiBold.ttf
     - family: Gotham
       fonts:
         - asset: fonts/Gotham/GothamBold.ttf
@@ -89,3 +90,4 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/tab_container/

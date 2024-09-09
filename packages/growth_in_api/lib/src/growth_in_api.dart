@@ -13,7 +13,6 @@ class GrowthInApi {
   static const _errorJsonKey = 'error';
   static const _otpJsonKey = 'otp';
 
-
   GrowthInApi({
     required UserTokenSupplier userTokenSupplier,
     required this.isUserUnAuthenticatedVN,
@@ -66,17 +65,11 @@ class GrowthInApi {
     } catch (_) {
       final error = response.data[_errorJsonKey];
       final errorString = error.toString().toLowerCase();
-      final invalidPassword = errorString.contains('password') == true;
-      final invalidEmail = errorString.contains('user') == true;
-      final invalidCredentials = invalidPassword || invalidEmail;
-      if (invalidCredentials) {
-        throw InvalidCredentialsGrowthInException();
-      }
-
+      final invalidCredentials = errorString.contains('خطأ') == true;
+      if (invalidCredentials) throw InvalidCredentialsGrowthInException();
       rethrow;
     }
   }
-
 
   Future updateProfile({
     required int userId,
@@ -176,7 +169,7 @@ class GrowthInApi {
       );
       final error = response.data[_errorJsonKey];
       final phoneNotRegistered =
-      error.toString().toLowerCase().contains('user');
+          error.toString().toLowerCase().contains('user');
       if (phoneNotRegistered) throw EmailNotRegisteredGrowthInException();
       final otp = response.data[_otpJsonKey].toString();
       debugPrint('----otp: $otp');
@@ -226,7 +219,6 @@ class GrowthInApi {
       rethrow;
     }
   }
-
 }
 
 extension on Dio {
@@ -267,7 +259,6 @@ extension on Dio {
         },
         onResponse: (response, handler) {
           handler.next(response);
-
         },
       ),
     );

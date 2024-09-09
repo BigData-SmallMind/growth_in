@@ -7,7 +7,7 @@ abstract class GrowthInThemeData {
   ThemeData get materialThemeData;
 
   final iconColor = const Color(0xFF191F6D);
-  final primaryColor = const Color(0xFF3B2E8C);
+  final primaryColor = const Color(0xFF004746);
   final secondaryColor = const Color(0xFF5F45BF);
   final tertiaryColor = const Color(0xFFBA38F2);
 
@@ -32,7 +32,7 @@ abstract class GrowthInThemeData {
   final initialsBgColor = const Color(0xFFD9D9D9);
   final selectedBgColor = const Color(0xFFD0CDE0);
   final unselectedCheckboxBorderColor = const Color(0xFFD7D5DD);
-  final borderColor = const Color(0xFFD8DADC);
+  final borderColor = const Color(0xFFD9D9D9);
   final xMarkColor = const Color(0xFFC3C3C3);
   final dimmedTextColor = const Color(0xFF5A5D66);
   final updatePhotoTextColor = const Color(0xFF7D7C7C);
@@ -42,9 +42,9 @@ abstract class GrowthInThemeData {
 
   final screenMargin = Spacing.mediumLarge;
   final listViewVerticalSpacing = Spacing.medium;
-  final textFieldBorderRadius = 5.0;
+  final textFieldBorderRadius = 10.0;
   final searchTextFieldBorderRadius = 25.0;
-  final double elevatedButtonBorderRadius = 5;
+  final double elevatedButtonBorderRadius = 10;
 
   final profileDescriptionTextShadow = Shadow(
     offset: const Offset(0, 4),
@@ -61,9 +61,9 @@ abstract class GrowthInThemeData {
   ];
 
   final hintStyle = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: const Color(0xFF3B2E8C).withOpacity(0.5),
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: const Color(0xFF1F1F1F).withOpacity(0.5),
   );
 }
 
@@ -108,15 +108,6 @@ class LightGrowthInThemeData extends GrowthInThemeData {
           errorContainer: const Color(0xFFFFF0ED),
         ),
 
-        // elevatedButtonTheme: ElevatedButtonThemeData(
-        //   style: ButtonStyle(
-        //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //       RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(100.0),
-        //       ),
-        //     ),
-        //   ),
-        // ),
         tabBarTheme: const TabBarTheme(
           unselectedLabelColor: Color(0xFFC3C5C8),
           labelColor: Colors.white,
@@ -127,23 +118,21 @@ class LightGrowthInThemeData extends GrowthInThemeData {
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: Spacing.xSmall,
-            horizontal: Spacing.small,
-          ),
           hintStyle: hintStyle,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: Spacing.medium,
+            vertical: 15,
+          ),
           disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(textFieldBorderRadius),
-              borderSide: BorderSide(color: borderColor, width: 1)),
+            borderRadius: BorderRadius.circular(textFieldBorderRadius),
+          ),
           suffixIconColor: secondaryIconColor,
-          filled: true,
-          // fillColor: textFieldFillColor,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(textFieldBorderRadius),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(textFieldBorderRadius),
-            borderSide: BorderSide(color: primaryColor),
+            borderSide: BorderSide(color: borderColor),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: errorColor),

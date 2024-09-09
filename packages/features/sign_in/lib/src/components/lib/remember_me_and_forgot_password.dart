@@ -22,9 +22,6 @@ class RememberMeAndForgotPassword extends StatelessWidget {
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         return Row(
           children: [
-            SizedBox(
-              width: theme.screenMargin,
-            ),
             GestureDetector(
               onTap: isSubmissionInProgress
                   ? null
@@ -55,14 +52,17 @@ class RememberMeAndForgotPassword extends StatelessWidget {
                 ],
               ),
             ),
-            // const Spacer(),
-            // Text(
-            //   l10n.forgotMyPasswordButtonLabel,
-            //   style: textTheme.titleMedium,
-            // ),
-            // SizedBox(
-            //   width: theme.screenMargin,
-            // ),
+            const Spacer(),
+            TextButton(
+              child: Text(
+                l10n.forgotMyPasswordButtonLabel,
+                style: textTheme.titleMedium?.copyWith(
+                  color: theme.primaryColor,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+              onPressed: () {},
+            ),
           ],
         );
       },

@@ -1,7 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-const double elevatedButtonHeight = 37;
+const double elevatedButtonHeight = 55;
 
 class GrowthInElevatedButton extends StatelessWidget {
   const GrowthInElevatedButton({

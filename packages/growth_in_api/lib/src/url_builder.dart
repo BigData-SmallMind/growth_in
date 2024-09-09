@@ -1,29 +1,28 @@
 class UrlBuilder {
   UrlBuilder({
     String? baseUrl,
-  }) : _baseUrl = baseUrl ?? 'https://connect-in.io';
+  }) : _baseUrl = baseUrl ?? 'https://laravel.growth-in.net/growthin/api';
 
   final String _baseUrl;
-  static const String _baseUrlSecondPart = 'wp-json/app/v1';
 
 
   String buildSignInUrl() {
-    final completeUrl = '$_baseUrl/$_baseUrlSecondPart/login';
+    final completeUrl = '$_baseUrl/login';
     return completeUrl;
   }
 
   String buildUpdateUserUrl() {
-    final completeUrl = '$_baseUrl/$_baseUrlSecondPart/updateUser';
+    final completeUrl = '$_baseUrl/updateUser';
     return completeUrl;
   }
 
   String buildUpdateAccountUrl() {
-    final completeUrl = '$_baseUrl/$_baseUrlSecondPart/update_user_setup';
+    final completeUrl = '$_baseUrl/update_user_setup';
     return completeUrl;
   }
 
   String buildChangePasswordUrl() {
-    final completeUrl = '$_baseUrl/$_baseUrlSecondPart/changePassword';
+    final completeUrl = '$_baseUrl/changePassword';
     return completeUrl;
   }
 

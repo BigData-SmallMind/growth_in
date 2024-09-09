@@ -11,52 +11,38 @@ UserRM _$UserRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = UserRM(
-          id: $checkedConvert('id', (v) => v),
-          name: $checkedConvert('name', (v) => v as String?),
-          lastName: $checkedConvert('last_name', (v) => v as String?),
-          sites: $checkedConvert(
-              'sites',
-              (v) => (v as List<dynamic>?)
-                  ?.map((e) => SiteRM.fromJson(e as Map<String, dynamic>))
-                  .toList()),
-          type: $checkedConvert('role', (v) => v as String?),
-          email: $checkedConvert('email', (v) => v as String?),
-          jobTitle: $checkedConvert('jobTitle', (v) => v as String?),
-          phone: $checkedConvert('phone', (v) => v as String?),
-          companyName: $checkedConvert('company_name', (v) => v as String?),
-          companyAddress:
-              $checkedConvert('company_address', (v) => v as String?),
-          companyCountry:
-              $checkedConvert('company_country', (v) => v as String?),
-          token: $checkedConvert('auth', (v) => v as String?),
+          info: $checkedConvert(
+              'account', (v) => UserInfoRM.fromJson(v as Map<String, dynamic>)),
+          token: $checkedConvert('token', (v) => v as String),
         );
         return val;
       },
-      fieldKeyMap: const {
-        'lastName': 'last_name',
-        'type': 'role',
-        'companyName': 'company_name',
-        'companyAddress': 'company_address',
-        'companyCountry': 'company_country',
-        'token': 'auth'
-      },
+      fieldKeyMap: const {'info': 'account'},
     );
 
-SiteRM _$SiteRMFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'SiteRM',
+UserInfoRM _$UserInfoRMFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'UserInfoRM',
       json,
       ($checkedConvert) {
-        final val = SiteRM(
-          id: $checkedConvert('userblog_id', (v) => (v as num).toInt()),
-          path: $checkedConvert('path', (v) => v as String),
-          accountName: $checkedConvert('blogname', (v) => v as String?),
-          companyDomain: $checkedConvert('siteurl', (v) => v as String?),
+        final val = UserInfoRM(
+          id: $checkedConvert('id', (v) => (v as num).toInt()),
+          name: $checkedConvert('user_name', (v) => v as String),
+          email: $checkedConvert('email', (v) => v as String),
+          phone: $checkedConvert('phone', (v) => v as String),
+          countryCode:
+              $checkedConvert('country_code', (v) => (v as num).toInt()),
+          image: $checkedConvert('profile_image', (v) => v as String?),
+          role: $checkedConvert('role', (v) => v as String),
+          companyName: $checkedConvert('company_name', (v) => v as String),
+          companySector: $checkedConvert('company_sector', (v) => v as String),
         );
         return val;
       },
       fieldKeyMap: const {
-        'id': 'userblog_id',
-        'accountName': 'blogname',
-        'companyDomain': 'siteurl'
+        'name': 'user_name',
+        'countryCode': 'country_code',
+        'image': 'profile_image',
+        'companyName': 'company_name',
+        'companySector': 'company_sector'
       },
     );

@@ -1,32 +1,21 @@
 import 'tab_container_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class TabContainerLocalizationsAr extends TabContainerLocalizations {
   TabContainerLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get tasksTabLabel => 'مهام';
+  String get homeTabLabel => 'الرئيسية';
 
   @override
-  String get contactsTabLabel => 'جهات الاتصال';
+  String get cmsTabLabel => 'المحتوى';
 
   @override
-  String get dashboardTabLabel => 'الرئيسية';
+  String get messagesTabLabel => 'التواصل';
 
   @override
-  String get companiesTabLabel => 'الشركات';
+  String get filesTabLabel => 'ملفاتي';
 
   @override
-  String get dealsTabLabel => 'صفقات';
-
-  @override
-  String get menuTabLabel => 'القائمة';
-
-  @override
-  String get appDependenciesFetchSuccessSnackBarMessage => 'تم تحميل البيانات بنجاح';
-
-  @override
-  String get refreshAppDepButtonTooltip => 'تحديث البيانات';
+  String get menuTabLabel => 'المزيد';
 }

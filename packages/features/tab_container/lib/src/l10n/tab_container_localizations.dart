@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'tab_container_localizations_ar.dart';
 import 'tab_container_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of TabContainerLocalizations
 /// returned by `TabContainerLocalizations.of(context)`.
 ///
@@ -95,53 +93,35 @@ abstract class TabContainerLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @tasksTabLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Tasks'**
-  String get tasksTabLabel;
-
-  /// No description provided for @contactsTabLabel.
+  /// No description provided for @homeTabLabel.
   ///
   /// In en, this message translates to:
   /// **'Contacts'**
-  String get contactsTabLabel;
+  String get homeTabLabel;
 
-  /// No description provided for @dashboardTabLabel.
+  /// No description provided for @cmsTabLabel.
   ///
   /// In en, this message translates to:
   /// **'Dashboard'**
-  String get dashboardTabLabel;
+  String get cmsTabLabel;
 
-  /// No description provided for @companiesTabLabel.
+  /// No description provided for @messagesTabLabel.
   ///
   /// In en, this message translates to:
   /// **'Companies'**
-  String get companiesTabLabel;
+  String get messagesTabLabel;
 
-  /// No description provided for @dealsTabLabel.
+  /// No description provided for @filesTabLabel.
   ///
   /// In en, this message translates to:
   /// **'Deals'**
-  String get dealsTabLabel;
+  String get filesTabLabel;
 
   /// No description provided for @menuTabLabel.
   ///
   /// In en, this message translates to:
   /// **'Menu'**
   String get menuTabLabel;
-
-  /// No description provided for @appDependenciesFetchSuccessSnackBarMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'App content updated successfully'**
-  String get appDependenciesFetchSuccessSnackBarMessage;
-
-  /// No description provided for @refreshAppDepButtonTooltip.
-  ///
-  /// In en, this message translates to:
-  /// **'Refreshes the app content'**
-  String get refreshAppDepButtonTooltip;
 }
 
 class _TabContainerLocalizationsDelegate extends LocalizationsDelegate<TabContainerLocalizations> {
