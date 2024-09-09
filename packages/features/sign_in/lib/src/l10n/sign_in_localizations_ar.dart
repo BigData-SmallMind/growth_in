@@ -26,7 +26,7 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get rememberMeCheckBoxLabel => 'تذكرنى';
 
   @override
-  String get forgotMyPasswordButtonLabel => 'فقدت كلمة المرور';
+  String get forgotMyPasswordButtonLabel => 'فقدت كلمة المرور؟';
 
   @override
   String get signInButtonLabel => 'تسجيل دخول';

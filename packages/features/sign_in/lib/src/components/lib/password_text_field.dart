@@ -50,7 +50,6 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final l10n = SignInLocalizations.of(context);
-        final theme = GrowthInTheme.of(context);
         final textTheme = Theme.of(context).textTheme;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

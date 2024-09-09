@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
-import 'package:send_otp/src/components/phone.dart';
+import 'package:send_otp/src/components/email.dart';
 import 'package:send_otp/src/components/send_otp_button.dart';
+import 'package:send_otp/src/l10n/send_otp_localizations.dart';
 
 import 'package:send_otp/src/send_otp_cubit.dart';
 import 'package:user_repository/user_repository.dart';
@@ -42,6 +43,9 @@ class SendOtpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final theme = GrowthInTheme.of(context);
+    final l10n = SendOtpLocalizations.of(context);
     return BlocConsumer<SendOtpCubit, SendOtpState>(
       listenWhen: (oldState, newState) =>
           oldState.submissionStatus != newState.submissionStatus,
@@ -51,7 +55,7 @@ class SendOtpView extends StatelessWidget {
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: 'تم الارسال بنجاح',
+              message: l10n.otpSentSuccessfullySnackBarMessage,
             ),
           );
           onSendOtpSuccess();
@@ -62,7 +66,7 @@ class SendOtpView extends StatelessWidget {
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: 'حدث خطأ ما',
+              message: l10n.generalErrorSnackBarMessage,
             ),
           );
           return;
@@ -73,16 +77,46 @@ class SendOtpView extends StatelessWidget {
           onTap: () {
             context.releaseFocus();
           },
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              automaticallyImplyLeading: false,
+              leading: SvgAsset(AssetPathConstants.logoPath),
+              actions: [
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: const EdgeInsets.all(Spacing.small),
+                    margin:  EdgeInsetsDirectional.only(end:theme.screenMargin),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: theme.borderColor),
+                    ),
+                    child: Icon(Icons.arrow_forward_ios),
+                  ),
+                )
+              ],
+            ),
+
+            body: ListView(
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
               children: [
+                VerticalGap.xxLarge(),
+                Text(
+                  l10n.sendOtpTitle,
+                  style: textTheme.headlineLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 VerticalGap.large(),
-                const Phone(),
-                VerticalGap.xSmall(),
+                Text(
+                  l10n.sendOtpSubtitle,
+                  style: textTheme.titleMedium,
+                ),
+                VerticalGap.xLarge(),
+                const EmailTextField(),
+                VerticalGap.xxLarge(),
                 const SendOtpButton(),
-                VerticalGap.mediumLarge(),
               ],
             ),
           ),

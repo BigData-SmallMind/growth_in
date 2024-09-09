@@ -5,7 +5,7 @@
   "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح",
   "passwordTextFieldLabel": "كلمة المرور",
   "rememberMeCheckBoxLabel": "تذكرنى",
-  "forgotMyPasswordButtonLabel": "فقدت كلمة المرور",
+  "forgotMyPasswordButtonLabel": "فقدت كلمة المرور؟",
   "signInButtonLabel": "تسجيل دخول",
   "signInInProgressButtonLabel": "جارى تسجيل الدخول"
 }

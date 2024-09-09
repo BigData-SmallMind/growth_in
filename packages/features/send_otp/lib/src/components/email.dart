@@ -2,8 +2,8 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
-import 'package:sign_in/src/l10n/sign_in_localizations.dart';
-import 'package:sign_in/src/sign_in_cubit.dart';
+import 'package:send_otp/src/l10n/send_otp_localizations.dart';
+import 'package:send_otp/src/send_otp_cubit.dart';
 
 class EmailTextField extends StatefulWidget {
   const EmailTextField({
@@ -24,7 +24,7 @@ class _EmailTextFieldState extends State<EmailTextField> {
   }
 
   void _setUpEmailFieldFocusListener() {
-    final cubit = context.read<SignInCubit>();
+    final cubit = context.read<SendOtpCubit>();
     _emailFocusNode.addListener(() {
       if (!_emailFocusNode.hasFocus) {
         cubit.onEmailUnfocused();
@@ -34,33 +34,28 @@ class _EmailTextFieldState extends State<EmailTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignInCubit, SignInState>(builder: (context, state) {
-      final cubit = context.read<SignInCubit>();
+    return BlocBuilder<SendOtpCubit, SendOtpState>(builder: (context, state) {
+      final cubit = context.read<SendOtpCubit>();
       final emailError = state.email.isNotValid ? state.email.error : null;
       final isSubmissionInProgress =
           state.submissionStatus == FormzSubmissionStatus.inProgress;
       final textTheme = Theme.of(context).textTheme;
-      final l10n = SignInLocalizations.of(context);
+      final l10n = SendOtpLocalizations.of(context);
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${l10n.emailTextFieldLabel} *',
-            style: textTheme.titleSmall,
+            l10n.emailTextFieldLabel,
+            style:
+                textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
           ),
           VerticalGap.medium(),
           TextFormField(
-            initialValue: state.rememberMe.email,
             enabled: !isSubmissionInProgress,
             focusNode: _emailFocusNode,
             onChanged: cubit.onEmailChanged,
             decoration: InputDecoration(
-              isDense: true,
-              prefixIconConstraints: const BoxConstraints(
-                minWidth: 40,
-                minHeight: 0,
-              ),
               hintText: l10n.emailTextFieldLabel,
               errorText: emailError == EmailValidationError.empty
                   ? l10n.requiredFieldErrorMessage

@@ -54,6 +54,7 @@ class RememberMeAndForgotPassword extends StatelessWidget {
             ),
             const Spacer(),
             TextButton(
+              onPressed: cubit.onForgotPasswordTapped,
               child: Text(
                 l10n.forgotMyPasswordButtonLabel,
                 style: textTheme.titleMedium?.copyWith(
@@ -61,7 +62,6 @@ class RememberMeAndForgotPassword extends StatelessWidget {
                   decoration: TextDecoration.underline,
                 ),
               ),
-              onPressed: () {},
             ),
           ],
         );

@@ -5,6 +5,15 @@ class SendOtpLocalizationsEn extends SendOtpLocalizations {
   SendOtpLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get sendOtpTitle => 'ٍSomething went wrong';
+
+  @override
+  String get sendOtpSubtitle => 'ٍSomething went wrong';
+
+  @override
+  String get otpSentSuccessfullySnackBarMessage => 'ٍSomething went wrong';
+
+  @override
   String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
 
   @override
@@ -18,19 +27,4 @@ class SendOtpLocalizationsEn extends SendOtpLocalizations {
 
   @override
   String get invalidEmailFormatErrorMessage => 'Invalid email format';
-
-  @override
-  String get passwordTextFieldLabel => 'Password';
-
-  @override
-  String get rememberMeCheckBoxLabel => 'Remember Me';
-
-  @override
-  String get forgotMyPasswordButtonLabel => 'Forgot Password';
-
-  @override
-  String get signInButtonLabel => 'Sign In';
-
-  @override
-  String get signInInProgressButtonLabel => 'Signing In';
 }

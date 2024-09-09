@@ -9,10 +9,6 @@ import 'package:tab_container/tab_container.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 
-// Set to true if the user signs in as a guest, signs in normally or signs up
-final ValueNotifier<bool> _shouldPassInitialAuthentication =
-    ValueNotifier(false);
-
 Map<String, PageBuilder> buildRoutingTable({
   required RoutemasterDelegate routerDelegate,
   required UserRepository userRepository,
@@ -41,15 +37,20 @@ Map<String, PageBuilder> buildRoutingTable({
                       )
                     : SignInScreen(
                         userRepository: userRepository,
+                        onForgotPasswordTapped: () =>
+                            routerDelegate.push(_PathConstants.sendOtpPath),
                         onSignInSuccess: () => signInSuccessVN.value = true,
                       );
               },
             ),
           ),
         ),
-    _PathConstants.homePath: (_) => const MaterialPage(
+    _PathConstants.homePath: (_) => MaterialPage(
           name: 'home',
-          child: HomeScreen(),
+          child: HomeScreen(
+            userRepository: userRepository,
+            onLogout: () => signInSuccessVN.value = false,
+          ),
         ),
     _PathConstants.resetPasswordPath: (_) => MaterialPage(
           name: 'reset-password',
@@ -79,13 +80,7 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
             onVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
-              final otpVerification =
-                  userRepository.changeNotifier.otpVerification!;
-              if (otpVerification.isRegistrationOrLogin) {
-                _shouldPassInitialAuthentication.value = true;
-              } else {
-                routerDelegate.push(_PathConstants.resetPasswordPath);
-              }
+              routerDelegate.push(_PathConstants.resetPasswordPath);
             },
             otpVerification: userRepository.changeNotifier.otpVerification!,
           ),

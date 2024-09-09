@@ -23,6 +23,7 @@ class SendOtpCubit extends Cubit<SendOtpState> {
     final newPhoneState = shouldValidate
         ? Email.validated(
             newValue,
+            isRequired: true,
           )
         : Email.unvalidated(
             newValue,
@@ -39,6 +40,7 @@ class SendOtpCubit extends Cubit<SendOtpState> {
     final newScreenState = state.copyWith(
       email: Email.validated(
         state.email.value,
+        isRequired: true,
         isNotRegistered: state.email.isNotRegistered,
       ),
     );
@@ -48,6 +50,7 @@ class SendOtpCubit extends Cubit<SendOtpState> {
   void onSubmit() async {
     final email = Email.validated(
       state.email.value,
+      isRequired: true,
     );
 
     final isFormValid = Formz.validate([
@@ -66,12 +69,11 @@ class SendOtpCubit extends Cubit<SendOtpState> {
     if (isFormValid) {
       try {
         await userRepository.sendOtp(email.value!);
-        userRepository.changeNotifier.setOtpVerification(
-          OtpVerification(
-            email: email.value!,
-            reason: OtpVerificationReason.resetPassword,
-          ),
+        final otpVerification = OtpVerification(
+          email: email.value!,
+          reason: OtpVerificationReason.resetPassword,
         );
+        userRepository.changeNotifier.setOtpVerification(otpVerification);
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
         );
@@ -80,7 +82,9 @@ class SendOtpCubit extends Cubit<SendOtpState> {
         final newState = state.copyWith(
           email: Email.validated(
             email.value,
-            isNotRegistered: error is EmailNotRegisteredException ? true : false,
+            isRequired: true,
+            isNotRegistered:
+                error is EmailNotRegisteredException ? true : false,
           ),
           submissionStatus: error is! EmailNotRegisteredException
               ? FormzSubmissionStatus.failure

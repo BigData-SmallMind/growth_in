@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:user_repository/user_repository.dart';
@@ -11,6 +12,7 @@ part 'sign_in_state.dart';
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit({
     required this.userRepository,
+    required this.onForgotPasswordTapped,
   }) : super(
           const SignInState(),
         ) {
@@ -27,6 +29,7 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   final UserRepository userRepository;
+  final VoidCallback onForgotPasswordTapped;
 
   void onEmailChanged(String? newValue) {
     final previousEmail = state.email;

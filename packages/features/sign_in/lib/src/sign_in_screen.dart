@@ -13,11 +13,13 @@ import 'components/components.dart';
 class SignInScreen extends StatefulWidget {
   const SignInScreen({
     required this.userRepository,
+    required this.onForgotPasswordTapped,
     required this.onSignInSuccess,
     super.key,
   });
 
   final UserRepository userRepository;
+  final VoidCallback onForgotPasswordTapped;
   final VoidCallback onSignInSuccess;
 
   @override
@@ -30,6 +32,8 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocProvider<SignInCubit>(
       create: (_) => SignInCubit(
         userRepository: widget.userRepository,
+        onForgotPasswordTapped: widget.onForgotPasswordTapped,
+
       ),
       child: SignInView(
         onSignInSuccess: widget.onSignInSuccess,

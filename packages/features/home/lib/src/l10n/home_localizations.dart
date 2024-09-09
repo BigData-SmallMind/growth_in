@@ -5,22 +5,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'send_otp_localizations_ar.dart';
-import 'send_otp_localizations_en.dart';
+import 'home_localizations_ar.dart';
+import 'home_localizations_en.dart';
 
-/// Callers can lookup localized strings with an instance of SendOtpLocalizations
-/// returned by `SendOtpLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of HomeLocalizations
+/// returned by `HomeLocalizations.of(context)`.
 ///
-/// Applications need to include `SendOtpLocalizations.delegate()` in their app's
+/// Applications need to include `HomeLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'l10n/send_otp_localizations.dart';
+/// import 'l10n/home_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: SendOtpLocalizations.localizationsDelegates,
-///   supportedLocales: SendOtpLocalizations.supportedLocales,
+///   localizationsDelegates: HomeLocalizations.localizationsDelegates,
+///   supportedLocales: HomeLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -57,18 +57,18 @@ import 'send_otp_localizations_en.dart';
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the SendOtpLocalizations.supportedLocales
+/// be consistent with the languages listed in the HomeLocalizations.supportedLocales
 /// property.
-abstract class SendOtpLocalizations {
-  SendOtpLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+abstract class HomeLocalizations {
+  HomeLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static SendOtpLocalizations of(BuildContext context) {
-    return Localizations.of<SendOtpLocalizations>(context, SendOtpLocalizations)!;
+  static HomeLocalizations of(BuildContext context) {
+    return Localizations.of<HomeLocalizations>(context, HomeLocalizations)!;
   }
 
-  static const LocalizationsDelegate<SendOtpLocalizations> delegate = _SendOtpLocalizationsDelegate();
+  static const LocalizationsDelegate<HomeLocalizations> delegate = _HomeLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -93,81 +93,34 @@ abstract class SendOtpLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @sendOtpTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'ٍSomething went wrong'**
-  String get sendOtpTitle;
-
-  /// No description provided for @sendOtpSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'ٍSomething went wrong'**
-  String get sendOtpSubtitle;
-
-  /// No description provided for @otpSentSuccessfullySnackBarMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'ٍSomething went wrong'**
-  String get otpSentSuccessfullySnackBarMessage;
-
-  /// No description provided for @generalErrorSnackBarMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'ٍSomething went wrong'**
-  String get generalErrorSnackBarMessage;
-
-  /// No description provided for @invalidCredentialsErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Incorrect email or password'**
-  String get invalidCredentialsErrorMessage;
-
-  /// No description provided for @requiredFieldErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Required*'**
-  String get requiredFieldErrorMessage;
-
-  /// No description provided for @emailTextFieldLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get emailTextFieldLabel;
-
-  /// No description provided for @invalidEmailFormatErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid email format'**
-  String get invalidEmailFormatErrorMessage;
 }
 
-class _SendOtpLocalizationsDelegate extends LocalizationsDelegate<SendOtpLocalizations> {
-  const _SendOtpLocalizationsDelegate();
+class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {
+  const _HomeLocalizationsDelegate();
 
   @override
-  Future<SendOtpLocalizations> load(Locale locale) {
-    return SynchronousFuture<SendOtpLocalizations>(lookupSendOtpLocalizations(locale));
+  Future<HomeLocalizations> load(Locale locale) {
+    return SynchronousFuture<HomeLocalizations>(lookupHomeLocalizations(locale));
   }
 
   @override
   bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_SendOtpLocalizationsDelegate old) => false;
+  bool shouldReload(_HomeLocalizationsDelegate old) => false;
 }
 
-SendOtpLocalizations lookupSendOtpLocalizations(Locale locale) {
+HomeLocalizations lookupHomeLocalizations(Locale locale) {
 
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return SendOtpLocalizationsAr();
-    case 'en': return SendOtpLocalizationsEn();
+    case 'ar': return HomeLocalizationsAr();
+    case 'en': return HomeLocalizationsEn();
   }
 
   throw FlutterError(
-    'SendOtpLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'HomeLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.'

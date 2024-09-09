@@ -18,7 +18,6 @@ class SignInButton extends StatelessWidget {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<SignInCubit>();
-        final theme = GrowthInTheme.of(context);
         final l10n = SignInLocalizations.of(context);
         return isSubmissionInProgress
             ? GrowthInElevatedButton.inProgress(

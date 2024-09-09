@@ -5,7 +5,16 @@ class SendOtpLocalizationsAr extends SendOtpLocalizations {
   SendOtpLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
+  String get sendOtpTitle => 'نسيت كلمة المرور؟';
+
+  @override
+  String get sendOtpSubtitle => 'لا تقلق! من فضلك ادخل البريد الإلكتروني الخاص بالحساب';
+
+  @override
+  String get otpSentSuccessfullySnackBarMessage => 'تم إرسال الرمز بنجاح';
+
+  @override
+  String get generalErrorSnackBarMessage => 'حدث خطأ ما';
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
@@ -18,19 +27,4 @@ class SendOtpLocalizationsAr extends SendOtpLocalizations {
 
   @override
   String get invalidEmailFormatErrorMessage => 'صيغة البريد الإلكتروني غير صحيح';
-
-  @override
-  String get passwordTextFieldLabel => 'كلمة المرور';
-
-  @override
-  String get rememberMeCheckBoxLabel => 'تذكرنى';
-
-  @override
-  String get forgotMyPasswordButtonLabel => 'فقدت كلمة المرور';
-
-  @override
-  String get signInButtonLabel => 'تسجيل دخول';
-
-  @override
-  String get signInInProgressButtonLabel => 'جارى تسجيل الدخول';
 }

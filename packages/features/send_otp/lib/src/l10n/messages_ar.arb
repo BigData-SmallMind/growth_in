@@ -1,11 +1,11 @@
 {
+  "sendOtpTitle": "نسيت كلمة المرور؟",
+  "sendOtpSubtitle": "لا تقلق! من فضلك ادخل البريد الإلكتروني الخاص بالحساب",
+  "otpSentSuccessfullySnackBarMessage": "تم إرسال الرمز بنجاح",
+  "generalErrorSnackBarMessage": "حدث خطأ ما",
   "invalidCredentialsErrorMessage": "بريد الكترونى او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",
   "emailTextFieldLabel": "البريد الإلكتروني",
-  "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح",
-  "passwordTextFieldLabel": "كلمة المرور",
-  "rememberMeCheckBoxLabel": "تذكرنى",
-  "forgotMyPasswordButtonLabel": "فقدت كلمة المرور",
-  "signInButtonLabel": "تسجيل دخول",
-  "signInInProgressButtonLabel": "جارى تسجيل الدخول"
+  "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح"
+
 }
