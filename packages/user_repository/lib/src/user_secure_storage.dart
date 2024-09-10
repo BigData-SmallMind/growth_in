@@ -7,6 +7,7 @@ class UserSecureStorage {
   static const _userPhoneKey = 'user-phone';
   static const _userImageKey = 'user-image';
   static const _userToken = 'user-token';
+  static const _otpVerificationToken = 'otp-verification-token';
   static const _rememberEmailKey = 'remember-email';
   static const _rememberPasswordKey = 'remember-password';
 
@@ -60,6 +61,7 @@ class UserSecureStorage {
     await _secureStorage.delete(key: _userEmailKey);
     await _secureStorage.delete(key: _userPhoneKey);
     await _secureStorage.delete(key: _userToken);
+    await _secureStorage.delete(key: _otpVerificationToken);
   }
 
   Future<int?> getUserId() async {
@@ -74,6 +76,23 @@ class UserSecureStorage {
   Future<String?> getUserPhone() => _secureStorage.read(key: _userPhoneKey);
 
   Future<String?> getUserToken() => _secureStorage.read(key: _userToken);
+
+  Future<String?> getOtpVerificationTokenSupplierToken() =>
+      _secureStorage.read(key: _otpVerificationToken);
+
+  // upsert otp verification token
+  Future<void> upsertOtpVerificationTokenSupplierToken(
+      {required String? token}) async {
+    await _secureStorage.write(
+      key: _otpVerificationToken,
+      value: token,
+    );
+  }
+
+  //delete otp verification token
+  Future<void> deleteOtpVerificationTokenSupplierToken() async {
+    await _secureStorage.delete(key: _otpVerificationToken);
+  }
 
   Future<void> upsertRememberEmail({required String? email}) async {
     await _secureStorage.write(

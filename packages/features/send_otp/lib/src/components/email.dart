@@ -47,14 +47,14 @@ class _EmailTextFieldState extends State<EmailTextField> {
         children: [
           Text(
             l10n.emailTextFieldLabel,
-            style:
-                textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+            style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
           ),
           VerticalGap.medium(),
           TextFormField(
             enabled: !isSubmissionInProgress,
             focusNode: _emailFocusNode,
             onChanged: cubit.onEmailChanged,
+            onEditingComplete: cubit.onSubmit,
             decoration: InputDecoration(
               hintText: l10n.emailTextFieldLabel,
               errorText: emailError == EmailValidationError.empty
@@ -63,7 +63,9 @@ class _EmailTextFieldState extends State<EmailTextField> {
                       ? l10n.invalidCredentialsErrorMessage
                       : emailError == EmailValidationError.invalidFormat
                           ? l10n.invalidEmailFormatErrorMessage
-                          : null,
+                          : emailError == EmailValidationError.isNotRegistered
+                              ? l10n.emailNotRegisteredErrorMessage
+                              : null,
             ),
           ),
         ],

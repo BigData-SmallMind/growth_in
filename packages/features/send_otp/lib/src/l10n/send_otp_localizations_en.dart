@@ -27,4 +27,7 @@ class SendOtpLocalizationsEn extends SendOtpLocalizations {
 
   @override
   String get invalidEmailFormatErrorMessage => 'Invalid email format';
+
+  @override
+  String get emailNotRegisteredErrorMessage => 'Email not registered';
 }

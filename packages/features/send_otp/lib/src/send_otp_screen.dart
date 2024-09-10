@@ -78,26 +78,7 @@ class SendOtpView extends StatelessWidget {
             context.releaseFocus();
           },
           child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              automaticallyImplyLeading: false,
-              leading: SvgAsset(AssetPathConstants.logoPath),
-              actions: [
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: const EdgeInsets.all(Spacing.small),
-                    margin:  EdgeInsetsDirectional.only(end:theme.screenMargin),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: theme.borderColor),
-                    ),
-                    child: Icon(Icons.arrow_forward_ios),
-                  ),
-                )
-              ],
-            ),
-
+            appBar: GrowthInAppBar(),
             body: ListView(
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
               children: [
@@ -125,3 +106,4 @@ class SendOtpView extends StatelessWidget {
     );
   }
 }
+

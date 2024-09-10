@@ -5,9 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:verify_otp/src/l10n/verify_otp_localizations.dart';
 
 import 'package:verify_otp/src/verify_otp_cubit.dart';
 import 'package:user_repository/user_repository.dart';
+
+import 'components/components.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({
@@ -48,6 +51,7 @@ class VerifyOtpView extends StatelessWidget {
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Scaffold(
+        appBar: GrowthInAppBar(),
         extendBody: true,
         body: _VerifyOtpForm(
           onVerifyOtpSuccess: onVerifyOtpSuccess,
@@ -66,20 +70,36 @@ class _VerifyOtpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = VerifyOtpLocalizations.of(context);
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
       listenWhen: (oldState, newState) =>
-          oldState.submissionStatus != newState.submissionStatus,
+          oldState.submissionStatus != newState.submissionStatus ||
+          oldState.resendOtpStatus != newState.resendOtpStatus,
       listener: (context, state) {
+        if (state.resendOtpStatus == ResendOtpStatus.success) {
+          showSnackBar(
+            context: context,
+            snackBar: SuccessSnackBar(
+              context: context,
+              message: l10n.otpResentSuccessfullySnackBarMessage,
+            ),
+          );
+        }
+        if (state.resendOtpStatus == ResendOtpStatus.error) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.otpResentErrorSnackBarMessage,
+            ),
+          );
+        }
         if (state.submissionStatus == FormzSubmissionStatus.success) {
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: state.otpVerification?.isLoggingIn == true
-                  ? 'تم تفعيل الحساب بنجاح, يمكنك الان تسجيل الدخول'
-                  : state.otpVerification?.isRegistering == true
-                      ? 'تم انشاء الحساب بنجاح'
-                      : 'تم التغيير بنجاح',
+              message: l10n.otpVerifiedSuccessfullySnackBarMessage,
             ),
           );
           onVerifyOtpSuccess();
@@ -90,7 +110,7 @@ class _VerifyOtpForm extends StatelessWidget {
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: 'حدث خطأ ما',
+              message: l10n.generalErrorSnackBarMessage,
             ),
           );
           return;
@@ -101,6 +121,7 @@ class _VerifyOtpForm extends StatelessWidget {
             state.otpCode.isNotValid ? state.otpCode.error : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
+
         final textTheme = Theme.of(context).textTheme;
         final cubit = context.read<VerifyOtpCubit>();
         final theme = GrowthInTheme.of(context);
@@ -113,13 +134,13 @@ class _VerifyOtpForm extends StatelessWidget {
             ),
             children: [
               Text(
-                'ادخل رمز التحقق',
+                l10n.verifyOtpTitle,
                 style: textTheme.headlineSmall,
                 textAlign: TextAlign.start,
               ),
               VerticalGap.smallMedium(),
               Text(
-                'ادخل رمز التحقق الذي تم ارساله الى رقم هاتفك',
+                l10n.verifyOtpSubtitle,
                 style: textTheme.bodyMedium,
               ),
               VerticalGap.large(),
@@ -128,9 +149,8 @@ class _VerifyOtpForm extends StatelessWidget {
                 child: PinCodeTextField(
                   autoDisposeControllers: false,
                   controller: cubit.pinTEController,
-                  length: 4,
+                  length: 6,
                   appContext: context,
-                  hintCharacter: '*',
                   cursorHeight: 20,
                   enablePinAutofill: false,
                   onChanged: cubit.onOtpCodeChanged,
@@ -139,9 +159,10 @@ class _VerifyOtpForm extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                   pinTheme: PinTheme(
                     shape: PinCodeFieldShape.box,
-                    fieldHeight: 72,
-                    fieldWidth: 62,
+                    fieldHeight: 45,
+                    fieldWidth: 45,
                     borderWidth: 1,
+                    borderRadius: BorderRadius.circular(10),
                     activeBorderWidth: 1,
                     disabledBorderWidth: 1,
                     inactiveBorderWidth: 1,
@@ -153,6 +174,15 @@ class _VerifyOtpForm extends StatelessWidget {
                         ? theme.errorColor
                         : theme.borderColor,
                   ),
+                  separatorBuilder: (context, index) => index == 2
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: Spacing.mediumLarge),
+                          child: const Icon(
+                            Icons.minimize,
+                          ),
+                        )
+                      : HorizontalGap.smallMedium(),
                 ),
               ),
               if (otpCodeError != null) ...[
@@ -162,14 +192,14 @@ class _VerifyOtpForm extends StatelessWidget {
                 if (otpCodeError == OtpCodeValidationError.empty ||
                     otpCodeError == OtpCodeValidationError.incomplete)
                   Text(
-                    'مطلوب*',
+                    l10n.requiredFieldErrorMessage,
                     style: textTheme.bodySmall?.copyWith(
                       color: theme.errorColor,
                     ),
                   ),
                 if (otpCodeError == OtpCodeValidationError.incorrect)
                   Text(
-                    'الرمز الذي ادخلته غير صحيح او غير موجود لدينا، جرب مرة اخرى',
+                    l10n.incorrectOtpCodeErrorMessage,
                     style: textTheme.bodySmall?.copyWith(
                       color: theme.errorColor,
                     ),
@@ -178,10 +208,14 @@ class _VerifyOtpForm extends StatelessWidget {
               const SizedBox(
                 height: Spacing.huge,
               ),
+              VerticalGap.large(),
+              ResendOtp(),
+              VerticalGap.large(),
               isSubmissionInProgress
-                  ? GrowthInElevatedButton.inProgress(label: 'جارى التأكيد')
+                  ? GrowthInElevatedButton.inProgress(
+                      label: l10n.verifyingOtpButtonLabel)
                   : GrowthInElevatedButton(
-                      label: 'تاكيد الرمز',
+                      label: l10n.verifyOtpButtonLabel,
                       onTap: cubit.onSubmit,
                     ),
             ],

@@ -6,5 +6,6 @@
   "invalidCredentialsErrorMessage": "Incorrect email or password",
   "requiredFieldErrorMessage": "Required*",
   "emailTextFieldLabel": "Email",
-  "invalidEmailFormatErrorMessage": "Invalid email format"
+  "invalidEmailFormatErrorMessage": "Invalid email format",
+  "emailNotRegisteredErrorMessage": "Email not registered"
 }

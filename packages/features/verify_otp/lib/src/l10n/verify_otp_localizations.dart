@@ -93,6 +93,71 @@ abstract class VerifyOtpLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @verifyOtpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify OTP'**
+  String get verifyOtpTitle;
+
+  /// No description provided for @otpResentSuccessfullySnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP resent successfully.'**
+  String get otpResentSuccessfullySnackBarMessage;
+
+  /// No description provided for @otpResentErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error occurred while resending OTP.'**
+  String get otpResentErrorSnackBarMessage;
+
+  /// No description provided for @otpVerifiedSuccessfullySnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP verified successfully.'**
+  String get otpVerifiedSuccessfullySnackBarMessage;
+
+  /// No description provided for @generalErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred.'**
+  String get generalErrorSnackBarMessage;
+
+  /// No description provided for @verifyOtpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the OTP sent to your phone number.'**
+  String get verifyOtpSubtitle;
+
+  /// No description provided for @requiredFieldErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Required*'**
+  String get requiredFieldErrorMessage;
+
+  /// No description provided for @incorrectOtpCodeErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The OTP you entered is incorrect, please try again.'**
+  String get incorrectOtpCodeErrorMessage;
+
+  /// No description provided for @verifyingOtpButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Verifying...'**
+  String get verifyingOtpButtonLabel;
+
+  /// No description provided for @verifyOtpButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify OTP'**
+  String get verifyOtpButtonLabel;
+
+  /// No description provided for @emailNotRegisteredErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The email you entered is not registered.'**
+  String get emailNotRegisteredErrorMessage;
 }
 
 class _VerifyOtpLocalizationsDelegate extends LocalizationsDelegate<VerifyOtpLocalizations> {

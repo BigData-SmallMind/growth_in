@@ -8,8 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:user_repository/user_repository.dart';
 
-
-
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({
     required this.userRepository,
@@ -27,12 +25,10 @@ class ResetPasswordScreen extends StatelessWidget {
     return BlocProvider<ResetPasswordCubit>(
       create: (_) => ResetPasswordCubit(
         userRepository: userRepository,
-
       ),
       child: ResetPasswordView(
         onBackTapped: onBackTapped,
         onResetPasswordSuccess: onResetPasswordSuccess,
-
       ),
     );
   }
@@ -90,6 +86,7 @@ class ResetPasswordView extends StatelessWidget {
             }
           },
           child: Scaffold(
+            appBar: GrowthInAppBar(),
             body: Stack(
               children: [
                 Padding(

@@ -15,9 +15,12 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     required this.otpVerification,
   })  : pinTEController = TextEditingController(),
         super(
-          VerifyOtpState(otpVerification: otpVerification),
-        );
+          VerifyOtpState(),
+        ) {
+    startTimer();
+  }
 
+  Timer? _timer;
   final UserRepository userRepository;
   final OtpVerification otpVerification;
   final TextEditingController pinTEController;
@@ -30,8 +33,50 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     final newState = state.copyWith(
       otpCode: newOtpCode,
       submissionStatus: FormzSubmissionStatus.initial,
+      resendOtpStatus: ResendOtpStatus.initial,
     );
     emit(newState);
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      final newResendOtpTimer = state.resendOtpSecondTimer == 0
+          ? 59.00
+          : (state.resendOtpSecondTimer - 1);
+      final newResendTotalTime = state.resendOtpTotalTime - 1;
+      if (newResendTotalTime == 0) {
+        timer.cancel();
+      }
+      emit(state.copyWith(
+        resendOtpTotalTime: newResendTotalTime,
+        resendOtpTimer: newResendOtpTimer,
+      ));
+    });
+  }
+
+  Future resendOtp() async {
+    // Logic to resend the OTP
+    final resendOtpInProgress = state.copyWith(
+      resendOtpStatus: ResendOtpStatus.inProgress,
+      submissionStatus: FormzSubmissionStatus.initial,
+    );
+    emit(resendOtpInProgress);
+    try {
+      final totalTimeInMinutes = await userRepository.reSendOtp();
+      final resendOtpSuccess = state.copyWith(
+        submissionStatus: FormzSubmissionStatus.initial,
+        resendOtpStatus: ResendOtpStatus.success,
+        resendOtpTotalTime: totalTimeInMinutes.toDouble() * 60,
+      );
+      emit(resendOtpSuccess);
+      startTimer();
+    } catch (error) {
+      final resendOtpError = state.copyWith(
+        submissionStatus: FormzSubmissionStatus.initial,
+        resendOtpStatus: ResendOtpStatus.error,
+      );
+      emit(resendOtpError);
+    }
   }
 
   void onSubmit() async {
@@ -45,22 +90,24 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
           : FormzSubmissionStatus.initial,
+      resendOtpStatus: ResendOtpStatus.initial,
     );
 
     emit(newState);
 
     if (isFormValid) {
-      final phone = userRepository.changeNotifier.otpVerification!.email;
+      final email = userRepository.changeNotifier.otpVerification!.email;
 
       try {
         await userRepository.verifyOtp(
-          phone,
+          email,
           otpCode.value,
         );
 
         final newState = state.copyWith(
           otpCode: const OtpCode.unvalidated(),
           submissionStatus: FormzSubmissionStatus.success,
+          resendOtpStatus: ResendOtpStatus.initial,
         );
         emit(newState);
       } catch (error) {
@@ -72,6 +119,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
           submissionStatus: error is! InvalidOtpException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
+          resendOtpStatus: ResendOtpStatus.initial,
         );
         emit(newState);
       }
@@ -81,6 +129,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   @override
   Future<void> close() async {
     pinTEController.dispose();
+    _timer?.cancel();
+
     return super.close();
   }
 }

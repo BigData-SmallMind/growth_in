@@ -27,4 +27,7 @@ class SendOtpLocalizationsAr extends SendOtpLocalizations {
 
   @override
   String get invalidEmailFormatErrorMessage => 'صيغة البريد الإلكتروني غير صحيح';
+
+  @override
+  String get emailNotRegisteredErrorMessage => 'البريد الإلكتروني غير مسجل';
 }

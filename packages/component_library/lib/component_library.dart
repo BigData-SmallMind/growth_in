@@ -8,4 +8,5 @@ export 'src/indicators/indicators.dart';
 export 'src/gap/gap.dart';
 export 'src/row_builder.dart';
 export 'src/column_builder.dart';
+export 'src/growth_in_app_bar.dart';
 export 'src/l10n/component_library_localizations.dart';

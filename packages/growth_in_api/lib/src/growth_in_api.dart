@@ -7,20 +7,26 @@ import 'package:growth_in_api/src/url_builder.dart';
 
 import 'models/auth/request/update_account_rm.dart';
 
-typedef UserTokenSupplier = Future<String?> Function();
+typedef TokenSupplier = Future<String?> Function();
 
 class GrowthInApi {
   static const _errorJsonKey = 'error';
   static const _otpJsonKey = 'otp';
+  static const _tokenJsonKey = 'token';
+  static const _messageJsonKey = 'message';
+  static const _successJsonKey = 'success';
+  static const _otpExpiryTimeJsonKey = 'expired_time';
 
   GrowthInApi({
-    required UserTokenSupplier userTokenSupplier,
+    required TokenSupplier userTokenSupplier,
+    required TokenSupplier otpVerificationTokenSupplier,
     required this.isUserUnAuthenticatedVN,
     required this.internetConnectionErrorVN,
   })  : urlBuilder = UrlBuilder(),
         _dio = Dio() {
     _dio.setUpAuthHeaders(
       userTokenSupplier: userTokenSupplier,
+      otpVerificationTokenSupplier: otpVerificationTokenSupplier,
       isUserUnAuthSC: isUserUnAuthenticatedVN,
       internetConnectionErrorVN: internetConnectionErrorVN,
     );
@@ -157,63 +163,103 @@ class GrowthInApi {
     }
   }
 
-  Future sendOtp({
+  Future<String> sendOtp({
     required String email,
   }) async {
-    final url = urlBuilder.buildSendOtpUrl();
+    final url = urlBuilder.buildSendOtpUrl(email);
 
+    final response = await _dio.post(
+      url,
+    );
     try {
-      final response = await _dio.post(
-        url,
-        data: {"email": email},
-      );
-      final error = response.data[_errorJsonKey];
-      final phoneNotRegistered =
-          error.toString().toLowerCase().contains('user');
-      if (phoneNotRegistered) throw EmailNotRegisteredGrowthInException();
-      final otp = response.data[_otpJsonKey].toString();
+      final successObject = response.data[_successJsonKey];
+      final otp = successObject[_otpJsonKey].toString();
+      final token = successObject[_tokenJsonKey].toString();
       debugPrint('----otp: $otp');
+      return token;
     } catch (_) {
+      final error = response.data[_errorJsonKey];
+      final emailNotRegistered =
+          error.toString().toLowerCase().contains('غير مسجل');
+      if (emailNotRegistered) throw EmailNotRegisteredGrowthInException();
+      rethrow;
+    }
+  }
+
+  Future<int> reSendOtp({
+    required String otpVerificationToken,
+  }) async {
+    final url = urlBuilder.buildReSendOtpUrl();
+
+    final response = await _dio.get(
+      url,
+      options: Options(
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $otpVerificationToken',
+        },
+      ),
+    );
+    try {
+      final successObject = response.data[_successJsonKey];
+      final otpExpiryTime = successObject[_otpExpiryTimeJsonKey] as int;
+      return otpExpiryTime;
+    } catch (_) {
+      final error = response.data[_errorJsonKey];
+      final emailNotRegistered =
+          error.toString().toLowerCase().contains('غير مسجل');
+      if (emailNotRegistered) throw EmailNotRegisteredGrowthInException();
       rethrow;
     }
   }
 
   Future verifyOtp({
+    required String otpVerificationToken,
     required String email,
     required String otp,
   }) async {
-    final url = urlBuilder.buildVerifyOtpUrl();
+    final url = urlBuilder.buildVerifyOtpUrl(email, otp);
 
-    try {
-      final response = await _dio.post(
-        url,
-        data: {
-          "email": email,
-          "otp": otp,
+    final response = await _dio.post(
+      url,
+      options: Options(
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $otpVerificationToken',
         },
-      );
-      final error = response.data[_errorJsonKey];
-      final invalidOtp =
-          error.toString().toLowerCase().contains('invalid') == true;
-      if (invalidOtp) throw InvalidOtpGrowthInException();
+      ),
+    );
+    try {
+      final successObject = response.data[_successJsonKey];
+      if (successObject == null) throw Exception();
+      return successObject;
     } catch (_) {
+      final error = response.data[_errorJsonKey];
+      final message = error[_messageJsonKey];
+      final invalidOtp = message.isNotEmpty;
+      if (invalidOtp) throw InvalidOtpGrowthInException();
       rethrow;
     }
   }
 
   Future resetPassword({
-    required String email,
+    required String otpVerificationToken,
     required String newPassword,
+    required String newPasswordConfirmation,
   }) async {
-    final url = urlBuilder.buildResetPasswordUrl();
-
+    final url = urlBuilder.buildResetPasswordUrl(
+      newPassword,
+      newPasswordConfirmation,
+    );
     try {
       await _dio.post(
         url,
-        data: {
-          "email": email,
-          "password": newPassword,
-        },
+        options: Options(
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $otpVerificationToken',
+          },
+        ),
       );
     } catch (_) {
       rethrow;
@@ -223,7 +269,8 @@ class GrowthInApi {
 
 extension on Dio {
   void setUpAuthHeaders({
-    required UserTokenSupplier userTokenSupplier,
+    required TokenSupplier userTokenSupplier,
+    required TokenSupplier otpVerificationTokenSupplier,
     required ValueNotifier<bool> isUserUnAuthSC,
     required ValueNotifier internetConnectionErrorVN,
   }) async {
@@ -238,8 +285,12 @@ extension on Dio {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final token = await userTokenSupplier();
+
           options.headers.addAll(
-            {"Accept": "application/json", "auth": token},
+            {
+              "Accept": "application/json",
+              if (token != null) 'Authorization': 'Bearer $token',
+            },
           );
 
           return handler.next(options);

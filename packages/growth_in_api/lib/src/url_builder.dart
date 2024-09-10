@@ -1,10 +1,9 @@
 class UrlBuilder {
   UrlBuilder({
     String? baseUrl,
-  }) : _baseUrl = baseUrl ?? 'https://laravel.growth-in.net/growthin/api';
+  }) : _baseUrl = baseUrl ?? 'https://laravel.growth-in.net/subgrowthin/api';
 
   final String _baseUrl;
-
 
   String buildSignInUrl() {
     final completeUrl = '$_baseUrl/login';
@@ -26,14 +25,22 @@ class UrlBuilder {
     return completeUrl;
   }
 
-  buildSendOtpUrl() {
-    return '$_baseUrl/sendOtp';
-  }
-  buildVerifyOtpUrl() {
-    return '$_baseUrl/verifyOtp';
+  buildSendOtpUrl(String email) {
+    return '$_baseUrl/forget_email?email=$email';
   }
 
-  buildResetPasswordUrl() {
-    return '$_baseUrl/resetPassword';
+  buildReSendOtpUrl() {
+    return '$_baseUrl/forget_email_verification';
+  }
+
+  buildVerifyOtpUrl(String email, String otp) {
+    return '$_baseUrl/forget_email_verification?email=$email&otp=$otp';
+  }
+
+  buildResetPasswordUrl(
+    String newPassword,
+    String newPasswordConfirmation,
+  ) {
+    return '$_baseUrl/reset_password?new_password=$newPassword&new_password_confirmation=$newPasswordConfirmation';
   }
 }

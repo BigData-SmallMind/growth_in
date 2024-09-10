@@ -127,6 +127,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       try {
         await userRepository.resetPassword(
           newPassword: newPassword.value!,
+          newPasswordConfirmation: newPassword.value!,
         );
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
@@ -143,14 +144,15 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     }
   }
 
+  @override
+  Future<void> close() async {
+    userRepository.deleteOtpVerificationTokenSupplierToken();
+    return super.close();
+  }
 // @override
-// Future<void> close() async {
-//   return super.close();
+// Future<void> onChange(change) async {
+//   print('+++++++${change.currentState.email}');
+//   print('-------${change.nextState.email}');
+//   super.onChange(change);
 // }
-//   @override
-//   Future<void> onChange(change) async {
-//     print('+++++++${change.currentState.email}');
-//     print('-------${change.nextState.email}');
-//     super.onChange(change);
-//   }
 }

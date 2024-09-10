@@ -140,6 +140,12 @@ abstract class SendOtpLocalizations {
   /// In en, this message translates to:
   /// **'Invalid email format'**
   String get invalidEmailFormatErrorMessage;
+
+  /// No description provided for @emailNotRegisteredErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Email not registered'**
+  String get emailNotRegisteredErrorMessage;
 }
 
 class _SendOtpLocalizationsDelegate extends LocalizationsDelegate<SendOtpLocalizations> {

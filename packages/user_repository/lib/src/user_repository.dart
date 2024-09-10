@@ -86,11 +86,27 @@ class UserRepository {
     }
   }
 
-  Future sendOtp(String email) async {
+  Future<String> sendOtp(String email) async {
     try {
-      await remoteApi.sendOtp(
+      final token = await remoteApi.sendOtp(
         email: email,
       );
+      await upsertOtpVerificationTokenSupplierToken(token);
+      return token;
+    } catch (error) {
+      if (error is EmailNotRegisteredGrowthInException) {
+        throw EmailNotRegisteredException();
+      }
+      rethrow;
+    }
+  }
+
+  Future<int> reSendOtp() async {
+    try {
+      final token = await getOtpVerificationTokenSupplierToken();
+      final totalTimeInMinutes =
+          await remoteApi.reSendOtp(otpVerificationToken: token!);
+      return totalTimeInMinutes;
     } catch (error) {
       if (error is EmailNotRegisteredGrowthInException) {
         throw EmailNotRegisteredException();
@@ -104,7 +120,9 @@ class UserRepository {
     String otp,
   ) async {
     try {
+      final token = await getOtpVerificationTokenSupplierToken();
       await remoteApi.verifyOtp(
+        otpVerificationToken: token!,
         email: email,
         otp: otp,
       );
@@ -118,13 +136,14 @@ class UserRepository {
 
   Future<void> resetPassword({
     required String newPassword,
+    required String newPasswordConfirmation,
   }) async {
     try {
-      final email = changeNotifier.otpVerification!.email;
-
+      final otpVerificationToken = await getOtpVerificationTokenSupplierToken();
       await remoteApi.resetPassword(
-        email: email,
+        otpVerificationToken: otpVerificationToken!,
         newPassword: newPassword,
+        newPasswordConfirmation: newPasswordConfirmation,
       );
     } catch (error) {
       rethrow;
@@ -176,6 +195,17 @@ class UserRepository {
 
   Future<String?> getUserToken() async => await _secureStorage.getUserToken();
 
+  Future<String?> getOtpVerificationTokenSupplierToken() async =>
+      await _secureStorage.getOtpVerificationTokenSupplierToken();
+
+  Future upsertOtpVerificationTokenSupplierToken(String token) async =>
+      await _secureStorage.upsertOtpVerificationTokenSupplierToken(
+        token: token,
+      );
+
+  Future deleteOtpVerificationTokenSupplierToken() async =>
+      await _secureStorage.deleteOtpVerificationTokenSupplierToken();
+
   Future logout() async {
     try {
       await _secureStorage.deleteUser();
@@ -195,14 +225,12 @@ class UserRepository {
     final userEmail = await _secureStorage.getUserEmail();
     final userPhone = await _secureStorage.getUserPhone();
 
-
-    if (userId != null && userName != null ) {
+    if (userId != null && userName != null) {
       final user = User(
         id: userId,
         name: userName,
         email: userEmail!,
         phone: userPhone!,
-
       );
       _userSubject.add(user);
     } else {

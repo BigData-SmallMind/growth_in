@@ -6,6 +6,7 @@
   "invalidCredentialsErrorMessage": "بريد الكترونى او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",
   "emailTextFieldLabel": "البريد الإلكتروني",
-  "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح"
+  "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح",
+  "emailNotRegisteredErrorMessage": "البريد الإلكتروني غير مسجل"
 
 }

@@ -29,6 +29,8 @@ final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
 final dynamic _connectInApi = GrowthInApi(
   userTokenSupplier: () => _userRepository.getUserToken(),
+  otpVerificationTokenSupplier: () =>
+      _userRepository.getOtpVerificationTokenSupplierToken(),
   isUserUnAuthenticatedVN: _isUserUnAuthSC,
   internetConnectionErrorVN: _internetConnectionErrorVN,
 );
@@ -37,8 +39,6 @@ final _userRepository = UserRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
 );
-
-
 
 final _keyValueStorage = KeyValueStorage();
 
@@ -74,7 +74,6 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
     });
     _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
     WidgetsBinding.instance.addObserver(this);
-
   }
 
   // This callback is invoked every time the platform brightness changes.
@@ -173,7 +172,6 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 TabContainerLocalizations.delegate,
                 SendOtpLocalizations.delegate,
                 VerifyOtpLocalizations.delegate,
-
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [
@@ -216,7 +214,6 @@ class _InternetErrorIndicatorState extends State<InternetErrorIndicator> {
         }
       },
     );
-
   }
 
   @override

@@ -21,11 +21,11 @@ class SendOtpButton extends StatelessWidget {
 
         return isSubmissionInProgress
             ? GrowthInElevatedButton.inProgress(
-                label: 'جارى الارسال',
+                label: 'l10n.sendOtpProgressButtonLabel',
               )
             : GrowthInElevatedButton(
                 onTap: cubit.onSubmit,
-                label: 'ارسال',
+                label: 'l10n.sendOtpButtonLabel',
               );
       },
     );
