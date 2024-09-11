@@ -17,5 +17,15 @@ class UserLocalStorage {
     return box.get(0);
   }
 
+  Future<void> upsertUserCompanies(UserCompaniesCM userCompanies) async {
+    final box = await noSqlStorage.userCompaniesBox;
+    await box.put(0, userCompanies);
+  }
+
+  Future<UserCompaniesCM?> getUserCompanies() async {
+    final box = await noSqlStorage.userCompaniesBox;
+    return box.get(0);
+  }
+
 
 }

@@ -12,12 +12,15 @@ dependencies:
   key_value_storage:
     path: ../key_value_storage
   domain_models:
-
     path: ../domain_models
   function_and_extension_library:
     path: ../function_and_extension_library
   rxdart: ^0.27.1
   flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5
+
+  company_repository:
+    path: ../company_repository
+
 dev_dependencies:
   flutter_lints: ^4.0.0

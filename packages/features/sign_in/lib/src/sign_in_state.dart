@@ -8,6 +8,9 @@ class SignInState extends Equatable {
     this.email = const Email.unvalidated(),
     this.password = const Password.unvalidated(),
     this.error,
+    this.user,
+    this.companyChoiceStatus = CompanyChoiceStatus.initial,
+    this.companyBeingSelected,
     this.submissionStatus = FormzSubmissionStatus.initial,
   });
 
@@ -17,6 +20,9 @@ class SignInState extends Equatable {
   final Email email;
   final Password password;
   final dynamic error;
+  final User? user;
+  final CompanyChoiceStatus companyChoiceStatus;
+  final Company? companyBeingSelected;
   final FormzSubmissionStatus submissionStatus;
 
   SignInState copyWith({
@@ -26,6 +32,9 @@ class SignInState extends Equatable {
     Email? email,
     Password? password,
     dynamic error,
+    User? user,
+    CompanyChoiceStatus? companyChoiceStatus,
+    Company? companyBeingSelected,
     FormzSubmissionStatus? submissionStatus,
   }) {
     return SignInState(
@@ -36,6 +45,9 @@ class SignInState extends Equatable {
       email: email ?? this.email,
       password: password ?? this.password,
       error: error,
+      user: user ?? this.user,
+      companyChoiceStatus: companyChoiceStatus ?? this.companyChoiceStatus,
+      companyBeingSelected: companyBeingSelected ?? this.companyBeingSelected,
       submissionStatus: submissionStatus ?? this.submissionStatus,
     );
   }
@@ -48,6 +60,17 @@ class SignInState extends Equatable {
         email,
         password,
         error,
+        user,
+        companyChoiceStatus,
+        companyBeingSelected,
         submissionStatus,
       ];
+}
+
+enum CompanyChoiceStatus {
+  initial,
+  inProgress,
+  remoteSubmissionInProgress,
+  success,
+  failure;
 }

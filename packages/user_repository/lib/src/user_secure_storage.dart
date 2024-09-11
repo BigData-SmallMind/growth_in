@@ -60,6 +60,7 @@ class UserSecureStorage {
     await _secureStorage.delete(key: _userNameKey);
     await _secureStorage.delete(key: _userEmailKey);
     await _secureStorage.delete(key: _userPhoneKey);
+    await _secureStorage.delete(key: _userImageKey);
     await _secureStorage.delete(key: _userToken);
     await _secureStorage.delete(key: _otpVerificationToken);
   }
@@ -74,6 +75,8 @@ class UserSecureStorage {
   Future<String?> getUserEmail() => _secureStorage.read(key: _userEmailKey);
 
   Future<String?> getUserPhone() => _secureStorage.read(key: _userPhoneKey);
+
+  Future<String?> getUserImage() => _secureStorage.read(key: _userImageKey);
 
   Future<String?> getUserToken() => _secureStorage.read(key: _userToken);
 

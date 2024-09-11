@@ -1,13 +1,13 @@
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:reset_password/src/components/change_password_button.dart';
 import 'package:reset_password/src/components/components.dart';
+import 'package:reset_password/src/l10n/reset_password_localizations.dart';
 import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:user_repository/user_repository.dart';
-
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({
@@ -47,6 +47,7 @@ class ResetPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = ResetPasswordLocalizations.of(context);
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
@@ -58,7 +59,7 @@ class ResetPasswordView extends StatelessWidget {
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: 'l10n.resetPasswordSuccessMessage',
+              message: l10n.resetPasswordSuccessMessage,
             ),
           );
           onResetPasswordSuccess();
@@ -88,12 +89,12 @@ class ResetPasswordView extends StatelessWidget {
                 children: [
                   VerticalGap.xLarge(),
                   Text(
-                    'l10n.resetPasswordScreenTitle',
+                    l10n.resetPasswordScreenTitle,
                     style: textTheme.headlineSmall,
                   ),
                   VerticalGap.medium(),
                   Text(
-                    'l10n.resetPasswordScreenSubtitle',
+                    l10n.resetPasswordScreenSubtitle,
                     style: textTheme.bodyMedium,
                   ),
                   VerticalGap.medium(),

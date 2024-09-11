@@ -1,44 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_cm.dart';
+part of 'company_cm.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserCMAdapter extends TypeAdapter<UserCM> {
+class CompanyCMAdapter extends TypeAdapter<CompanyCM> {
   @override
-  final int typeId = 1;
+  final int typeId = 5;
 
   @override
-  UserCM read(BinaryReader reader) {
+  CompanyCM read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserCM(
+    return CompanyCM(
       id: fields[0] as int,
       name: fields[1] as String,
-      email: fields[2] as String,
-      phone: fields[4] as String,
-      image: fields[5] as String?,
+      sector: fields[2] as String,
+      isSelected: fields[4] as bool,
+      profileImage: fields[5] as String?,
+      email: fields[6] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, UserCM obj) {
+  void write(BinaryWriter writer, CompanyCM obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.email)
+      ..write(obj.sector)
       ..writeByte(4)
-      ..write(obj.phone)
+      ..write(obj.isSelected)
       ..writeByte(5)
-      ..write(obj.image);
+      ..write(obj.profileImage)
+      ..writeByte(6)
+      ..write(obj.email);
   }
 
   @override
@@ -47,7 +50,7 @@ class UserCMAdapter extends TypeAdapter<UserCM> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserCMAdapter &&
+      other is CompanyCMAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

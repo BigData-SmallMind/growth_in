@@ -60,6 +60,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             ),
             VerticalGap.medium(),
             TextFormField(
+              obscuringCharacter: '*',
+
               obscureText: !isPasswordVisible,
               initialValue: state.rememberMe.password,
               textInputAction: TextInputAction.done,

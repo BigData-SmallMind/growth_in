@@ -33,8 +33,15 @@ UserInfoRM _$UserInfoRMFromJson(Map<String, dynamic> json) => $checkedCreate(
               $checkedConvert('country_code', (v) => (v as num).toInt()),
           image: $checkedConvert('profile_image', (v) => v as String?),
           role: $checkedConvert('role', (v) => v as String),
-          companyName: $checkedConvert('company_name', (v) => v as String),
-          companySector: $checkedConvert('company_sector', (v) => v as String),
+          selectedCompanyName:
+              $checkedConvert('selected_company_name', (v) => v as String),
+          selectedCompanyId:
+              $checkedConvert('selected_company_id', (v) => (v as num).toInt()),
+          companies: $checkedConvert(
+              'companies',
+              (v) => (v as List<dynamic>)
+                  .map((e) => CompanyRM.fromJson(e as Map<String, dynamic>))
+                  .toList()),
         );
         return val;
       },
@@ -42,7 +49,7 @@ UserInfoRM _$UserInfoRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'name': 'user_name',
         'countryCode': 'country_code',
         'image': 'profile_image',
-        'companyName': 'company_name',
-        'companySector': 'company_sector'
+        'selectedCompanyName': 'selected_company_name',
+        'selectedCompanyId': 'selected_company_id'
       },
     );

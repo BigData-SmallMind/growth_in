@@ -1,5 +1,6 @@
 //
 //
+import 'package:company_repository/company_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 
@@ -12,6 +13,15 @@ extension LocalePreferenceDomainToCM on LocalePreferenceDM {
       case LocalePreferenceDM.arabic:
         return LocalePreferenceCM.arabic;
     }
+  }
+}
+
+
+extension UserCompaniesDMtoDM on List<Company> {
+  UserCompaniesCM toCacheModel() {
+    return UserCompaniesCM(
+      companies: map((company) => company.toCacheModel()).toList(),
+    );
   }
 }
 //

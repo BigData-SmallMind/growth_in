@@ -1,3 +1,4 @@
+import 'package:reset_password/src/l10n/reset_password_localizations.dart';
 import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +22,14 @@ class ResetPasswordButton extends StatelessWidget {
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<ResetPasswordCubit>();
         // final theme = GrowthInTheme.of(context);
-
+        final l10n = ResetPasswordLocalizations.of(context);
         return isSubmissionInProgress
             ? GrowthInElevatedButton.inProgress(
-                label: 'l10n.submissionInProgressButtonLabel',
+                label: l10n.submissionInProgressButtonLabel,
               )
             : GrowthInElevatedButton(
                 onTap: cubit.onSubmit,
-                label: 'l10n.submitButtonLabel',
+                label: l10n.submitButtonLabel,
               );
       },
     );

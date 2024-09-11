@@ -93,6 +93,30 @@ abstract class SignInLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @signInSuccessSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in successfully'**
+  String get signInSuccessSnackBarMessage;
+
+  /// No description provided for @chooseCompanyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a company'**
+  String get chooseCompanyTitle;
+
+  /// No description provided for @chooseCompanyHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'You can change the company later as well'**
+  String get chooseCompanyHintText;
+
+  /// No description provided for @signInGreetingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get signInGreetingTitle;
+
   /// No description provided for @generalErrorSnackBarMessage.
   ///
   /// In en, this message translates to:

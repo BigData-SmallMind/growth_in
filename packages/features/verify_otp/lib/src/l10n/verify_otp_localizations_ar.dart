@@ -5,7 +5,7 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   VerifyOtpLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get verifyOtpTitle => 'تأكيد الرمز';
+  String get verifyOtpTitle => 'تفقد بريدك الإلكتروني !';
 
   @override
   String get otpResentSuccessfullySnackBarMessage => 'تم إرسال الرمز بنجاح.';
@@ -20,7 +20,7 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get generalErrorSnackBarMessage => 'حدث خطأ ما.';
 
   @override
-  String get verifyOtpSubtitle => 'أدخل الرمز المرسل إلى رقم هاتفك.';
+  String get verifyOtpSubtitle => 'يرجى التحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك';
 
   @override
   String get requiredFieldErrorMessage => 'مطلوب*';

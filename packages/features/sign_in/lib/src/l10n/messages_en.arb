@@ -1,4 +1,8 @@
 {
+  "signInSuccessSnackBarMessage": "Signed in successfully",
+  "chooseCompanyTitle": "Choose a company",
+  "chooseCompanyHintText": "You can change the company later as well",
+  "signInGreetingTitle": "Welcome",
   "generalErrorSnackBarMessage": "ٍSomething went wrong",
   "invalidCredentialsErrorMessage": "Incorrect email or password",
   "requiredFieldErrorMessage": "Required*",

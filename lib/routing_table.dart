@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
+import 'package:more/more.dart';
 import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
@@ -22,7 +23,7 @@ Map<String, PageBuilder> buildRoutingTable({
             _PathConstants.homePath,
             _PathConstants.homePath,
             _PathConstants.homePath,
-            _PathConstants.homePath,
+            _PathConstants.morePath,
           ],
           child: BackButtonListener(
             onBackButtonPressed: () async {
@@ -50,6 +51,12 @@ Map<String, PageBuilder> buildRoutingTable({
           child: HomeScreen(
             userRepository: userRepository,
             onLogout: () => signInSuccessVN.value = false,
+          ),
+        ),
+    _PathConstants.morePath: (_) => MaterialPage(
+          name: 'more',
+          child: MoreScreen(
+            userRepository: userRepository,
           ),
         ),
     _PathConstants.resetPasswordPath: (_) => MaterialPage(
@@ -95,6 +102,8 @@ class _PathConstants {
   static String get tabContainerPath => '/';
 
   static String get homePath => '${tabContainerPath}home';
+
+  static String get morePath => '${tabContainerPath}more';
 
   static String get sendOtpPath => '${tabContainerPath}send-otp';
 

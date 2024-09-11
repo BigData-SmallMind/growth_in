@@ -50,7 +50,7 @@ class UserRepository {
     yield* _localePreferenceSubject.stream;
   }
 
-  Future signIn({
+  Future<User> signIn({
     required String email,
     required String password,
   }) async {
@@ -59,22 +59,21 @@ class UserRepository {
         email: email,
         password: password,
       );
+      // PII data should be stored in the secure storage
       await _secureStorage.upsertUser(
         id: userRM.info.id,
         name: userRM.info.name,
         email: userRM.info.email,
         phone: userRM.info.phone,
+        image: userRM.info.image,
         token: userRM.token,
       );
-
-      _userSubject.add(
-        User(
-          id: userRM.info.id,
-          name: userRM.info.name,
-          email: userRM.info.email,
-          phone: userRM.info.phone,
-        ),
+      final user = userRM.toDomainModel();
+      final userCompaniesCM = user.companies.toCacheModel();
+      await _localStorage.upsertUserCompanies(
+        userCompaniesCM,
       );
+      return user;
     } catch (error) {
       if (error is InvalidCredentialsGrowthInException) {
         throw InvalidCredentialsException();
@@ -82,6 +81,32 @@ class UserRepository {
       if (error is InvalidEmailFormatGrowthInException) {
         throw InvalidEmailFormatException();
       }
+      rethrow;
+    }
+  }
+
+  Future chooseAccountCompany({
+    required int companyId,
+  }) async {
+    try {
+      final user = await getUser().first;
+      await remoteApi.chooseAccountCompany(
+        companyId: companyId,
+      );
+      //update cached user companies
+      final userCompanies = user!.companies
+          .map(
+            (company) {
+              return company.copyWith(
+                isSelected: company.id == companyId ? true : false,
+              );
+            },
+          )
+          .toList()
+          .toCacheModel();
+      _localStorage.upsertUserCompanies(userCompanies);
+      _userSubject.add(user);
+    } catch (error) {
       rethrow;
     }
   }
@@ -224,13 +249,16 @@ class UserRepository {
     final userName = await _secureStorage.getUserName();
     final userEmail = await _secureStorage.getUserEmail();
     final userPhone = await _secureStorage.getUserPhone();
-
+    final userImage = await _secureStorage.getUserImage();
+    final userCompanies = await _localStorage.getUserCompanies();
     if (userId != null && userName != null) {
       final user = User(
         id: userId,
         name: userName,
         email: userEmail!,
         phone: userPhone!,
+        image: userImage,
+        companies: userCompanies!.toDomainModel(),
       );
       _userSubject.add(user);
     } else {

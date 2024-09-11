@@ -10,6 +10,11 @@ class UrlBuilder {
     return completeUrl;
   }
 
+  String buildChooseAccountCompanyUrl(int companyId) {
+    final completeUrl = '$_baseUrl/switch-company?company_id=$companyId';
+    return completeUrl;
+  }
+
   String buildUpdateUserUrl() {
     final completeUrl = '$_baseUrl/updateUser';
     return completeUrl;

@@ -11,34 +11,18 @@ abstract class GrowthInThemeData {
   final secondaryColor = const Color(0xFF5F45BF);
   final tertiaryColor = const Color(0xFFBA38F2);
 
-  final dealLeadStageColor = const Color(0xFF5F45BF); // Lead
-  final dealContactedStageColor = const Color(0xFF6D48B2); // Contacted
-  final dealMeetingStageColor = const Color(0xFF7D4BA4); // Meeting
-  final dealProposalStageColor = const Color(0xFFA25383); // Proposal
-  final dealWonStageColor = const Color(0xFFBA586D); // Won
-  final dealLostStageColor = const Color(0xFFD95E52); // Lost
 
   final successContainerColor = const Color(0xFFE3FFEC);
   final successOnContainerColor = const Color(0xFF19B100);
-  final orderedVoucherUsedStatusTextColor = const Color(0xFF19B100);
-  final switchActiveTrackColor = Colors.green;
+  final successTextColor = const Color(0xFF19B100);
 
   final errorColor = const Color(0xFFF56342);
 
-  final switchActiveColor = Colors.white;
-  final backButtonIconColor = Colors.white;
-  final discountChipTextColor = Colors.white;
-  final secondaryContainerBgColor = const Color(0xFFF2F4F7);
-  final initialsBgColor = const Color(0xFFD9D9D9);
-  final selectedBgColor = const Color(0xFFD0CDE0);
-  final unselectedCheckboxBorderColor = const Color(0xFFD7D5DD);
+  final secondaryContainerBgColor = const Color(0xFFDCE3F6);
+  final tertiaryContainerBgColor = const Color.fromRGBO(228, 240, 232, 0.44);
   final borderColor = const Color(0xFFD9D9D9);
-  final xMarkColor = const Color(0xFFC3C3C3);
   final dimmedTextColor = const Color(0xFF5A5D66);
-  final updatePhotoTextColor = const Color(0xFF7D7C7C);
   final secondaryIconColor = const Color(0xFF8B8B8B);
-  final switchInactiveTrackColor = Colors.grey;
-  final initialsTextColor = const Color(0xFFA2A0A7);
 
   final screenMargin = Spacing.mediumLarge;
   final listViewVerticalSpacing = Spacing.medium;
@@ -70,6 +54,7 @@ abstract class GrowthInThemeData {
 class LightGrowthInThemeData extends GrowthInThemeData {
   @override
   ThemeData get materialThemeData => ThemeData(
+
         textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(
@@ -117,7 +102,9 @@ class LightGrowthInThemeData extends GrowthInThemeData {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
+
         inputDecorationTheme: InputDecorationTheme(
+
           hintStyle: hintStyle,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: Spacing.medium,

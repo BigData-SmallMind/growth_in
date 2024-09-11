@@ -52,9 +52,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     emit(newScreenState);
   }
 
-  void onNewPasswordFocused() {
-    hidePasswordFormatInfoOverlay();
-  }
+
 
   void onNewPasswordUnfocused() {
     final newScreenState = state.copyWith(
@@ -86,9 +84,6 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     emit(newScreenState);
   }
 
-  void onNewPasswordConfirmationFocused() {
-    hidePasswordFormatInfoOverlay();
-  }
 
   void onNewPasswordConfirmationUnfocused() {
     final newScreenState = state.copyWith(

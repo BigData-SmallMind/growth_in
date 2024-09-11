@@ -9,9 +9,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:growth_in/firebase_options.dart';
 import 'package:growth_in/routing_table.dart';
 import 'package:growth_in_api/growth_in_api.dart';
-
+import 'package:home/home.dart';
 import 'package:key_value_storage/key_value_storage.dart';
-
+import 'package:more/more.dart';
+import 'package:reset_password/reset_password.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
@@ -172,6 +173,9 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 TabContainerLocalizations.delegate,
                 SendOtpLocalizations.delegate,
                 VerifyOtpLocalizations.delegate,
+                ResetPasswordLocalizations.delegate,
+                MoreLocalizations.delegate,
+                HomeLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

@@ -22,6 +22,8 @@ dependencies:
     path: packages/key_value_storage
   user_repository:
     path: packages/user_repository
+  company_repository:
+    path: packages/company_repository
 
   function_and_extension_library:
     path: packages/function_and_extension_library
@@ -35,6 +37,8 @@ dependencies:
 
   home:
     path: packages/features/home
+  more:
+    path: packages/features/more
 
 
   # Authentication

@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:reset_password/src/l10n/reset_password_localizations.dart';
 import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +25,6 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         cubit.onNewPasswordConfirmationUnfocused();
-      } else {
-        cubit.onNewPasswordConfirmationFocused();
       }
     });
   }
@@ -35,6 +34,7 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
     _focusNode.dispose();
     super.dispose();
   }
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,22 +48,33 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
         final textTheme = Theme.of(context).textTheme;
         // final theme = GrowthInTheme.of(context);
         final cubit = context.read<ResetPasswordCubit>();
+        final l10n = ResetPasswordLocalizations.of(context);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'l10n.newPasswordConfirmationTextFieldLabel'' *',
+              l10n.newPasswordConfirmationTextFieldLabel + ' *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),
             TextField(
+              obscuringCharacter: '*',
+              obscureText: !isPasswordVisible,
               focusNode: _focusNode,
               decoration: InputDecoration(
-                hintText: 'l10n.newPasswordConfirmationTextFieldHint',
+                suffixIcon: GestureDetector(
+                  onTap: () =>
+                      setState(() => isPasswordVisible = !isPasswordVisible),
+                  child: Icon(
+                    isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    size: 25,
+                  ),
+                ),
+                hintText: l10n.newPasswordConfirmationTextFieldHint,
                 errorText: error == PasswordConfirmationValidationError.empty
-                    ? 'l10n.requiredFieldErrorMessage'
+                    ? l10n.requiredFieldErrorMessage
                     : error == PasswordConfirmationValidationError.doesNotMatch
-                        ? 'l10n.passwordConfirmationTextFieldDoesNotMatchError'
+                        ? l10n.passwordConfirmationTextFieldDoesNotMatchError
                         : null,
               ),
               onChanged: cubit.onNewPasswordConfirmationChanged,

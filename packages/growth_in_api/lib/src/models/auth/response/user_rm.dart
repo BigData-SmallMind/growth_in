@@ -1,3 +1,4 @@
+import 'package:growth_in_api/src/models/response/src/company_rm.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_rm.g.dart';
@@ -29,8 +30,10 @@ class UserInfoRM {
     required this.countryCode,
     this.image,
     required this.role,
-    required this.companyName,
-    required this.companySector,
+    required this.selectedCompanyName,
+    required this.selectedCompanyId,
+    required this.companies,
+
   });
 
   @JsonKey(name: 'id')
@@ -39,10 +42,12 @@ class UserInfoRM {
   final String email;
   @JsonKey(name: 'role')
   final String role;
-  @JsonKey(name: 'company_name')
-  final String companyName;
-  @JsonKey(name: 'company_sector')
-  final String companySector;
+  @JsonKey(name: 'selected_company_name')
+  final String selectedCompanyName;
+  @JsonKey(name: 'selected_company_id')
+  final int selectedCompanyId;
+  @JsonKey(name: 'companies')
+  final List<CompanyRM> companies;
   @JsonKey(name: 'user_name')
   final String name;
   @JsonKey(name: 'phone')

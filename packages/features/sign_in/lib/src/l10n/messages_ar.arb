@@ -1,4 +1,9 @@
 {
+  "signInSuccessSnackBarMessage": "تم تسجيل الدخول بنجاح",
+  "chooseCompanyTitle": "اختر الحساب لتسجيل الدخول",
+  "chooseCompanyHintText": "يمكنك التحويل من الداخل ايضا بسهولة والتبديل بين الحسابات",
+  "signInGreetingTitle": "مرحباً بك في قروث-إن",
+  "generalErrorSnackBarMessage": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
   "invalidCredentialsErrorMessage": "بريد الكترونى او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",
   "emailTextFieldLabel": "البريد الإلكتروني",

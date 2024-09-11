@@ -16,12 +16,14 @@ import 'package:path_provider/path_provider.dart';
 /// avoid conflicts.
 class KeyValueStorage {
   static const _localePreferenceBoxKey = 'locale-preference';
+  static const _userCompaniesBoxKey = 'user-companies';
 
   KeyValueStorage() : _hive = Hive {
     try {
       _hive
         ..registerAdapter(LocalePreferenceCMAdapter())
-        ..registerAdapter(UserCMAdapter())
+        ..registerAdapter(UserCompaniesCMAdapter())
+        ..registerAdapter(CompanyCMAdapter())
         ..registerAdapter(CustomFieldCMAdapter())
         ..registerAdapter(CustomFieldTypeCMAdapter());
     } catch (error) {
@@ -34,6 +36,12 @@ class KeyValueStorage {
   Future<Box<LocalePreferenceCM>> get localePreferenceBox =>
       _openHiveBox<LocalePreferenceCM>(
         _localePreferenceBoxKey,
+        isTemporary: false,
+      );
+
+  Future<Box<UserCompaniesCM>> get userCompaniesBox =>
+      _openHiveBox<UserCompaniesCM>(
+        _userCompaniesBoxKey,
         isTemporary: false,
       );
 

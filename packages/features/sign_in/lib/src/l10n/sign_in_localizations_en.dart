@@ -5,6 +5,18 @@ class SignInLocalizationsEn extends SignInLocalizations {
   SignInLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get signInSuccessSnackBarMessage => 'Signed in successfully';
+
+  @override
+  String get chooseCompanyTitle => 'Choose a company';
+
+  @override
+  String get chooseCompanyHintText => 'You can change the company later as well';
+
+  @override
+  String get signInGreetingTitle => 'Welcome';
+
+  @override
   String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
 
   @override

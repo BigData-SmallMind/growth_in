@@ -13,6 +13,7 @@ class SignInCubit extends Cubit<SignInState> {
   SignInCubit({
     required this.userRepository,
     required this.onForgotPasswordTapped,
+    required this.onSignInSuccess,
   }) : super(
           const SignInState(),
         ) {
@@ -30,6 +31,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   final UserRepository userRepository;
   final VoidCallback onForgotPasswordTapped;
+  final VoidCallback onSignInSuccess;
 
   void onEmailChanged(String? newValue) {
     final previousEmail = state.email;
@@ -102,6 +104,17 @@ class SignInCubit extends Cubit<SignInState> {
     emit(state.copyWith(shouldRememberCredentials: shouldRememberCredentials));
   }
 
+  Future getRememberMeFromCache() async {
+    final rememberMeLoading = state.copyWith(rememberMeLoading: true);
+    emit(rememberMeLoading);
+
+    final rememberMe = await userRepository.getRememberedCredentials();
+    emit(state.copyWith(rememberMe: rememberMe));
+
+    final rememberMeLoadingDone = state.copyWith(rememberMeLoading: false);
+    emit(rememberMeLoadingDone);
+  }
+
   void onSubmit() async {
     final email = Email.validated(
       state.email.value,
@@ -127,13 +140,12 @@ class SignInCubit extends Cubit<SignInState> {
 
     emit(newState);
 
-    if (true) {
+    if (isFormValid) {
       try {
-        await userRepository.signIn(
+        final user = await userRepository.signIn(
           email: email.value!,
           password: password.value!,
         );
-        // await Future.delayed(const Duration(seconds:2));
         if (state.shouldRememberCredentials) {
           userRepository.cacheRememberedCredentials(
             email: email.value!,
@@ -143,7 +155,13 @@ class SignInCubit extends Cubit<SignInState> {
           userRepository.deleteRememberedCredentials();
         }
         final newState = state.copyWith(
-          submissionStatus: FormzSubmissionStatus.success,
+          user: user,
+          companyChoiceStatus: user.companies.length > 1
+              ? CompanyChoiceStatus.inProgress
+              : CompanyChoiceStatus.initial,
+          submissionStatus: user.companies.length < 2
+              ? FormzSubmissionStatus.success
+              : FormzSubmissionStatus.inProgress,
         );
         emit(newState);
       } catch (error) {
@@ -171,17 +189,39 @@ class SignInCubit extends Cubit<SignInState> {
     }
   }
 
-  Future getRememberMeFromCache() async {
-    final rememberMeLoading = state.copyWith(rememberMeLoading: true);
-    emit(rememberMeLoading);
-
-    final rememberMe = await userRepository.getRememberedCredentials();
-    emit(state.copyWith(rememberMe: rememberMe));
-
-    final rememberMeLoadingDone = state.copyWith(rememberMeLoading: false);
-    emit(rememberMeLoadingDone);
+  Future onCompanySelected(Company company) async {
+    final selectedSameCompany = company.id ==
+        state.user!.companies.firstWhere((element) => element.isSelected).id;
+    if (selectedSameCompany) {
+      final companySelectionSuccess = state.copyWith(
+        companyChoiceStatus: CompanyChoiceStatus.success,
+        submissionStatus: FormzSubmissionStatus.success,
+      );
+      emit(companySelectionSuccess);
+      return;
+    }
+    final companyRemoteSelectionInProgress = state.copyWith(
+      companyBeingSelected: company,
+      companyChoiceStatus: CompanyChoiceStatus.remoteSubmissionInProgress,
+    );
+    emit(companyRemoteSelectionInProgress);
+    try {
+      await userRepository.chooseAccountCompany(companyId: company.id);
+      final companySelectionSuccess = state.copyWith(
+        companyChoiceStatus: CompanyChoiceStatus.success,
+        submissionStatus: FormzSubmissionStatus.success,
+      );
+      emit(companySelectionSuccess);
+    } catch (error) {
+      final companySelectionFailure = state.copyWith(
+        companyChoiceStatus: CompanyChoiceStatus.failure,
+        submissionStatus: FormzSubmissionStatus.inProgress,
+        error: error,
+      );
+      emit(companySelectionFailure);
+      rethrow;
+    }
   }
-
 // @override
 // Future<void> close() async {
 //   return super.close();

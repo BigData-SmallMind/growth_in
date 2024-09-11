@@ -33,6 +33,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  company_repository:
+    dependency: "direct main"
+    description:
+      path: "../company_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   crypto:
     dependency: transitive
     description:

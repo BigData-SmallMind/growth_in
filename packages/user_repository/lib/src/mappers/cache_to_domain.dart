@@ -1,15 +1,10 @@
+import 'package:company_repository/company_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 
-extension UserCMtoDM on UserCM {
-  User toDomainModel() {
-    return User(
-      id: id,
-      name: name,
-      email: email,
-      phone: phone,
-      image: image,
-    );
+extension UserCMtoDM on UserCompaniesCM {
+  List<Company> toDomainModel() {
+    return companies.map((company) => company.toDomainModel()).toList();
   }
 }
 

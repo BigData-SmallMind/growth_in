@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:reset_password/src/l10n/reset_password_localizations.dart';
 import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class NewPassword extends StatefulWidget {
 
 class _NewPasswordState extends State<NewPassword> {
   final _focusNode = FocusNode();
+  bool isPasswordVisible = false;
 
   @override
   void initState() {
@@ -23,8 +25,6 @@ class _NewPasswordState extends State<NewPassword> {
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         cubit.onNewPasswordUnfocused();
-      } else {
-        cubit.onNewPasswordFocused();
       }
     });
   }
@@ -45,23 +45,35 @@ class _NewPasswordState extends State<NewPassword> {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<ResetPasswordCubit>();
+        final l10n = ResetPasswordLocalizations.of(context);
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'l10n.newPasswordTextFieldLabel' ' *',
+              l10n.newPasswordTextFieldLabel + ' *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),
             TextField(
+              obscuringCharacter: '*',
+              obscureText: !isPasswordVisible,
               focusNode: _focusNode,
               decoration: InputDecoration(
+                suffixIcon: GestureDetector(
+                  onTap: () =>
+                      setState(() => isPasswordVisible = !isPasswordVisible),
+                  child: Icon(
+                    isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    size: 25,
+                  ),
+                ),
                 errorText: error == PasswordValidationError.empty
-                    ? 'l10n.requiredFieldErrorMessage'
+                    ? l10n.requiredFieldErrorMessage
                     : error == PasswordValidationError.weak
-                        ? 'l10n.passwordTextFieldWeakPasswordError'
+                        ? l10n.passwordTextFieldWeakPasswordError
                         : null,
-                hintText: 'l10n.passwordTextFieldHint',
+                hintText: l10n.passwordTextFieldHint,
               ),
               onChanged: cubit.onNewPasswordChanged,
               enabled: !isSubmissionInProgress,

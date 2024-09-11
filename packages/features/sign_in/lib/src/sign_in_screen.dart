@@ -1,14 +1,13 @@
 import 'package:component_library/component_library.dart';
-import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:sign_in/src/components/components.dart';
 import 'package:sign_in/src/sign_in_cubit.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 
-import 'components/components.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({
@@ -33,40 +32,29 @@ class _SignInScreenState extends State<SignInScreen> {
       create: (_) => SignInCubit(
         userRepository: widget.userRepository,
         onForgotPasswordTapped: widget.onForgotPasswordTapped,
-
-      ),
-      child: SignInView(
         onSignInSuccess: widget.onSignInSuccess,
       ),
+      child: const SignInView(),
     );
   }
 }
 
 class SignInView extends StatelessWidget {
   const SignInView({
-    required this.onSignInSuccess,
     super.key,
   });
-
-  final VoidCallback onSignInSuccess;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => context.releaseFocus(),
-      child: _SignInForm(
-        onSignInSuccess: onSignInSuccess,
-      ),
+      child: const _SignInForm(),
     );
   }
 }
 
 class _SignInForm extends StatelessWidget {
-  const _SignInForm({
-    required this.onSignInSuccess,
-  });
-
-  final VoidCallback onSignInSuccess;
+  const _SignInForm();
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +63,7 @@ class _SignInForm extends StatelessWidget {
           oldState.submissionStatus != newState.submissionStatus,
       listener: (context, state) {
         final l10n = SignInLocalizations.of(context);
-        if (state.error is UserExpiredException) {
-          showSnackBar(
-            context: context,
-            snackBar: const UserExpiredSnackBar(),
-          );
-          return;
-        }
-        if (state.submissionStatus == FormzSubmissionStatus.success) {
-          onSignInSuccess();
-          return;
-        }
+
         if (state.submissionStatus == FormzSubmissionStatus.failure) {
           showSnackBar(
             context: context,
@@ -100,41 +78,54 @@ class _SignInForm extends StatelessWidget {
       builder: (context, state) {
         final textTheme = Theme.of(context).textTheme;
         final theme = GrowthInTheme.of(context);
-        return Scaffold(
-          body: SafeArea(
-            child: Center(
-              child: ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-                children: <Widget>[
-                  const Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: SvgAsset(AssetPathConstants.logoPath),
+        final l10n = SignInLocalizations.of(context);
+        final companyChoiceInProgress =
+            !(state.companyChoiceStatus == CompanyChoiceStatus.initial);
+        return BlocBuilder<SignInCubit, SignInState>(
+          builder: (context, state) {
+            return Scaffold(
+              body: SafeArea(
+                child: Center(
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    children: <Widget>[
+                      const Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: SvgAsset(AssetPathConstants.logoPath),
+                      ),
+                      VerticalGap.xxLarge(),
+                      if (companyChoiceInProgress) const SelectCompany(),
+                      if (!companyChoiceInProgress) ...[
+                        Text(
+                          l10n.signInGreetingTitle,
+                          style: textTheme.headlineLarge?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        VerticalGap.xLarge(),
+                        if (!state.rememberMeLoading) ...[
+                          const EmailTextField(),
+                          VerticalGap.mediumLarge(),
+                          const PasswordTextField(),
+                          VerticalGap.medium(),
+                        ],
+                        const RememberMeAndForgotPassword(),
+                        VerticalGap.xLarge(),
+                        const SignInButton(),
+                        VerticalGap.large(),
+                      ],
+                    ],
                   ),
-                  VerticalGap.xxLarge(),
-                  Text(
-                    'l10n.signInGreetingTitle',
-                    style: textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  VerticalGap.xLarge(),
-                  if (!state.rememberMeLoading) ...[
-                    const EmailTextField(),
-                    VerticalGap.mediumLarge(),
-                    const PasswordTextField(),
-                    VerticalGap.medium(),
-                  ],
-                  const RememberMeAndForgotPassword(),
-                  VerticalGap.xLarge(),
-                  const SignInButton(),
-                  VerticalGap.large(),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );
   }
 }
+

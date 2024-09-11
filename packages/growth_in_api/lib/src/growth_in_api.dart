@@ -54,12 +54,10 @@ class GrowthInApi {
     required String password,
   }) async {
     final url = urlBuilder.buildSignInUrl();
-
     final requestJsonBody = UserCredentialsRM(
       email: email,
       password: password,
     ).toJson();
-
     final response = await _dio.post(
       url,
       data: requestJsonBody,
@@ -73,6 +71,20 @@ class GrowthInApi {
       final errorString = error.toString().toLowerCase();
       final invalidCredentials = errorString.contains('خطأ') == true;
       if (invalidCredentials) throw InvalidCredentialsGrowthInException();
+      rethrow;
+    }
+  }
+
+  Future chooseAccountCompany({
+    required int companyId,
+  }) async {
+    final url = urlBuilder.buildChooseAccountCompanyUrl(companyId);
+
+    try {
+      await _dio.post(
+        url,
+      );
+    } catch (_) {
       rethrow;
     }
   }

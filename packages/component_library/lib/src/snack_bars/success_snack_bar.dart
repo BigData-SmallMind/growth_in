@@ -67,13 +67,13 @@ class SuccessSnackBarContent extends StatelessWidget {
         icon ??
             Icon(
               Icons.check_circle_outline,
-              color: theme.orderedVoucherUsedStatusTextColor,
+              color: theme.successTextColor,
             ),
         HorizontalGap.xSmall(),
         Text(
           message ?? l10n.successSnackBarMessage,
           style: theme.materialThemeData.textTheme.titleSmall?.copyWith(
-            color: messageColor ?? theme.orderedVoucherUsedStatusTextColor,
+            color: messageColor ?? theme.successTextColor,
           ),
         ),
         if (action != null) ...[

@@ -1,3 +1,4 @@
+import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
@@ -6,6 +7,7 @@ class User extends Equatable {
   final String email;
   final String phone;
   final String? image;
+  final List<Company> companies;
 
   const User({
     required this.id,
@@ -13,6 +15,7 @@ class User extends Equatable {
     required this.email,
     required this.phone,
     this.image,
+    required this.companies,
   });
 
   @override

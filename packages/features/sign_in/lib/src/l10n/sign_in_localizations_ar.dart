@@ -5,7 +5,19 @@ class SignInLocalizationsAr extends SignInLocalizations {
   SignInLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
+  String get signInSuccessSnackBarMessage => 'تم تسجيل الدخول بنجاح';
+
+  @override
+  String get chooseCompanyTitle => 'اختر الحساب لتسجيل الدخول';
+
+  @override
+  String get chooseCompanyHintText => 'يمكنك التحويل من الداخل ايضا بسهولة والتبديل بين الحسابات';
+
+  @override
+  String get signInGreetingTitle => 'مرحباً بك في قروث-إن';
+
+  @override
+  String get generalErrorSnackBarMessage => 'حدث خطأ ما، يرجى المحاولة مرة أخرى';
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
