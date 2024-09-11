@@ -63,4 +63,15 @@ class AssetPathConstants {
       '$tabContainerIconsPath/menu_selected.svg';
   static const String menuUnselectedPath =
       '$tabContainerIconsPath/menu_unselected.svg';
+
+  static const String backPath = '$iconsPath/back.svg';
+  static const String gearPath = '$iconsPath/gear.svg';
+  static const String headphonePath = '$iconsPath/headphone.svg';
+  static const String logoutPath = '$iconsPath/logout.svg';
+  static const String stickyNotePath = '$iconsPath/stickynote.svg';
+  static const String taskSquarePath = '$iconsPath/task-square.svg';
+  static const String videoPath = '$iconsPath/video.svg';
+  static const String walletPath = '$iconsPath/wallet.svg';
+
+
 }

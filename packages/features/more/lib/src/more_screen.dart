@@ -46,6 +46,7 @@ class MoreView extends StatelessWidget {
       builder: (context, state) {
         final selectedCompany =
             state.user?.companies.firstWhere((company) => company.isSelected);
+        final theme = GrowthInTheme.of(context);
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -53,20 +54,122 @@ class MoreView extends StatelessWidget {
           body: state.user == null
               ? CenteredCircularProgressIndicator()
               : ListView(
-                children: [
-                  VerticalGap.large(),
-                  CompanyTile(
-                    company: selectedCompany!.copyWith(isSelected: false),
-                    onTap: () {},
-                    trailing: const Icon(Icons.arrow_drop_down),
-                  ),
-                  VerticalGap.large(),
-                  ListTile(
-                    title: const Text('Settings'),
-                    onTap: () {},
-                  ),
-                ],
-              ),
+                  children: [
+                    VerticalGap.large(),
+                    CompanyTile(
+                      company: selectedCompany!.copyWith(isSelected: false),
+                      onTap: () {},
+                      trailing: const Icon(Icons.arrow_drop_down),
+                    ),
+                    VerticalGap.large(),
+
+                    ListTile(
+                      title: const Text('l10n.meetingsTileTitle'),
+                      onTap: () {},
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
+                      leading: SvgAsset(
+                        AssetPathConstants.videoPath,
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    ),
+                    Divider(),
+                    // Orders tile
+                    ListTile(
+                      title: const Text('l10n.ordersTileTitle'),
+                      onTap: () {},
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
+                      leading: SvgAsset(
+                        AssetPathConstants.taskSquarePath,
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    ),
+                    Divider(),
+                    //forms tile
+                    ListTile(
+                      title: const Text('l10n.formsTileTitle'),
+                      onTap: () {},
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
+                      leading: SvgAsset(
+                        AssetPathConstants.stickyNotePath,
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    ),
+                    Divider(),
+                    // plans and services tile
+                    ListTile(
+                      title: const Text('l10n.plansAndServicesTileTitle'),
+                      onTap: () {},
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
+                      leading: SvgAsset(
+                        AssetPathConstants.walletPath,
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    ),
+                    Divider(),
+                    //settings tile
+                    ListTile(
+                      title: const Text('l10n.settingsTileTitle'),
+                      onTap: () {},
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
+                      leading: SvgAsset(
+                        AssetPathConstants.gearPath,
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    ),
+                    Divider(),
+                    //help tile
+                    ListTile(
+                      title: const Text('l10n.helpTileTitle'),
+                      onTap: () {},
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
+                      leading: SvgAsset(
+                        AssetPathConstants.headphonePath,
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    ),
+                    Divider(),
+                    //logout tile
+                    ListTile(
+                      title: const Text('l10n.logoutTileTitle'),
+                      onTap: () {},
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                      ),
+                      leading: SvgAsset(
+                        AssetPathConstants.logoutPath,
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    ),
+                    Divider(),
+                    VerticalGap.large(),
+                  ],
+                ),
         );
       },
     );
