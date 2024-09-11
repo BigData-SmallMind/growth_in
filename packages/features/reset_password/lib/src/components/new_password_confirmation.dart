@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,21 +45,32 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
             : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
+        final textTheme = Theme.of(context).textTheme;
         // final theme = GrowthInTheme.of(context);
         final cubit = context.read<ResetPasswordCubit>();
-        return TextField(
-          focusNode: _focusNode,
-          decoration: InputDecoration(
-            hintText: 'تاكيد كلمة المرور الجديده',
-            errorText: error == PasswordConfirmationValidationError.empty
-                ? 'مطلوب*'
-                : error == PasswordConfirmationValidationError.doesNotMatch
-                    ? 'كلمة مرور غير مطابفه'
-                    : null,
-          ),
-          onChanged: cubit.onNewPasswordConfirmationChanged,
-          enabled: !isSubmissionInProgress,
-          onEditingComplete: cubit.onSubmit,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'l10n.newPasswordConfirmationTextFieldLabel'' *',
+              style: textTheme.titleSmall,
+            ),
+            VerticalGap.medium(),
+            TextField(
+              focusNode: _focusNode,
+              decoration: InputDecoration(
+                hintText: 'l10n.newPasswordConfirmationTextFieldHint',
+                errorText: error == PasswordConfirmationValidationError.empty
+                    ? 'l10n.requiredFieldErrorMessage'
+                    : error == PasswordConfirmationValidationError.doesNotMatch
+                        ? 'l10n.passwordConfirmationTextFieldDoesNotMatchError'
+                        : null,
+              ),
+              onChanged: cubit.onNewPasswordConfirmationChanged,
+              enabled: !isSubmissionInProgress,
+              onEditingComplete: cubit.onSubmit,
+            ),
+          ],
         );
       },
     );

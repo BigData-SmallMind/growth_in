@@ -1,12 +1,13 @@
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:reset_password/src/components/change_password_button.dart';
-import 'package:reset_password/src/components/change_password_text_form_fields/form_fields.dart';
+import 'package:reset_password/src/components/components.dart';
 import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:user_repository/user_repository.dart';
+
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({
@@ -46,6 +47,8 @@ class ResetPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = GrowthInTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listenWhen: (oldState, newState) =>
           oldState.submissionStatus != newState.submissionStatus,
@@ -55,7 +58,7 @@ class ResetPasswordView extends StatelessWidget {
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: 'تم تغيير كلمة المرور بنجاح',
+              message: 'l10n.resetPasswordSuccessMessage',
             ),
           );
           onResetPasswordSuccess();
@@ -73,44 +76,34 @@ class ResetPasswordView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final cubit = context.read<ResetPasswordCubit>();
-        final theme = GrowthInTheme.of(context);
-
         return GestureDetector(
-          onTap: () {
-            context.releaseFocus();
-            if (state.passwordInfoOverlayShown) {
-              cubit.togglePasswordInfoOverlay(
-                state.passwordInfoOverlayYOffset,
-              );
-            }
-          },
+          onTap: context.releaseFocus,
           child: Scaffold(
             appBar: GrowthInAppBar(),
-            body: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: theme.screenMargin,
-                    left: theme.screenMargin,
-                    top:
-                        MediaQuery.of(context).padding.top + theme.screenMargin,
-                    bottom: theme.screenMargin,
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: Spacing.medium,
-                      ),
-                      const FormFields(),
-                      const SizedBox(
-                        height: Spacing.medium,
-                      ),
-                      const ResetPasswordButton()
-                    ],
-                  ),
+            body: Expanded(
+              child: ListView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: theme.screenMargin,
                 ),
-              ],
+                children: [
+                  VerticalGap.xLarge(),
+                  Text(
+                    'l10n.resetPasswordScreenTitle',
+                    style: textTheme.headlineSmall,
+                  ),
+                  VerticalGap.medium(),
+                  Text(
+                    'l10n.resetPasswordScreenSubtitle',
+                    style: textTheme.bodyMedium,
+                  ),
+                  VerticalGap.medium(),
+                  NewPassword(),
+                  VerticalGap.medium(),
+                  NewPasswordConfirmation(),
+                  VerticalGap.xLarge(),
+                  const ResetPasswordButton(),
+                ],
+              ),
             ),
           ),
         );

@@ -1,3 +1,14 @@
 {
-
+  "resetPasswordSuccessMessage": "تم إعادة تعيين كلمة المرور بنجاح",
+  "resetPasswordScreenTitle": "إعادة ضبط كلمة المرور",
+  "resetPasswordScreenSubtitle": "ادخل كلمة المرور الجديدة",
+  "submissionInProgressButtonLabel": "جارٍ التقديم",
+  "submitButtonLabel": "إرسال",
+  "newPasswordTextFieldLabel": "كلمة المرور الجديدة",
+  "requiredFieldErrorMessage": "هذا الحقل مطلوب",
+  "passwordTextFieldWeakPasswordError": "كلمة المرور ضعيفة جدًا",
+  "passwordTextFieldHint": "أدخل كلمة المرور الجديدة",
+  "newPasswordConfirmationTextFieldLabel": "تأكيد كلمة المرور الجديدة",
+  "newPasswordConfirmationTextFieldHint": "أعد إدخال كلمة المرور الجديدة",
+  "passwordConfirmationTextFieldDoesNotMatchError": "كلمات المرور غير متطابقة"
 }

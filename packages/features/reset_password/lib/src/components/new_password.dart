@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,23 +39,34 @@ class _NewPasswordState extends State<NewPassword> {
   Widget build(BuildContext context) {
     return BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
       builder: (context, state) {
+        final textTheme = Theme.of(context).textTheme;
         final error =
             state.newPassword.isNotValid ? state.newPassword.error : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<ResetPasswordCubit>();
-        return TextField(
-          focusNode: _focusNode,
-          decoration: InputDecoration(
-            errorText: error == PasswordValidationError.empty
-                ? 'مطلوب*'
-                : error == PasswordValidationError.weak
-                    ? 'كلمة المرور ضعيفه'
-                    : null,
-            hintText: 'كلمة المرور الجديده',
-          ),
-          onChanged: cubit.onNewPasswordChanged,
-          enabled: !isSubmissionInProgress,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'l10n.newPasswordTextFieldLabel' ' *',
+              style: textTheme.titleSmall,
+            ),
+            VerticalGap.medium(),
+            TextField(
+              focusNode: _focusNode,
+              decoration: InputDecoration(
+                errorText: error == PasswordValidationError.empty
+                    ? 'l10n.requiredFieldErrorMessage'
+                    : error == PasswordValidationError.weak
+                        ? 'l10n.passwordTextFieldWeakPasswordError'
+                        : null,
+                hintText: 'l10n.passwordTextFieldHint',
+              ),
+              onChanged: cubit.onNewPasswordChanged,
+              enabled: !isSubmissionInProgress,
+            ),
+          ],
         );
       },
     );

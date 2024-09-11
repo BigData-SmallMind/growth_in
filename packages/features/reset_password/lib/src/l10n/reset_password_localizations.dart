@@ -93,6 +93,77 @@ abstract class ResetPasswordLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @resetPasswordSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password has been reset successfully'**
+  String get resetPasswordSuccessMessage;
+
+  /// No description provided for @resetPasswordScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPasswordScreenTitle;
+
+  /// No description provided for @resetPasswordScreenSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPasswordScreenSubtitle;
+
+  /// No description provided for @submissionInProgressButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting'**
+  String get submissionInProgressButtonLabel;
+
+  /// No description provided for @submitButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submitButtonLabel;
+
+  /// No description provided for @newPasswordTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPasswordTextFieldLabel;
+
+  /// No description provided for @requiredFieldErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get requiredFieldErrorMessage;
+
+  /// No description provided for @passwordTextFieldWeakPasswordError.
+  ///
+  /// In en, this message translates to:
+  /// **'The password is too weak'**
+  String get passwordTextFieldWeakPasswordError;
+
+  /// No description provided for @passwordTextFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your new password'**
+  String get passwordTextFieldHint;
+
+  /// No description provided for @newPasswordConfirmationTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get newPasswordConfirmationTextFieldLabel;
+
+  /// No description provided for @newPasswordConfirmationTextFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter your new password'**
+  String get newPasswordConfirmationTextFieldHint;
+
+  /// No description provided for @passwordConfirmationTextFieldDoesNotMatchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordConfirmationTextFieldDoesNotMatchError;
 }
 
 class _ResetPasswordLocalizationsDelegate extends LocalizationsDelegate<ResetPasswordLocalizations> {

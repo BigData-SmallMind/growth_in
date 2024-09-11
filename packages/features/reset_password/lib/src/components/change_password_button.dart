@@ -24,11 +24,11 @@ class ResetPasswordButton extends StatelessWidget {
 
         return isSubmissionInProgress
             ? GrowthInElevatedButton.inProgress(
-                label: 'جارى الحفظ',
+                label: 'l10n.submissionInProgressButtonLabel',
               )
             : GrowthInElevatedButton(
                 onTap: cubit.onSubmit,
-                label: 'حفظ',
+                label: 'l10n.submitButtonLabel',
               );
       },
     );
