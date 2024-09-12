@@ -7,6 +7,8 @@
   "requiredFieldErrorMessage": "مطلوب*",
   "emailTextFieldLabel": "البريد الإلكتروني",
   "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح",
-  "emailNotRegisteredErrorMessage": "البريد الإلكتروني غير مسجل"
+  "emailNotRegisteredErrorMessage": "البريد الإلكتروني غير مسجل",
+ "sendOtpProgressButtonLabel": "جارٍ إرسال OTP",
+  "sendOtpButtonLabel": "إرسال OTP"
 
 }

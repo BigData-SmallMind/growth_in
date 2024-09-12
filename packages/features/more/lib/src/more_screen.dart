@@ -1,6 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:more/src/l10n/more_localizations.dart';
 import 'package:more/src/more_cubit.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -8,9 +9,11 @@ class MoreScreen extends StatefulWidget {
   const MoreScreen({
     super.key,
     required this.userRepository,
+    required this.onCompanyTileTap,
   });
 
   final UserRepository userRepository;
+  final VoidCallback onCompanyTileTap;
 
   @override
   State<MoreScreen> createState() => _MoreScreenState();
@@ -24,6 +27,7 @@ class _MoreScreenState extends State<MoreScreen>
     return BlocProvider<MoreCubit>(
       create: (_) => MoreCubit(
         userRepository: widget.userRepository,
+        onCompanyTileTap: widget.onCompanyTileTap,
       ),
       child: const MoreView(),
     );
@@ -47,9 +51,12 @@ class MoreView extends StatelessWidget {
         final selectedCompany =
             state.user?.companies.firstWhere((company) => company.isSelected);
         final theme = GrowthInTheme.of(context);
+        final cubit = context.read<MoreCubit>();
+        final l10n = MoreLocalizations.of(context);
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
+            toolbarHeight: 0,
           ),
           body: state.user == null
               ? CenteredCircularProgressIndicator()
@@ -58,13 +65,13 @@ class MoreView extends StatelessWidget {
                     VerticalGap.large(),
                     CompanyTile(
                       company: selectedCompany!.copyWith(isSelected: false),
-                      onTap: () {},
+                      onTap: cubit.onCompanyTileTap,
                       trailing: const Icon(Icons.arrow_drop_down),
                     ),
                     VerticalGap.large(),
-
+                    // Meetings tile
                     ListTile(
-                      title: const Text('l10n.meetingsTileTitle'),
+                      title:  Text(l10n.meetingsTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -79,7 +86,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     // Orders tile
                     ListTile(
-                      title: const Text('l10n.ordersTileTitle'),
+                      title:  Text(l10n.ordersTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -94,7 +101,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //forms tile
                     ListTile(
-                      title: const Text('l10n.formsTileTitle'),
+                      title:  Text(l10n.formsTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -109,7 +116,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     // plans and services tile
                     ListTile(
-                      title: const Text('l10n.plansAndServicesTileTitle'),
+                      title:  Text(l10n.plansAndServicesTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -124,7 +131,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //settings tile
                     ListTile(
-                      title: const Text('l10n.settingsTileTitle'),
+                      title:  Text(l10n.settingsTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -139,7 +146,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //help tile
                     ListTile(
-                      title: const Text('l10n.helpTileTitle'),
+                      title:  Text(l10n.helpTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -154,7 +161,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //logout tile
                     ListTile(
-                      title: const Text('l10n.logoutTileTitle'),
+                      title:  Text(l10n.logoutTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,

@@ -50,6 +50,8 @@ dependencies:
     path: packages/features/reset_password
   send_otp:
     path: packages/features/send_otp
+  switch_account_company:
+    path: packages/features/switch_account_company
 
 
   # Domain Models and Component Library

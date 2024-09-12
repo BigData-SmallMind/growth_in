@@ -1,3 +1,9 @@
 {
-
+  "meetingsTileTitle": "الإجتماعات",
+  "ordersTileTitle": "الطلبات",
+  "formsTileTitle": "النماذج",
+  "plansAndServicesTileTitle": "الخطط و الخدمات",
+  "settingsTileTitle": "اعدادت حسابي",
+  "helpTileTitle": "المساعدة و الدعم",
+  "logoutTileTitle": "تسجيل الخروج"
 }

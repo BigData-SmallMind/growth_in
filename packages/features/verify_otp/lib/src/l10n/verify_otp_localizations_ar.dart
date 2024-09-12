@@ -8,16 +8,16 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get verifyOtpTitle => 'تفقد بريدك الإلكتروني !';
 
   @override
-  String get otpResentSuccessfullySnackBarMessage => 'تم إرسال الرمز بنجاح.';
+  String get otpResentSuccessfullySnackBarMessage => 'تم إرسال الرمز بنجاح';
 
   @override
-  String get otpResentErrorSnackBarMessage => 'حدث خطأ أثناء إرسال الرمز.';
+  String get otpResentErrorSnackBarMessage => 'حدث خطأ أثناء إرسال الرمز';
 
   @override
-  String get otpVerifiedSuccessfullySnackBarMessage => 'تم تأكيد الرمز بنجاح.';
+  String get otpVerifiedSuccessfullySnackBarMessage => 'تم تأكيد الرمز بنجاح';
 
   @override
-  String get generalErrorSnackBarMessage => 'حدث خطأ ما.';
+  String get generalErrorSnackBarMessage => 'حدث خطأ ما';
 
   @override
   String get verifyOtpSubtitle => 'يرجى التحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك';
@@ -26,14 +26,17 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
-  String get incorrectOtpCodeErrorMessage => 'الرمز الذي أدخلته غير صحيح، حاول مرة أخرى.';
+  String get incorrectOtpCodeErrorMessage => 'الرمز الذي أدخلته غير صحيح، حاول مرة أخرى';
 
   @override
-  String get verifyingOtpButtonLabel => 'جارٍ التأكيد...';
+  String get verifyingOtpButtonLabel => 'جارٍ التأكيد';
 
   @override
   String get verifyOtpButtonLabel => 'تأكيد الرمز';
 
   @override
   String get emailNotRegisteredErrorMessage => 'البريد الإلكتروني الذي أدخلته غير مسجل';
+
+  @override
+  String get resendOtpButtonLabel => 'إعادة إرسال OTP';
 }

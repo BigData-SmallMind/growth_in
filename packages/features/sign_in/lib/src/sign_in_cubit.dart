@@ -206,7 +206,7 @@ class SignInCubit extends Cubit<SignInState> {
     );
     emit(companyRemoteSelectionInProgress);
     try {
-      await userRepository.chooseAccountCompany(companyId: company.id);
+      await userRepository.switchAccountCompany(companyId: company.id);
       final companySelectionSuccess = state.copyWith(
         companyChoiceStatus: CompanyChoiceStatus.success,
         submissionStatus: FormzSubmissionStatus.success,

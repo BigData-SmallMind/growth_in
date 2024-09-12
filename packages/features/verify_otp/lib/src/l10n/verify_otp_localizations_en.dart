@@ -8,32 +8,35 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get verifyOtpTitle => 'Verify OTP';
 
   @override
-  String get otpResentSuccessfullySnackBarMessage => 'OTP resent successfully.';
+  String get otpResentSuccessfullySnackBarMessage => 'OTP resent successfully';
 
   @override
-  String get otpResentErrorSnackBarMessage => 'Error occurred while resending OTP.';
+  String get otpResentErrorSnackBarMessage => 'Error occurred while resending OTP';
 
   @override
-  String get otpVerifiedSuccessfullySnackBarMessage => 'OTP verified successfully.';
+  String get otpVerifiedSuccessfullySnackBarMessage => 'OTP verified successfully';
 
   @override
-  String get generalErrorSnackBarMessage => 'An error occurred.';
+  String get generalErrorSnackBarMessage => 'An error occurred';
 
   @override
-  String get verifyOtpSubtitle => 'Enter the OTP sent to your phone number.';
+  String get verifyOtpSubtitle => 'Enter the OTP sent to your phone number';
 
   @override
   String get requiredFieldErrorMessage => 'Required*';
 
   @override
-  String get incorrectOtpCodeErrorMessage => 'The OTP you entered is incorrect, please try again.';
+  String get incorrectOtpCodeErrorMessage => 'The OTP you entered is incorrect, please try again';
 
   @override
-  String get verifyingOtpButtonLabel => 'Verifying...';
+  String get verifyingOtpButtonLabel => 'Verifying';
 
   @override
   String get verifyOtpButtonLabel => 'Verify OTP';
 
   @override
-  String get emailNotRegisteredErrorMessage => 'The email you entered is not registered.';
+  String get emailNotRegisteredErrorMessage => 'The email you entered is not registered';
+
+  @override
+  String get resendOtpButtonLabel => 'Resend OTP';
 }

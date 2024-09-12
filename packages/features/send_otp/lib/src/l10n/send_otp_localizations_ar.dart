@@ -30,4 +30,10 @@ class SendOtpLocalizationsAr extends SendOtpLocalizations {
 
   @override
   String get emailNotRegisteredErrorMessage => 'البريد الإلكتروني غير مسجل';
+
+  @override
+  String get sendOtpProgressButtonLabel => 'جارٍ إرسال OTP';
+
+  @override
+  String get sendOtpButtonLabel => 'إرسال OTP';
 }

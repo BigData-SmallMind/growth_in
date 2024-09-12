@@ -1,6 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:verify_otp/src/l10n/verify_otp_localizations.dart';
 
 import 'package:verify_otp/src/verify_otp_cubit.dart';
 
@@ -16,6 +17,7 @@ class ResendOtp extends StatelessWidget {
         final isResendOtpInProgress =
             state.resendOtpStatus == ResendOtpStatus.inProgress;
         final cubit = context.read<VerifyOtpCubit>();
+        final l10n = VerifyOtpLocalizations.of(context);
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -29,7 +31,7 @@ class ResendOtp extends StatelessWidget {
                       child: const CircularProgressIndicator(),
                     )
                   : const Icon(Icons.refresh),
-              label: Text('l10n.resendOtpButtonLabel'),
+              label: Text(l10n.resendOtpButtonLabel),
             ),
             HorizontalGap.medium(),
             Text(

@@ -15,6 +15,7 @@ class GrowthInApi {
   static const _tokenJsonKey = 'token';
   static const _messageJsonKey = 'message';
   static const _successJsonKey = 'success';
+  static const _statusJsonKey = 'status';
   static const _otpExpiryTimeJsonKey = 'expired_time';
 
   GrowthInApi({
@@ -81,9 +82,17 @@ class GrowthInApi {
     final url = urlBuilder.buildChooseAccountCompanyUrl(companyId);
 
     try {
-      await _dio.post(
+      final response = await _dio.post(
         url,
       );
+      final responseJsonObject = response.data;
+      final responseStatus = responseJsonObject[_statusJsonKey];
+      if(responseStatus == 404) {
+        final error = responseJsonObject[_errorJsonKey];
+        final errorString = error.toString().toLowerCase();
+        final companyNotFound = errorString.contains('غير مرتبط');
+        if (companyNotFound) throw CompanyNotAssociatedGrowthInException();
+      }
     } catch (_) {
       rethrow;
     }

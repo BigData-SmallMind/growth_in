@@ -85,7 +85,7 @@ class UserRepository {
     }
   }
 
-  Future chooseAccountCompany({
+  Future switchAccountCompany({
     required int companyId,
   }) async {
     try {
@@ -104,9 +104,15 @@ class UserRepository {
           )
           .toList()
           .toCacheModel();
-      _localStorage.upsertUserCompanies(userCompanies);
-      _userSubject.add(user);
+      await _localStorage.upsertUserCompanies(userCompanies);
+      final updatedUser = user.copyWith(
+        companies: userCompanies.toDomainModel(),
+      );
+      _userSubject.add(updatedUser);
     } catch (error) {
+      if (error is CompanyNotAssociatedGrowthInException) {
+        throw CompanyNotAssociatedException();
+      }
       rethrow;
     }
   }

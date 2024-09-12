@@ -146,6 +146,18 @@ abstract class SendOtpLocalizations {
   /// In en, this message translates to:
   /// **'Email not registered'**
   String get emailNotRegisteredErrorMessage;
+
+  /// No description provided for @sendOtpProgressButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending OTP'**
+  String get sendOtpProgressButtonLabel;
+
+  /// No description provided for @sendOtpButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Send OTP'**
+  String get sendOtpButtonLabel;
 }
 
 class _SendOtpLocalizationsDelegate extends LocalizationsDelegate<SendOtpLocalizations> {

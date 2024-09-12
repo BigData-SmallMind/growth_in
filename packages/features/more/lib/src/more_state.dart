@@ -9,7 +9,7 @@ class MoreState extends Equatable {
 
   MoreState copyWith({User? user}) {
     return MoreState(
-      user: user ?? this.user,
+      user: user,
     );
   }
 

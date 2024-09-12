@@ -5,22 +5,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'more_localizations_ar.dart';
-import 'more_localizations_en.dart';
+import 'switch_account_company_localizations_ar.dart';
+import 'switch_account_company_localizations_en.dart';
 
-/// Callers can lookup localized strings with an instance of MoreLocalizations
-/// returned by `MoreLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of SwitchAccountCompanyLocalizations
+/// returned by `SwitchAccountCompanyLocalizations.of(context)`.
 ///
-/// Applications need to include `MoreLocalizations.delegate()` in their app's
+/// Applications need to include `SwitchAccountCompanyLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'l10n/more_localizations.dart';
+/// import 'l10n/switch_account_company_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: MoreLocalizations.localizationsDelegates,
-///   supportedLocales: MoreLocalizations.supportedLocales,
+///   localizationsDelegates: SwitchAccountCompanyLocalizations.localizationsDelegates,
+///   supportedLocales: SwitchAccountCompanyLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -57,18 +57,18 @@ import 'more_localizations_en.dart';
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the MoreLocalizations.supportedLocales
+/// be consistent with the languages listed in the SwitchAccountCompanyLocalizations.supportedLocales
 /// property.
-abstract class MoreLocalizations {
-  MoreLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+abstract class SwitchAccountCompanyLocalizations {
+  SwitchAccountCompanyLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static MoreLocalizations of(BuildContext context) {
-    return Localizations.of<MoreLocalizations>(context, MoreLocalizations)!;
+  static SwitchAccountCompanyLocalizations of(BuildContext context) {
+    return Localizations.of<SwitchAccountCompanyLocalizations>(context, SwitchAccountCompanyLocalizations)!;
   }
 
-  static const LocalizationsDelegate<MoreLocalizations> delegate = _MoreLocalizationsDelegate();
+  static const LocalizationsDelegate<SwitchAccountCompanyLocalizations> delegate = _SwitchAccountCompanyLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -93,75 +93,45 @@ abstract class MoreLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @meetingsTileTitle.
+  /// No description provided for @companyNotAssociatedErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Meetings'**
-  String get meetingsTileTitle;
+  /// **'Company is not associated. Re login to refresh the list.'**
+  String get companyNotAssociatedErrorSnackBarMessage;
 
-  /// No description provided for @ordersTileTitle.
+  /// No description provided for @companySwitchedSuccessSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Orders'**
-  String get ordersTileTitle;
-
-  /// No description provided for @formsTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Forms'**
-  String get formsTileTitle;
-
-  /// No description provided for @plansAndServicesTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Plans and Services'**
-  String get plansAndServicesTileTitle;
-
-  /// No description provided for @settingsTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get settingsTileTitle;
-
-  /// No description provided for @helpTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Help'**
-  String get helpTileTitle;
-
-  /// No description provided for @logoutTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Logout'**
-  String get logoutTileTitle;
+  /// **'Company switched successfully.'**
+  String get companySwitchedSuccessSnackBarMessage;
 }
 
-class _MoreLocalizationsDelegate extends LocalizationsDelegate<MoreLocalizations> {
-  const _MoreLocalizationsDelegate();
+class _SwitchAccountCompanyLocalizationsDelegate extends LocalizationsDelegate<SwitchAccountCompanyLocalizations> {
+  const _SwitchAccountCompanyLocalizationsDelegate();
 
   @override
-  Future<MoreLocalizations> load(Locale locale) {
-    return SynchronousFuture<MoreLocalizations>(lookupMoreLocalizations(locale));
+  Future<SwitchAccountCompanyLocalizations> load(Locale locale) {
+    return SynchronousFuture<SwitchAccountCompanyLocalizations>(lookupSwitchAccountCompanyLocalizations(locale));
   }
 
   @override
   bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_MoreLocalizationsDelegate old) => false;
+  bool shouldReload(_SwitchAccountCompanyLocalizationsDelegate old) => false;
 }
 
-MoreLocalizations lookupMoreLocalizations(Locale locale) {
+SwitchAccountCompanyLocalizations lookupSwitchAccountCompanyLocalizations(Locale locale) {
 
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return MoreLocalizationsAr();
-    case 'en': return MoreLocalizationsEn();
+    case 'ar': return SwitchAccountCompanyLocalizationsAr();
+    case 'en': return SwitchAccountCompanyLocalizationsEn();
   }
 
   throw FlutterError(
-    'MoreLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'SwitchAccountCompanyLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.'

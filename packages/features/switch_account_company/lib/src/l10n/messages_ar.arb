@@ -1,0 +1,4 @@
+{
+  "companyNotAssociatedErrorSnackBarMessage": "الشركة غير مرتبطة. يرجى تسجيل الدخول مرة أخرى لتحديث القائمة.",
+  "companySwitchedSuccessSnackBarMessage": "تم تغيير الشركة بنجاح."
+}

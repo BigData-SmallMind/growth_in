@@ -7,5 +7,8 @@
   "requiredFieldErrorMessage": "Required*",
   "emailTextFieldLabel": "Email",
   "invalidEmailFormatErrorMessage": "Invalid email format",
-  "emailNotRegisteredErrorMessage": "Email not registered"
+  "emailNotRegisteredErrorMessage": "Email not registered",
+  "sendOtpProgressButtonLabel": "Sending OTP",
+  "sendOtpButtonLabel": "Send OTP"
+
 }

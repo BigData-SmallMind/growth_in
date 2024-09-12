@@ -7,6 +7,7 @@ class IncorrectPasswordException implements Exception {}
 class DuplicateNameException implements Exception {}
 
 class InvalidEmailFormatException implements Exception {}
+class CompanyNotAssociatedException implements Exception {}
 
 class InvalidOtpException implements Exception {}
 

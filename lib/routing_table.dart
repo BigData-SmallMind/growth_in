@@ -6,6 +6,7 @@ import 'package:reset_password/reset_password.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:switch_account_company/switch_account_company.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
@@ -55,9 +56,20 @@ Map<String, PageBuilder> buildRoutingTable({
         ),
     _PathConstants.morePath: (_) => MaterialPage(
           name: 'more',
-          child: MoreScreen(
-            userRepository: userRepository,
-          ),
+          child: Builder(builder: (context) {
+            return MoreScreen(
+              userRepository: userRepository,
+              onCompanyTileTap: () => showModalBottomSheet(
+                context: context,
+                enableDrag: true,
+                isScrollControlled: true,
+                useSafeArea: true,
+                builder: (context) => SwitchAccountCompanyBottomSheet(
+                  userRepository: userRepository,
+                ),
+              ),
+            );
+          }),
         ),
     _PathConstants.resetPasswordPath: (_) => MaterialPage(
           name: 'reset-password',

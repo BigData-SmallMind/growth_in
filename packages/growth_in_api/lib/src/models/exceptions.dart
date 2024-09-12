@@ -2,6 +2,8 @@ class UserAuthRequiredGrowthInException implements Exception {}
 
 class InvalidCredentialsGrowthInException implements Exception {}
 
+class CompanyNotAssociatedGrowthInException implements Exception {}
+
 class IncorrectPasswordGrowthInException implements Exception {}
 
 class DuplicateNameGrowthInException implements Exception {}

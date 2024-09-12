@@ -1,0 +1,6 @@
+arb-dir: lib/src/l10n
+template-arb-file: messages_en.arb
+output-localization-file: switch_account_company_localizations.dart
+output-class: SwitchAccountCompanyLocalizations
+synthetic-package: false
+nullable-getter: false

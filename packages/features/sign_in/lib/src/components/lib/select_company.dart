@@ -87,7 +87,7 @@ class SelectCompany extends StatelessWidget {
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: state.user!.companies.length,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

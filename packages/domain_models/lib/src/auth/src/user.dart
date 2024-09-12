@@ -26,4 +26,23 @@ class User extends Equatable {
         phone,
         image,
       ];
+
+  User copyWith ({
+    int? id,
+    String? name,
+    String? email,
+    String? phone,
+    String? image,
+    List<Company>? companies,
+  }) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      image: image ?? this.image,
+      companies: companies ?? this.companies,
+    );
+  }
+
 }
