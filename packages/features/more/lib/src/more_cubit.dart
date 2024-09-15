@@ -10,15 +10,23 @@ class MoreCubit extends Cubit<MoreState> {
   MoreCubit({
     required this.userRepository,
     required this.onCompanyTileTap,
+    required this.onLogout,
+    required this.onProfileSettingsTapped,
   }) : super(const MoreState()) {
     userRepository.getUser().listen((user) {
-      emit(state.copyWith(user: null));
-      emit(state.copyWith(user: user));
+      if (!isClosed) {
+        emit(state.copyWith(user: null));
+        emit(state.copyWith(user: user));
+      }
     });
   }
 
   final UserRepository userRepository;
   final VoidCallback onCompanyTileTap;
+  final VoidCallback onLogout;
+  final VoidCallback onProfileSettingsTapped;
+
+  void logout() => userRepository.logout().then((_) => onLogout());
 
 // @override
 // Future<void> close() {

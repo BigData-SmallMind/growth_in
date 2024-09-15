@@ -1,0 +1,11 @@
+{
+  "profileInfoTitle": "My Account Information",
+  "infoTabLabel": "Info",
+  "filesTabLabel": "Files",
+  "companyRepresentativeSectionTitle": "Company Representative",
+  "fullNameFieldLabel": "Full Name",
+  "phoneNumberFieldLabel": "Phone Number",
+  "countryFieldLabel": "Country Code",
+  "companyNameFieldLabel": "Company Name",
+  "socialMediaSectionTitle": "Social Media"
+}

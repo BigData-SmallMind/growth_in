@@ -6,9 +6,10 @@
   "submitButtonLabel": "Submit",
   "newPasswordTextFieldLabel": "New Password",
   "requiredFieldErrorMessage": "This field is required",
-  "passwordTextFieldWeakPasswordError": "The password is too weak",
-  "passwordTextFieldHint": "Enter your new password",
+  "newPasswordTextFieldWeakPasswordError": "The password is too weak",
+  "newPasswordTextFieldHint": "Enter your new password",
   "newPasswordConfirmationTextFieldLabel": "Confirm New Password",
   "newPasswordConfirmationTextFieldHint": "Re-enter your new password",
-  "passwordConfirmationTextFieldDoesNotMatchError": "Passwords do not match"
+  "passwordConfirmationTextFieldDoesNotMatchError": "Passwords do not match",
+  "passwordTextFieldWeakPasswordErrorDescription": "The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, $, !, etc.)"
 }

@@ -50,8 +50,16 @@ dependencies:
     path: packages/features/reset_password
   send_otp:
     path: packages/features/send_otp
+
+  # Profile
   switch_account_company:
     path: packages/features/switch_account_company
+  profile_settings:
+    path: packages/features/profile_settings
+  profile_info:
+    path: packages/features/profile_info
+  change_password:
+    path: packages/features/change_password
 
 
   # Domain Models and Component Library

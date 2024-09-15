@@ -7,5 +7,6 @@ export 'src/domain.dart';
 export 'src/email.dart';
 export 'src/password.dart';
 export 'src/password_confirmation.dart';
+export 'src/email_confirmation.dart';
 export 'src/phone_number.dart';
 

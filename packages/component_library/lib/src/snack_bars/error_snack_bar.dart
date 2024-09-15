@@ -1,22 +1,24 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-
 class ErrorSnackBar extends SnackBar {
   ErrorSnackBar({
     super.key,
     this.message,
     required this.context,
+    this.marginalSpace,
   }) : super(
           content: ErrorSnackBarContent(
             message: message,
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: const Color(0xFFFFF0ED),
+          margin: marginalSpace,
         );
 
   final String? message;
   final BuildContext context;
+  final EdgeInsets? marginalSpace;
 }
 
 class ErrorSnackBarContent extends StatelessWidget {

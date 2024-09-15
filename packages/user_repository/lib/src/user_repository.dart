@@ -65,6 +65,7 @@ class UserRepository {
         name: userRM.info.name,
         email: userRM.info.email,
         phone: userRM.info.phone,
+        countryCode: userRM.info.countryCode,
         image: userRM.info.image,
         token: userRM.token,
       );
@@ -206,15 +207,15 @@ class UserRepository {
   }
 
   Future changePassword({
-    required String oldPassword,
+    required String currentPassword,
     required String newPassword,
+    required String newPasswordConfirmation,
   }) async {
     try {
-      final user = await getUser().first;
       await remoteApi.changePassword(
-        email: user!.email,
-        oldPassword: oldPassword,
+        currentPassword: currentPassword,
         newPassword: newPassword,
+        newPasswordConfirmation: newPasswordConfirmation,
       );
     } catch (error) {
       if (error is IncorrectPasswordGrowthInException) {
@@ -255,6 +256,7 @@ class UserRepository {
     final userName = await _secureStorage.getUserName();
     final userEmail = await _secureStorage.getUserEmail();
     final userPhone = await _secureStorage.getUserPhone();
+    final userCountryCode = await _secureStorage.getUserCountryCode();
     final userImage = await _secureStorage.getUserImage();
     final userCompanies = await _localStorage.getUserCompanies();
     if (userId != null && userName != null) {
@@ -263,6 +265,7 @@ class UserRepository {
         name: userName,
         email: userEmail!,
         phone: userPhone!,
+        countryCode: int.parse(userCountryCode!),
         image: userImage,
         companies: userCompanies!.toDomainModel(),
       );

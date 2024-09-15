@@ -17,6 +17,7 @@ extension UserRMtoDM on UserRM {
       name: info.name,
       email: info.email,
       phone: info.phone,
+      countryCode: info.countryCode,
       image: info.image,
       companies: companiesDM,
     );

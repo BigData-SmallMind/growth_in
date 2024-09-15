@@ -1,0 +1,16 @@
+{
+  "changeEmailSuccessMessage": "Your email has been reset successfully",
+  "changeEmailScreenTitle": "Change Email",
+  "changeEmailScreenSubtitle": "Change Email",
+  "submissionInProgressButtonLabel": "Submitting",
+  "submitButtonLabel": "Submit",
+  "newEmailTextFieldLabel": "New Email",
+  "requiredFieldErrorMessage": "This field is required",
+  "emailTextFieldHint": "Enter your new email",
+  "newEmailConfirmationTextFieldLabel": "Confirm New Email",
+  "newEmailConfirmationTextFieldHint": "Re-enter your new email",
+  "emailConfirmationTextFieldDoesNotMatchError": "Emails do not match",
+  "generalErrorSnackBarMessage": "An error occurred. Please try again later",
+  "invalidEmailFormatErrorMessage": "The email you entered is incorrect",
+  "emailTextFieldAlreadyRegisteredError": "This email is already registered"
+}

@@ -26,10 +26,10 @@ class ResetPasswordLocalizationsAr extends ResetPasswordLocalizations {
   String get requiredFieldErrorMessage => 'هذا الحقل مطلوب';
 
   @override
-  String get passwordTextFieldWeakPasswordError => 'كلمة المرور ضعيفة جدًا';
+  String get newPasswordTextFieldWeakPasswordError => 'كلمة المرور ضعيفة جدًا';
 
   @override
-  String get passwordTextFieldHint => 'أدخل كلمة المرور الجديدة';
+  String get newPasswordTextFieldHint => 'أدخل كلمة المرور الجديدة';
 
   @override
   String get newPasswordConfirmationTextFieldLabel => 'تأكيد كلمة المرور الجديدة';
@@ -39,4 +39,7 @@ class ResetPasswordLocalizationsAr extends ResetPasswordLocalizations {
 
   @override
   String get passwordConfirmationTextFieldDoesNotMatchError => 'كلمات المرور غير متطابقة';
+
+  @override
+  String get passwordTextFieldWeakPasswordErrorDescription => 'يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، \$، !، إلخ.)';
 }

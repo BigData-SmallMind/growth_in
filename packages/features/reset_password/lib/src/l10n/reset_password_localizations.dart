@@ -135,17 +135,17 @@ abstract class ResetPasswordLocalizations {
   /// **'This field is required'**
   String get requiredFieldErrorMessage;
 
-  /// No description provided for @passwordTextFieldWeakPasswordError.
+  /// No description provided for @newPasswordTextFieldWeakPasswordError.
   ///
   /// In en, this message translates to:
   /// **'The password is too weak'**
-  String get passwordTextFieldWeakPasswordError;
+  String get newPasswordTextFieldWeakPasswordError;
 
-  /// No description provided for @passwordTextFieldHint.
+  /// No description provided for @newPasswordTextFieldHint.
   ///
   /// In en, this message translates to:
   /// **'Enter your new password'**
-  String get passwordTextFieldHint;
+  String get newPasswordTextFieldHint;
 
   /// No description provided for @newPasswordConfirmationTextFieldLabel.
   ///
@@ -164,6 +164,12 @@ abstract class ResetPasswordLocalizations {
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get passwordConfirmationTextFieldDoesNotMatchError;
+
+  /// No description provided for @passwordTextFieldWeakPasswordErrorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)'**
+  String get passwordTextFieldWeakPasswordErrorDescription;
 }
 
 class _ResetPasswordLocalizationsDelegate extends LocalizationsDelegate<ResetPasswordLocalizations> {

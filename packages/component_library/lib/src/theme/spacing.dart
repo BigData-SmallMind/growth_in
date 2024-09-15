@@ -25,8 +25,8 @@ abstract class Spacing {
   /// 64
   static const double xxxLarge = 64;
 
-  /// 100
-  static const double huge = 89;
+  /// 80
+  static const double huge = 80;
 
   /// 130
   static const double xHuge = 130;

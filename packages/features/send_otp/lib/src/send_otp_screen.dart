@@ -78,7 +78,7 @@ class SendOtpView extends StatelessWidget {
             context.releaseFocus();
           },
           child: Scaffold(
-            appBar: GrowthInAppBar(),
+            appBar: GrowthInAppBar(logoVariation: false,),
             body: ListView(
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
               children: [

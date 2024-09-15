@@ -5,17 +5,18 @@ part 'change_password_rm.g.dart';
 @JsonSerializable(createFactory: false)
 class ChangePasswordRM {
   const ChangePasswordRM({
-    required this.email,
-    required this.oldPassword,
+    required this.currentPassword,
     required this.newPassword,
+    required this.newPasswordConfirmation,
   });
 
-  @JsonKey(name: 'email')
-  final String email;
-  @JsonKey(name: 'token')
-  final String oldPassword;
-  @JsonKey(name: 'password')
+
+  @JsonKey(name: 'current_password')
+  final String currentPassword;
+  @JsonKey(name: 'new_password')
   final String newPassword;
+  @JsonKey(name: 'new_password_confirmation')
+  final String newPasswordConfirmation;
 
   Map<String, dynamic> toJson() => _$ChangePasswordRMToJson(this);
 }

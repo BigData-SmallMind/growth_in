@@ -10,10 +10,14 @@ class MoreScreen extends StatefulWidget {
     super.key,
     required this.userRepository,
     required this.onCompanyTileTap,
+    required this.onLogout,
+    required this.onProfileSettingsTapped,
   });
 
   final UserRepository userRepository;
   final VoidCallback onCompanyTileTap;
+  final VoidCallback onLogout;
+  final VoidCallback onProfileSettingsTapped;
 
   @override
   State<MoreScreen> createState() => _MoreScreenState();
@@ -28,6 +32,8 @@ class _MoreScreenState extends State<MoreScreen>
       create: (_) => MoreCubit(
         userRepository: widget.userRepository,
         onCompanyTileTap: widget.onCompanyTileTap,
+        onLogout: widget.onLogout,
+        onProfileSettingsTapped: widget.onProfileSettingsTapped,
       ),
       child: const MoreView(),
     );
@@ -71,7 +77,7 @@ class MoreView extends StatelessWidget {
                     VerticalGap.large(),
                     // Meetings tile
                     ListTile(
-                      title:  Text(l10n.meetingsTileTitle),
+                      title: Text(l10n.meetingsTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -86,7 +92,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     // Orders tile
                     ListTile(
-                      title:  Text(l10n.ordersTileTitle),
+                      title: Text(l10n.ordersTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -101,7 +107,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //forms tile
                     ListTile(
-                      title:  Text(l10n.formsTileTitle),
+                      title: Text(l10n.formsTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -116,7 +122,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     // plans and services tile
                     ListTile(
-                      title:  Text(l10n.plansAndServicesTileTitle),
+                      title: Text(l10n.plansAndServicesTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -131,8 +137,8 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //settings tile
                     ListTile(
-                      title:  Text(l10n.settingsTileTitle),
-                      onTap: () {},
+                      title: Text(l10n.settingsTileTitle),
+                      onTap: cubit.onProfileSettingsTapped,
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
@@ -146,7 +152,7 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //help tile
                     ListTile(
-                      title:  Text(l10n.helpTileTitle),
+                      title: Text(l10n.helpTileTitle),
                       onTap: () {},
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -161,8 +167,8 @@ class MoreView extends StatelessWidget {
                     Divider(),
                     //logout tile
                     ListTile(
-                      title:  Text(l10n.logoutTileTitle),
-                      onTap: () {},
+                      title: Text(l10n.logoutTileTitle),
+                      onTap: cubit.onLogout,
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,

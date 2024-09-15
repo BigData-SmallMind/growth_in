@@ -1,0 +1,8 @@
+{
+  "appBarTitle": "Account Settings",
+  "infoTileTitle": "Account Information",
+  "changePasswordTileTitle": "Change Password",
+  "changeEmailTileTitle": "Change Email",
+  "notificationsTileTitle": "Notifications and Alerts",
+  "deleteProfileTileTitle": "Delete Account"
+}

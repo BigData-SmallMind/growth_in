@@ -1,6 +1,9 @@
+import 'package:change_password/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
 import 'package:more/more.dart';
+import 'package:profile_info/profile_info.dart';
+import 'package:profile_settings/profile_settings.dart';
 import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
@@ -68,8 +71,38 @@ Map<String, PageBuilder> buildRoutingTable({
                   userRepository: userRepository,
                 ),
               ),
+              onLogout: () => signInSuccessVN.value = false,
+              onProfileSettingsTapped: () =>
+                  routerDelegate.push(_PathConstants.profileSettingsPath),
             );
           }),
+        ),
+    _PathConstants.profileSettingsPath: (_) => MaterialPage(
+          name: 'profile-settings',
+          child: ProfileSettingsScreen(
+            onProfileInfoTapped: () =>
+                routerDelegate.push(_PathConstants.profileInfoPath),
+            onChangePasswordTapped: () => routerDelegate.push(
+              _PathConstants.changePasswordPath,
+            ),
+          ),
+        ),
+    _PathConstants.profileInfoPath: (_) => MaterialPage(
+          name: 'profile-info',
+          child: ProfileInfoScreen(
+            userRepository: userRepository,
+          ),
+        ),
+    _PathConstants.changePasswordPath: (_) => MaterialPage(
+          name: 'change-password',
+          child: ChangePasswordScreen(
+            userRepository: userRepository,
+            onBackTapped: routerDelegate.popRoute,
+            onChangePasswordSuccess: () async {
+              await routerDelegate.popRoute();
+              routerDelegate.popRoute();
+            },
+          ),
         ),
     _PathConstants.resetPasswordPath: (_) => MaterialPage(
           name: 'reset-password',
@@ -82,7 +115,6 @@ Map<String, PageBuilder> buildRoutingTable({
             onBackTapped: routerDelegate.popRoute,
           ),
         ),
-
     _PathConstants.sendOtpPath: (_) => MaterialPage(
           name: 'send-otp',
           child: SendOtpScreen(
@@ -104,7 +136,6 @@ Map<String, PageBuilder> buildRoutingTable({
             otpVerification: userRepository.changeNotifier.otpVerification!,
           ),
         ),
-    // Task paths
   };
 }
 
@@ -116,6 +147,14 @@ class _PathConstants {
   static String get homePath => '${tabContainerPath}home';
 
   static String get morePath => '${tabContainerPath}more';
+
+  static String get profileSettingsPath =>
+      '${tabContainerPath}profile-settings';
+
+  static String get profileInfoPath => '$profileSettingsPath/profile-info';
+
+  static String get changePasswordPath =>
+      '$profileSettingsPath/change-password';
 
   static String get sendOtpPath => '${tabContainerPath}send-otp';
 

@@ -1,0 +1,19 @@
+{
+  "changePasswordSuccessMessage": "Your password has been reset successfully",
+  "changePasswordScreenTitle": "Change Password",
+  "changePasswordScreenSubtitle": "Change Password",
+  "submissionInProgressButtonLabel": "Submitting",
+  "submitButtonLabel": "Submit",
+  "newPasswordTextFieldLabel": "New Password",
+  "requiredFieldErrorMessage": "This field is required",
+  "currentPasswordTextFieldLabel": "Current Password",
+  "currentPasswordTextFieldHint": "Enter your current password",
+  "passwordTextFieldWeakPasswordError": "The password is too weak",
+  "passwordTextFieldHint": "Enter your new password",
+  "newPasswordConfirmationTextFieldLabel": "Confirm New Password",
+  "newPasswordConfirmationTextFieldHint": "Re-enter your new password",
+  "passwordConfirmationTextFieldDoesNotMatchError": "Passwords do not match",
+  "generalErrorSnackBarMessage": "An error occurred. Please try again later",
+  "wrongPasswordErrorMessage": "The password you entered is incorrect",
+  "passwordTextFieldWeakPasswordErrorDescription": "The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, $, !, etc.)"
+}

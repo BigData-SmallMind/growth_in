@@ -26,10 +26,10 @@ class ResetPasswordLocalizationsEn extends ResetPasswordLocalizations {
   String get requiredFieldErrorMessage => 'This field is required';
 
   @override
-  String get passwordTextFieldWeakPasswordError => 'The password is too weak';
+  String get newPasswordTextFieldWeakPasswordError => 'The password is too weak';
 
   @override
-  String get passwordTextFieldHint => 'Enter your new password';
+  String get newPasswordTextFieldHint => 'Enter your new password';
 
   @override
   String get newPasswordConfirmationTextFieldLabel => 'Confirm New Password';
@@ -39,4 +39,7 @@ class ResetPasswordLocalizationsEn extends ResetPasswordLocalizations {
 
   @override
   String get passwordConfirmationTextFieldDoesNotMatchError => 'Passwords do not match';
+
+  @override
+  String get passwordTextFieldWeakPasswordErrorDescription => 'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)';
 }

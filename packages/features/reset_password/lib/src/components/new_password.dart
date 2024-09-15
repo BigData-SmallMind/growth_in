@@ -1,9 +1,9 @@
 import 'package:component_library/component_library.dart';
-import 'package:reset_password/src/l10n/reset_password_localizations.dart';
-import 'package:reset_password/src/reset_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:reset_password/src/l10n/reset_password_localizations.dart';
+import 'package:reset_password/src/reset_password_cubit.dart';
 
 class NewPassword extends StatefulWidget {
   const NewPassword({
@@ -41,7 +41,7 @@ class _NewPasswordState extends State<NewPassword> {
       builder: (context, state) {
         final textTheme = Theme.of(context).textTheme;
         final error =
-            state.newPassword.isNotValid ? state.newPassword.error : null;
+        state.newPassword.isNotValid ? state.newPassword.error : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<ResetPasswordCubit>();
@@ -60,6 +60,33 @@ class _NewPasswordState extends State<NewPassword> {
               obscureText: !isPasswordVisible,
               focusNode: _focusNode,
               decoration: InputDecoration(
+                prefix: error == PasswordValidationError.weak
+                    ? GestureDetector(
+                  onTap: () => showModalBottomSheet(
+                    context: context,
+                    showDragHandle: true,
+                    builder: (context) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        l10n.passwordTextFieldWeakPasswordErrorDescription,
+                        style: textTheme.titleMedium,
+                      ),
+                    ),
+
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Icon(
+                      Icons.info_outline,
+                      color: Colors.red,
+                    ),
+                  ),
+                )
+                    : null,
+                prefixIconConstraints: BoxConstraints(
+                  minWidth: 0,
+                  minHeight: 0,
+                ),
                 suffixIcon: GestureDetector(
                   onTap: () =>
                       setState(() => isPasswordVisible = !isPasswordVisible),
@@ -71,9 +98,9 @@ class _NewPasswordState extends State<NewPassword> {
                 errorText: error == PasswordValidationError.empty
                     ? l10n.requiredFieldErrorMessage
                     : error == PasswordValidationError.weak
-                        ? l10n.passwordTextFieldWeakPasswordError
-                        : null,
-                hintText: l10n.passwordTextFieldHint,
+                    ? l10n.newPasswordTextFieldWeakPasswordError
+                    : null,
+                hintText: l10n.newPasswordTextFieldHint,
               ),
               onChanged: cubit.onNewPasswordChanged,
               enabled: !isSubmissionInProgress,

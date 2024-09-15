@@ -157,16 +157,16 @@ class GrowthInApi {
   }
 
   Future changePassword({
-    required String email,
-    required String oldPassword,
+    required String currentPassword,
     required String newPassword,
+    required String newPasswordConfirmation,
   }) async {
     final url = urlBuilder.buildChangePasswordUrl();
 
     final requestJsonBody = ChangePasswordRM(
-      email: email,
-      oldPassword: oldPassword,
+      currentPassword: currentPassword,
       newPassword: newPassword,
+      newPasswordConfirmation: newPasswordConfirmation,
     ).toJson();
 
     try {
@@ -176,7 +176,7 @@ class GrowthInApi {
       );
       final responseValue = response.data[_errorJsonKey];
       if (responseValue is String &&
-          responseValue.toLowerCase().contains('token invalid')) {
+          responseValue.toLowerCase().contains('كلمة المرور الحالية')) {
         throw IncorrectPasswordGrowthInException();
       }
     } catch (_) {

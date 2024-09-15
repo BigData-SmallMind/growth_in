@@ -8,7 +8,7 @@ abstract class GrowthInThemeData {
 
   final iconColor = const Color(0xFF191F6D);
   final primaryColor = const Color(0xFF004746);
-  final secondaryColor = const Color(0xFF5F45BF);
+  final secondaryColor = const Color(0xFF1A877E);
   final tertiaryColor = const Color(0xFFBA38F2);
 
 

@@ -51,7 +51,7 @@ class VerifyOtpView extends StatelessWidget {
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Scaffold(
-        appBar: GrowthInAppBar(),
+        appBar: GrowthInAppBar(logoVariation: false,),
         extendBody: true,
         body: _VerifyOtpForm(
           onVerifyOtpSuccess: onVerifyOtpSuccess,

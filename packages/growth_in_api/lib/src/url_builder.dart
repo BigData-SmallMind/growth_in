@@ -26,7 +26,7 @@ class UrlBuilder {
   }
 
   String buildChangePasswordUrl() {
-    final completeUrl = '$_baseUrl/changePassword';
+    final completeUrl = '$_baseUrl/change-password';
     return completeUrl;
   }
 

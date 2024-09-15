@@ -40,31 +40,31 @@ enum PasswordValidationError {
 extension CheckPasswordStrength on String {
   bool checkPasswordStrength() {
     // Password length greater than 6
-    if (length < 8) {
+    if (length < 6) {
       return false;
     }
 
     // Contains at least one uppercase letter
-    // if (!contains(RegExp(r'[A-Z]'))) {
-    //   return false;
-    // }
+    if (!contains(RegExp(r'[A-Z]'))) {
+      return false;
+    }
 
     // Contains at least one lowercase letter
-    // if (!contains(RegExp(r'[a-z]'))) {
-    //   return false;
-    // }
+    if (!contains(RegExp(r'[a-z]'))) {
+      return false;
+    }
 
     // Contains at least one digit
-    // if (!contains(RegExp(r'[0-9]'))) {
-    //   return false;
-    // }
+    if (!contains(RegExp(r'\d'))) {
+      return false;
+    }
 
     // Contains at least one special character
-    // if (!contains(RegExp(r'[!@#%^&*(),.?":{}|<>]'))) {
-    //   return false;
-    // }
+    if (!contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return false;
+    }
 
-    // If there are no error messages, the password is valid
     return true;
   }
 }
+

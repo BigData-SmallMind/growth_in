@@ -8,7 +8,7 @@ part of 'change_password_rm.dart';
 
 Map<String, dynamic> _$ChangePasswordRMToJson(ChangePasswordRM instance) =>
     <String, dynamic>{
-      'email': instance.email,
-      'token': instance.oldPassword,
-      'password': instance.newPassword,
+      'current_password': instance.currentPassword,
+      'new_password': instance.newPassword,
+      'new_password_confirmation': instance.newPasswordConfirmation,
     };

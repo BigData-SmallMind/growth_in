@@ -30,6 +30,7 @@ class SwitchAccountCompanyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = GrowthInTheme.of(context);
     final l10n = SwitchAccountCompanyLocalizations.of(context);
     return BlocConsumer<SwitchAccountCompanyCubit, SwitchAccountCompanyState>(
       listener: (context, state) {
@@ -43,13 +44,17 @@ class SwitchAccountCompanyView extends StatelessWidget {
           );
         }
         if (state.companyChoiceStatus == CompanyChoiceStatus.success) {
-        // if (true) {
+          // if (true) {
           Navigator.pop(context);
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              marginalSpace: EdgeInsets.only(bottom: 80),
+              marginalSpace: EdgeInsets.only(
+                bottom: Spacing.huge,
+                left: theme.screenMargin,
+                right: theme.screenMargin,
+              ),
               message: l10n.companySwitchedSuccessSnackBarMessage,
             ),
           );
@@ -79,7 +84,6 @@ class SwitchAccountCompanyView extends StatelessWidget {
                   separatorBuilder: (context, index) => const Divider(),
                   itemCount: state.user!.companies.length,
                 ),
-
         );
       },
     );

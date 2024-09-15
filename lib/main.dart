@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:change_password/change_password.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +13,8 @@ import 'package:growth_in_api/growth_in_api.dart';
 import 'package:home/home.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 import 'package:more/more.dart';
+import 'package:profile_info/profile_info.dart';
+import 'package:profile_settings/profile_settings.dart';
 import 'package:reset_password/reset_password.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:send_otp/send_otp.dart';
@@ -168,16 +171,21 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 ComponentLibraryLocalizations.delegate,
+                TabContainerLocalizations.delegate,
 
                 // Authentication
                 SignInLocalizations.delegate,
-                TabContainerLocalizations.delegate,
                 SendOtpLocalizations.delegate,
                 VerifyOtpLocalizations.delegate,
                 ResetPasswordLocalizations.delegate,
                 MoreLocalizations.delegate,
                 HomeLocalizations.delegate,
                 SwitchAccountCompanyLocalizations.delegate,
+
+                // Profile
+                ProfileSettingsLocalizations.delegate,
+                ProfileInfoLocalizations.delegate,
+                ChangePasswordLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

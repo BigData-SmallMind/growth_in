@@ -16,21 +16,8 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   final UserRepository userRepository;
 
-  void togglePasswordInfoOverlay(double yOffset) {
-    final overLayToggled = state.copyWith(
-      passwordInfoOverlayShown: !state.passwordInfoOverlayShown,
-      passwordInfoOverlayYOffset: yOffset,
-    );
-    emit(overLayToggled);
-  }
 
-  void hidePasswordFormatInfoOverlay() {
-    if (state.passwordInfoOverlayShown == true) {
-      togglePasswordInfoOverlay(
-        state.passwordInfoOverlayYOffset,
-      );
-    }
-  }
+
 
   void onNewPasswordChanged(String newValue) {
     final previousScreenState = state;

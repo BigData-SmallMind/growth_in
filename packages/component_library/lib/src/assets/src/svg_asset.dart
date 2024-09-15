@@ -43,6 +43,8 @@ class AssetPathConstants {
   static const String iconsPath = '$assetsPath/icons';
   static const String tabContainerIconsPath = '$iconsPath/tab_container';
   static const String logoPath = '$iconsPath/logo.svg';
+
+  // Tab container icons
   static const String homeSelectedPath =
       '$tabContainerIconsPath/home_selected.svg';
   static const String homeUnselectedPath =
@@ -64,6 +66,7 @@ class AssetPathConstants {
   static const String menuUnselectedPath =
       '$tabContainerIconsPath/menu_unselected.svg';
 
+
   static const String backPath = '$iconsPath/back.svg';
   static const String gearPath = '$iconsPath/gear.svg';
   static const String headphonePath = '$iconsPath/headphone.svg';
@@ -73,5 +76,9 @@ class AssetPathConstants {
   static const String videoPath = '$iconsPath/video.svg';
   static const String walletPath = '$iconsPath/wallet.svg';
 
+  //social media
+  static const String facebookPath = '$iconsPath/facebook.svg';
+  static const String tiktokPath = '$iconsPath/tiktok.svg';
+  static const String instaPath = '$iconsPath/instagram.svg';
 
 }

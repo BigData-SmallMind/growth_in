@@ -80,31 +80,29 @@ class ResetPasswordView extends StatelessWidget {
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Scaffold(
-            appBar: GrowthInAppBar(),
-            body: Expanded(
-              child: ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: theme.screenMargin,
-                ),
-                children: [
-                  VerticalGap.xLarge(),
-                  Text(
-                    l10n.resetPasswordScreenTitle,
-                    style: textTheme.headlineSmall,
-                  ),
-                  VerticalGap.medium(),
-                  Text(
-                    l10n.resetPasswordScreenSubtitle,
-                    style: textTheme.bodyMedium,
-                  ),
-                  VerticalGap.medium(),
-                  NewPassword(),
-                  VerticalGap.medium(),
-                  NewPasswordConfirmation(),
-                  VerticalGap.xLarge(),
-                  const ResetPasswordButton(),
-                ],
+            appBar: GrowthInAppBar(logoVariation: false,),
+            body: ListView(
+              padding: EdgeInsets.symmetric(
+                horizontal: theme.screenMargin,
               ),
+              children: [
+                VerticalGap.xLarge(),
+                Text(
+                  l10n.resetPasswordScreenTitle,
+                  style: textTheme.headlineSmall,
+                ),
+                VerticalGap.medium(),
+                Text(
+                  l10n.resetPasswordScreenSubtitle,
+                  style: textTheme.bodyMedium,
+                ),
+                VerticalGap.medium(),
+                NewPassword(),
+                VerticalGap.medium(),
+                NewPasswordConfirmation(),
+                VerticalGap.xLarge(),
+                const ResetPasswordButton(),
+              ],
             ),
           ),
         );

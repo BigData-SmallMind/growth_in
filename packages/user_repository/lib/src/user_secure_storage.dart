@@ -5,6 +5,7 @@ class UserSecureStorage {
   static const _userNameKey = 'user-name';
   static const _userEmailKey = 'user-email';
   static const _userPhoneKey = 'user-phone';
+  static const _userCountryCodeKey = 'user-country-code';
   static const _userImageKey = 'user-image';
   static const _userToken = 'user-token';
   static const _otpVerificationToken = 'otp-verification-token';
@@ -22,6 +23,7 @@ class UserSecureStorage {
     required String name,
     required String email,
     required String phone,
+    required int countryCode,
     String? image,
     required String token,
   }) async {
@@ -43,6 +45,10 @@ class UserSecureStorage {
       key: _userPhoneKey,
       value: phone,
     );
+    await _secureStorage.write(
+      key: _userCountryCodeKey,
+      value: countryCode.toString(),
+    );
 
     await _secureStorage.write(
       key: _userImageKey,
@@ -60,6 +66,7 @@ class UserSecureStorage {
     await _secureStorage.delete(key: _userNameKey);
     await _secureStorage.delete(key: _userEmailKey);
     await _secureStorage.delete(key: _userPhoneKey);
+    await _secureStorage.delete(key: _userCountryCodeKey);
     await _secureStorage.delete(key: _userImageKey);
     await _secureStorage.delete(key: _userToken);
     await _secureStorage.delete(key: _otpVerificationToken);
@@ -75,6 +82,8 @@ class UserSecureStorage {
   Future<String?> getUserEmail() => _secureStorage.read(key: _userEmailKey);
 
   Future<String?> getUserPhone() => _secureStorage.read(key: _userPhoneKey);
+
+  Future<String?> getUserCountryCode() => _secureStorage.read(key: _userCountryCodeKey);
 
   Future<String?> getUserImage() => _secureStorage.read(key: _userImageKey);
 
