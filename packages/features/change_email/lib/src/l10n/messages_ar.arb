@@ -12,5 +12,8 @@
   "emailConfirmationTextFieldDoesNotMatchError": "البريد الإلكتروني غير متطابق",
   "emailTextFieldAlreadyRegisteredError": "تم تسجيل هذا البريد الإلكتروني بالفعل",
   "generalErrorSnackBarMessage": "حدث خطأ. يرجى المحاولة مرة أخرى",
-  "invalidEmailFormatErrorMessage": "البريد الإلكتروني غير صحيح"
+  "invalidEmailFormatErrorMessage": "البريد الإلكتروني غير صحيح",
+  "passwordTextFieldLabel": "كلمة المرور",
+  "invalidPasswordsErrorMessage": "كلمة المرور غير صحيحة",
+  "passwordTextFieldHint": "أدخل كلمة المرور"
 }

@@ -45,4 +45,13 @@ class ChangeEmailLocalizationsAr extends ChangeEmailLocalizations {
 
   @override
   String get emailTextFieldAlreadyRegisteredError => 'تم تسجيل هذا البريد الإلكتروني بالفعل';
+
+  @override
+  String get passwordTextFieldLabel => 'كلمة المرور';
+
+  @override
+  String get invalidPasswordsErrorMessage => 'كلمة المرور غير صحيحة';
+
+  @override
+  String get passwordTextFieldHint => 'أدخل كلمة المرور';
 }

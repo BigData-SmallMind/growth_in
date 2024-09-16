@@ -10,5 +10,6 @@
   "verifyingOtpButtonLabel": "جارٍ التأكيد",
   "verifyOtpButtonLabel": "تأكيد الرمز",
   "emailNotRegisteredErrorMessage": "البريد الإلكتروني الذي أدخلته غير مسجل",
-  "resendOtpButtonLabel": "إعادة إرسال OTP"
+  "resendOtpButtonLabel": "إعادة إرسال OTP",
+  "changeEmailSubtitle": "يرجى التحقق من بريدك الإلكتروني لإعادة تعيين البريد الإلكتروني الخاصة بك"
 }

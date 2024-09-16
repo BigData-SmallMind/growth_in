@@ -11,9 +11,12 @@ typedef TokenSupplier = Future<String?> Function();
 
 class GrowthInApi {
   static const _errorJsonKey = 'error';
+  static const _errorsJsonKey = 'errors';
+  static const _newEmailJsonKey = 'new_email';
   static const _otpJsonKey = 'otp';
   static const _tokenJsonKey = 'token';
   static const _messageJsonKey = 'message';
+  static const _ticketsJsonKey = 'tickets';
   static const _successJsonKey = 'success';
   static const _statusJsonKey = 'status';
   static const _otpExpiryTimeJsonKey = 'expired_time';
@@ -87,7 +90,7 @@ class GrowthInApi {
       );
       final responseJsonObject = response.data;
       final responseStatus = responseJsonObject[_statusJsonKey];
-      if(responseStatus == 404) {
+      if (responseStatus == 404) {
         final error = responseJsonObject[_errorJsonKey];
         final errorString = error.toString().toLowerCase();
         final companyNotFound = errorString.contains('غير مرتبط');
@@ -153,6 +156,39 @@ class GrowthInApi {
       );
     } catch (_) {
       rethrow;
+    }
+  }
+
+  Future changeEmail({
+    required String newEmail,
+    required String newEmailConfirmation,
+    required String password,
+  }) async {
+    final url = urlBuilder.buildChangeEmailUrl();
+
+    final requestJsonBody = ChangeEmailRM(
+      newEmail: newEmail,
+      newEmailConfirmation: newEmailConfirmation,
+      password: password,
+    ).toJson();
+
+    final response = await _dio.post(
+      url,
+      data: requestJsonBody,
+    );
+    if (response.data[_statusJsonKey] == 200) {
+      debugPrint('---otp ${response.data[_otpJsonKey].toString()}');
+      return;
+    }
+    final error = response.data[_errorJsonKey];
+    final errors = response.data[_errorsJsonKey];
+    if (error != null &&
+        error is String &&
+        error.toLowerCase().contains('كلمة المرور الحالية')) {
+      throw IncorrectPasswordGrowthInException();
+    }
+    if (errors != null && (errors[_newEmailJsonKey] != null)) {
+      throw EmailAlreadyRegisteredGrowthInException();
     }
   }
 
@@ -234,8 +270,41 @@ class GrowthInApi {
     }
   }
 
+  Future changeEmailOtpVerification({
+    required String userToken,
+    required String email,
+    required String otp,
+  }) async {
+    final url = urlBuilder.buildChangeEmailOtpVerificationUrl();
+
+    final response = await _dio.post(
+      url,
+      data: {
+        'email': email,
+        'otp': otp,
+      },
+      options: Options(
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $userToken',
+        },
+      ),
+    );
+    try {
+      final successObject = response.data[_successJsonKey];
+      if (successObject == null) throw Exception();
+      return successObject;
+    } catch (_) {
+      final error = response.data[_errorJsonKey];
+      final message = error[_messageJsonKey];
+      final invalidOtp = message.isNotEmpty;
+      if (invalidOtp) throw InvalidOtpGrowthInException();
+      rethrow;
+    }
+  }
+
   Future verifyOtp({
-    required String otpVerificationToken,
+    required String token,
     required String email,
     required String otp,
   }) async {
@@ -246,7 +315,7 @@ class GrowthInApi {
       options: Options(
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer $otpVerificationToken',
+          'Authorization': 'Bearer $token',
         },
       ),
     );
@@ -282,6 +351,19 @@ class GrowthInApi {
           },
         ),
       );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<TicketRM>> getTickets() async {
+    final url = urlBuilder.buildGetTicketsUrl();
+    final response = await _dio.get(
+      url,
+    );
+    try {
+      final tickets = response.data[_ticketsJsonKey] as List;
+      return tickets.map((ticket) => TicketRM.fromJson(ticket)).toList();
     } catch (_) {
       rethrow;
     }

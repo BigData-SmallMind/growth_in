@@ -5,7 +5,7 @@ import 'package:profile_info/src/l10n/profile_info_localizations.dart';
 import 'package:profile_info/src/profile_info_cubit.dart';
 import 'package:user_repository/user_repository.dart';
 
-class ProfileInfoScreen extends StatefulWidget {
+class ProfileInfoScreen extends StatelessWidget {
   const ProfileInfoScreen({
     super.key,
     required this.userRepository,
@@ -14,24 +14,14 @@ class ProfileInfoScreen extends StatefulWidget {
   final UserRepository userRepository;
 
   @override
-  State<ProfileInfoScreen> createState() => _ProfileInfoScreenState();
-}
-
-class _ProfileInfoScreenState extends State<ProfileInfoScreen>
-    with AutomaticKeepAliveClientMixin {
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocProvider<ProfileInfoCubit>(
       create: (_) => ProfileInfoCubit(
-        userRepository: widget.userRepository,
+        userRepository: userRepository,
       ),
       child: const ProfileInfoView(),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class ProfileInfoView extends StatefulWidget {
@@ -293,7 +283,8 @@ class Info extends StatelessWidget {
                       children: [
                         TextFormField(
                           initialValue: 'facebook.com/dummy_user',
-                          style: textTheme.titleSmall?.copyWith(color:Color(0xFFADADAD)),
+                          style: textTheme.titleSmall
+                              ?.copyWith(color: Color(0xFFADADAD)),
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                               vertical: 0,
@@ -357,7 +348,8 @@ class Info extends StatelessWidget {
                       children: [
                         TextFormField(
                           initialValue: 'instagram.com/dummy_user',
-                          style: textTheme.titleSmall?.copyWith(color:Color(0xFFADADAD)),
+                          style: textTheme.titleSmall
+                              ?.copyWith(color: Color(0xFFADADAD)),
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                               vertical: 0,

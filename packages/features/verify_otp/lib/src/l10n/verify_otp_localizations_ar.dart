@@ -39,4 +39,7 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
 
   @override
   String get resendOtpButtonLabel => 'إعادة إرسال OTP';
+
+  @override
+  String get changeEmailSubtitle => 'يرجى التحقق من بريدك الإلكتروني لإعادة تعيين البريد الإلكتروني الخاصة بك';
 }

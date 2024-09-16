@@ -75,6 +75,7 @@ class AssetPathConstants {
   static const String taskSquarePath = '$iconsPath/task-square.svg';
   static const String videoPath = '$iconsPath/video.svg';
   static const String walletPath = '$iconsPath/wallet.svg';
+  static const String noTicketsPath = '$iconsPath/no-tickets.svg';
 
   //social media
   static const String facebookPath = '$iconsPath/facebook.svg';

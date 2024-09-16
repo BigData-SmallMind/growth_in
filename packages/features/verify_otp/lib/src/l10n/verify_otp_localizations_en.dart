@@ -20,7 +20,7 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get generalErrorSnackBarMessage => 'An error occurred';
 
   @override
-  String get verifyOtpSubtitle => 'Enter the OTP sent to your phone number';
+  String get verifyOtpSubtitle => 'Enter the OTP sent to your phone number to change your password';
 
   @override
   String get requiredFieldErrorMessage => 'Required*';
@@ -39,4 +39,7 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
 
   @override
   String get resendOtpButtonLabel => 'Resend OTP';
+
+  @override
+  String get changeEmailSubtitle => 'Enter the OTP sent to your phone number to change your email';
 }

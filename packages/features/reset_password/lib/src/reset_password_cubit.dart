@@ -128,7 +128,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   @override
   Future<void> close() async {
-    userRepository.deleteOtpVerificationTokenSupplierToken();
+    userRepository.deleteOtpVerificationTokenSupplierString();
     return super.close();
   }
 // @override

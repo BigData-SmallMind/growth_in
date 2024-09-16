@@ -20,3 +20,4 @@ class ChangePasswordRM {
 
   Map<String, dynamic> toJson() => _$ChangePasswordRMToJson(this);
 }
+

@@ -135,7 +135,10 @@ class UserRepository {
 
   Future<int> reSendOtp() async {
     try {
-      final token = await getOtpVerificationTokenSupplierToken();
+      final isChangingEmail = changeNotifier.otpVerification!.isChangingEmail;
+      final token = isChangingEmail
+          ? await getUserToken()
+          : await getOtpVerificationTokenSupplierToken();
       final totalTimeInMinutes =
           await remoteApi.reSendOtp(otpVerificationToken: token!);
       return totalTimeInMinutes;
@@ -152,12 +155,55 @@ class UserRepository {
     String otp,
   ) async {
     try {
-      final token = await getOtpVerificationTokenSupplierToken();
+      final forgotPasswordToken = await getOtpVerificationTokenSupplierToken();
       await remoteApi.verifyOtp(
-        otpVerificationToken: token!,
+        token: forgotPasswordToken!,
         email: email,
         otp: otp,
       );
+    } catch (error) {
+      if (error is InvalidOtpGrowthInException) {
+        throw InvalidOtpException();
+      }
+      rethrow;
+    }
+  }
+
+  Future changeEmailOtpVerification({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final userToken = await getUserToken();
+      await remoteApi.changeEmailOtpVerification(
+        userToken: userToken!,
+        email: email,
+        otp: otp,
+      );
+      final user = await getUser().first;
+      final updatedUserCompanies = user?.companies.map(
+        (company) {
+          return company.copyWith(
+            email: email,
+          );
+        },
+      ).toList();
+      await _secureStorage.upsertUser(
+        id: user!.id,
+        name: user.name,
+        email: email,
+        phone: user.phone,
+        countryCode: user.countryCode,
+        token: userToken,
+      );
+      await _localStorage.upsertUserCompanies(
+        updatedUserCompanies!.toCacheModel(),
+      );
+      final updatedUser = user.copyWith(
+        email: email,
+        companies: updatedUserCompanies,
+      );
+      _userSubject.add(updatedUser);
     } catch (error) {
       if (error is InvalidOtpGrowthInException) {
         throw InvalidOtpException();
@@ -225,6 +271,28 @@ class UserRepository {
     }
   }
 
+  Future changeEmail({
+    required String newEmail,
+    required String newEmailConfirmation,
+    required String password,
+  }) async {
+    try {
+      await remoteApi.changeEmail(
+        newEmail: newEmail,
+        newEmailConfirmation: newEmailConfirmation,
+        password: password,
+      );
+    } catch (error) {
+      if (error is IncorrectPasswordGrowthInException) {
+        throw WrongPasswordException();
+      }
+      if (error is EmailAlreadyRegisteredGrowthInException) {
+        throw EmailAlreadyRegisteredException();
+      }
+      rethrow;
+    }
+  }
+
   Future<String?> getUserToken() async => await _secureStorage.getUserToken();
 
   Future<String?> getOtpVerificationTokenSupplierToken() async =>
@@ -235,8 +303,8 @@ class UserRepository {
         token: token,
       );
 
-  Future deleteOtpVerificationTokenSupplierToken() async =>
-      await _secureStorage.deleteOtpVerificationTokenSupplierToken();
+  Future deleteOtpVerificationTokenSupplierString() async =>
+      await _secureStorage.deleteOtpVerificationTokenSupplierString();
 
   Future logout() async {
     try {
@@ -297,5 +365,15 @@ class UserRepository {
   Future deleteRememberedCredentials() async {
     await _secureStorage.deleteRememberEmail();
     await _secureStorage.deleteRememberPassword();
+  }
+
+  Future<List<Ticket>> getTickets () async {
+    try {
+      final ticketsRM = await remoteApi.getTickets();
+      final tickets = ticketsRM.map((ticketRM) => ticketRM.toDomainModel()).toList();
+      return tickets;
+    } catch (error) {
+      rethrow;
+    }
   }
 }

@@ -12,17 +12,17 @@ part 'verify_otp_state.dart';
 class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   VerifyOtpCubit({
     required this.userRepository,
-    required this.otpVerification,
   })  : pinTEController = TextEditingController(),
         super(
-          VerifyOtpState(),
+          VerifyOtpState(
+            otpVerification: userRepository.changeNotifier.otpVerification,
+          ),
         ) {
     startTimer();
   }
 
   Timer? _timer;
   final UserRepository userRepository;
-  final OtpVerification otpVerification;
   final TextEditingController pinTEController;
 
   onOtpCodeChanged(String newValue) {
@@ -96,13 +96,21 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     emit(newState);
 
     if (isFormValid) {
-      final email = userRepository.changeNotifier.otpVerification!.email;
+      final otpVerification = userRepository.changeNotifier.otpVerification!;
 
       try {
-        await userRepository.verifyOtp(
-          email,
-          otpCode.value,
-        );
+        if (otpVerification.isChangingEmail) {
+          await userRepository.changeEmailOtpVerification(
+            email: otpVerification.email,
+            otp: otpCode.value,
+          );
+        }
+        if (otpVerification.isResettingPassword) {
+          await userRepository.verifyOtp(
+            otpVerification.email,
+            otpCode.value,
+          );
+        }
 
         final newState = state.copyWith(
           otpCode: const OtpCode.unvalidated(),

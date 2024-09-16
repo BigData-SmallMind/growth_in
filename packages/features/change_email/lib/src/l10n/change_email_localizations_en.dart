@@ -45,4 +45,13 @@ class ChangeEmailLocalizationsEn extends ChangeEmailLocalizations {
 
   @override
   String get emailTextFieldAlreadyRegisteredError => 'This email is already registered';
+
+  @override
+  String get passwordTextFieldLabel => 'Password';
+
+  @override
+  String get invalidPasswordsErrorMessage => 'Wrong password';
+
+  @override
+  String get passwordTextFieldHint => 'Enter your password';
 }

@@ -102,7 +102,7 @@ class UserSecureStorage {
   }
 
   //delete otp verification token
-  Future<void> deleteOtpVerificationTokenSupplierToken() async {
+  Future<void> deleteOtpVerificationTokenSupplierString() async {
     await _secureStorage.delete(key: _otpVerificationToken);
   }
 

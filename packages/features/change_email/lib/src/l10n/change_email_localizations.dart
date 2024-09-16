@@ -176,6 +176,24 @@ abstract class ChangeEmailLocalizations {
   /// In en, this message translates to:
   /// **'This email is already registered'**
   String get emailTextFieldAlreadyRegisteredError;
+
+  /// No description provided for @passwordTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordTextFieldLabel;
+
+  /// No description provided for @invalidPasswordsErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password'**
+  String get invalidPasswordsErrorMessage;
+
+  /// No description provided for @passwordTextFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get passwordTextFieldHint;
 }
 
 class _ChangeEmailLocalizationsDelegate extends LocalizationsDelegate<ChangeEmailLocalizations> {

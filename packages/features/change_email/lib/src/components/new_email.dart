@@ -16,7 +16,6 @@ class NewEmail extends StatefulWidget {
 
 class _NewEmailState extends State<NewEmail> {
   final _focusNode = FocusNode();
-  bool isEmailVisible = false;
 
   @override
   void initState() {
@@ -56,19 +55,11 @@ class _NewEmailState extends State<NewEmail> {
             VerticalGap.medium(),
             TextField(
               obscuringCharacter: '*',
-              obscureText: !isEmailVisible,
               focusNode: _focusNode,
               decoration: InputDecoration(
                 prefixIconConstraints: BoxConstraints(
                   minWidth: 0,
                   minHeight: 0,
-                ),
-                suffixIcon: GestureDetector(
-                  onTap: () => setState(() => isEmailVisible = !isEmailVisible),
-                  child: Icon(
-                    isEmailVisible ? Icons.visibility_off : Icons.visibility,
-                    size: 25,
-                  ),
                 ),
                 errorText: error == EmailValidationError.empty
                     ? l10n.requiredFieldErrorMessage

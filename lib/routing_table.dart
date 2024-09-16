@@ -1,3 +1,4 @@
+import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
@@ -11,6 +12,7 @@ import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:switch_account_company/switch_account_company.dart';
 import 'package:tab_container/tab_container.dart';
+import 'package:tickets/tickets.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 
@@ -74,6 +76,8 @@ Map<String, PageBuilder> buildRoutingTable({
               onLogout: () => signInSuccessVN.value = false,
               onProfileSettingsTapped: () =>
                   routerDelegate.push(_PathConstants.profileSettingsPath),
+              onHelpAndSupportTapped: () =>
+                  routerDelegate.push(_PathConstants.ticketsPath),
             );
           }),
         ),
@@ -84,6 +88,9 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.profileInfoPath),
             onChangePasswordTapped: () => routerDelegate.push(
               _PathConstants.changePasswordPath,
+            ),
+            onChangeEmailTapped: () => routerDelegate.push(
+              _PathConstants.changeEmailPath,
             ),
           ),
         ),
@@ -102,6 +109,21 @@ Map<String, PageBuilder> buildRoutingTable({
               await routerDelegate.popRoute();
               routerDelegate.popRoute();
             },
+          ),
+        ),
+    _PathConstants.changeEmailPath: (_) => MaterialPage(
+          name: 'change-email',
+          child: ChangeEmailScreen(
+            userRepository: userRepository,
+            onBackTapped: routerDelegate.popRoute,
+            onChangeEmailSuccess: () =>
+                routerDelegate.push(_PathConstants.verifyOtpPath),
+          ),
+        ),
+    _PathConstants.ticketsPath: (_) => MaterialPage(
+          name: 'tickets',
+          child: TicketsScreen(
+            userRepository: userRepository,
           ),
         ),
     _PathConstants.resetPasswordPath: (_) => MaterialPage(
@@ -131,9 +153,16 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
             onVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
-              routerDelegate.push(_PathConstants.resetPasswordPath);
+              final otpVerification =
+                  userRepository.changeNotifier.otpVerification;
+              if (otpVerification?.isResettingPassword == true) {
+                routerDelegate.push(_PathConstants.resetPasswordPath);
+              }
+              if (otpVerification?.isChangingEmail == true) {
+                await routerDelegate.popRoute();
+                routerDelegate.popRoute();
+              }
             },
-            otpVerification: userRepository.changeNotifier.otpVerification!,
           ),
         ),
   };
@@ -151,10 +180,16 @@ class _PathConstants {
   static String get profileSettingsPath =>
       '${tabContainerPath}profile-settings';
 
+  static String get ticketsPath => '${tabContainerPath}tickets';
+
+
   static String get profileInfoPath => '$profileSettingsPath/profile-info';
 
   static String get changePasswordPath =>
       '$profileSettingsPath/change-password';
+
+  static String get changeEmailPath => '$profileSettingsPath/change-email';
+
 
   static String get sendOtpPath => '${tabContainerPath}send-otp';
 

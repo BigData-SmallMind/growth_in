@@ -9,10 +9,12 @@ class ProfileSettingsScreen extends StatelessWidget {
     super.key,
     required this.onProfileInfoTapped,
     required this.onChangePasswordTapped,
+    required this.onChangeEmailTapped,
   });
 
   final VoidCallback onProfileInfoTapped;
   final VoidCallback onChangePasswordTapped;
+  final VoidCallback onChangeEmailTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class ProfileSettingsScreen extends StatelessWidget {
       create: (_) => ProfileSettingsCubit(
         onProfileInfoTapped: onProfileInfoTapped,
         onChangePasswordTapped: onChangePasswordTapped,
+        onChangeEmailTapped: onChangeEmailTapped,
       ),
       child: const ProfileSettingsView(),
     );
@@ -78,7 +81,7 @@ class ProfileSettingsView extends StatelessWidget {
                   l10n.changeEmailTileTitle,
                   style: textTheme.titleMedium,
                 ),
-                onTap: () {},
+                onTap: cubit.onChangeEmailTapped,
                 trailing: const Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: Colors.grey,
@@ -91,21 +94,6 @@ class ProfileSettingsView extends StatelessWidget {
                 title: Text(
                   l10n.notificationsTileTitle,
                   style: textTheme.titleMedium,
-                ),
-                onTap: () {},
-                trailing: const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Colors.grey,
-                ),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: theme.screenMargin),
-              ),
-              Divider(),
-              ListTile(
-                title: Text(
-                  l10n.deleteProfileTileTitle,
-                  style:
-                      textTheme.titleMedium?.copyWith(color: Color(0xFFEB3E3E)),
                 ),
                 onTap: () {},
                 trailing: const Icon(

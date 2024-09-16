@@ -1,22 +1,22 @@
-import 'package:component_library/component_library.dart';
-import 'package:change_email/src/l10n/change_email_localizations.dart';
 import 'package:change_email/src/change_email_cubit.dart';
+import 'package:change_email/src/l10n/change_email_localizations.dart';
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 
-class CurrentEmail extends StatefulWidget {
-  const CurrentEmail({
+class PasswordWidget extends StatefulWidget {
+  const PasswordWidget({
     super.key,
   });
 
   @override
-  State<CurrentEmail> createState() => _CurrentEmailState();
+  State<PasswordWidget> createState() => _PasswordWidgetState();
 }
 
-class _CurrentEmailState extends State<CurrentEmail> {
+class _PasswordWidgetState extends State<PasswordWidget> {
   final _focusNode = FocusNode();
-  bool isEmailVisible = false;
+  bool isPasswordVisible = false;
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _CurrentEmailState extends State<CurrentEmail> {
     final cubit = context.read<ChangeEmailCubit>();
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
-        cubit.onCurrentEmailUnfocused();
+        cubit.onPasswordUnfocused();
       }
     });
   }
@@ -40,9 +40,7 @@ class _CurrentEmailState extends State<CurrentEmail> {
     return BlocBuilder<ChangeEmailCubit, ChangeEmailState>(
       builder: (context, state) {
         final textTheme = Theme.of(context).textTheme;
-        final error = state.currentEmail.isNotValid
-            ? state.currentEmail.error
-            : null;
+        final error = state.password.isNotValid ? state.password.error : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<ChangeEmailCubit>();
@@ -52,31 +50,31 @@ class _CurrentEmailState extends State<CurrentEmail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.currentEmailTextFieldLabel + ' *',
+              l10n.passwordTextFieldLabel + ' *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),
             TextField(
               obscuringCharacter: '*',
-              obscureText: !isEmailVisible,
+              obscureText: !isPasswordVisible,
               focusNode: _focusNode,
               decoration: InputDecoration(
                 suffixIcon: GestureDetector(
                   onTap: () =>
-                      setState(() => isEmailVisible = !isEmailVisible),
+                      setState(() => isPasswordVisible = !isPasswordVisible),
                   child: Icon(
-                    isEmailVisible ? Icons.visibility_off : Icons.visibility,
+                    isPasswordVisible ? Icons.visibility_off : Icons.visibility,
                     size: 25,
                   ),
                 ),
-                errorText: error == EmailValidationError.empty
+                errorText: error == PasswordValidationError.empty
                     ? l10n.requiredFieldErrorMessage
-                    : error == EmailValidationError.invalidCredentials
-                        ? l10n.wrongEmailErrorMessage
+                    : error == PasswordValidationError.invalidCredentials
+                        ? l10n.invalidPasswordsErrorMessage
                         : null,
-                hintText: l10n.currentEmailTextFieldHint,
+                hintText: l10n.passwordTextFieldHint,
               ),
-              onChanged: cubit.onCurrentEmailChanged,
+              onChanged: cubit.onPasswordChanged,
               enabled: !isSubmissionInProgress,
             ),
           ],

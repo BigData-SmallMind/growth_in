@@ -23,3 +23,32 @@ extension UserRMtoDM on UserRM {
     );
   }
 }
+
+extension TicketRMtoDM on TicketRM {
+  TicketStatus ticketStatusRMtoDM(String ticketStatus) {
+    // مفتوحة , محلولة , مغلقة
+    switch (ticketStatus) {
+      case 'مفتوحة':
+        return TicketStatus.open;
+      case 'محلولة':
+        return TicketStatus.solved;
+      case 'مغلقة':
+        return TicketStatus.closed;
+      default:
+        return TicketStatus.open;
+    }
+  }
+
+  Ticket toDomainModel() {
+    //2024-09-10T08:54:40.000000Z to date time
+    final createdAtDM = DateTime.parse(createdAt);
+    final statusDM = ticketStatusRMtoDM(status);
+    return Ticket(
+      id: id,
+      title: title,
+      subject: subject,
+      status: statusDM,
+      createdAt: createdAtDM,
+    );
+  }
+}

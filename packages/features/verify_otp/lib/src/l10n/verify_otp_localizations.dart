@@ -126,7 +126,7 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @verifyOtpSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter the OTP sent to your phone number'**
+  /// **'Enter the OTP sent to your phone number to change your password'**
   String get verifyOtpSubtitle;
 
   /// No description provided for @requiredFieldErrorMessage.
@@ -164,6 +164,12 @@ abstract class VerifyOtpLocalizations {
   /// In en, this message translates to:
   /// **'Resend OTP'**
   String get resendOtpButtonLabel;
+
+  /// No description provided for @changeEmailSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the OTP sent to your phone number to change your email'**
+  String get changeEmailSubtitle;
 }
 
 class _VerifyOtpLocalizationsDelegate extends LocalizationsDelegate<VerifyOtpLocalizations> {

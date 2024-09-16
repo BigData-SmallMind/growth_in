@@ -180,7 +180,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   @override
   Future<void> close() async {
-    userRepository.deleteOtpVerificationTokenSupplierToken();
+    userRepository.deleteOtpVerificationTokenSupplierString();
     return super.close();
   }
 // @override

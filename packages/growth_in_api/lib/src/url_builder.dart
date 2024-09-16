@@ -30,12 +30,25 @@ class UrlBuilder {
     return completeUrl;
   }
 
+  String buildChangeEmailUrl() {
+    final completeUrl = '$_baseUrl/change-email';
+    return completeUrl;
+  }
+
   buildSendOtpUrl(String email) {
     return '$_baseUrl/forget_email?email=$email';
   }
 
   buildReSendOtpUrl() {
     return '$_baseUrl/forget_email_verification';
+  }
+
+  buildGetTicketsUrl() {
+    return '$_baseUrl/fetch-tickets';
+  }
+
+  buildChangeEmailOtpVerificationUrl() {
+    return '$_baseUrl/change-email-verification';
   }
 
   buildVerifyOtpUrl(String email, String otp) {

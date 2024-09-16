@@ -60,6 +60,10 @@ dependencies:
     path: packages/features/profile_info
   change_password:
     path: packages/features/change_password
+  change_email:
+    path: packages/features/change_email
+  tickets:
+    path: packages/features/tickets
 
 
   # Domain Models and Component Library

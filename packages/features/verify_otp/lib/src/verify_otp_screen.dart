@@ -1,5 +1,4 @@
 import 'package:component_library/component_library.dart';
-import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
@@ -16,20 +15,17 @@ class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({
     required this.userRepository,
     required this.onVerifyOtpSuccess,
-    required this.otpVerification,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onVerifyOtpSuccess;
-  final OtpVerification otpVerification;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<VerifyOtpCubit>(
       create: (_) => VerifyOtpCubit(
         userRepository: userRepository,
-        otpVerification: otpVerification,
       ),
       child: VerifyOtpView(
         onVerifyOtpSuccess: onVerifyOtpSuccess,
@@ -51,7 +47,9 @@ class VerifyOtpView extends StatelessWidget {
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Scaffold(
-        appBar: GrowthInAppBar(logoVariation: false,),
+        appBar: GrowthInAppBar(
+          logoVariation: false,
+        ),
         extendBody: true,
         body: _VerifyOtpForm(
           onVerifyOtpSuccess: onVerifyOtpSuccess,
@@ -139,9 +137,23 @@ class _VerifyOtpForm extends StatelessWidget {
                 textAlign: TextAlign.start,
               ),
               VerticalGap.smallMedium(),
-              Text(
-                l10n.verifyOtpSubtitle,
-                style: textTheme.bodyMedium,
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: state.otpVerification?.isChangingEmail == true
+                          ? l10n.changeEmailSubtitle
+                          : l10n.verifyOtpSubtitle,
+                      style: textTheme
+                          .bodyMedium, // Default style for the subtitle
+                    ),
+                    TextSpan(
+                      text: ' ${state.otpVerification?.email}', // Email text
+                      style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold), // Make email bold
+                    ),
+                  ],
+                ),
               ),
               VerticalGap.large(),
               Directionality(

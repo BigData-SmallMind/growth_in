@@ -12,5 +12,8 @@
   "emailConfirmationTextFieldDoesNotMatchError": "Emails do not match",
   "generalErrorSnackBarMessage": "An error occurred. Please try again later",
   "invalidEmailFormatErrorMessage": "The email you entered is incorrect",
-  "emailTextFieldAlreadyRegisteredError": "This email is already registered"
+  "emailTextFieldAlreadyRegisteredError": "This email is already registered",
+  "passwordTextFieldLabel": "Password",
+  "invalidPasswordsErrorMessage": "Wrong password",
+  "passwordTextFieldHint": "Enter your password"
 }

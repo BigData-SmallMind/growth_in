@@ -34,7 +34,6 @@ class _NewEmailConfirmationState extends State<NewEmailConfirmation> {
     _focusNode.dispose();
     super.dispose();
   }
-  bool isEmailVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,17 +58,8 @@ class _NewEmailConfirmationState extends State<NewEmailConfirmation> {
             VerticalGap.medium(),
             TextField(
               obscuringCharacter: '*',
-              obscureText: !isEmailVisible,
               focusNode: _focusNode,
               decoration: InputDecoration(
-                suffixIcon: GestureDetector(
-                  onTap: () =>
-                      setState(() => isEmailVisible = !isEmailVisible),
-                  child: Icon(
-                    isEmailVisible ? Icons.visibility_off : Icons.visibility,
-                    size: 25,
-                  ),
-                ),
                 hintText: l10n.newEmailConfirmationTextFieldHint,
                 errorText: error == EmailConfirmationValidationError.empty
                     ? l10n.requiredFieldErrorMessage

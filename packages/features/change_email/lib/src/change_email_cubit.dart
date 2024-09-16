@@ -23,6 +23,7 @@ class ChangeEmailCubit extends Cubit<ChangeEmailState> {
     final newEmailState = shouldValidate
         ? Email.validated(
             newValue,
+            isRequired: true,
           )
         : Email.unvalidated(
             newValue,
@@ -39,6 +40,8 @@ class ChangeEmailCubit extends Cubit<ChangeEmailState> {
     final newScreenState = state.copyWith(
       newEmail: Email.validated(
         state.newEmail.value,
+        isRequired: true,
+        isAlreadyRegistered: state.newEmail.isAlreadyRegistered
       ),
     );
     emit(newScreenState);
@@ -52,6 +55,7 @@ class ChangeEmailCubit extends Cubit<ChangeEmailState> {
         ? EmailConfirmation.validated(
             email: state.newEmail,
             newValue,
+
           )
         : EmailConfirmation.unvalidated(
             newValue,
@@ -74,20 +78,49 @@ class ChangeEmailCubit extends Cubit<ChangeEmailState> {
     emit(newScreenState);
   }
 
+  void onPasswordChanged(String newValue) {
+    final previousScreenState = state;
+    final previousPasswordState = previousScreenState.password;
+    final shouldValidate = previousPasswordState.isNotValid;
+    final newPasswordState = shouldValidate
+        ? Password.validated(newValue, shouldCheckStrength: false)
+        : Password.unvalidated(
+            newValue,
+          );
+
+    final newScreenState = state.copyWith(
+      password: newPasswordState,
+    );
+
+    emit(newScreenState);
+  }
+
+  void onPasswordUnfocused() {
+    final newScreenState = state.copyWith(
+      password: Password.validated(
+        state.password.value,
+        shouldCheckStrength: false,
+      ),
+    );
+    emit(newScreenState);
+  }
+
   void onSubmit() async {
     final newEmail = Email.validated(
       state.newEmail.value,
+      isRequired: true,
     );
     final newEmailConfirmation = EmailConfirmation.validated(
       email: newEmail,
       state.newEmailConfirmation.value,
     );
+    final password = Password.validated(
+      state.password.value,
+      shouldCheckStrength: false,
+    );
 
-    final isFormValid = Formz.validate([
-      newEmail,
-      newEmailConfirmation,
-      newEmailConfirmation,
-    ]);
+    final isFormValid =
+        Formz.validate([newEmail, newEmailConfirmation, password]);
 
     final newState = state.copyWith(
       newEmail: newEmail,
@@ -102,23 +135,33 @@ class ChangeEmailCubit extends Cubit<ChangeEmailState> {
       try {
         await userRepository.changeEmail(
           newEmail: newEmail.value!,
-          newEmailConfirmation: newEmail.value!,
+          newEmailConfirmation: newEmailConfirmation.value,
           password: password.value!,
         );
+        final otpVerification = OtpVerification(
+          email: newEmailConfirmation.value,
+          reason: OtpVerificationReason.changeEmail,
+        );
+        userRepository.changeNotifier.setOtpVerification(otpVerification);
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
         );
         emit(newState);
       } catch (error) {
         final newState = state.copyWith(
-          submissionStatus: error is! EmailNotRegisteredException &&
+          submissionStatus: error is! EmailAlreadyRegisteredException &&
                   error is! WrongPasswordException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
-          currentEmail: Email.validated(
-            state.currentEmail.value,
+          newEmail: Email.validated(
+            state.newEmail.value,
             isAlreadyRegistered:
                 error is EmailAlreadyRegisteredException ? true : false,
+          ),
+          password: Password.validated(
+            state.password.value,
+            shouldCheckStrength: false,
+            invalidCredentials: error is WrongPasswordException ? true : false,
           ),
         );
         emit(newState);
@@ -128,7 +171,6 @@ class ChangeEmailCubit extends Cubit<ChangeEmailState> {
 
   @override
   Future<void> close() async {
-    userRepository.deleteOtpVerificationTokenSupplierToken();
     return super.close();
   }
 // @override

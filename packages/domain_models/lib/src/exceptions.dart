@@ -14,6 +14,7 @@ class InvalidOtpException implements Exception {}
 class EmailNotRegisteredException implements Exception {}
 
 class WrongPasswordException implements Exception {}
+class EmailAlreadyRegisteredException implements Exception {}
 class UserExpiredException implements Exception {}
 
 

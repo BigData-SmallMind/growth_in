@@ -8,9 +8,11 @@ class ProfileSettingsCubit extends Cubit<ProfileSettingsState> {
   ProfileSettingsCubit({
     required this.onProfileInfoTapped,
     required this.onChangePasswordTapped,
+    required this.onChangeEmailTapped,
   }) : super(const ProfileSettingsState());
   final VoidCallback onProfileInfoTapped;
   final VoidCallback onChangePasswordTapped;
+  final VoidCallback onChangeEmailTapped;
 // @override
 // Future<void> close() {
 //   return super.close();

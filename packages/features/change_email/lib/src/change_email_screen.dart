@@ -1,7 +1,8 @@
 import 'package:change_email/src/change_email_cubit.dart';
+import 'package:change_email/src/components/change_email_button.dart';
 import 'package:change_email/src/components/components.dart';
+import 'package:change_email/src/components/password.dart';
 import 'package:change_email/src/l10n/change_email_localizations.dart';
-import 'package:change_email/src/l10n/change_password_localizations.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 import 'package:component_library/component_library.dart';
@@ -64,7 +65,6 @@ class ChangeEmailView extends StatelessWidget {
               marginalSpace: EdgeInsets.only(
                 left: theme.screenMargin,
                 right: theme.screenMargin,
-                bottom: Spacing.huge,
               ),
             ),
           );
@@ -80,7 +80,6 @@ class ChangeEmailView extends StatelessWidget {
                 marginalSpace: EdgeInsets.only(
                   left: theme.screenMargin,
                   right: theme.screenMargin,
-                  bottom: Spacing.huge,
                 )),
           );
           return;
@@ -113,6 +112,8 @@ class ChangeEmailView extends StatelessWidget {
                 NewEmail(),
                 VerticalGap.medium(),
                 NewEmailConfirmation(),
+                VerticalGap.medium(),
+                PasswordWidget(),
                 VerticalGap.xLarge(),
                 const ChangeEmailButton(),
               ],
