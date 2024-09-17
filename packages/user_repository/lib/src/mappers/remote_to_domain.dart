@@ -52,3 +52,19 @@ extension TicketRMtoDM on TicketRM {
     );
   }
 }
+
+
+extension TicketTypeRMtoDM on TicketTypeRM {
+  TicketType toDomainModel() {
+    return TicketType(
+      id: id,
+      name: name,
+    );
+  }
+}
+
+extension TicketTypesRMtoDM on List<TicketTypeRM> {
+  List<TicketType> toDomainModel() {
+    return map((ticketType) => ticketType.toDomainModel()).toList();
+  }
+}

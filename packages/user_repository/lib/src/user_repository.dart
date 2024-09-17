@@ -367,11 +367,45 @@ class UserRepository {
     await _secureStorage.deleteRememberPassword();
   }
 
-  Future<List<Ticket>> getTickets () async {
+  Future<List<Ticket>> getTickets() async {
     try {
       final ticketsRM = await remoteApi.getTickets();
-      final tickets = ticketsRM.map((ticketRM) => ticketRM.toDomainModel()).toList();
+      final tickets =
+          ticketsRM.map((ticketRM) => ticketRM.toDomainModel()).toList();
       return tickets;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<TicketType>> getTicketsTypes() async {
+    try {
+      final cachedTickets = await _localStorage.getTicketTypes();
+      if (cachedTickets != null) {
+        return cachedTickets.toDomainModel();
+      }
+
+      final ticketsRM = await remoteApi.getTicketsTypes();
+      final ticketTypes = ticketsRM.toDomainModel();
+      final ticketTypesCM = ticketsRM.toCacheModel();
+      _localStorage.upsertTicketTypes(ticketTypesCM);
+      return ticketTypes;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future submitTicket({
+    required TicketType ticketType,
+    required String ticketTitle,
+    required String ticketDescription,
+  }) async {
+    try {
+      final ticketRM = await remoteApi.submitTicket(
+        ticketType: ticketType.name,
+        ticketTitle: ticketTitle,
+        ticketDescription: ticketDescription,
+      );
     } catch (error) {
       rethrow;
     }

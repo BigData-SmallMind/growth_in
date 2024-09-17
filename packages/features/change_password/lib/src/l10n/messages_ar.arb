@@ -4,7 +4,7 @@
   "changePasswordScreenSubtitle": "ادخل كلمة المرور الجديدة",
   "submissionInProgressButtonLabel": "جارٍ التقديم",
   "submitButtonLabel": "إرسال",
-  "requiredFieldErrorMessage": "هذا الحقل مطلوب",
+  "requiredFieldErrorMessage": "مطلوب*",
   "currentPasswordTextFieldLabel": "كلمة المرور الحالية",
   "currentPasswordTextFieldHint": "أدخل كلمة المرور الحالية",
   "passwordTextFieldWeakPasswordError": "كلمة المرور ضعيفة جدًا",

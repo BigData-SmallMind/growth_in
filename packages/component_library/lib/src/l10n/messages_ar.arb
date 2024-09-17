@@ -96,6 +96,10 @@
   "dealsCustomDropdownLabel": "الصفقات",
   "companiesCustomDropdownLabel": "الشركات",
   "successSnackBarMessage": "تمت العملية بنجاح.",
-  "emptyTaskLogListIndicator": "لا توجد مهام متاحة"
+  "emptyTaskLogListIndicator": "لا توجد مهام متاحة",
+  "paymentProblemTypeText": "مشكلة دفع",
+  "personalProblemTypeText": "مشكلة مع أشخاص",
+  "qualityProblemTypeText": "مشكلة جودة",
+  "otherProblemTypeText": "مشكلة آخرى"
 }
 

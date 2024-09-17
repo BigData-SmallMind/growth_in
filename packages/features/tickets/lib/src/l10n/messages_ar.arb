@@ -3,6 +3,7 @@
     "activeTicketsTabLabel": "النشط",
     "inActiveTicketsTabLabel": "المنتهي",
     "noTicketsMessageTitle": "لا يوجد رسائل!",
-    "noTicketsMessageSubtitle": "نحن هنا دائمًا لمساعدتك! ابدأ محادثة جديدة واخبرنا كيف يمكننا مساعدتك."
+    "noTicketsMessageSubtitle": "نحن هنا دائمًا لمساعدتك! ابدأ محادثة جديدة واخبرنا كيف يمكننا مساعدتك.",
+    "noTicketsButtonLabel": "تواصل الان"
 
 }

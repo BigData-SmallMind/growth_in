@@ -23,7 +23,7 @@ class ChangePasswordLocalizationsAr extends ChangePasswordLocalizations {
   String get newPasswordTextFieldLabel => 'كلمة المرور الجديدة';
 
   @override
-  String get requiredFieldErrorMessage => 'هذا الحقل مطلوب';
+  String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
   String get currentPasswordTextFieldLabel => 'كلمة المرور الحالية';

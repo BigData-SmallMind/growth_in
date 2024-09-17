@@ -1,0 +1,8 @@
+{
+   "ticketSubmissionSuccessSnackBarMessage": "Ticket submitted successfully",
+  "titleTextFieldLabel": "Ticket Title",
+  "descriptionTextFieldLabel": "Ticket Description",
+  "descriptionTextFieldLabel": "Description",
+  "requiredFieldErrorMessage": "This field is required"
+
+}

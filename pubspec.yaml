@@ -64,6 +64,8 @@ dependencies:
     path: packages/features/change_email
   tickets:
     path: packages/features/tickets
+  submit_ticket:
+    path: packages/features/submit_ticket
 
 
   # Domain Models and Component Library

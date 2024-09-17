@@ -122,6 +122,12 @@ abstract class TicketsLocalizations {
   /// In en, this message translates to:
   /// **'We are always here to help! Start a new conversation and let us know how we can assist you'**
   String get noTicketsMessageSubtitle;
+
+  /// No description provided for @noTicketsButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us Now'**
+  String get noTicketsButtonLabel;
 }
 
 class _TicketsLocalizationsDelegate extends LocalizationsDelegate<TicketsLocalizations> {

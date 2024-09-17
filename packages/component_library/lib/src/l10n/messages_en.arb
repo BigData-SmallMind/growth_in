@@ -96,5 +96,9 @@
   "dealsCustomDropdownLabel": "Deals",
   "companiesCustomDropdownLabel": "Companies",
   "successSnackBarMessage": "Operation was successful.",
-  "emptyTaskLogListIndicator": "No tasks available"
+  "emptyTaskLogListIndicator": "No tasks available",
+  "paymentProblemTypeText": "Payment Problem",
+  "personalProblemTypeText": "Personal Problem",
+  "qualityProblemTypeText": "Quality Problem",
+  "otherProblemTypeText": "Other Problem"
 }

@@ -20,10 +20,10 @@ import 'package:reset_password/reset_password.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:submit_ticket/submit_ticket.dart';
 import 'package:switch_account_company/switch_account_company.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:tickets/tickets.dart';
-
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 
@@ -190,6 +190,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 ChangePasswordLocalizations.delegate,
                 ChangeEmailLocalizations.delegate,
                 TicketsLocalizations.delegate,
+                SubmitTicketLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

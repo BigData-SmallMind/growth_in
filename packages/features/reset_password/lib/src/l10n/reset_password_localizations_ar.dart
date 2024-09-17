@@ -23,7 +23,7 @@ class ResetPasswordLocalizationsAr extends ResetPasswordLocalizations {
   String get newPasswordTextFieldLabel => 'كلمة المرور الجديدة';
 
   @override
-  String get requiredFieldErrorMessage => 'هذا الحقل مطلوب';
+  String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
   String get newPasswordTextFieldWeakPasswordError => 'كلمة المرور ضعيفة جدًا';

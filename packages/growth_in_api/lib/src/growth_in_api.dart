@@ -17,6 +17,7 @@ class GrowthInApi {
   static const _tokenJsonKey = 'token';
   static const _messageJsonKey = 'message';
   static const _ticketsJsonKey = 'tickets';
+  static const _messageTypeJsonKey = 'message_type';
   static const _successJsonKey = 'success';
   static const _statusJsonKey = 'status';
   static const _otpExpiryTimeJsonKey = 'expired_time';
@@ -365,6 +366,44 @@ class GrowthInApi {
       final tickets = response.data[_ticketsJsonKey] as List;
       return tickets.map((ticket) => TicketRM.fromJson(ticket)).toList();
     } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<TicketTypeRM>> getTicketsTypes() async {
+    final url = urlBuilder.buildGetTicketsTypesUrl();
+    final response = await _dio.get(
+      url,
+    );
+    try {
+      final ticketsTypes = response.data[_messageTypeJsonKey] as List;
+      return ticketsTypes.map((ticketType) {
+        return TicketTypeRM.fromJson(ticketType);
+      }).toList();
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future submitTicket({
+    required String ticketType,
+    required String ticketTitle,
+    required String ticketDescription,
+  }) async {
+    final url = urlBuilder.buildSubmitTicketUrl();
+
+    final requestJsonBody = CreateTicketRM(
+      ticketType: ticketType,
+      title: ticketTitle,
+      description: ticketDescription,
+    ).toJson();
+
+    try {
+      return _dio.post(
+        url,
+        data: requestJsonBody,
+      );
+    } catch (e) {
       rethrow;
     }
   }

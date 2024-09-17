@@ -10,6 +10,7 @@ import 'package:reset_password/reset_password.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:submit_ticket/submit_ticket.dart';
 import 'package:switch_account_company/switch_account_company.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:tickets/tickets.dart';
@@ -122,9 +123,21 @@ Map<String, PageBuilder> buildRoutingTable({
         ),
     _PathConstants.ticketsPath: (_) => MaterialPage(
           name: 'tickets',
-          child: TicketsScreen(
-            userRepository: userRepository,
-          ),
+          child: Builder(builder: (context) {
+            return TicketsScreen(
+              userRepository: userRepository,
+              onAddTicketTapped: () => showModalBottomSheet(
+                context: context,
+                enableDrag: true,
+                isScrollControlled: true,
+                useSafeArea: true,
+                showDragHandle: true,
+                builder: (_) => SubmitTicketBottomSheet(
+                  userRepository: userRepository,
+                ),
+              ),
+            );
+          }),
         ),
     _PathConstants.resetPasswordPath: (_) => MaterialPage(
           name: 'reset-password',
@@ -182,14 +195,12 @@ class _PathConstants {
 
   static String get ticketsPath => '${tabContainerPath}tickets';
 
-
   static String get profileInfoPath => '$profileSettingsPath/profile-info';
 
   static String get changePasswordPath =>
       '$profileSettingsPath/change-password';
 
   static String get changeEmailPath => '$profileSettingsPath/change-email';
-
 
   static String get sendOtpPath => '${tabContainerPath}send-otp';
 

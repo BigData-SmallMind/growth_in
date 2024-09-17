@@ -276,4 +276,16 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get emptyTaskLogListIndicator => 'لا توجد مهام متاحة';
+
+  @override
+  String get paymentProblemTypeText => 'مشكلة دفع';
+
+  @override
+  String get personalProblemTypeText => 'مشكلة مع أشخاص';
+
+  @override
+  String get qualityProblemTypeText => 'مشكلة جودة';
+
+  @override
+  String get otherProblemTypeText => 'مشكلة آخرى';
 }

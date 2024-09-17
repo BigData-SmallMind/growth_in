@@ -5,7 +5,7 @@
   "submissionInProgressButtonLabel": "جارٍ التقديم",
   "submitButtonLabel": "إرسال",
   "newPasswordTextFieldLabel": "كلمة المرور الجديدة",
-  "requiredFieldErrorMessage": "هذا الحقل مطلوب",
+  "requiredFieldErrorMessage": "مطلوب*",
   "newPasswordTextFieldWeakPasswordError": "كلمة المرور ضعيفة جدًا",
   "newPasswordTextFieldHint": "أدخل كلمة المرور الجديدة",
   "newPasswordConfirmationTextFieldLabel": "تأكيد كلمة المرور الجديدة",

@@ -3,5 +3,6 @@
     "activeTicketsTabLabel": "Active",
     "inActiveTicketsTabLabel": "InActive",
     "noTicketsMessageTitle": "No messages!",
-    "noTicketsMessageSubtitle": "We are always here to help! Start a new conversation and let us know how we can assist you"
+    "noTicketsMessageSubtitle": "We are always here to help! Start a new conversation and let us know how we can assist you",
+    "noTicketsButtonLabel": "Contact Us Now"
 }

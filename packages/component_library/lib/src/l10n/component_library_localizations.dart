@@ -638,6 +638,30 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'No tasks available'**
   String get emptyTaskLogListIndicator;
+
+  /// No description provided for @paymentProblemTypeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Problem'**
+  String get paymentProblemTypeText;
+
+  /// No description provided for @personalProblemTypeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Problem'**
+  String get personalProblemTypeText;
+
+  /// No description provided for @qualityProblemTypeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Quality Problem'**
+  String get qualityProblemTypeText;
+
+  /// No description provided for @otherProblemTypeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Problem'**
+  String get otherProblemTypeText;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

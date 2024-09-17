@@ -23,7 +23,7 @@ class ChangeEmailLocalizationsAr extends ChangeEmailLocalizations {
   String get newEmailTextFieldLabel => 'البريد الإلكتروني الجديد';
 
   @override
-  String get requiredFieldErrorMessage => 'هذا الحقل مطلوب';
+  String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
   String get emailTextFieldHint => 'أدخل البريد الإلكتروني الجديد';

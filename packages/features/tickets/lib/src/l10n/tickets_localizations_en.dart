@@ -18,4 +18,7 @@ class TicketsLocalizationsEn extends TicketsLocalizations {
 
   @override
   String get noTicketsMessageSubtitle => 'We are always here to help! Start a new conversation and let us know how we can assist you';
+
+  @override
+  String get noTicketsButtonLabel => 'Contact Us Now';
 }

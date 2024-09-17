@@ -7,7 +7,7 @@ class TicketRM {
   TicketRM({
     required this.id,
     required this.title,
-     this.subject,
+    this.subject,
     required this.status,
     required this.createdAt,
   });
@@ -25,3 +25,4 @@ class TicketRM {
 
   static const fromJson = _$TicketRMFromJson;
 }
+

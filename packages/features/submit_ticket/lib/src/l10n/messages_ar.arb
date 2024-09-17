@@ -1,0 +1,9 @@
+{
+    "ticketSubmissionSuccessSnackBarMessage": "تم إرسال التذكرة بنجاح",
+    "titleTextFieldLabel": "عنوان الرسالة",
+    "descriptionTextFieldLabel": "تفاصيل الرسالة",
+    "descriptionTextFieldLabel": "الوصف",
+  "requiredFieldErrorMessage": "مطلوب*",
+    "titleTextFieldLabel": "العنوان"
+}
+

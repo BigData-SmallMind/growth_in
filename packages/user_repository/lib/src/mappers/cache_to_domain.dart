@@ -18,3 +18,18 @@ extension LocalePreferenceCMToDomain on LocalePreferenceCM {
     }
   }
 }
+
+extension TicketTypeCMtoDM on TicketTypeCM {
+  TicketType toDomainModel() {
+    return TicketType(
+      id: id,
+      name: name,
+    );
+  }
+}
+
+extension TicketTypesCMtoDM on TicketTypesCM {
+  List<TicketType> toDomainModel() {
+    return list.map((ticketType) => ticketType.toDomainModel()).toList();
+  }
+}

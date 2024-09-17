@@ -47,6 +47,14 @@ class UrlBuilder {
     return '$_baseUrl/fetch-tickets';
   }
 
+  buildGetTicketsTypesUrl() {
+    return '$_baseUrl/message-types';
+  }
+
+  buildSubmitTicketUrl() {
+    return '$_baseUrl/tickets';
+  }
+
   buildChangeEmailOtpVerificationUrl() {
     return '$_baseUrl/change-email-verification';
   }

@@ -276,4 +276,16 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get emptyTaskLogListIndicator => 'No tasks available';
+
+  @override
+  String get paymentProblemTypeText => 'Payment Problem';
+
+  @override
+  String get personalProblemTypeText => 'Personal Problem';
+
+  @override
+  String get qualityProblemTypeText => 'Quality Problem';
+
+  @override
+  String get otherProblemTypeText => 'Other Problem';
 }

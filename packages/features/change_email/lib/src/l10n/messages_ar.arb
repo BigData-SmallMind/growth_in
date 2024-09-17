@@ -4,7 +4,7 @@
   "changeEmailScreenSubtitle": "ادخل البريد الإلكتروني الجديد",
   "submissionInProgressButtonLabel": "جارٍ التقديم",
   "submitButtonLabel": "إرسال",
-  "requiredFieldErrorMessage": "هذا الحقل مطلوب",
+  "requiredFieldErrorMessage": "مطلوب*",
   "newEmailTextFieldLabel": "البريد الإلكتروني الجديد",
   "emailTextFieldHint": "أدخل البريد الإلكتروني الجديد",
   "newEmailConfirmationTextFieldLabel": "تأكيد البريد الإلكتروني الجديد",

@@ -27,5 +27,15 @@ class UserLocalStorage {
     return box.get(0);
   }
 
+  Future<void> upsertTicketTypes(TicketTypesCM ticketTypes) async {
+    final box = await noSqlStorage.ticketTypesBox;
+    await box.put(0, ticketTypes);
+  }
+
+  Future<TicketTypesCM?> getTicketTypes() async {
+    final box = await noSqlStorage.ticketTypesBox;
+    return box.get(0);
+  }
+
 
 }
