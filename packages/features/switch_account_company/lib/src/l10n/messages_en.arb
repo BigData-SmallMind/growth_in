@@ -1,4 +1,4 @@
 {
   "companyNotAssociatedErrorSnackBarMessage": "Company is not associated. Re login to refresh the list.",
-  "companySwitchedSuccessSnackBarMessage": "Company switched successfully.",
+  "companySwitchedSuccessSnackBarMessage": "Company switched successfully."
 }

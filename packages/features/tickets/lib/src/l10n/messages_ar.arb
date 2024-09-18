@@ -4,6 +4,7 @@
     "inActiveTicketsTabLabel": "المنتهي",
     "noTicketsMessageTitle": "لا يوجد رسائل!",
     "noTicketsMessageSubtitle": "نحن هنا دائمًا لمساعدتك! ابدأ محادثة جديدة واخبرنا كيف يمكننا مساعدتك.",
-    "noTicketsButtonLabel": "تواصل الان"
+    "noTicketsButtonLabel": "تواصل الان",
+    "emptyListIndicatorText": "لا يوجد رسائل"
 
 }

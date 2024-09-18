@@ -77,23 +77,9 @@ class CompanyTile extends StatelessWidget {
           ]
         ],
       ),
-      leading: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: theme.primaryColor,
-          shape: BoxShape.circle,
-        ),
-        child: company.profileImage != null
-            ? Image.network(company.profileImage!)
-            : Center(
-                child: Text(
-                  company.name[0],
-                  style: textTheme.headlineMedium?.copyWith(
-                    color: theme.materialThemeData.colorScheme.surface,
-                  ),
-                ),
-              ),
+      leading: ProfileImage(
+        url: company.profileImage,
+        initials: company.name[0],
       ),
       trailing: trailing ??
           (company.isSelected
@@ -108,3 +94,4 @@ class CompanyTile extends StatelessWidget {
     );
   }
 }
+

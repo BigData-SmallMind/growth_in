@@ -3,6 +3,7 @@ export 'src/exceptions.dart';
 export 'src/company.dart';
 export 'src/ticket.dart';
 export 'src/ticket_type.dart';
+export 'src/ticket_message.dart';
 export 'src/otp_verification.dart';
 export 'src/locale_preference.dart';
 

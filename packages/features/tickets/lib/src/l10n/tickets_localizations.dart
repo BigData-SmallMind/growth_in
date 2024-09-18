@@ -128,6 +128,12 @@ abstract class TicketsLocalizations {
   /// In en, this message translates to:
   /// **'Contact Us Now'**
   String get noTicketsButtonLabel;
+
+  /// No description provided for @emptyListIndicatorText.
+  ///
+  /// In en, this message translates to:
+  /// **'List is empty'**
+  String get emptyListIndicatorText;
 }
 
 class _TicketsLocalizationsDelegate extends LocalizationsDelegate<TicketsLocalizations> {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class GrowthInApi {
   static const _messageJsonKey = 'message';
   static const _ticketsJsonKey = 'tickets';
   static const _messageTypeJsonKey = 'message_type';
+  static const _messagesJsonKey = 'messages';
   static const _successJsonKey = 'success';
   static const _statusJsonKey = 'status';
   static const _otpExpiryTimeJsonKey = 'expired_time';
@@ -404,6 +406,55 @@ class GrowthInApi {
         data: requestJsonBody,
       );
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<TicketMessageRM>> getTicketMessages(
+    int ticketId,
+  ) async {
+    final url = urlBuilder.buildGetTicketMessagesUrl(ticketId);
+    final response = await _dio.get(
+      url,
+    );
+    try {
+      final ticketMessages = response.data[_messagesJsonKey] as List;
+      return ticketMessages
+          .map((ticketMessage) => TicketMessageRM.fromJson(ticketMessage))
+          .toList();
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future createMessage({
+    required int ticketId,
+    required String text,
+    required File? file,
+  }) async {
+    final url = urlBuilder.buildCreateMessageUrl(ticketId);
+    final fileExtension = file?.path.split('.').last;
+    final now = DateTime.now().toString().split(" ").join("");
+    final multipartFile = file != null
+        ? await diox.MultipartFile.fromFile(
+            file.path,
+            filename: 'TICKET_#$ticketId' '_$now.$fileExtension',
+          )
+        : null;
+    final requestJsonBody = {
+      "message_text": text,
+      if (multipartFile != null) "message_file[]": multipartFile,
+    };
+
+    final formData = diox.FormData.fromMap(requestJsonBody);
+
+    try {
+      await _dio.post(
+        url,
+        data: formData,
+      );
+      // debugPrint('---response: ${response.data}');
+    } catch (_) {
       rethrow;
     }
   }

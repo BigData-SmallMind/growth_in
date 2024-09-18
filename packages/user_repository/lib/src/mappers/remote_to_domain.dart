@@ -53,7 +53,6 @@ extension TicketRMtoDM on TicketRM {
   }
 }
 
-
 extension TicketTypeRMtoDM on TicketTypeRM {
   TicketType toDomainModel() {
     return TicketType(
@@ -66,5 +65,25 @@ extension TicketTypeRMtoDM on TicketTypeRM {
 extension TicketTypesRMtoDM on List<TicketTypeRM> {
   List<TicketType> toDomainModel() {
     return map((ticketType) => ticketType.toDomainModel()).toList();
+  }
+}
+
+extension TicketMessageRMtoDM on TicketMessageRM {
+  TicketMessage toDomainModel() {
+    final createdAtDM = DateTime.parse(createdAt);
+    return TicketMessage(
+      id: id,
+      text: text,
+      file: file,
+      createdAt: createdAtDM,
+      profileImage: profileImage,
+      companyName: companyName,
+    );
+  }
+}
+
+extension TicketMessagesRMtoDM on List<TicketMessageRM> {
+  List<TicketMessage> toDomainModel() {
+    return map((ticketMessage) => ticketMessage.toDomainModel()).toList();
   }
 }

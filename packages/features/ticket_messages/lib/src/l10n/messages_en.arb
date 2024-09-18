@@ -1,0 +1,12 @@
+{
+    "appBarTitle": "Help & Support",
+    "activeTicketMessagesTabLabel": "Active",
+    "inActiveTicketMessagesTabLabel": "InActive",
+    "noTicketMessagesMessageTitle": "No messages!",
+    "noTicketMessagesMessageSubtitle": "We are always here to help! Start a new conversation and let us know how we can assist you",
+    "noTicketMessagesButtonLabel": "Contact Us Now",
+    "uploadFileIconLabel": "File",
+    "uploadImageFromGalleryIconLabel": "Gallery",
+    "captureImageIconLabel": "Capture",
+    "deleteFileIconLabel": "Delete"
+}

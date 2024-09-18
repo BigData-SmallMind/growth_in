@@ -78,6 +78,11 @@ class AssetPathConstants {
   static const String noTicketsPath = '$iconsPath/no-tickets.svg';
   static const String receiptPath = '$iconsPath/receipt.svg';
   static const String clockPath = '$iconsPath/clock.svg';
+  static const String sendPath = '$iconsPath/send.svg';
+  static const String addPath = '$iconsPath/add.svg';
+  static const String imagePath = '$iconsPath/image.svg';
+  static const String cameraPath = '$iconsPath/camera.svg';
+  static const String documentTextPath = '$iconsPath/document-text.svg';
 
   //social media
   static const String facebookPath = '$iconsPath/facebook.svg';

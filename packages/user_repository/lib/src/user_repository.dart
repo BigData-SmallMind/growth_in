@@ -401,10 +401,67 @@ class UserRepository {
     required String ticketDescription,
   }) async {
     try {
-      final ticketRM = await remoteApi.submitTicket(
+      await remoteApi.submitTicket(
         ticketType: ticketType.name,
         ticketTitle: ticketTitle,
         ticketDescription: ticketDescription,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<TicketMessage>> getTicketMessages(int ticketId) async {
+    try {
+      final ticketMessagesRM = await remoteApi.getTicketMessages(ticketId);
+      final ticketMessages = ticketMessagesRM.toDomainModel();
+      return ticketMessages;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // Future crateMessage({
+  //   required int ticketId,
+  //   required String text,
+  //   required File? file,
+  // }) async {
+  //   final url = urlBuilder.buildCreateMessageUrl(ticketId);
+  //   final fileExtension = file?.path.split('.').last;
+  //   final now = DateTime.now().toString().split(" ").join("");
+  //   final multipartFile = file != null
+  //       ? await diox.MultipartFile.fromFile(
+  //     file.path,
+  //     filename: 'TICKET_#$ticketId' '_$now.$fileExtension',
+  //   )
+  //       : null;
+  //   final requestJsonBody = {
+  //     "message_text": text,
+  //     if (multipartFile != null) "message_file[]": multipartFile,
+  //   };
+  //
+  //   final formData = diox.FormData.fromMap(requestJsonBody);
+  //
+  //   try {
+  //     await _dio.post(
+  //       url,
+  //       data: formData,
+  //     );
+  //   } catch (_) {
+  //     rethrow;
+  //   }
+  // }
+
+  Future createMessage({
+    required int ticketId,
+    required String text,
+    required File? file,
+  }) async {
+    try {
+      await remoteApi.createMessage(
+        ticketId: ticketId,
+        text: text,
+        file: file,
       );
     } catch (error) {
       rethrow;

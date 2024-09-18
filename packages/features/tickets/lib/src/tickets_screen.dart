@@ -12,10 +12,12 @@ class TicketsScreen extends StatelessWidget {
     super.key,
     required this.userRepository,
     required this.onAddTicketTapped,
+    required this.navigateToTicketMessages,
   });
 
   final UserRepository userRepository;
   final VoidCallback onAddTicketTapped;
+  final ValueSetter<int> navigateToTicketMessages;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class TicketsScreen extends StatelessWidget {
       create: (_) => TicketsCubit(
         userRepository: userRepository,
         onAddTicketTapped: onAddTicketTapped,
+        navigateToTicketMessages: navigateToTicketMessages,
       ),
       child: const TicketsView(),
     );

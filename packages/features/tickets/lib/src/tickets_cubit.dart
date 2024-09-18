@@ -10,12 +10,14 @@ class TicketsCubit extends Cubit<TicketsState> {
   TicketsCubit({
     required this.userRepository,
     required this.onAddTicketTapped,
+    required this.navigateToTicketMessages,
   }) : super(const TicketsState()) {
     getTickets();
   }
 
   final UserRepository userRepository;
   final VoidCallback onAddTicketTapped;
+  final ValueSetter<int> navigateToTicketMessages;
 
   // get tickets
 
@@ -37,6 +39,11 @@ class TicketsCubit extends Cubit<TicketsState> {
       );
       emit(failureState);
     }
+  }
+
+  Future onTicketTapped(Ticket ticket) async {
+    userRepository.changeNotifier.setTicket(ticket);
+    navigateToTicketMessages(ticket.id);
   }
 
 // @override

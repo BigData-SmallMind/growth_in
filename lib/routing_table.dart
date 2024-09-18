@@ -13,6 +13,7 @@ import 'package:sign_in/sign_in.dart';
 import 'package:submit_ticket/submit_ticket.dart';
 import 'package:switch_account_company/switch_account_company.dart';
 import 'package:tab_container/tab_container.dart';
+import 'package:ticket_messages/ticket_messages.dart';
 import 'package:tickets/tickets.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
@@ -136,6 +137,16 @@ Map<String, PageBuilder> buildRoutingTable({
                   userRepository: userRepository,
                 ),
               ),
+              navigateToTicketMessages: (int ticketId) => routerDelegate
+                  .push(_PathConstants.ticketMessagesPath(ticketId: ticketId)),
+            );
+          }),
+        ),
+    _PathConstants.ticketMessagesPath(): (_) => MaterialPage(
+          name: 'ticket-messages',
+          child: Builder(builder: (context) {
+            return TicketMessagesScreen(
+              userRepository: userRepository,
             );
           }),
         ),
@@ -194,6 +205,11 @@ class _PathConstants {
       '${tabContainerPath}profile-settings';
 
   static String get ticketsPath => '${tabContainerPath}tickets';
+
+  static String get ticketIdPathParameter => 'id';
+
+  static String ticketMessagesPath({int? ticketId}) =>
+      '$ticketsPath/${ticketId ?? ':$ticketIdPathParameter'}/messages';
 
   static String get profileInfoPath => '$profileSettingsPath/profile-info';
 

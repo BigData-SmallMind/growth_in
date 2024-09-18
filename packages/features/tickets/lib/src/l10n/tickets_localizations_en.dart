@@ -21,4 +21,7 @@ class TicketsLocalizationsEn extends TicketsLocalizations {
 
   @override
   String get noTicketsButtonLabel => 'Contact Us Now';
+
+  @override
+  String get emptyListIndicatorText => 'List is empty';
 }

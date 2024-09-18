@@ -20,13 +20,13 @@ class SwitchAccountCompanyBottomSheet extends StatelessWidget {
       create: (_) => SwitchAccountCompanyCubit(
         userRepository: userRepository,
       ),
-      child: SwitchAccountCompanyView(),
+      child: const SwitchAccountCompanyView(),
     );
   }
 }
 
 class SwitchAccountCompanyView extends StatelessWidget {
-  const SwitchAccountCompanyView();
+  const SwitchAccountCompanyView({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class SwitchAccountCompanyView extends StatelessWidget {
         return DraggableScrollableSheet(
           expand: false,
           builder: (context, scrollController) => state.user == null
-              ? CenteredCircularProgressIndicator()
+              ? const CenteredCircularProgressIndicator()
               : ListView.separated(
                   controller: scrollController,
                   itemBuilder: (context, index) {

@@ -21,4 +21,7 @@ class TicketsLocalizationsAr extends TicketsLocalizations {
 
   @override
   String get noTicketsButtonLabel => 'تواصل الان';
+
+  @override
+  String get emptyListIndicatorText => 'لا يوجد رسائل';
 }

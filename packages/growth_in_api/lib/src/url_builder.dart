@@ -54,6 +54,12 @@ class UrlBuilder {
   buildSubmitTicketUrl() {
     return '$_baseUrl/tickets';
   }
+  buildGetTicketMessagesUrl(int ticketId) {
+    return '$_baseUrl/fetch-messages-ticket/$ticketId';
+  }
+  buildCreateMessageUrl(int ticketId) {
+    return '$_baseUrl/message/$ticketId';
+  }
 
   buildChangeEmailOtpVerificationUrl() {
     return '$_baseUrl/change-email-verification';
