@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:growth_in_api/src/url_builder.dart';
 
-import 'models/auth/request/update_account_rm.dart';
 
 typedef TokenSupplier = Future<String?> Function();
 
