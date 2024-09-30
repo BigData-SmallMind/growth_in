@@ -11,6 +11,7 @@ class MoreCubit extends Cubit<MoreState> {
     required this.userRepository,
     required this.onCompanyTileTap,
     required this.onLogout,
+    required this.onRequestsTapped,
     required this.onHelpAndSupportTapped,
     required this.onProfileSettingsTapped,
   }) : super(const MoreState()) {
@@ -25,6 +26,7 @@ class MoreCubit extends Cubit<MoreState> {
   final UserRepository userRepository;
   final VoidCallback onCompanyTileTap;
   final VoidCallback onLogout;
+  final VoidCallback onRequestsTapped;
   final VoidCallback onHelpAndSupportTapped;
   final VoidCallback onProfileSettingsTapped;
 

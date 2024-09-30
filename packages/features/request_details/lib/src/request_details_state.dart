@@ -6,7 +6,6 @@ class RequestDetailsState extends Equatable {
   });
 
   final Request? request;
-
   RequestDetailsState copyWith({Request? request}) {
     return RequestDetailsState(
       request: request ?? this.request,

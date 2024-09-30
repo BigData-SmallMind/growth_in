@@ -6,4 +6,7 @@ export 'src/ticket_type.dart';
 export 'src/ticket_message.dart';
 export 'src/otp_verification.dart';
 export 'src/locale_preference.dart';
+export 'src/request.dart';
+export 'src/comment.dart';
+export 'src/action.dart';
 

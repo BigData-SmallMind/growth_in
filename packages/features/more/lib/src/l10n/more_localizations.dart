@@ -103,7 +103,7 @@ abstract class MoreLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Orders'**
-  String get ordersTileTitle;
+  String get requestsTileTitle;
 
   /// No description provided for @formsTileTitle.
   ///

@@ -66,7 +66,6 @@ class AssetPathConstants {
   static const String menuUnselectedPath =
       '$tabContainerIconsPath/menu_unselected.svg';
 
-
   static const String backPath = '$iconsPath/back.svg';
   static const String gearPath = '$iconsPath/gear.svg';
   static const String headphonePath = '$iconsPath/headphone.svg';
@@ -89,4 +88,10 @@ class AssetPathConstants {
   static const String tiktokPath = '$iconsPath/tiktok.svg';
   static const String instaPath = '$iconsPath/instagram.svg';
 
+  //mark as complete
+  static const String markAsCompletePath = '$iconsPath/mark-as-complete.svg';
+  static const String markAsCompleteActivePath =
+      '$iconsPath/mark-as-complete-active.svg';
+  static const String taskPath =
+      '$iconsPath/task.svg';
 }

@@ -89,20 +89,7 @@ class MessageCard extends StatelessWidget {
                       style: textTheme.titleMedium,
                     ),
                     VerticalGap.xSmall(),
-                    Text(
-                      message.createdAt.day.toString() +
-                          '/' +
-                          message.createdAt.month.toString() +
-                          '/' +
-                          message.createdAt.year.toString() +
-                          ' - ' +
-                          message.createdAt.hour.toString() +
-                          ':' +
-                          message.createdAt.minute.toString(),
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Color(0xFF797979),
-                      ),
-                    ),
+                    DateAndTimeWidget(date: message.createdAt),
                   ],
                 ),
               ],
@@ -123,3 +110,4 @@ class MessageCard extends StatelessWidget {
     );
   }
 }
+

@@ -35,7 +35,6 @@ dependencies:
 
   tab_container:
     path: packages/features/tab_container
-
   home:
     path: packages/features/home
   more:
@@ -69,6 +68,13 @@ dependencies:
     path: packages/features/submit_ticket
   ticket_messages:
     path: packages/features/ticket_messages
+
+
+  # Requests
+  requests:
+    path: packages/features/requests
+  request_details:
+    path: packages/features/request_details
 
 
   # Domain Models and Component Library

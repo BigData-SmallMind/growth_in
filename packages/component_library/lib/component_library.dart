@@ -8,6 +8,7 @@ export 'src/profile_image.dart';
 export 'src/indicators/indicators.dart';
 export 'src/gap/gap.dart';
 export 'src/row_builder.dart';
+export 'src/date_widget.dart';
 export 'src/ticket_card.dart';
 export 'src/column_builder.dart';
 export 'src/company_tile.dart';

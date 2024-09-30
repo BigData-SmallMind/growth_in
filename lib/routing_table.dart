@@ -5,6 +5,8 @@ import 'package:home/home.dart';
 import 'package:more/more.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
+import 'package:request_details/request_details.dart';
+import 'package:requests/requests.dart';
 import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
@@ -78,8 +80,29 @@ Map<String, PageBuilder> buildRoutingTable({
               onLogout: () => signInSuccessVN.value = false,
               onProfileSettingsTapped: () =>
                   routerDelegate.push(_PathConstants.profileSettingsPath),
+              onRequestsTapped: () =>
+                  routerDelegate.push(_PathConstants.requestsPath),
               onHelpAndSupportTapped: () =>
                   routerDelegate.push(_PathConstants.ticketsPath),
+            );
+          }),
+        ),
+    _PathConstants.requestsPath: (_) => MaterialPage(
+          name: 'requests',
+          child: Builder(builder: (context) {
+            return RequestsScreen(
+              onRequestTapped: () =>
+                  routerDelegate.push(_PathConstants.requestDetailsPath),
+            );
+          }),
+        ),
+    _PathConstants.requestDetailsPath: (_) => MaterialPage(
+          name: 'request-details',
+          child: Builder(builder: (context) {
+            return RequestDetailsScreen(
+              onProfileInfoTapped: () {},
+              onChangePasswordTapped: () {},
+              onChangeEmailTapped: () {},
             );
           }),
         ),
@@ -200,6 +223,10 @@ class _PathConstants {
   static String get homePath => '${tabContainerPath}home';
 
   static String get morePath => '${tabContainerPath}more';
+
+  static String get requestsPath => '${tabContainerPath}requests';
+
+  static String get requestDetailsPath => '${tabContainerPath}request-details';
 
   static String get profileSettingsPath =>
       '${tabContainerPath}profile-settings';

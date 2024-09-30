@@ -8,7 +8,7 @@ class MoreLocalizationsAr extends MoreLocalizations {
   String get meetingsTileTitle => 'الإجتماعات';
 
   @override
-  String get ordersTileTitle => 'الطلبات';
+  String get requestsTileTitle => 'الطلبات';
 
   @override
   String get formsTileTitle => 'النماذج';

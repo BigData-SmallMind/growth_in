@@ -8,7 +8,7 @@ class MoreLocalizationsEn extends MoreLocalizations {
   String get meetingsTileTitle => 'Meetings';
 
   @override
-  String get ordersTileTitle => 'Orders';
+  String get requestsTileTitle => 'Orders';
 
   @override
   String get formsTileTitle => 'Forms';
