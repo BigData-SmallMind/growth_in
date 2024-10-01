@@ -100,5 +100,8 @@
   "paymentProblemTypeText": "Payment Problem",
   "personalProblemTypeText": "Personal Problem",
   "qualityProblemTypeText": "Quality Problem",
-  "otherProblemTypeText": "Other Problem"
+  "otherProblemTypeText": "Other Problem",
+  "actionTitle": "Action #",
+  "percentActionsComplete": "Steps Completed"
+
 }

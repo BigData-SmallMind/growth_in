@@ -6,6 +6,7 @@ import 'package:more/more.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
 import 'package:request_details/request_details.dart';
+import 'package:request_repository/request_repository.dart';
 import 'package:requests/requests.dart';
 import 'package:reset_password/reset_password.dart';
 
@@ -23,6 +24,7 @@ import 'package:verify_otp/verify_otp.dart';
 Map<String, PageBuilder> buildRoutingTable({
   required RoutemasterDelegate routerDelegate,
   required UserRepository userRepository,
+  required RequestRepository requestRepository,
   required ValueNotifier<bool> signInSuccessVN,
 }) {
   return {
@@ -91,15 +93,20 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'requests',
           child: Builder(builder: (context) {
             return RequestsScreen(
-              onRequestTapped: () =>
-                  routerDelegate.push(_PathConstants.requestDetailsPath),
+              requestRepository: requestRepository,
+              onRequestTapped: (int requestId) =>
+                  routerDelegate.push(_PathConstants.requestDetailsPath(requestId: requestId)),
             );
           }),
         ),
-    _PathConstants.requestDetailsPath: (_) => MaterialPage(
+    _PathConstants.requestDetailsPath(): (info) => MaterialPage(
           name: 'request-details',
           child: Builder(builder: (context) {
             return RequestDetailsScreen(
+              requestRepository: requestRepository,
+              requestId: int.parse(
+                info.pathParameters[_PathConstants.idPathParameter] ?? '',
+              ),
               onProfileInfoTapped: () {},
               onChangePasswordTapped: () {},
               onChangeEmailTapped: () {},
@@ -218,6 +225,8 @@ Map<String, PageBuilder> buildRoutingTable({
 class _PathConstants {
   const _PathConstants._();
 
+  static String get idPathParameter => 'id';
+
   static String get tabContainerPath => '/';
 
   static String get homePath => '${tabContainerPath}home';
@@ -226,17 +235,16 @@ class _PathConstants {
 
   static String get requestsPath => '${tabContainerPath}requests';
 
-  static String get requestDetailsPath => '${tabContainerPath}request-details';
+  static String requestDetailsPath({int? requestId}) =>
+      '$requestsPath/${requestId ?? ':$idPathParameter'}/details';
 
   static String get profileSettingsPath =>
       '${tabContainerPath}profile-settings';
 
   static String get ticketsPath => '${tabContainerPath}tickets';
 
-  static String get ticketIdPathParameter => 'id';
-
   static String ticketMessagesPath({int? ticketId}) =>
-      '$ticketsPath/${ticketId ?? ':$ticketIdPathParameter'}/messages';
+      '$ticketsPath/${ticketId ?? ':$idPathParameter'}/messages';
 
   static String get profileInfoPath => '$profileSettingsPath/profile-info';
 

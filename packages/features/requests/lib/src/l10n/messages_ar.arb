@@ -1,3 +1,5 @@
 {
-"appBarTitle": "الطلبات"
+"appBarTitle": "الطلبات",
+  "emptyRequestsListIndicator": "لا توجد طلبات"
+
 }

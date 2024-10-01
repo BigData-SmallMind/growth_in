@@ -1,0 +1,12 @@
+{
+  "appBarTitle": "Requests",
+  "deadlineSectionTitle": "Deadline",
+  "serviceNameSectionTitle": "Service Name",
+  "descriptionSectionTitle": "Description",
+  "actionsSectionTitle": "Actions",
+  "viewAllActionsButtonLabel": "View All",
+  "actionTitle": "Action #",
+  "percentActionsComplete": "Steps Completed",
+  "commentsSectionTitle": "Comments",
+  "viewAllCommentsButtonLabel": "View All"
+}

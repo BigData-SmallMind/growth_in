@@ -6,4 +6,7 @@ class RequestsLocalizationsEn extends RequestsLocalizations {
 
   @override
   String get appBarTitle => 'Requests';
+
+  @override
+  String get emptyRequestsListIndicator => 'No requests';
 }

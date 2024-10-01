@@ -100,6 +100,8 @@
   "paymentProblemTypeText": "مشكلة دفع",
   "personalProblemTypeText": "مشكلة مع أشخاص",
   "qualityProblemTypeText": "مشكلة جودة",
-  "otherProblemTypeText": "مشكلة آخرى"
+  "otherProblemTypeText": "مشكلة آخرى",
+  "actionTitle": "عنوان الإجراء",
+  "percentActionsComplete": "المنتهي"
 }
 

@@ -1,0 +1,12 @@
+{
+  "appBarTitle": "الطلبات",
+  "deadlineSectionTitle": "موعد التسليم",
+  "serviceNameSectionTitle": "الخدمة ",
+  "descriptionSectionTitle": "التفاصيل",
+  "actionsSectionTitle": "القوائم مرجعية",
+  "viewAllActionsButtonLabel": "اظهر الكل",
+  "actionTitle": "عنوان الإجراء",
+  "percentActionsComplete": "المنتهي",
+  "commentsSectionTitle": "التعليقات",
+  "viewAllCommentsButtonLabel": "اظهر الكل"
+}

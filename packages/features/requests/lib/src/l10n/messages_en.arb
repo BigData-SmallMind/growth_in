@@ -1,3 +1,4 @@
 {
-  "appBarTitle": "Requests"
+  "appBarTitle": "Requests",
+  "emptyRequestsListIndicator": "No requests"
 }

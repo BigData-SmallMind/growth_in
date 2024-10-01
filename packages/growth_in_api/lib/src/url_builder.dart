@@ -35,44 +35,66 @@ class UrlBuilder {
     return completeUrl;
   }
 
-  buildSendOtpUrl(String email) {
+  String buildSendOtpUrl(String email) {
     return '$_baseUrl/forget_email?email=$email';
   }
 
-  buildReSendOtpUrl() {
+  String buildReSendOtpUrl() {
     return '$_baseUrl/forget_email_verification';
   }
 
-  buildGetTicketsUrl() {
+  String buildGetTicketsUrl() {
     return '$_baseUrl/fetch-tickets';
   }
 
-  buildGetTicketsTypesUrl() {
+  String buildGetTicketsTypesUrl() {
     return '$_baseUrl/message-types';
   }
 
-  buildSubmitTicketUrl() {
+  String buildSubmitTicketUrl() {
     return '$_baseUrl/tickets';
   }
-  buildGetTicketMessagesUrl(int ticketId) {
+
+  String buildGetTicketMessagesUrl(int ticketId) {
     return '$_baseUrl/fetch-messages-ticket/$ticketId';
   }
-  buildCreateMessageUrl(int ticketId) {
+
+  String buildCreateMessageUrl(int ticketId) {
     return '$_baseUrl/message/$ticketId';
   }
 
-  buildChangeEmailOtpVerificationUrl() {
+  String buildChangeEmailOtpVerificationUrl() {
     return '$_baseUrl/change-email-verification';
   }
 
-  buildVerifyOtpUrl(String email, String otp) {
+  String buildVerifyOtpUrl(String email, String otp) {
     return '$_baseUrl/forget_email_verification?email=$email&otp=$otp';
   }
 
-  buildResetPasswordUrl(
+  String buildResetPasswordUrl(
     String newPassword,
     String newPasswordConfirmation,
   ) {
     return '$_baseUrl/reset_password?new_password=$newPassword&new_password_confirmation=$newPasswordConfirmation';
+  }
+
+  String buildGetRequestsUrl() {
+    return '$_baseUrl/tasks';
+  }
+
+  String buildGetRequestUrl(int requestId) {
+    return '$_baseUrl/tasks/$requestId';
+  }
+
+  String buildGetCommentsUrl(int? requestId, int? actionId) {
+    // assert (requestId != null || actionId != null);
+    assert(requestId != null || actionId != null);
+    if (requestId != null) {
+      return '$_baseUrl/fetch-comment-task/null?task_id=$requestId';
+    }
+    if (actionId != null) {
+      return '$_baseUrl/fetch-comment-task/$actionId';
+    }
+    return '';
   }
 }

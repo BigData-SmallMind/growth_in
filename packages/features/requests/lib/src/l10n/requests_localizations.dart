@@ -98,6 +98,12 @@ abstract class RequestsLocalizations {
   /// In en, this message translates to:
   /// **'Requests'**
   String get appBarTitle;
+
+  /// No description provided for @emptyRequestsListIndicator.
+  ///
+  /// In en, this message translates to:
+  /// **'No requests'**
+  String get emptyRequestsListIndicator;
 }
 
 class _RequestsLocalizationsDelegate extends LocalizationsDelegate<RequestsLocalizations> {

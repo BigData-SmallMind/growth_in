@@ -662,6 +662,18 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Other Problem'**
   String get otherProblemTypeText;
+
+  /// No description provided for @actionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Action #'**
+  String get actionTitle;
+
+  /// No description provided for @percentActionsComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps Completed'**
+  String get percentActionsComplete;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

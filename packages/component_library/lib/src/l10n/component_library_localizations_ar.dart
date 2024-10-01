@@ -288,4 +288,10 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get otherProblemTypeText => 'مشكلة آخرى';
+
+  @override
+  String get actionTitle => 'عنوان الإجراء';
+
+  @override
+  String get percentActionsComplete => 'المنتهي';
 }

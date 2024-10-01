@@ -680,10 +680,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.1"
+  request_actions:
+    dependency: "direct main"
+    description:
+      path: "packages/features/request_actions"
+      relative: true
+    source: path
+    version: "0.0.0"
   request_details:
     dependency: "direct main"
     description:
       path: "packages/features/request_details"
+      relative: true
+    source: path
+    version: "0.0.0"
+  request_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/request_repository"
       relative: true
     source: path
     version: "0.0.0"

@@ -17,6 +17,7 @@ import 'package:more/more.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
 import 'package:request_details/request_details.dart';
+import 'package:request_repository/request_repository.dart';
 import 'package:requests/requests.dart';
 import 'package:reset_password/reset_password.dart';
 import 'package:routemaster/routemaster.dart';
@@ -46,6 +47,10 @@ final dynamic _connectInApi = GrowthInApi(
 );
 
 final _userRepository = UserRepository(
+  remoteApi: _connectInApi,
+  noSqlStorage: _keyValueStorage,
+);
+final _requestRepository = RequestRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
 );
@@ -108,6 +113,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
         routes: buildRoutingTable(
           routerDelegate: _routerDelegate,
           userRepository: _userRepository,
+          requestRepository: _requestRepository,
           signInSuccessVN: _signInSuccessVN,
         ),
       );

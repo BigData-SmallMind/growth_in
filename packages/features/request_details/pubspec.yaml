@@ -13,5 +13,7 @@ dependencies:
     path: ../../component_library
   domain_models:
     path: ../../domain_models
+  request_repository:
+    path: ../../request_repository
 
 

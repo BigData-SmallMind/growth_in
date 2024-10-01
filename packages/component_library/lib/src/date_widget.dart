@@ -18,7 +18,7 @@ class DateAndTimeWidget extends StatelessWidget {
     return Text(
       dateOnly
           ? '${date.day}/${date.month}/${date.year}'
-          : '${date.day}/${date.month}/${date.year} - ${date.hour}:${date.minute}',
+          : '${date.day}/${date.month}/${date.year} - ${date.hour < 10 ? '0${date.hour}' : '${date.hour}'}:${date.minute < 10 ? '0${date.minute}' : '${date.minute}'}',
       style: textTheme.bodySmall?.copyWith(
         color: textColor ?? const Color(0xFF797979),
       ),

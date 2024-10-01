@@ -6,4 +6,7 @@ class RequestsLocalizationsAr extends RequestsLocalizations {
 
   @override
   String get appBarTitle => 'الطلبات';
+
+  @override
+  String get emptyRequestsListIndicator => 'لا توجد طلبات';
 }

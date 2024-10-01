@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:growth_in_api/src/url_builder.dart';
 
-
 typedef TokenSupplier = Future<String?> Function();
 
 class GrowthInApi {
@@ -22,6 +21,9 @@ class GrowthInApi {
   static const _successJsonKey = 'success';
   static const _statusJsonKey = 'status';
   static const _otpExpiryTimeJsonKey = 'expired_time';
+  static const _tasksJsonKey = 'tasks';
+  static const _taskJsonKey = 'task';
+  static const _commentsJsonKey = 'comments';
 
   GrowthInApi({
     required TokenSupplier userTokenSupplier,
@@ -453,6 +455,54 @@ class GrowthInApi {
         data: formData,
       );
       // debugPrint('---response: ${response.data}');
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<RequestV1RM>> getRequests() async {
+    final url = urlBuilder.buildGetRequestsUrl();
+    final response = await _dio.get(
+      url,
+    );
+    try {
+      final requests = response.data[_tasksJsonKey] as List;
+      final requestsList =
+          requests.map((request) => RequestV1RM.fromJson(request)).toList();
+      return requestsList;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<RequestRM> getRequest(int requestId) async {
+    final url = urlBuilder.buildGetRequestUrl(requestId);
+    final response = await _dio.get(
+      url,
+    );
+    try {
+      final jsonObject = response.data[_taskJsonKey];
+      final request = RequestRM.fromJson(jsonObject);
+      return request;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<CommentRM>> getComments(int? requestId, int? actionId) async {
+    final url = urlBuilder.buildGetCommentsUrl(requestId, actionId);
+    final response = await _dio.get(
+      url,
+    );
+    try {
+      final status404 = response.data[_statusJsonKey] == 404;
+      final emptyComments = status404 &&
+          response.data[_messageJsonKey].contains('لا توجد تعليقات حتي الان');
+      if (emptyComments) return [];
+      final comments = response.data[_commentsJsonKey] as List;
+      final commentsList =
+          comments.map((comment) => CommentRM.fromJson(comment)).toList();
+      return commentsList;
     } catch (_) {
       rethrow;
     }
