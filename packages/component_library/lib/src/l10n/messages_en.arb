@@ -102,6 +102,8 @@
   "qualityProblemTypeText": "Quality Problem",
   "otherProblemTypeText": "Other Problem",
   "actionTitle": "Action #",
-  "percentActionsComplete": "Steps Completed"
+  "percentActionsComplete": "Steps Completed",
+  "commentsSectionTitle": "Comments",
+  "viewAllCommentsButtonLabel": "View All"
 
 }

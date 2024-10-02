@@ -7,10 +7,12 @@ class ActionCard extends StatelessWidget {
     super.key,
     required this.index,
     required this.action,
+    required this.onTap,
   });
 
   final int index;
   final dm.Action action;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,59 +20,62 @@ class ActionCard extends StatelessWidget {
     final l10n = ComponentLibraryLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '${l10n.actionTitle} ${index + 1}',
-          style: textTheme.bodySmall?.copyWith(
-            color: const Color(0xFFADADAD),
-          ),
-        ),
-        VerticalGap.small(),
-        Container(
-          height: 60,
-          width: MediaQuery.of(context).size.width - (2 * theme.screenMargin),
-          padding: const EdgeInsets.all(Spacing.small),
-          decoration: BoxDecoration(
-            color: action.isComplete
-                ? theme.primaryColor.withOpacity(0.1)
-                : const Color(0xFFF7F8F9),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: action.isComplete ? theme.primaryColor : theme.borderColor,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            action.title,
+            style: textTheme.bodySmall?.copyWith(
+              color: const Color(0xFFADADAD),
             ),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SvgAsset(AssetPathConstants.taskPath),
-              HorizontalGap.small(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width -
-                        (5 * theme.screenMargin),
-                    child: Text(
-                      action.description,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    '${l10n.percentActionsComplete} (${action.completeStepsCount}/${action.steps.length})',
-                    style: textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFF797979),
-                    ),
-                  ),
-                ],
+          VerticalGap.small(),
+          Container(
+            height: 60,
+            width: MediaQuery.of(context).size.width - (2 * theme.screenMargin),
+            padding: const EdgeInsets.all(Spacing.small),
+            decoration: BoxDecoration(
+              color: action.isComplete
+                  ? theme.primaryColor.withOpacity(0.1)
+                  : const Color(0xFFF7F8F9),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: action.isComplete ? theme.primaryColor : theme.borderColor,
               ),
-            ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SvgAsset(AssetPathConstants.taskPath),
+                HorizontalGap.small(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width -
+                          (5 * theme.screenMargin),
+                      child: Text(
+                        action.steps[0].description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      '${l10n.percentActionsComplete} (${action.completeStepsCount}/${action.steps.length})',
+                      style: textTheme.bodySmall?.copyWith(
+                        color: const Color(0xFF797979),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

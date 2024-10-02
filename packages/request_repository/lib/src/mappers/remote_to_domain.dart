@@ -75,14 +75,14 @@ extension RequestV1RMtoDM on RequestV1RM {
       return Request(
         id: id,
         name: name,
-        serviceName: serviceName,
+        serviceName: serviceName ?? '',
         dueDate: dueDateDM,
         startDate: startDateDM,
         descriptionHtml: null,
         actions: [],
         comments: [],
-        remoteCompleteActionsCount: actionsCompletedCount,
-        remoteTotalActionsCount: actionsTotalCount,
+        completeActionStepsCount: actionsCompletedCount,
+        totalActionStepsCount: actionsTotalCount,
       );
     } catch (error) {
       rethrow;
@@ -101,17 +101,23 @@ extension RequestRMtoDM on RequestRM {
     final dueDateDM = DateTime.parse(deadline.replaceAll('/', '-'));
     final startDateDM = DateTime.parse(dateCreated.replaceAll('/', '-'));
     final actionsDM = actions?.map((action) => action.toDomainModel()).toList();
+    final completedActionStepsCount = actionsDM
+        ?.map((action) => action.steps.where((step) => step.isComplete).length)
+        .fold(0, (previousValue, element) => previousValue + element);
+    final totalActionStepsCount = actionsDM
+        ?.map((action) => action.steps.length)
+        .fold(0, (previousValue, element) => previousValue + element);
     return Request(
       id: id,
       name: name,
-      serviceName: service,
+      serviceName: serviceName ?? '',
       dueDate: dueDateDM,
       startDate: startDateDM,
       descriptionHtml: descriptionHtml,
       actions: actionsDM ?? [],
       comments: comments,
-      remoteCompleteActionsCount: actions?.length,
-      remoteTotalActionsCount: actions?.length,
+      completeActionStepsCount: completedActionStepsCount,
+      totalActionStepsCount: totalActionStepsCount,
       isCompleted: isCompleted,
     );
   }
@@ -128,7 +134,7 @@ extension ActionRMtoDM on ActionRM {
     final stepsDM = steps?.map((step) => step.toDomainModel()).toList();
     return Action(
       id: id,
-      description: title,
+      title: title,
       steps: stepsDM ?? [],
     );
   }

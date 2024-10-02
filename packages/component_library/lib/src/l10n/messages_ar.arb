@@ -102,6 +102,8 @@
   "qualityProblemTypeText": "مشكلة جودة",
   "otherProblemTypeText": "مشكلة آخرى",
   "actionTitle": "عنوان الإجراء",
-  "percentActionsComplete": "المنتهي"
+  "percentActionsComplete": "المنتهي",
+  "commentsSectionTitle": "التعليقات",
+  "viewAllCommentsButtonLabel": "اظهر الكل"
 }
 

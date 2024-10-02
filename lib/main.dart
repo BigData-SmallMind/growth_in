@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:action_steps/action_steps.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:component_library/component_library.dart';
@@ -16,6 +17,7 @@ import 'package:key_value_storage/key_value_storage.dart';
 import 'package:more/more.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
+import 'package:request_actions/request_actions.dart';
 import 'package:request_details/request_details.dart';
 import 'package:request_repository/request_repository.dart';
 import 'package:requests/requests.dart';
@@ -203,6 +205,8 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 TicketMessagesLocalizations.delegate,
                 RequestsLocalizations.delegate,
                 RequestDetailsLocalizations.delegate,
+                RequestActionsLocalizations.delegate,
+                ActionStepsLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

@@ -27,14 +27,72 @@ class RequestRepository {
     }
   }
 
+  Future<List<Comment>> getActionComments(int actionId) async {
+    try {
+      final comments = await remoteApi.getComments(null, actionId);
+      final domainComments = comments.toDomainModel();
+      return domainComments;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<Request> getRequest(int id) async {
     try {
       final request = await remoteApi.getRequest(id);
-      final comments = await remoteApi.getComments(id, null);
-      final domainComments = comments.toDomainModel();
+      final requestHasActions =
+          request.actions != null && request.actions!.isNotEmpty;
+      final comments =
+          requestHasActions ? await remoteApi.getComments(id, null) : null;
+      final domainComments = comments?.toDomainModel() ?? [];
       final domainRequest = request.toDomainModel(domainComments);
       changeNotifier.setRequest(domainRequest);
       return domainRequest;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future toggleRequestComplete(
+    bool isComplete,
+    int requestId,
+  ) async {
+    try {
+      await remoteApi.toggleRequestComplete(
+        isComplete,
+        requestId,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future toggleActionStepsComplete(
+    bool isComplete,
+    int actionId,
+  ) async {
+    try {
+      await remoteApi.toggleActionStepsComplete(
+        isComplete,
+        actionId,
+      );
+
+    } catch (error) {
+      rethrow;
+    }
+  }
+  Future toggleSingleActionStepComplete(
+    bool isComplete,
+    int actionId,
+    int actionStepId,
+  ) async {
+    try {
+      await remoteApi.toggleSingleActionStepComplete(
+        isComplete,
+        actionId,
+        actionStepId,
+      );
+
     } catch (error) {
       rethrow;
     }

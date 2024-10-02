@@ -1,11 +1,10 @@
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
-import 'package:request_details/src/l10n/request_details_localizations.dart';
 
 
-class RequestComments extends StatelessWidget {
-  const RequestComments({
+class Comments extends StatelessWidget {
+  const Comments({
     super.key,
     required this.comments,
   });
@@ -16,18 +15,18 @@ class RequestComments extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = GrowthInTheme.of(context);
     final comment = comments.first;
-    final l10n = RequestDetailsLocalizations.of(context);
+    final l10n = ComponentLibraryLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Column(
       children: [
         VerticalGap.medium(),
-        Divider(),
+        const Divider(),
         VerticalGap.medium(),
         Row(
           children: [
             HorizontalGap.custom(theme.screenMargin),
-            Text(l10n.commentsSectionTitle),
-            Spacer(),
+            Text(l10n.commentsSectionTitle, style: textTheme.titleMedium),
+            const Spacer(),
             TextButton(
               child: Text(
                 l10n.viewAllCommentsButtonLabel,
@@ -57,7 +56,7 @@ class RequestComments extends StatelessWidget {
                       child: comment.authorImage == null
                           ? Text(
                               comment.author[0].toUpperCase(),
-                              style: TextStyle(color: Colors.black),
+                              style: const TextStyle(color: Colors.black),
                             )
                           : null,
                     ),
@@ -65,7 +64,7 @@ class RequestComments extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(comment.author),
+                        Text(comment.author, style: textTheme.titleSmall,),
                         VerticalGap.small(),
                         SizedBox(
                           width: MediaQuery.of(context).size.width -
@@ -73,7 +72,7 @@ class RequestComments extends StatelessWidget {
                           child: Text(
                             comment.text,
                             style: textTheme.bodySmall?.copyWith(
-                              color: Color(0xFF272727),
+                              color: const Color(0xFF272727),
                             ),
                           ),
                         ),

@@ -7,7 +7,7 @@ class RequestV1RM {
   RequestV1RM({
     required this.id,
     required this.name,
-    required this.serviceName,
+     this.serviceName,
     required this.type,
     required this.dueDate,
     required this.startDate,
@@ -23,7 +23,7 @@ class RequestV1RM {
   @JsonKey(name: 'task_name')
   final String name;
   @JsonKey(name: 'service_name')
-  final String serviceName;
+  final String? serviceName;
   @JsonKey(name: 'due_date')
   final String dueDate;
   @JsonKey(name: 'start_date')

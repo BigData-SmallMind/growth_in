@@ -57,8 +57,8 @@ class RequestCard extends StatelessWidget {
                 CircularPercentIndicator(
                   radius: 25,
                   center: Text(
-                      '${request.remoteCompleteActionsCount}/${request.remoteTotalActionsCount}'),
-                  percent: request.percentTasksComplete,
+                      '${request.completeActionStepsCount}/${request.totalActionStepsCount}'),
+                  percent: request.percentActionStepsComplete,
                   circularStrokeCap: CircularStrokeCap.round,
                   lineWidth: 3,
                   progressColor: Color(0xFF4CAF50),

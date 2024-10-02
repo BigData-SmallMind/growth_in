@@ -507,6 +507,62 @@ class GrowthInApi {
       rethrow;
     }
   }
+
+  Future toggleRequestComplete(
+    bool isComplete,
+    int requestId,
+  ) async {
+    final url = urlBuilder.buildToggleRequestCompleteUrl(isComplete, requestId);
+
+    try {
+      final response = await _dio.post(
+        url,
+      );
+      debugPrint(response.toString());
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future toggleActionStepsComplete(
+    bool isComplete,
+    int actionId,
+  ) async {
+    final url = urlBuilder.buildToggleActionStepsCompleteUrl(
+      isComplete,
+      actionId,
+    );
+
+    try {
+      final response = await _dio.post(
+        url,
+      );
+      debugPrint(response.toString());
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future toggleSingleActionStepComplete(
+    bool isComplete,
+    int actionId,
+    int actionStepId,
+  ) async {
+    final url = urlBuilder.buildToggleSingleActionStepCompleteUrl(
+      isComplete,
+      actionId,
+      actionStepId,
+    );
+
+    try {
+      final response = await _dio.post(
+        url,
+      );
+      debugPrint(response.toString());
+    } catch (_) {
+      rethrow;
+    }
+  }
 }
 
 extension on Dio {

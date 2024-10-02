@@ -7,7 +7,7 @@ class RequestRM {
   RequestRM({
     required this.id,
     required this.name,
-    required this.service,
+    this.serviceName,
     required this.deadline,
     required this.dateCreated,
     this.actions,
@@ -20,7 +20,7 @@ class RequestRM {
   @JsonKey(name: 'task_name')
   final String name;
   @JsonKey(name: 'service_name')
-  final String service;
+  final String? serviceName;
   @JsonKey(name: 'due_date')
   final String deadline;
   @JsonKey(name: 'start_date')

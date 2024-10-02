@@ -294,4 +294,10 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get percentActionsComplete => 'Steps Completed';
+
+  @override
+  String get commentsSectionTitle => 'Comments';
+
+  @override
+  String get viewAllCommentsButtonLabel => 'View All';
 }

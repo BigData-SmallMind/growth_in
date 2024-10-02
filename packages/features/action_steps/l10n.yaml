@@ -1,0 +1,6 @@
+arb-dir: lib/src/l10n
+template-arb-file: messages_en.arb
+output-localization-file: action_steps_localizations.dart
+output-class: ActionStepsLocalizations
+synthetic-package: false
+nullable-getter: false

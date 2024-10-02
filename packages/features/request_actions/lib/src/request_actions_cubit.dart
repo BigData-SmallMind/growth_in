@@ -9,9 +9,7 @@ part 'request_actions_state.dart';
 class RequestActionsCubit extends Cubit<RequestActionsState> {
   RequestActionsCubit({
     required this.requestRepository,
-    required this.onProfileInfoTapped,
-    required this.onChangePasswordTapped,
-    required this.onChangeEmailTapped,
+    required this.onViewActionStepsTapped,
   }) : super(
           RequestActionsState(
             request: requestRepository.changeNotifier.request,
@@ -19,11 +17,7 @@ class RequestActionsCubit extends Cubit<RequestActionsState> {
         );
 
   final RequestRepository requestRepository;
-  final VoidCallback onProfileInfoTapped;
-  final VoidCallback onChangePasswordTapped;
-  final VoidCallback onChangeEmailTapped;
-
-
+  final ValueSetter<int> onViewActionStepsTapped;
 
 // @override
 // Future<void> close() {

@@ -7,23 +7,29 @@ import 'package:request_repository/request_repository.dart';
 part 'request_details_state.dart';
 
 class RequestDetailsCubit extends Cubit<RequestDetailsState> {
-  RequestDetailsCubit(
-      {required this.requestRepository,
-      required this.onProfileInfoTapped,
-      required this.onChangePasswordTapped,
-      required this.onChangeEmailTapped,
-      required this.requestId})
-      : super(const RequestDetailsState()) {
-    getRequestDetails();
+  RequestDetailsCubit({
+    required this.requestRepository,
+    required this.onViewAllActionsTapped,
+    required this.onViewActionStepsTapped,
+    required this.requestId,
+  }) : super(const RequestDetailsState()) {
+    getRequest();
+    requestRepository.changeNotifier.addListener(
+      () {
+        final request = requestRepository.changeNotifier.request;
+        if (request != null && !isClosed) {
+          emit(state.copyWith(request: request));
+        }
+      },
+    );
   }
 
   final RequestRepository requestRepository;
-  final VoidCallback onProfileInfoTapped;
-  final VoidCallback onChangePasswordTapped;
-  final VoidCallback onChangeEmailTapped;
+  final VoidCallback onViewAllActionsTapped;
+  final ValueSetter<int> onViewActionStepsTapped;
   final int requestId;
 
-  void getRequestDetails() async {
+  void getRequest() async {
     final loadingState = state.copyWith(
       requestFetchingStatus: RequestFetchingStatus.loading,
     );
@@ -43,8 +49,37 @@ class RequestDetailsCubit extends Cubit<RequestDetailsState> {
     }
   }
 
+  void toggleRequestComplete() async {
+    final loadingState = state.copyWith(
+      toggleRequestCompleteStatus: ToggleRequestCompleteStatus.loading,
+    );
+    emit(loadingState);
+    try {
+      final request = state.request!;
+      await requestRepository.toggleRequestComplete(
+        request.isComplete,
+        request.id,
+      );
+
+      final updatedRequest = request.copyWith(
+        isCompleted: !request.isComplete,
+      );
+      final successState = state.copyWith(
+        toggleRequestCompleteStatus: ToggleRequestCompleteStatus.success,
+        request: updatedRequest,
+      );
+      emit(successState);
+    } catch (error) {
+      final errorState = state.copyWith(
+        toggleRequestCompleteStatus: ToggleRequestCompleteStatus.error,
+      );
+      emit(errorState);
+    }
+  }
+
 // @override
 // Future<void> close() {
+//   requestRepository.changeNotifier.clearRequest();
 //   return super.close();
 // }
 }

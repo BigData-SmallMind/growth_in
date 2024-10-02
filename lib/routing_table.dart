@@ -1,3 +1,4 @@
+import 'package:action_steps/action_steps.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:home/home.dart';
 import 'package:more/more.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
+import 'package:request_actions/request_actions.dart';
 import 'package:request_details/request_details.dart';
 import 'package:request_repository/request_repository.dart';
 import 'package:requests/requests.dart';
@@ -94,24 +96,61 @@ Map<String, PageBuilder> buildRoutingTable({
           child: Builder(builder: (context) {
             return RequestsScreen(
               requestRepository: requestRepository,
-              onRequestTapped: (int requestId) =>
-                  routerDelegate.push(_PathConstants.requestDetailsPath(requestId: requestId)),
+              onRequestTapped: (int requestId) => routerDelegate.push(
+                  _PathConstants.requestDetailsPath(requestId: requestId)),
             );
           }),
         ),
     _PathConstants.requestDetailsPath(): (info) => MaterialPage(
           name: 'request-details',
           child: Builder(builder: (context) {
+            final requestId = int.parse(
+              info.pathParameters[_PathConstants.requestIdPathParameter] ?? '',
+            );
             return RequestDetailsScreen(
               requestRepository: requestRepository,
-              requestId: int.parse(
-                info.pathParameters[_PathConstants.idPathParameter] ?? '',
+              requestId: requestId,
+              onViewAllActionsTapped: () => routerDelegate.push(
+                _PathConstants.requestActionsPath(
+                  requestId: requestId,
+                ),
               ),
-              onProfileInfoTapped: () {},
-              onChangePasswordTapped: () {},
-              onChangeEmailTapped: () {},
+              onViewActionStepsTapped: (int actionId) => routerDelegate.push(
+                _PathConstants.actionStepsPath(
+                  requestId: requestId,
+                  actionId: actionId,
+                ),
+              ),
             );
           }),
+        ),
+    _PathConstants.requestActionsPath(): (info) => MaterialPage(
+          name: 'request-actions',
+          child: Builder(builder: (context) {
+            return RequestActionsScreen(
+              requestRepository: requestRepository,
+              onViewActionStepsTapped: (int actionId) => routerDelegate.push(
+                _PathConstants.actionStepsPath(
+                  requestId: int.parse(
+                    info.pathParameters[
+                            _PathConstants.requestIdPathParameter] ??
+                        '',
+                  ),
+                  actionId: actionId,
+                ),
+              ),
+            );
+          }),
+        ),
+    _PathConstants.actionStepsPath(): (info) => MaterialPage(
+          name: 'action-steps',
+          child: ActionStepsScreen(
+            requestRepository: requestRepository,
+            onBackTapped: routerDelegate.popRoute,
+            actionId: int.parse(
+              info.pathParameters[_PathConstants.actionIdPathParameter] ?? '',
+            ),
+          ),
         ),
     _PathConstants.profileSettingsPath: (_) => MaterialPage(
           name: 'profile-settings',
@@ -225,7 +264,11 @@ Map<String, PageBuilder> buildRoutingTable({
 class _PathConstants {
   const _PathConstants._();
 
-  static String get idPathParameter => 'id';
+  static String get ticketIdPathParameter => 'ticket-id';
+
+  static String get requestIdPathParameter => 'request-id';
+
+  static String get actionIdPathParameter => 'action-id';
 
   static String get tabContainerPath => '/';
 
@@ -236,7 +279,25 @@ class _PathConstants {
   static String get requestsPath => '${tabContainerPath}requests';
 
   static String requestDetailsPath({int? requestId}) =>
-      '$requestsPath/${requestId ?? ':$idPathParameter'}/details';
+      '$requestsPath/${requestId ?? ':$requestIdPathParameter'}/details';
+
+  static String requestActionsPath({int? requestId}) =>
+      '${requestDetailsPath(requestId: requestId)}/actions';
+
+  static String actionStepsPath({
+    String? currentUrl,
+    int? requestId,
+    int? actionId,
+  }) {
+    final isRequestDetailsPath = currentUrl?.contains('details') == true;
+    final currentPath = isRequestDetailsPath
+        ? requestDetailsPath(requestId: requestId)
+        : requestActionsPath(requestId: requestId);
+    final completePath = '$currentPath'
+        '/${actionId ?? ':$actionIdPathParameter'}'
+        '/steps';
+    return completePath;
+  }
 
   static String get profileSettingsPath =>
       '${tabContainerPath}profile-settings';
@@ -244,7 +305,7 @@ class _PathConstants {
   static String get ticketsPath => '${tabContainerPath}tickets';
 
   static String ticketMessagesPath({int? ticketId}) =>
-      '$ticketsPath/${ticketId ?? ':$idPathParameter'}/messages';
+      '$ticketsPath/${ticketId ?? ':$ticketIdPathParameter'}/messages';
 
   static String get profileInfoPath => '$profileSettingsPath/profile-info';
 

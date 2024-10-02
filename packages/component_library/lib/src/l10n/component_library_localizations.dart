@@ -674,6 +674,18 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Steps Completed'**
   String get percentActionsComplete;
+
+  /// No description provided for @commentsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Comments'**
+  String get commentsSectionTitle;
+
+  /// No description provided for @viewAllCommentsButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAllCommentsButtonLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

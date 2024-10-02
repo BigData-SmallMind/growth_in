@@ -97,4 +97,35 @@ class UrlBuilder {
     }
     return '';
   }
+
+  String buildToggleRequestCompleteUrl(bool isComplete, int requestId) {
+    if (!isComplete) {
+      return '$_baseUrl/mark-task-complete/$requestId';
+    } else {
+      return '$_baseUrl/mark-task-in-complete/$requestId';
+    }
+  }
+
+  String buildToggleActionStepsCompleteUrl(
+    bool isComplete,
+    int actionId,
+  ) {
+    if (!isComplete) {
+      return '$_baseUrl/mark-all-contents-complete/$actionId';
+    } else {
+      return '$_baseUrl/mark-all-contents-in-complete/$actionId';
+    }
+  }
+
+  String buildToggleSingleActionStepCompleteUrl(
+    bool isComplete,
+    int actionId,
+    int actionStepId,
+  ) {
+    if (!isComplete) {
+      return '$_baseUrl/mark-content-task-complete/$actionStepId?item_id=$actionId';
+    } else {
+      return '$_baseUrl/mark-content-task-in-complete/$actionStepId?item_id=$actionId';
+    }
+  }
 }

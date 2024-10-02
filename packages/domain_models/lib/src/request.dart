@@ -10,9 +10,9 @@ class Request {
     required this.actions,
     this.comments = const [],
     this.descriptionHtml,
-    this.remoteCompleteActionsCount,
-    this.remoteTotalActionsCount,
-     this.isCompleted,
+    this.completeActionStepsCount,
+    this.totalActionStepsCount,
+    this.isCompleted,
   });
 
   final int id;
@@ -23,23 +23,51 @@ class Request {
   final List<Action> actions;
   final List<Comment> comments;
   final String? descriptionHtml;
-  final int? remoteCompleteActionsCount;
-  final int? remoteTotalActionsCount;
+  final int? completeActionStepsCount;
+  final int? totalActionStepsCount;
   final bool? isCompleted;
 
   bool get isPastDeadLine => DateTime.now().isAfter(dueDate);
 
-  double get percentTasksComplete => remoteTotalActionsCount == 0
+  double get percentActionStepsComplete => totalActionStepsCount == 0
       ? 0
-      : remoteCompleteActionsCount != null && remoteTotalActionsCount != null
-          ? (remoteCompleteActionsCount! / remoteTotalActionsCount!)
+      : completeActionStepsCount != null && totalActionStepsCount != null
+          ? (completeActionStepsCount! / totalActionStepsCount!)
           : actions.where((task) => task.isComplete).length / actions.length;
 
-  int get completeActionsCount => remoteCompleteActionsCount != null
-      ? remoteCompleteActionsCount!
+  int get completeActionsCount => completeActionStepsCount != null
+      ? completeActionStepsCount!
       : actions.where((task) => task.isComplete).length;
 
+  bool get isComplete => isCompleted == true;
 
+  Request copyWith({
+    int? id,
+    String? name,
+    String? serviceName,
+    DateTime? dueDate,
+    DateTime? startDate,
+    List<Action>? actions,
+    List<Comment>? comments,
+    String? descriptionHtml,
+    int? completeActionStepsCount,
+    int? totalActionStepsCount,
+    bool? isCompleted,
+  }) {
+    return Request(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      serviceName: serviceName ?? this.serviceName,
+      dueDate: dueDate ?? this.dueDate,
+      startDate: startDate ?? this.startDate,
+      actions: actions ?? this.actions,
+      comments: comments ?? this.comments,
+      descriptionHtml: descriptionHtml ?? this.descriptionHtml,
+      completeActionStepsCount:
+          completeActionStepsCount ?? this.completeActionStepsCount,
+      totalActionStepsCount:
+          totalActionStepsCount ?? this.totalActionStepsCount,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
 }
-
-

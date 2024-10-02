@@ -12,6 +12,20 @@ class RequestsCubit extends Cubit<RequestsState> {
     required this.onRequestTapped,
   }) : super(const RequestsState()) {
     getRequests();
+    requestRepository.changeNotifier.addListener(
+      () {
+        final request = requestRepository.changeNotifier.request;
+        if (request != null && !isClosed) {
+          final updatedRequests = state.requests.map((r) {
+            if (r.id == request.id) {
+              return request;
+            }
+            return r;
+          }).toList();
+          emit(state.copyWith(requests: updatedRequests));
+        }
+      },
+    );
   }
 
   final RequestRepository requestRepository;

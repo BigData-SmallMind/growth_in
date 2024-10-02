@@ -1,8 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:request_details/src/components/request_actions.dart';
-import 'package:request_details/src/components/request_comments.dart';
+import 'package:request_details/src/components/components.dart';
 import 'package:request_details/src/l10n/request_details_localizations.dart';
 import 'package:request_details/src/request_details_cubit.dart';
 import 'package:request_repository/request_repository.dart';
@@ -11,16 +10,15 @@ class RequestDetailsScreen extends StatelessWidget {
   const RequestDetailsScreen({
     super.key,
     required this.requestRepository,
-    required this.onProfileInfoTapped,
-    required this.onChangePasswordTapped,
-    required this.onChangeEmailTapped,
+    required this.onViewAllActionsTapped,
+    required this.onViewActionStepsTapped,
     required this.requestId,
   });
 
   final RequestRepository requestRepository;
-  final VoidCallback onProfileInfoTapped;
-  final VoidCallback onChangePasswordTapped;
-  final VoidCallback onChangeEmailTapped;
+  final VoidCallback onViewAllActionsTapped;
+  final ValueSetter<int> onViewActionStepsTapped;
+
   final int requestId;
 
   @override
@@ -29,9 +27,8 @@ class RequestDetailsScreen extends StatelessWidget {
       create: (_) => RequestDetailsCubit(
         requestRepository: requestRepository,
         requestId: requestId,
-        onProfileInfoTapped: onProfileInfoTapped,
-        onChangePasswordTapped: onChangePasswordTapped,
-        onChangeEmailTapped: onChangeEmailTapped,
+        onViewAllActionsTapped: onViewAllActionsTapped,
+        onViewActionStepsTapped: onViewActionStepsTapped,
       ),
       child: const RequestDetailsView(),
     );
@@ -45,16 +42,16 @@ class RequestDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final isTablet = !View.of(context).isSmallTabletOrLess;
-
     return BlocBuilder<RequestDetailsCubit, RequestDetailsState>(
       builder: (context, state) {
         final theme = GrowthInTheme.of(context);
         final l10n = RequestDetailsLocalizations.of(context);
         final textTheme = Theme.of(context).textTheme;
+        final cubit = context.read<RequestDetailsCubit>();
         final request = state.request;
         final loading =
             state.requestFetchingStatus == RequestFetchingStatus.loading;
+
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
@@ -69,15 +66,11 @@ class RequestDetailsView extends StatelessWidget {
                         HorizontalGap.custom(theme.screenMargin),
                         Text(request!.name),
                         Spacer(),
-                        IconButton(
-                          icon: SvgAsset(
-                            request.isCompleted == true
-                                ? AssetPathConstants.markAsCompleteActivePath
-                                : AssetPathConstants.markAsCompletePath,
-                            width: 40,
-                            height: 40,
-                          ),
-                          onPressed: () {},
+                        MarkAsCompleteToggler(
+                          isComplete: request.isComplete,
+                          isLoading: state.toggleRequestCompleteStatus ==
+                              ToggleRequestCompleteStatus.loading,
+                          onPressed: cubit.toggleRequestComplete,
                         ),
                         HorizontalGap.custom(theme.screenMargin),
                       ],
@@ -134,7 +127,7 @@ class RequestDetailsView extends StatelessWidget {
                     if (request.actions.isNotEmpty)
                       RequestActions(actions: request.actions),
                     if (request.comments.isNotEmpty)
-                      RequestComments(comments: request.comments),
+                      Comments(comments: request.comments),
                   ],
                 ),
         );

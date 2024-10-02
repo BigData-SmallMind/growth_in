@@ -294,4 +294,10 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get percentActionsComplete => 'المنتهي';
+
+  @override
+  String get commentsSectionTitle => 'التعليقات';
+
+  @override
+  String get viewAllCommentsButtonLabel => 'اظهر الكل';
 }

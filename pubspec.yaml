@@ -79,6 +79,8 @@ dependencies:
     path: packages/features/request_details
   request_actions:
     path: packages/features/request_actions
+  action_steps:
+    path: packages/features/action_steps
 
 
   # Domain Models and Component Library

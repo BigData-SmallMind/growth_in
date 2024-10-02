@@ -6,10 +6,12 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.title,
     required this.logoVariation,
+    this.onBackTapped,
   });
 
   final String? title;
   final bool logoVariation;
+  final VoidCallback? onBackTapped;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -28,7 +30,7 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             actions: [
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: onBackTapped ?? () => Navigator.pop(context),
                 child: Container(
                   padding: const EdgeInsets.all(Spacing.xSmall * 2),
                   margin: EdgeInsetsDirectional.only(end: theme.screenMargin),
@@ -51,7 +53,7 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
             centerTitle: false,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
-              onPressed: Navigator.of(context).pop,
+              onPressed: onBackTapped ?? Navigator.of(context).pop,
             ),
           );
   }
