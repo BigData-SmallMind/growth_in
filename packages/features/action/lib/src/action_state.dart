@@ -1,7 +1,7 @@
-part of 'action_steps_cubit.dart';
+part of 'action_cubit.dart';
 
-class ActionStepsState extends Equatable {
-  const ActionStepsState({
+class ActionState extends Equatable {
+  const ActionState({
     this.request,
     this.comments = const [],
     this.commentsFetchStatus = CommentsFetchStatus.initial,
@@ -11,30 +11,34 @@ class ActionStepsState extends Equatable {
         ToggleSingleStepCompleteStatus.initial,
     this.stepId,
     this.addCommentStatus = AddCommentStatus.initial,
+    this.comment,
   });
 
-  final Request? request;
-  final List<Comment> comments;
+  final dm.Request? request;
+  final List<dm.Comment> comments;
   final CommentsFetchStatus commentsFetchStatus;
   final int? actionId;
   final ToggleStepsCompleteStatus toggleStepsCompleteStatus;
   final ToggleSingleStepCompleteStatus toggleSingleStepCompleteStatus;
   final int? stepId;
   final AddCommentStatus addCommentStatus;
+  final String? comment;
 
-  Action get action =>
+  dm.Action get action =>
       request!.actions.firstWhere((action) => action.id == actionId);
 
-  ActionStepsState copyWith({
-    Request? request,
-    List<Comment>? comments,
+  ActionState copyWith({
+    dm.Request? request,
+    List<dm.Comment>? comments,
     CommentsFetchStatus? commentsFetchStatus,
     ToggleStepsCompleteStatus? toggleStepsCompleteStatus,
     ToggleSingleStepCompleteStatus? toggleSingleStepCompleteStatus,
     int? stepId,
     AddCommentStatus? addCommentStatus,
+    String? comment,
+
   }) {
-    return ActionStepsState(
+    return ActionState(
       request: request ?? this.request,
       comments: comments ?? this.comments,
       commentsFetchStatus: commentsFetchStatus ?? this.commentsFetchStatus,
@@ -45,6 +49,7 @@ class ActionStepsState extends Equatable {
           toggleSingleStepCompleteStatus ?? this.toggleSingleStepCompleteStatus,
       stepId: stepId ?? this.stepId,
       addCommentStatus: addCommentStatus ?? this.addCommentStatus,
+      comment: comment ?? this.comment,
     );
   }
 
@@ -58,6 +63,7 @@ class ActionStepsState extends Equatable {
         toggleSingleStepCompleteStatus,
         stepId,
         addCommentStatus,
+        comment,
       ];
 }
 

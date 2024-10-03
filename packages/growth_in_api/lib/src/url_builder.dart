@@ -78,10 +78,32 @@ class UrlBuilder {
     return '$_baseUrl/reset_password?new_password=$newPassword&new_password_confirmation=$newPasswordConfirmation';
   }
 
-  String buildGetRequestsUrl() {
-    return '$_baseUrl/tasks';
+  String buildGetRequestsUrl({
+    required int page,
+    String? searchText,
+    String? status,
+    List<int>? projectIds,
+  }) {
+    final pageQuery = '?page=$page';
+    final searchTextQuery = searchText != null ? '&query=$searchText' : '';
+    final statusQuery = status != null ? '&status=$status' : '';
+    final projectNameQuery = projectIds != null && projectIds.isNotEmpty
+        ? projectIds.indexed
+            .map((indexedId) =>
+                '&project[${indexedId.$1}]=${indexedId.$2}')
+            .reduce((value, element) => value + element)
+        : '';
+
+    final cgiParams = '$pageQuery'
+        '$searchTextQuery'
+        '$statusQuery'
+        '$projectNameQuery';
+    return '$_baseUrl/tasks$cgiParams';
   }
 
+  String buildGetProjectsUrl() {
+    return '$_baseUrl/fetch-project-companies';
+  }
   String buildGetRequestUrl(int requestId) {
     return '$_baseUrl/tasks/$requestId';
   }
@@ -127,5 +149,12 @@ class UrlBuilder {
     } else {
       return '$_baseUrl/mark-content-task-in-complete/$actionStepId?item_id=$actionId';
     }
+  }
+
+  String buildAddCommentUrl(
+    int? actionId,
+  ) {
+    final actionIdSlug = actionId != null ? '/$actionId' : '/null';
+    return '$_baseUrl/store-comment-task$actionIdSlug';
   }
 }

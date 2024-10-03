@@ -460,20 +460,43 @@ class GrowthInApi {
     }
   }
 
-  Future<List<RequestV1RM>> getRequests() async {
-    final url = urlBuilder.buildGetRequestsUrl();
+  Future<RequestListPageRM> getRequests({
+    required int pageNumber,
+    String? searchText,
+    String? status,
+    List<int>? projectIds,
+  }) async {
+    final url = urlBuilder.buildGetRequestsUrl(
+      page: pageNumber,
+      searchText: searchText,
+      status: status,
+      projectIds: projectIds,
+    );
     final response = await _dio.get(
       url,
     );
     try {
-      final requests = response.data[_tasksJsonKey] as List;
-      final requestsList =
-          requests.map((request) => RequestV1RM.fromJson(request)).toList();
+      final requests = response.data;
+      final requestsList = RequestListPageRM.fromJson(requests);
       return requestsList;
     } catch (_) {
       rethrow;
     }
   }
+  //
+  // Future<List<ProjectRM>> getProjects() async {
+  //   final url = urlBuilder.buildGetProjectsUrl();
+  //   final response = await _dio.get(
+  //     url,
+  //   );
+  //   try {
+  //     final requests = response.data;
+  //     final requestsList = RequestListPageRM.fromJson(requests);
+  //     return requestsList;
+  //   } catch (_) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<RequestRM> getRequest(int requestId) async {
     final url = urlBuilder.buildGetRequestUrl(requestId);
@@ -489,8 +512,14 @@ class GrowthInApi {
     }
   }
 
-  Future<List<CommentRM>> getComments(int? requestId, int? actionId) async {
-    final url = urlBuilder.buildGetCommentsUrl(requestId, actionId);
+  Future<List<CommentRM>> getComments(
+    int? requestId,
+    int? actionId,
+  ) async {
+    final url = urlBuilder.buildGetCommentsUrl(
+      requestId,
+      actionId,
+    );
     final response = await _dio.get(
       url,
     );
@@ -557,6 +586,28 @@ class GrowthInApi {
     try {
       final response = await _dio.post(
         url,
+      );
+      debugPrint(response.toString());
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future addComment({
+    int? requestId,
+    int? actionId,
+    required String text,
+  }) async {
+    final url = urlBuilder.buildAddCommentUrl(
+      actionId,
+    );
+    try {
+      final response = await _dio.post(
+        url,
+        data: {
+          'comment': text,
+          if (requestId != null) 'task_id': requestId,
+        },
       );
       debugPrint(response.toString());
     } catch (_) {

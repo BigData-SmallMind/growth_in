@@ -8,6 +8,8 @@ class RequestRM {
     required this.id,
     required this.name,
     this.serviceName,
+    this.projectName,
+    this.campaignName,
     required this.deadline,
     required this.dateCreated,
     this.actions,
@@ -21,6 +23,10 @@ class RequestRM {
   final String name;
   @JsonKey(name: 'service_name')
   final String? serviceName;
+  @JsonKey(name: 'project_name')
+  final String? projectName;
+  @JsonKey(name: 'campaign_name')
+  final String? campaignName;
   @JsonKey(name: 'due_date')
   final String deadline;
   @JsonKey(name: 'start_date')

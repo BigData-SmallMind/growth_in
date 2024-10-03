@@ -14,6 +14,8 @@ RequestRM _$RequestRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           id: $checkedConvert('task_id', (v) => (v as num).toInt()),
           name: $checkedConvert('task_name', (v) => v as String),
           serviceName: $checkedConvert('service_name', (v) => v as String?),
+          projectName: $checkedConvert('project_name', (v) => v as String?),
+          campaignName: $checkedConvert('campaign_name', (v) => v as String?),
           deadline: $checkedConvert('due_date', (v) => v as String),
           dateCreated: $checkedConvert('start_date', (v) => v as String),
           actions: $checkedConvert(
@@ -30,6 +32,8 @@ RequestRM _$RequestRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'id': 'task_id',
         'name': 'task_name',
         'serviceName': 'service_name',
+        'projectName': 'project_name',
+        'campaignName': 'campaign_name',
         'deadline': 'due_date',
         'dateCreated': 'start_date',
         'actions': 'items',

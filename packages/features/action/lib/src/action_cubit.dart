@@ -1,24 +1,26 @@
-import 'package:domain_models/domain_models.dart';
+import 'package:domain_models/domain_models.dart' as dm;
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:request_repository/request_repository.dart';
 
-part 'action_steps_state.dart';
+part 'action_state.dart';
 
-class ActionStepsCubit extends Cubit<ActionStepsState> {
-  ActionStepsCubit({
+class ActionCubit extends Cubit<ActionState> {
+  ActionCubit({
     required this.requestRepository,
     required this.actionId,
   }) : super(
-          ActionStepsState(
+          ActionState(
             request: requestRepository.changeNotifier.request,
             actionId: actionId,
           ),
-        ){
+        ) {
     getComments();
   }
 
   final RequestRepository requestRepository;
+  final TextEditingController commentController = TextEditingController();
   final int actionId;
 
   void getComments() async {
@@ -48,7 +50,7 @@ class ActionStepsCubit extends Cubit<ActionStepsState> {
     emit(loadingState);
     try {
       final action = state.action;
-      await requestRepository.toggleActionStepsComplete(
+      await requestRepository.toggleActionComplete(
         action.isComplete,
         actionId,
       );
@@ -65,7 +67,7 @@ class ActionStepsCubit extends Cubit<ActionStepsState> {
           .where((step) => step.isComplete == action.isComplete)
           .length;
       final previousTotalNumberOfCompleteSteps =
-          state.request!.completeActionStepsCount!;
+          state.request!.completeActionCount!;
       final shouldIncrement = !action.isComplete;
 
       final updatedRequest = state.request!.copyWith(
@@ -74,7 +76,7 @@ class ActionStepsCubit extends Cubit<ActionStepsState> {
               (request) => request.id == actionId ? updatedAction : request,
             )
             .toList(),
-        completeActionStepsCount: shouldIncrement
+        completeActionCount: shouldIncrement
             ? previousTotalNumberOfCompleteSteps + noOfStepsToggled
             : previousTotalNumberOfCompleteSteps - noOfStepsToggled,
       );
@@ -97,7 +99,7 @@ class ActionStepsCubit extends Cubit<ActionStepsState> {
   ) async {
     final loading = state.copyWith(
       toggleSingleStepCompleteStatus: ToggleSingleStepCompleteStatus.loading,
-      stepId:stepId,
+      stepId: stepId,
     );
     emit(loading);
     try {
@@ -125,9 +127,9 @@ class ActionStepsCubit extends Cubit<ActionStepsState> {
               (action) => action.id == actionId ? updatedAction : action,
             )
             .toList(),
-        completeActionStepsCount: shouldIncrement
-            ? state.request!.completeActionStepsCount! + 1
-            : state.request!.completeActionStepsCount! - 1,
+        completeActionCount: shouldIncrement
+            ? state.request!.completeActionCount! + 1
+            : state.request!.completeActionCount! - 1,
       );
       final successState = state.copyWith(
         toggleSingleStepCompleteStatus: ToggleSingleStepCompleteStatus.success,
@@ -138,6 +140,36 @@ class ActionStepsCubit extends Cubit<ActionStepsState> {
     } catch (error) {
       final errorState = state.copyWith(
         toggleSingleStepCompleteStatus: ToggleSingleStepCompleteStatus.error,
+      );
+      emit(errorState);
+    }
+  }
+
+  void onCommentChanged(String newValue) {
+    commentController.text = newValue;
+    emit(state.copyWith(comment: newValue));
+  }
+
+  void addComment() async {
+    final loadingState = state.copyWith(
+      addCommentStatus: AddCommentStatus.loading,
+    );
+    emit(loadingState);
+    try {
+      final comment = commentController.text;
+      await requestRepository.addComment(
+        actionId: actionId,
+        requestId: null,
+        comment: comment,
+      );
+      final successState = state.copyWith(
+        addCommentStatus: AddCommentStatus.success,
+      );
+      emit(successState);
+      getComments();
+    } catch (error) {
+      final errorState = state.copyWith(
+        addCommentStatus: AddCommentStatus.error,
       );
       emit(errorState);
     }
