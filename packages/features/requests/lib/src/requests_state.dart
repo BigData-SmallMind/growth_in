@@ -2,34 +2,53 @@ part of 'requests_cubit.dart';
 
 class RequestsState extends Equatable {
   const RequestsState({
-    this.fetchingRequestsStatus = FetchingRequestsStatus.initial,
-    this.requests = const [],
+    this.requests,
+    this.filterBy = const FilterBy(),
+    this.nextSearchPage,
+    this.nextSearchListPageLoadError,
+    this.projects,
+    this.projectsFetchStatus = ProjectsFetchStatus.initial,
   });
 
-  final FetchingRequestsStatus fetchingRequestsStatus;
-  final List<Request> requests;
+  final List<Request>? requests;
+  final FilterBy filterBy;
+  final int? nextSearchPage;
+  final dynamic nextSearchListPageLoadError;
+  final List<Project>? projects;
+  final ProjectsFetchStatus projectsFetchStatus;
 
   RequestsState copyWith({
-    FetchingRequestsStatus? fetchingRequestsStatus,
     List<Request>? requests,
+    FilterBy? filterBy,
+    int? nextSearchPage,
+    dynamic nextSearchListPageLoadError,
+    List<Project>? projects,
+    ProjectsFetchStatus? projectsFetchStatus,
   }) {
     return RequestsState(
-      fetchingRequestsStatus:
-          fetchingRequestsStatus ?? this.fetchingRequestsStatus,
       requests: requests ?? this.requests,
+      filterBy: filterBy ?? this.filterBy,
+      nextSearchPage: nextSearchPage ?? this.nextSearchPage,
+      nextSearchListPageLoadError: nextSearchListPageLoadError,
+      projects: projects ?? this.projects,
+      projectsFetchStatus: projectsFetchStatus ?? this.projectsFetchStatus,
     );
   }
 
   @override
   List<Object?> get props => [
-        fetchingRequestsStatus,
         requests,
+        filterBy,
+        nextSearchPage,
+        nextSearchListPageLoadError,
+        projects,
+        projectsFetchStatus,
       ];
 }
 
-enum FetchingRequestsStatus {
+enum ProjectsFetchStatus {
   initial,
   loading,
-  success,
+  loaded,
   error,
 }

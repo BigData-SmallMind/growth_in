@@ -1,4 +1,10 @@
 {
   "appBarTitle": "Requests",
-  "emptyRequestsListIndicator": "No requests"
-}
+  "noItemsFoundMessage": "No requests",
+  "aboutToExpireStatusText": "About to Expire",
+  "expiredStatusText": "Expired",
+  "notStartedStatusText": "Not Started",
+  "inProgressStatusText": "In Progress",
+  "statusFilterSectionTitle": "Status",
+  "projectsFilterSectionTitle": "Projects"
+  }

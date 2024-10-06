@@ -1,5 +1,11 @@
 {
 "appBarTitle": "الطلبات",
-  "emptyRequestsListIndicator": "لا توجد طلبات"
+  "emptyRequestsListIndicator": "لا توجد طلبات",
+  "aboutToExpireStatusText": "قرب التجاوز",
+  "expiredStatusText": "لم يتم البدء",
+  "notStartedStatusText": "تجاوز الموعد",
+  "inProgressStatusText": "قيد العمل",
+  "statusFilterSectionTitle": "الحالة",
+  "projectsFilterSectionTitle": "المشاريع"
 
 }

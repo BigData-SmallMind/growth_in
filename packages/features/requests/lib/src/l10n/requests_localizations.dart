@@ -99,11 +99,47 @@ abstract class RequestsLocalizations {
   /// **'Requests'**
   String get appBarTitle;
 
-  /// No description provided for @emptyRequestsListIndicator.
+  /// No description provided for @noItemsFoundMessage.
   ///
   /// In en, this message translates to:
   /// **'No requests'**
-  String get emptyRequestsListIndicator;
+  String get noItemsFoundMessage;
+
+  /// No description provided for @aboutToExpireStatusText.
+  ///
+  /// In en, this message translates to:
+  /// **'About to Expire'**
+  String get aboutToExpireStatusText;
+
+  /// No description provided for @expiredStatusText.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get expiredStatusText;
+
+  /// No description provided for @notStartedStatusText.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Started'**
+  String get notStartedStatusText;
+
+  /// No description provided for @inProgressStatusText.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgressStatusText;
+
+  /// No description provided for @statusFilterSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusFilterSectionTitle;
+
+  /// No description provided for @projectsFilterSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get projectsFilterSectionTitle;
 }
 
 class _RequestsLocalizationsDelegate extends LocalizationsDelegate<RequestsLocalizations> {

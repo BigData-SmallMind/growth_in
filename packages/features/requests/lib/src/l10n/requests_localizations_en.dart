@@ -8,5 +8,23 @@ class RequestsLocalizationsEn extends RequestsLocalizations {
   String get appBarTitle => 'Requests';
 
   @override
-  String get emptyRequestsListIndicator => 'No requests';
+  String get noItemsFoundMessage => 'No requests';
+
+  @override
+  String get aboutToExpireStatusText => 'About to Expire';
+
+  @override
+  String get expiredStatusText => 'Expired';
+
+  @override
+  String get notStartedStatusText => 'Not Started';
+
+  @override
+  String get inProgressStatusText => 'In Progress';
+
+  @override
+  String get statusFilterSectionTitle => 'Status';
+
+  @override
+  String get projectsFilterSectionTitle => 'Projects';
 }

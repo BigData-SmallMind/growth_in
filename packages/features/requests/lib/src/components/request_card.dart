@@ -6,7 +6,6 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import 'package:requests/src/requests_cubit.dart';
 
-
 class RequestCard extends StatelessWidget {
   const RequestCard({
     super.key,
@@ -22,7 +21,7 @@ class RequestCard extends StatelessWidget {
         final theme = GrowthInTheme.of(context);
         final cubit = context.read<RequestsCubit>();
         return GestureDetector(
-          onTap: ()=>cubit.onRequestTapped(request.id),
+          onTap: () => cubit.onRequestTapped(request.id),
           child: Container(
             height: 100,
             decoration: BoxDecoration(
@@ -42,7 +41,15 @@ class RequestCard extends StatelessWidget {
                         horizontal: Spacing.small,
                         vertical: Spacing.xSmall,
                       ),
-                      child: Text(request.serviceName),
+                      child: Text(
+                        request.serviceName != null
+                            ? request.serviceName!
+                            : request.projectName != null
+                                ? request.projectName!
+                                : request.campaignName != null
+                                    ? request.campaignName!
+                                    : '',
+                      ),
                       decoration: BoxDecoration(
                           color: Color(0xFFEBF2FF),
                           borderRadius: BorderRadius.circular(5)),
