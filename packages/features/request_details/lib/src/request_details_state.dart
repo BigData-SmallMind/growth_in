@@ -5,16 +5,22 @@ class RequestDetailsState extends Equatable {
     this.requestFetchingStatus = RequestFetchingStatus.initial,
     this.toggleRequestCompleteStatus = ToggleRequestCompleteStatus.initial,
     this.request,
+    this.addCommentStatus = AddCommentStatus.initial,
+    this.comment,
   });
 
   final ToggleRequestCompleteStatus toggleRequestCompleteStatus;
   final RequestFetchingStatus requestFetchingStatus;
   final Request? request;
+  final AddCommentStatus addCommentStatus;
+  final String? comment;
 
   RequestDetailsState copyWith({
     ToggleRequestCompleteStatus? toggleRequestCompleteStatus,
     RequestFetchingStatus? requestFetchingStatus,
     Request? request,
+    AddCommentStatus? addCommentStatus,
+    String? comment,
   }) {
     return RequestDetailsState(
       toggleRequestCompleteStatus:
@@ -22,6 +28,8 @@ class RequestDetailsState extends Equatable {
       requestFetchingStatus:
           requestFetchingStatus ?? this.requestFetchingStatus,
       request: request ?? this.request,
+      addCommentStatus: addCommentStatus ?? this.addCommentStatus,
+      comment: comment ?? this.comment,
     );
   }
 
@@ -30,6 +38,8 @@ class RequestDetailsState extends Equatable {
         toggleRequestCompleteStatus,
         requestFetchingStatus,
         request,
+        addCommentStatus,
+        comment,
       ];
 }
 
@@ -41,6 +51,13 @@ enum RequestFetchingStatus {
 }
 
 enum ToggleRequestCompleteStatus {
+  initial,
+  loading,
+  success,
+  error,
+}
+
+enum AddCommentStatus {
   initial,
   loading,
   success,

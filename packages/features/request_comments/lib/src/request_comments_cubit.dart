@@ -9,7 +9,7 @@ part 'request_comments_state.dart';
 class RequestCommentsCubit extends Cubit<RequestCommentsState> {
   RequestCommentsCubit({
     required this.requestRepository,
-    required this.actionId,
+    required this.requestId,
   }) : super(
           RequestCommentsState(),
         ) {
@@ -18,7 +18,7 @@ class RequestCommentsCubit extends Cubit<RequestCommentsState> {
 
   final RequestRepository requestRepository;
   final TextEditingController commentController = TextEditingController();
-  final int actionId;
+  final int requestId;
 
   void getComments() async {
     final loadingState = state.copyWith(
@@ -26,7 +26,7 @@ class RequestCommentsCubit extends Cubit<RequestCommentsState> {
     );
     emit(loadingState);
     try {
-      final comments = await requestRepository.getRequestComments(actionId);
+      final comments = await requestRepository.getRequestComments(requestId);
       final successState = state.copyWith(
         commentsFetchStatus: CommentsFetchStatus.success,
         comments: comments,
@@ -53,8 +53,8 @@ class RequestCommentsCubit extends Cubit<RequestCommentsState> {
     try {
       final comment = commentController.text;
       await requestRepository.addComment(
-        actionId: actionId,
-        requestId: null,
+        actionId: null,
+        requestId: requestId,
         comment: comment,
       );
       final successState = state.copyWith(

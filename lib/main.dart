@@ -1,8 +1,10 @@
 import 'dart:io';
-import 'package:action_steps/action_steps.dart';
+import 'package:action_comments/action_comments.dart';
+import 'package:action/action.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:component_library/component_library.dart';
+import 'package:dio/dio.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +16,13 @@ import 'package:growth_in/routing_table.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:home/home.dart';
 import 'package:key_value_storage/key_value_storage.dart';
+import 'package:meeting_repository/meeting_repository.dart';
+import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
 import 'package:request_actions/request_actions.dart';
+import 'package:request_comments/request_comments.dart';
 import 'package:request_details/request_details.dart';
 import 'package:request_repository/request_repository.dart';
 import 'package:requests/requests.dart';
@@ -41,6 +46,8 @@ final ValueNotifier<InternetConnectionGrowthInException?>
 final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
 final dynamic _connectInApi = GrowthInApi(
+  urlBuilder: UrlBuilder(),
+  dio: Dio(),
   userTokenSupplier: () => _userRepository.getUserToken(),
   otpVerificationTokenSupplier: () =>
       _userRepository.getOtpVerificationTokenSupplierToken(),
@@ -53,6 +60,10 @@ final _userRepository = UserRepository(
   noSqlStorage: _keyValueStorage,
 );
 final _requestRepository = RequestRepository(
+  remoteApi: _connectInApi,
+  noSqlStorage: _keyValueStorage,
+);
+final _meetingRepository = MeetingRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
 );
@@ -116,6 +127,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
           routerDelegate: _routerDelegate,
           userRepository: _userRepository,
           requestRepository: _requestRepository,
+          meetingRepository: _meetingRepository,
           signInSuccessVN: _signInSuccessVN,
         ),
       );
@@ -191,6 +203,8 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 SendOtpLocalizations.delegate,
                 VerifyOtpLocalizations.delegate,
                 ResetPasswordLocalizations.delegate,
+                ChangePasswordLocalizations.delegate,
+                ChangeEmailLocalizations.delegate,
                 MoreLocalizations.delegate,
                 HomeLocalizations.delegate,
                 SwitchAccountCompanyLocalizations.delegate,
@@ -198,15 +212,20 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 // Profile
                 ProfileSettingsLocalizations.delegate,
                 ProfileInfoLocalizations.delegate,
-                ChangePasswordLocalizations.delegate,
-                ChangeEmailLocalizations.delegate,
                 TicketsLocalizations.delegate,
                 SubmitTicketLocalizations.delegate,
                 TicketMessagesLocalizations.delegate,
+
+                // Requests
                 RequestsLocalizations.delegate,
                 RequestDetailsLocalizations.delegate,
                 RequestActionsLocalizations.delegate,
-                ActionStepsLocalizations.delegate,
+                ActionLocalizations.delegate,
+                ActionCommentsLocalizations.delegate,
+                RequestCommentsLocalizations.delegate,
+
+                // Meetings
+                MeetingsLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

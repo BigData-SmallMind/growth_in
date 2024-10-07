@@ -104,6 +104,8 @@
   "actionTitle": "Action #",
   "percentActionsComplete": "Steps Completed",
   "commentsSectionTitle": "Comments",
-  "viewAllCommentsButtonLabel": "View All"
+  "viewAllCommentsButtonLabel": "View All",
+  "noCommentsIndicatorText": "No Comments"
+
 
 }

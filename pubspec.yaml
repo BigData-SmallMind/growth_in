@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_lints: ^3.0.1
   firebase_core: ^3.3.0
+  dio: ^5.3.3
 
   # Local Packages
   growth_in_api:
@@ -27,6 +28,8 @@ dependencies:
     path: packages/request_repository
   company_repository:
     path: packages/company_repository
+  meeting_repository:
+    path: packages/meeting_repository
 
   function_and_extension_library:
     path: packages/function_and_extension_library
@@ -79,9 +82,17 @@ dependencies:
     path: packages/features/request_details
   request_actions:
     path: packages/features/request_actions
-  action_steps:
-    path: packages/features/action_steps
+  action:
+    path: packages/features/action
+  action_comments:
+    path: packages/features/action_comments
+  request_comments:
+    path: packages/features/request_comments
 
+
+    # Meetings
+  meetings:
+    path: packages/features/meetings
 
   # Domain Models and Component Library
   domain_models:

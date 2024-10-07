@@ -11,6 +11,7 @@ class RequestDetailsCubit extends Cubit<RequestDetailsState> {
     required this.requestRepository,
     required this.onViewAllActionsTapped,
     required this.onViewActionStepsTapped,
+    required this.onViewAllCommentsTapped,
     required this.requestId,
   }) : super(const RequestDetailsState()) {
     getRequest();
@@ -27,6 +28,8 @@ class RequestDetailsCubit extends Cubit<RequestDetailsState> {
   final RequestRepository requestRepository;
   final VoidCallback onViewAllActionsTapped;
   final ValueSetter<int> onViewActionStepsTapped;
+  final VoidCallback onViewAllCommentsTapped;
+  final TextEditingController commentController = TextEditingController();
   final int requestId;
 
   void getRequest() async {
@@ -72,6 +75,35 @@ class RequestDetailsCubit extends Cubit<RequestDetailsState> {
     } catch (error) {
       final errorState = state.copyWith(
         toggleRequestCompleteStatus: ToggleRequestCompleteStatus.error,
+      );
+      emit(errorState);
+    }
+  }
+
+  void onCommentChanged(String newValue) {
+    commentController.text = newValue;
+    emit(state.copyWith(comment: newValue));
+  }
+
+  void addComment() async {
+    final loadingState = state.copyWith(
+      addCommentStatus: AddCommentStatus.loading,
+    );
+    emit(loadingState);
+    try {
+      final comment = commentController.text;
+      await requestRepository.addComment(
+        actionId: null,
+        requestId: requestId,
+        comment: comment,
+      );
+      final successState = state.copyWith(
+        addCommentStatus: AddCommentStatus.success,
+      );
+      emit(successState);
+    } catch (error) {
+      final errorState = state.copyWith(
+        addCommentStatus: AddCommentStatus.error,
       );
       emit(errorState);
     }

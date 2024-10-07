@@ -104,6 +104,8 @@
   "actionTitle": "عنوان الإجراء",
   "percentActionsComplete": "المنتهي",
   "commentsSectionTitle": "التعليقات",
-  "viewAllCommentsButtonLabel": "اظهر الكل"
+  "viewAllCommentsButtonLabel": "اظهر الكل",
+  "noCommentsIndicatorText": "لا توجد تعليقات"
+
 }
 

@@ -1,26 +1,33 @@
+import 'package:domain_models/src/comment.dart';
+
 class Action {
   const Action({
     required this.id,
     required this.title,
     required this.steps,
+    this.comments = const [],
   });
 
   final int id;
   final String title;
   final List<Step> steps;
+  final List<Comment> comments;
 
   int get completeStepsCount => steps.where((step) => step.isComplete).length;
+
   bool get isComplete => completeStepsCount == steps.length;
 
   Action copyWith({
     int? id,
     String? title,
     List<Step>? steps,
+    List<Comment>? comments,
   }) {
     return Action(
       id: id ?? this.id,
       title: title ?? this.title,
       steps: steps ?? this.steps,
+      comments: comments ?? this.comments,
     );
   }
 }

@@ -93,7 +93,7 @@ class ChangePasswordView extends StatelessWidget {
           child: Scaffold(
             appBar: GrowthInAppBar(
               logoVariation: false,
-              title: l10n.changePasswordScreenTitle,
+              title: Text(l10n.changePasswordScreenTitle),
             ),
             body: ListView(
               padding: EdgeInsets.symmetric(

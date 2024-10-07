@@ -9,6 +9,7 @@ part 'action_state.dart';
 class ActionCubit extends Cubit<ActionState> {
   ActionCubit({
     required this.requestRepository,
+    required this.onViewAllCommentsTapped,
     required this.actionId,
   }) : super(
           ActionState(
@@ -20,6 +21,7 @@ class ActionCubit extends Cubit<ActionState> {
   }
 
   final RequestRepository requestRepository;
+  final VoidCallback onViewAllCommentsTapped;
   final TextEditingController commentController = TextEditingController();
   final int actionId;
 
@@ -50,7 +52,7 @@ class ActionCubit extends Cubit<ActionState> {
     emit(loadingState);
     try {
       final action = state.action;
-      await requestRepository.toggleActionComplete(
+      await requestRepository.toggleActionStepsComplete(
         action.isComplete,
         actionId,
       );
@@ -67,7 +69,7 @@ class ActionCubit extends Cubit<ActionState> {
           .where((step) => step.isComplete == action.isComplete)
           .length;
       final previousTotalNumberOfCompleteSteps =
-          state.request!.completeActionCount!;
+          state.request!.completeActionStepsCount!;
       final shouldIncrement = !action.isComplete;
 
       final updatedRequest = state.request!.copyWith(
@@ -76,7 +78,7 @@ class ActionCubit extends Cubit<ActionState> {
               (request) => request.id == actionId ? updatedAction : request,
             )
             .toList(),
-        completeActionCount: shouldIncrement
+        completeActionStepsCount: shouldIncrement
             ? previousTotalNumberOfCompleteSteps + noOfStepsToggled
             : previousTotalNumberOfCompleteSteps - noOfStepsToggled,
       );
@@ -127,9 +129,9 @@ class ActionCubit extends Cubit<ActionState> {
               (action) => action.id == actionId ? updatedAction : action,
             )
             .toList(),
-        completeActionCount: shouldIncrement
-            ? state.request!.completeActionCount! + 1
-            : state.request!.completeActionCount! - 1,
+        completeActionStepsCount: shouldIncrement
+            ? state.request!.completeActionStepsCount! + 1
+            : state.request!.completeActionStepsCount! - 1,
       );
       final successState = state.copyWith(
         toggleSingleStepCompleteStatus: ToggleSingleStepCompleteStatus.success,
@@ -166,7 +168,6 @@ class ActionCubit extends Cubit<ActionState> {
         addCommentStatus: AddCommentStatus.success,
       );
       emit(successState);
-      getComments();
     } catch (error) {
       final errorState = state.copyWith(
         addCommentStatus: AddCommentStatus.error,

@@ -11,6 +11,7 @@ class MoreScreen extends StatefulWidget {
     required this.userRepository,
     required this.onCompanyTileTap,
     required this.onRequestsTapped,
+    required this.onMeetingsTapped,
     required this.onLogout,
     required this.onHelpAndSupportTapped,
     required this.onProfileSettingsTapped,
@@ -19,6 +20,7 @@ class MoreScreen extends StatefulWidget {
   final UserRepository userRepository;
   final VoidCallback onCompanyTileTap;
   final VoidCallback onRequestsTapped;
+  final VoidCallback onMeetingsTapped;
   final VoidCallback onLogout;
   final VoidCallback onHelpAndSupportTapped;
   final VoidCallback onProfileSettingsTapped;
@@ -38,6 +40,7 @@ class _MoreScreenState extends State<MoreScreen>
         onCompanyTileTap: widget.onCompanyTileTap,
         onLogout: widget.onLogout,
         onRequestsTapped: widget.onRequestsTapped,
+        onMeetingsTapped: widget.onMeetingsTapped,
         onHelpAndSupportTapped: widget.onHelpAndSupportTapped,
         onProfileSettingsTapped: widget.onProfileSettingsTapped,
       ),
@@ -84,7 +87,7 @@ class MoreView extends StatelessWidget {
                     // Meetings tile
                     ListTile(
                       title: Text(l10n.meetingsTileTitle),
-                      onTap: () {},
+                      onTap: cubit.onMeetingsTapped,
                       trailing: const Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,

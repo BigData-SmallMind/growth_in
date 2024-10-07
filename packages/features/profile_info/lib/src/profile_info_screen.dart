@@ -60,7 +60,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView>
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
-            title: l10n.profileInfoTitle,
+            title: Text(l10n.profileInfoTitle),
           ),
           body: state.user == null
               ? CenteredCircularProgressIndicator()

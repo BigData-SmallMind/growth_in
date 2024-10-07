@@ -10,11 +10,13 @@ class ActionScreen extends StatelessWidget {
   const ActionScreen({
     super.key,
     required this.requestRepository,
+    required this.onViewAllCommentsTapped,
     required this.onBackTapped,
     required this.actionId,
   });
 
   final RequestRepository requestRepository;
+  final VoidCallback onViewAllCommentsTapped;
   final VoidCallback onBackTapped;
   final int actionId;
 
@@ -23,6 +25,7 @@ class ActionScreen extends StatelessWidget {
     return BlocProvider<ActionCubit>(
       create: (_) => ActionCubit(
         requestRepository: requestRepository,
+        onViewAllCommentsTapped: onViewAllCommentsTapped,
         actionId: actionId,
       ),
       child: ActionView(onBackTapped: onBackTapped),
@@ -56,7 +59,7 @@ class ActionView extends StatelessWidget {
           child: Scaffold(
             appBar: GrowthInAppBar(
                 logoVariation: false,
-                title: l10n.appBarTitle,
+                title: Text(l10n.appBarTitle),
                 onBackTapped: onBackTapped),
             body: loadingComments
                 ? const CenteredCircularProgressIndicator()
@@ -151,19 +154,10 @@ class ActionView extends StatelessWidget {
                       ),
                       if (state.comments.isNotEmpty)
                         Comments(
+                          onViewAllTapped: cubit.onViewAllCommentsTapped,
                           comments: state.comments,
                         ),
-                      if (state.comments.isEmpty)
-                        Center(
-                          child: SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: Text(
-                              l10n.noCommentsIndicatorText,
-                              style: textTheme.titleLarge,
-                            ),
-                          ),
-                        ),
+                      if (state.comments.isEmpty) NoCommentsIndicator(),
                       AddComment(
                         enabled: state.comment?.isNotEmpty == true,
                         onCommentChanged: cubit.onCommentChanged,

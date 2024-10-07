@@ -12,12 +12,14 @@ class RequestDetailsScreen extends StatelessWidget {
     required this.requestRepository,
     required this.onViewAllActionsTapped,
     required this.onViewActionStepsTapped,
+    required this.onViewAllCommentsTapped,
     required this.requestId,
   });
 
   final RequestRepository requestRepository;
   final VoidCallback onViewAllActionsTapped;
   final ValueSetter<int> onViewActionStepsTapped;
+  final VoidCallback onViewAllCommentsTapped;
 
   final int requestId;
 
@@ -29,6 +31,7 @@ class RequestDetailsScreen extends StatelessWidget {
         requestId: requestId,
         onViewAllActionsTapped: onViewAllActionsTapped,
         onViewActionStepsTapped: onViewActionStepsTapped,
+        onViewAllCommentsTapped: onViewAllCommentsTapped,
       ),
       child: const RequestDetailsView(),
     );
@@ -55,7 +58,7 @@ class RequestDetailsView extends StatelessWidget {
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
-            title: l10n.appBarTitle,
+            title: Text(l10n.appBarTitle),
           ),
           body: loading
               ? const CenteredCircularProgressIndicator()
@@ -99,7 +102,15 @@ class RequestDetailsView extends StatelessWidget {
                               textColor: Colors.red,
                             ),
                             VerticalGap.small(),
-                            Text(request.serviceName),
+                            Text(
+                              request.serviceName != null
+                                  ? request.serviceName!
+                                  : request.projectName != null
+                                      ? request.projectName!
+                                      : request.campaignName != null
+                                          ? request.campaignName!
+                                          : '',
+                            ),
                           ],
                         ),
                       ],
@@ -126,8 +137,20 @@ class RequestDetailsView extends StatelessWidget {
                     VerticalGap.medium(),
                     if (request.actions.isNotEmpty)
                       RequestActions(actions: request.actions),
-                    if (request.comments.isNotEmpty)
-                      Comments(comments: request.comments),
+                    if (request.actions.isEmpty) ...[
+                      Comments(
+                        comments: request.comments,
+                        onViewAllTapped: cubit.onViewAllCommentsTapped,
+                      ),
+                      AddComment(
+                        enabled: state.comment?.isNotEmpty == true,
+                        onCommentChanged: cubit.onCommentChanged,
+                        onSubmit: cubit.addComment,
+                        isLoading:
+                            state.addCommentStatus == AddCommentStatus.loading,
+                        controller: cubit.commentController,
+                      ),
+                    ]
                   ],
                 ),
         );

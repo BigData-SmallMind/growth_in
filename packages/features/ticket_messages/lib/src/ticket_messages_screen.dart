@@ -45,7 +45,7 @@ class TicketMessagesView extends StatelessWidget {
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
-            title: l10n.appBarTitle,
+            title: Text(l10n.appBarTitle),
           ),
           body: Column(
             children: [

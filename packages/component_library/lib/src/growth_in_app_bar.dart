@@ -9,7 +9,7 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onBackTapped,
   });
 
-  final String? title;
+  final Widget? title;
   final bool logoVariation;
   final VoidCallback? onBackTapped;
 
@@ -19,7 +19,6 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = GrowthInTheme.of(context);
-    final textTheme = Theme.of(context).textTheme;
     return logoVariation
         ? AppBar(
             backgroundColor: Colors.transparent,
@@ -42,14 +41,11 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ],
-            title: title != null ? Text(title!) : null,
+            title: title != null ? (title!) : null,
           )
         : AppBar(
             backgroundColor: Colors.transparent,
-            title: title != null
-                ? Text(title!,
-                    style: textTheme.titleMedium?.copyWith(fontSize: 18))
-                : null,
+            title: title != null ? (title!) : null,
             centerTitle: false,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),

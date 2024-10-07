@@ -14,7 +14,16 @@ class RequestActionsCubit extends Cubit<RequestActionsState> {
           RequestActionsState(
             request: requestRepository.changeNotifier.request,
           ),
-        );
+        ) {
+    requestRepository.changeNotifier.addListener(
+      () {
+        final request = requestRepository.changeNotifier.request;
+        if (request != null && !isClosed) {
+          emit(state.copyWith(request: request));
+        }
+      },
+    );
+  }
 
   final RequestRepository requestRepository;
   final ValueSetter<int> onViewActionStepsTapped;

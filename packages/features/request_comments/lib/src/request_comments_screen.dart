@@ -10,18 +10,18 @@ class RequestCommentsScreen extends StatelessWidget {
   const RequestCommentsScreen({
     super.key,
     required this.requestRepository,
-    required this.actionId,
+    required this.requestId,
   });
 
   final RequestRepository requestRepository;
-  final int actionId;
+  final int requestId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RequestCommentsCubit>(
       create: (_) => RequestCommentsCubit(
         requestRepository: requestRepository,
-        actionId: actionId,
+        requestId: requestId,
       ),
       child: RequestCommentsView(),
     );
@@ -49,7 +49,7 @@ class RequestCommentsView extends StatelessWidget {
           child: Scaffold(
             appBar: GrowthInAppBar(
               logoVariation: false,
-              title: l10n.appBarTitle,
+              title: Text(l10n.appBarTitle),
             ),
             body: Column(
               children: [

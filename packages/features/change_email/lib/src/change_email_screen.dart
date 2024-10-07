@@ -91,7 +91,7 @@ class ChangeEmailView extends StatelessWidget {
           child: Scaffold(
             appBar: GrowthInAppBar(
               logoVariation: false,
-              title: l10n.changeEmailScreenTitle,
+              title: Text(l10n.changeEmailScreenTitle),
             ),
             body: ListView(
               padding: EdgeInsets.symmetric(

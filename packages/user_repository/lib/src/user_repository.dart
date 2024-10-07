@@ -55,7 +55,7 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      final userRM = await remoteApi.signIn(
+      final userRM = await remoteApi.auth.signIn(
         email: email,
         password: password,
       );
@@ -91,7 +91,7 @@ class UserRepository {
   }) async {
     try {
       final user = await getUser().first;
-      await remoteApi.chooseAccountCompany(
+      await remoteApi.auth.chooseAccountCompany(
         companyId: companyId,
       );
       //update cached user companies
@@ -120,7 +120,7 @@ class UserRepository {
 
   Future<String> sendOtp(String email) async {
     try {
-      final token = await remoteApi.sendOtp(
+      final token = await remoteApi.auth.sendOtp(
         email: email,
       );
       await upsertOtpVerificationTokenSupplierToken(token);
@@ -140,7 +140,7 @@ class UserRepository {
           ? await getUserToken()
           : await getOtpVerificationTokenSupplierToken();
       final totalTimeInMinutes =
-          await remoteApi.reSendOtp(otpVerificationToken: token!);
+          await remoteApi.auth.reSendOtp(otpVerificationToken: token!);
       return totalTimeInMinutes;
     } catch (error) {
       if (error is EmailNotRegisteredGrowthInException) {
@@ -156,7 +156,7 @@ class UserRepository {
   ) async {
     try {
       final forgotPasswordToken = await getOtpVerificationTokenSupplierToken();
-      await remoteApi.verifyOtp(
+      await remoteApi.auth.verifyOtp(
         token: forgotPasswordToken!,
         email: email,
         otp: otp,
@@ -175,7 +175,7 @@ class UserRepository {
   }) async {
     try {
       final userToken = await getUserToken();
-      await remoteApi.changeEmailOtpVerification(
+      await remoteApi.auth.changeEmailOtpVerification(
         userToken: userToken!,
         email: email,
         otp: otp,
@@ -218,7 +218,7 @@ class UserRepository {
   }) async {
     try {
       final otpVerificationToken = await getOtpVerificationTokenSupplierToken();
-      await remoteApi.resetPassword(
+      await remoteApi.auth.resetPassword(
         otpVerificationToken: otpVerificationToken!,
         newPassword: newPassword,
         newPasswordConfirmation: newPasswordConfirmation,
@@ -238,7 +238,7 @@ class UserRepository {
   }) async {
     try {
       final user = await getUser().first;
-      await remoteApi.updateProfile(
+      await remoteApi.auth.updateProfile(
         userId: user!.id,
         firstName: firstName,
         lastName: lastName,
@@ -258,7 +258,7 @@ class UserRepository {
     required String newPasswordConfirmation,
   }) async {
     try {
-      await remoteApi.changePassword(
+      await remoteApi.auth.changePassword(
         currentPassword: currentPassword,
         newPassword: newPassword,
         newPasswordConfirmation: newPasswordConfirmation,
@@ -277,7 +277,7 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      await remoteApi.changeEmail(
+      await remoteApi.auth.changeEmail(
         newEmail: newEmail,
         newEmailConfirmation: newEmailConfirmation,
         password: password,
@@ -369,7 +369,7 @@ class UserRepository {
 
   Future<List<Ticket>> getTickets() async {
     try {
-      final ticketsRM = await remoteApi.getTickets();
+      final ticketsRM = await remoteApi.auth.getTickets();
       final tickets =
           ticketsRM.map((ticketRM) => ticketRM.toDomainModel()).toList();
       return tickets;
@@ -385,7 +385,7 @@ class UserRepository {
         return cachedTickets.toDomainModel();
       }
 
-      final ticketsRM = await remoteApi.getTicketsTypes();
+      final ticketsRM = await remoteApi.auth.getTicketsTypes();
       final ticketTypes = ticketsRM.toDomainModel();
       final ticketTypesCM = ticketsRM.toCacheModel();
       _localStorage.upsertTicketTypes(ticketTypesCM);
@@ -401,7 +401,7 @@ class UserRepository {
     required String ticketDescription,
   }) async {
     try {
-      await remoteApi.submitTicket(
+      await remoteApi.auth.submitTicket(
         ticketType: ticketType.name,
         ticketTitle: ticketTitle,
         ticketDescription: ticketDescription,
@@ -413,7 +413,7 @@ class UserRepository {
 
   Future<List<TicketMessage>> getTicketMessages(int ticketId) async {
     try {
-      final ticketMessagesRM = await remoteApi.getTicketMessages(ticketId);
+      final ticketMessagesRM = await remoteApi.auth.getTicketMessages(ticketId);
       final ticketMessages = ticketMessagesRM.toDomainModel();
       return ticketMessages;
     } catch (error) {
@@ -421,44 +421,13 @@ class UserRepository {
     }
   }
 
-  // Future crateMessage({
-  //   required int ticketId,
-  //   required String text,
-  //   required File? file,
-  // }) async {
-  //   final url = urlBuilder.buildCreateMessageUrl(ticketId);
-  //   final fileExtension = file?.path.split('.').last;
-  //   final now = DateTime.now().toString().split(" ").join("");
-  //   final multipartFile = file != null
-  //       ? await diox.MultipartFile.fromFile(
-  //     file.path,
-  //     filename: 'TICKET_#$ticketId' '_$now.$fileExtension',
-  //   )
-  //       : null;
-  //   final requestJsonBody = {
-  //     "message_text": text,
-  //     if (multipartFile != null) "message_file[]": multipartFile,
-  //   };
-  //
-  //   final formData = diox.FormData.fromMap(requestJsonBody);
-  //
-  //   try {
-  //     await _dio.post(
-  //       url,
-  //       data: formData,
-  //     );
-  //   } catch (_) {
-  //     rethrow;
-  //   }
-  // }
-
   Future createMessage({
     required int ticketId,
     required String text,
     required File? file,
   }) async {
     try {
-      await remoteApi.createMessage(
+      await remoteApi.auth.createMessage(
         ticketId: ticketId,
         text: text,
         file: file,

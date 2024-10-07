@@ -686,6 +686,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'View All'**
   String get viewAllCommentsButtonLabel;
+
+  /// No description provided for @noCommentsIndicatorText.
+  ///
+  /// In en, this message translates to:
+  /// **'No Comments'**
+  String get noCommentsIndicatorText;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

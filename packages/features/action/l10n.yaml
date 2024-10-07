@@ -1,6 +1,6 @@
 arb-dir: lib/src/l10n
 template-arb-file: messages_en.arb
-output-localization-file: action_steps_localizations.dart
-output-class: ActionStepsLocalizations
+output-localization-file: action_localizations.dart
+output-class: ActionLocalizations
 synthetic-package: false
 nullable-getter: false

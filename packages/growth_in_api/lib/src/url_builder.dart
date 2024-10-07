@@ -89,8 +89,7 @@ class UrlBuilder {
     final statusQuery = status != null ? '&status=$status' : '';
     final projectNameQuery = projectIds != null && projectIds.isNotEmpty
         ? projectIds.indexed
-            .map((indexedId) =>
-                '&project[${indexedId.$1}]=${indexedId.$2}')
+            .map((indexedId) => '&project[${indexedId.$1}]=${indexedId.$2}')
             .reduce((value, element) => value + element)
         : '';
 
@@ -104,6 +103,7 @@ class UrlBuilder {
   String buildGetProjectsUrl() {
     return '$_baseUrl/fetch-project-companies';
   }
+
   String buildGetRequestUrl(int requestId) {
     return '$_baseUrl/tasks/$requestId';
   }
@@ -156,5 +156,9 @@ class UrlBuilder {
   ) {
     final actionIdSlug = actionId != null ? '/$actionId' : '/null';
     return '$_baseUrl/store-comment-task$actionIdSlug';
+  }
+
+  String buildGetMeetingsUrl() {
+    return '$_baseUrl/meetings';
   }
 }

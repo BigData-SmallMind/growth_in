@@ -4,7 +4,9 @@ class Request {
   const Request({
     required this.id,
     required this.name,
-    required this.serviceName,
+    this.serviceName,
+    this.projectName,
+    this.campaignName,
     required this.dueDate,
     required this.startDate,
     required this.actions,
@@ -17,7 +19,9 @@ class Request {
 
   final int id;
   final String name;
-  final String serviceName;
+  final String? serviceName;
+  final String? projectName;
+  final String? campaignName;
   final DateTime dueDate;
   final DateTime startDate;
   final List<Action> actions;
@@ -42,32 +46,36 @@ class Request {
   bool get isComplete => isCompleted == true;
 
   Request copyWith({
-    int? id,
-    String? name,
-    String? serviceName,
-    DateTime? dueDate,
-    DateTime? startDate,
     List<Action>? actions,
     List<Comment>? comments,
-    String? descriptionHtml,
     int? completeActionStepsCount,
-    int? totalActionStepsCount,
     bool? isCompleted,
   }) {
     return Request(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      serviceName: serviceName ?? this.serviceName,
-      dueDate: dueDate ?? this.dueDate,
-      startDate: startDate ?? this.startDate,
+      id: id,
+      name: name,
+      serviceName: serviceName,
+      projectName: projectName,
+      campaignName: campaignName,
+      dueDate: dueDate,
+      startDate: startDate,
       actions: actions ?? this.actions,
       comments: comments ?? this.comments,
-      descriptionHtml: descriptionHtml ?? this.descriptionHtml,
+      descriptionHtml: descriptionHtml,
       completeActionStepsCount:
           completeActionStepsCount ?? this.completeActionStepsCount,
-      totalActionStepsCount:
-          totalActionStepsCount ?? this.totalActionStepsCount,
+      totalActionStepsCount: totalActionStepsCount,
       isCompleted: isCompleted ?? this.isCompleted,
     );
   }
+}
+
+class RequestListPage {
+  RequestListPage({
+    required this.requestsList,
+    required this.isLastPage,
+  });
+
+  final List<Request> requestsList;
+  final bool isLastPage;
 }

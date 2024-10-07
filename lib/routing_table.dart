@@ -1,12 +1,16 @@
-import 'package:action_steps/action_steps.dart';
+import 'package:action/action.dart';
+import 'package:action_comments/action_comments.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
+import 'package:meeting_repository/meeting_repository.dart';
+import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
 import 'package:request_actions/request_actions.dart';
+import 'package:request_comments/request_comments.dart';
 import 'package:request_details/request_details.dart';
 import 'package:request_repository/request_repository.dart';
 import 'package:requests/requests.dart';
@@ -27,8 +31,12 @@ Map<String, PageBuilder> buildRoutingTable({
   required RoutemasterDelegate routerDelegate,
   required UserRepository userRepository,
   required RequestRepository requestRepository,
+  required MeetingRepository meetingRepository,
   required ValueNotifier<bool> signInSuccessVN,
 }) {
+  routerDelegate.addListener(() {
+    debugPrint('${routerDelegate.currentConfiguration?.path}');
+  });
   return {
     _PathConstants.tabContainerPath: (_) => TabPage(
           backBehavior: TabBackBehavior.history,
@@ -86,6 +94,8 @@ Map<String, PageBuilder> buildRoutingTable({
                   routerDelegate.push(_PathConstants.profileSettingsPath),
               onRequestsTapped: () =>
                   routerDelegate.push(_PathConstants.requestsPath),
+              onMeetingsTapped : () =>
+                  routerDelegate.push(_PathConstants.meetingsPath),
               onHelpAndSupportTapped: () =>
                   routerDelegate.push(_PathConstants.ticketsPath),
             );
@@ -116,13 +126,27 @@ Map<String, PageBuilder> buildRoutingTable({
                 ),
               ),
               onViewActionStepsTapped: (int actionId) => routerDelegate.push(
-                _PathConstants.actionStepsPath(
+                _PathConstants.actionPath(
                   requestId: requestId,
                   actionId: actionId,
                 ),
               ),
+              onViewAllCommentsTapped: () => routerDelegate.push(
+                _PathConstants.requestCommentsPath(
+                  requestId: requestId,
+                ),
+              ),
             );
           }),
+        ),
+    _PathConstants.requestCommentsPath(): (info) => MaterialPage(
+          name: 'request-comments',
+          child: RequestCommentsScreen(
+            requestRepository: requestRepository,
+            requestId: int.parse(
+              info.pathParameters[_PathConstants.requestIdPathParameter] ?? '',
+            ),
+          ),
         ),
     _PathConstants.requestActionsPath(): (info) => MaterialPage(
           name: 'request-actions',
@@ -130,7 +154,7 @@ Map<String, PageBuilder> buildRoutingTable({
             return RequestActionsScreen(
               requestRepository: requestRepository,
               onViewActionStepsTapped: (int actionId) => routerDelegate.push(
-                _PathConstants.actionStepsPath(
+                _PathConstants.actionPath(
                   requestId: int.parse(
                     info.pathParameters[
                             _PathConstants.requestIdPathParameter] ??
@@ -142,14 +166,41 @@ Map<String, PageBuilder> buildRoutingTable({
             );
           }),
         ),
-    _PathConstants.actionStepsPath(): (info) => MaterialPage(
-          name: 'action-steps',
-          child: ActionStepsScreen(
+    _PathConstants.actionPath(): (info) {
+      final requestId = int.parse(
+        info.pathParameters[_PathConstants.requestIdPathParameter] ?? '',
+      );
+      final actionId = int.parse(
+        info.pathParameters[_PathConstants.actionIdPathParameter] ?? '',
+      );
+      return MaterialPage(
+        name: 'action',
+        child: ActionScreen(
+          requestRepository: requestRepository,
+          onBackTapped: routerDelegate.popRoute,
+          actionId: actionId,
+          onViewAllCommentsTapped: () => routerDelegate.push(
+            _PathConstants.actionCommentsPath(
+              requestId: requestId,
+              actionId: actionId,
+            ),
+          ),
+        ),
+      );
+    },
+    _PathConstants.actionCommentsPath(): (info) => MaterialPage(
+          name: 'action-comments',
+          child: ActionCommentsScreen(
             requestRepository: requestRepository,
-            onBackTapped: routerDelegate.popRoute,
             actionId: int.parse(
               info.pathParameters[_PathConstants.actionIdPathParameter] ?? '',
             ),
+          ),
+        ),
+    _PathConstants.meetingsPath: (_) => MaterialPage(
+          name: 'meetings',
+          child: MeetingsScreen(
+            meetingRepository: meetingRepository,
           ),
         ),
     _PathConstants.profileSettingsPath: (_) => MaterialPage(
@@ -278,13 +329,18 @@ class _PathConstants {
 
   static String get requestsPath => '${tabContainerPath}requests';
 
+  static String get meetingsPath => '${tabContainerPath}meetings';
+
   static String requestDetailsPath({int? requestId}) =>
-      '$requestsPath/${requestId ?? ':$requestIdPathParameter'}/details';
+      '$requestsPath/${requestId ?? ':$requestIdPathParameter'}';
+
+  static String requestCommentsPath({int? requestId}) =>
+      '${requestDetailsPath(requestId: requestId)}/comments';
 
   static String requestActionsPath({int? requestId}) =>
       '${requestDetailsPath(requestId: requestId)}/actions';
 
-  static String actionStepsPath({
+  static String actionPath({
     String? currentUrl,
     int? requestId,
     int? actionId,
@@ -294,8 +350,19 @@ class _PathConstants {
         ? requestDetailsPath(requestId: requestId)
         : requestActionsPath(requestId: requestId);
     final completePath = '$currentPath'
-        '/${actionId ?? ':$actionIdPathParameter'}'
-        '/steps';
+        '/${actionId ?? ':$actionIdPathParameter'}';
+    return completePath;
+  }
+
+  static String actionCommentsPath({
+    int? requestId,
+    int? actionId,
+  }) {
+    final currentPath = actionPath(
+      requestId: requestId,
+      actionId: actionId,
+    );
+    final completePath = '$currentPath/comments';
     return completePath;
   }
 

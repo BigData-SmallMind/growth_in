@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ticket_messages/src/l10n/ticket_messages_localizations.dart';
 import 'package:ticket_messages/src/ticket_messages_cubit.dart';
 
-
-
 class SendMessage extends StatefulWidget {
   const SendMessage({Key? key}) : super(key: key);
 
@@ -123,7 +121,6 @@ class _SendMessageState extends State<SendMessage> {
                       Column(
                         children: [
                           IconButton(
-
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
                                 Colors.white,
@@ -134,7 +131,9 @@ class _SendMessageState extends State<SendMessage> {
                             ),
                             icon:
                                 Icon(Icons.cancel_outlined, color: Colors.red),
-                            onPressed: submissionInProgress ? null :cubit.deletePickedFile,
+                            onPressed: submissionInProgress
+                                ? null
+                                : cubit.deletePickedFile,
                           ),
                           Text(
                             l10n.deleteFileIconLabel,
@@ -155,7 +154,8 @@ class _SendMessageState extends State<SendMessage> {
                             ),
                           ),
                           icon: SvgAsset(AssetPathConstants.documentTextPath),
-                          onPressed: submissionInProgress? null :cubit.pickFile,
+                          onPressed:
+                              submissionInProgress ? null : cubit.pickFile,
                         ),
                         Text(
                           l10n.uploadFileIconLabel,
@@ -175,7 +175,9 @@ class _SendMessageState extends State<SendMessage> {
                             ),
                           ),
                           icon: SvgAsset(AssetPathConstants.imagePath),
-                          onPressed: submissionInProgress ? null :cubit.pickImageFromGallery,
+                          onPressed: submissionInProgress
+                              ? null
+                              : cubit.pickImageFromGallery,
                         ),
                         Text(
                           l10n.uploadImageFromGalleryIconLabel,
@@ -195,7 +197,8 @@ class _SendMessageState extends State<SendMessage> {
                             ),
                           ),
                           icon: SvgAsset(AssetPathConstants.cameraPath),
-                          onPressed: submissionInProgress? null :cubit.capturePhoto,
+                          onPressed:
+                              submissionInProgress ? null : cubit.capturePhoto,
                         ),
                         Text(
                           l10n.captureImageIconLabel,

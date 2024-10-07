@@ -73,7 +73,7 @@ class _TicketsViewState extends State<TicketsView>
           ),
           appBar: GrowthInAppBar(
             logoVariation: false,
-            title: l10n.appBarTitle,
+            title: Text(l10n.appBarTitle),
           ),
           body: state.tickets?.isEmpty == true
               ? NoTicketsIndicator()

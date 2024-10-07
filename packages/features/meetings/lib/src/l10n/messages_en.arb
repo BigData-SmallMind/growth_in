@@ -1,0 +1,10 @@
+{
+  "meetingRequestsSectionTitle": "Meeting Requests",
+  "upcomingMeetingsSectionTitle": "Upcoming Meetings",
+  "viewAllTextButtonLabel": "View All",
+  "noMeetingsPendingActionMessage": "There are no meetings pending action",
+  "cancelMeetingButtonLabel": "Cancel Meeting",
+  "noUpcomingMeetingMessage": "No upcoming meetings",
+  "noPastMeetingsMessage": "No past meetings",
+  "pastMeetingsSectionTitle": "Past Meetings"
+}

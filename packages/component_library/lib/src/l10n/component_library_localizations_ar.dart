@@ -300,4 +300,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get viewAllCommentsButtonLabel => 'اظهر الكل';
+
+  @override
+  String get noCommentsIndicatorText => 'لا توجد تعليقات';
 }

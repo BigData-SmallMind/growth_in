@@ -16,9 +16,27 @@ class RequestRepository {
   final RequestLocalStorage _localStorage;
   final RequestChangeNotifier changeNotifier;
 
-  Future<List<Request>> getRequests() async {
+  Future<List<Project>> getProjects() async {
     try {
-      final requests = await remoteApi.getRequests();
+      final projects = await remoteApi.requests.getProjects();
+      final domainProjects = projects.toDomainModel();
+      return domainProjects;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<RequestListPage> getRequests({
+    required int pageNumber,
+    FilterBy? filterBy,
+  }) async {
+    try {
+      final requests = await remoteApi.requests.getRequests(
+        pageNumber: pageNumber,
+        searchText: filterBy?.searchText,
+        status: filterBy?.requestStatus?.name,
+        projectIds: filterBy?.projects?.map((project) => project.id).toList(),
+      );
 
       final domainRequests = requests.toDomainModel();
       return domainRequests;
@@ -29,8 +47,42 @@ class RequestRepository {
 
   Future<List<Comment>> getActionComments(int actionId) async {
     try {
-      final comments = await remoteApi.getComments(null, actionId);
+      final comments = await remoteApi.requests.getComments(null, actionId);
       final domainComments = comments.toDomainModel();
+      // update action comments inside the request
+      final request = changeNotifier.request;
+      if (request != null) {
+        final updatedRequest = request.copyWith(
+          actions: request.actions
+              .map(
+                (action) => action.id == actionId
+                    ? action.copyWith(comments: domainComments)
+                    : action,
+              )
+              .toList(),
+        );
+        changeNotifier.setRequest(updatedRequest);
+      }
+
+      return domainComments;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<Comment>> getRequestComments(int requestId) async {
+    try {
+      final comments = await remoteApi.requests.getComments(requestId, null);
+      final domainComments = comments.toDomainModel();
+      // update action comments inside the request
+      final request = changeNotifier.request;
+      if (request != null) {
+        final updatedRequest = request.copyWith(
+          comments: domainComments,
+        );
+        changeNotifier.setRequest(updatedRequest);
+      }
+
       return domainComments;
     } catch (error) {
       rethrow;
@@ -39,11 +91,11 @@ class RequestRepository {
 
   Future<Request> getRequest(int id) async {
     try {
-      final request = await remoteApi.getRequest(id);
+      final request = await remoteApi.requests.getRequest(id);
       final requestHasActions =
           request.actions != null && request.actions!.isNotEmpty;
       final comments =
-          requestHasActions ? await remoteApi.getComments(id, null) : null;
+          requestHasActions ? await remoteApi.requests.getComments(id, null) : null;
       final domainComments = comments?.toDomainModel() ?? [];
       final domainRequest = request.toDomainModel(domainComments);
       changeNotifier.setRequest(domainRequest);
@@ -58,7 +110,7 @@ class RequestRepository {
     int requestId,
   ) async {
     try {
-      await remoteApi.toggleRequestComplete(
+      await remoteApi.requests.toggleRequestComplete(
         isComplete,
         requestId,
       );
@@ -72,27 +124,42 @@ class RequestRepository {
     int actionId,
   ) async {
     try {
-      await remoteApi.toggleActionStepsComplete(
+      await remoteApi.requests.toggleActionStepsComplete(
         isComplete,
         actionId,
       );
-
     } catch (error) {
       rethrow;
     }
   }
+
   Future toggleSingleActionStepComplete(
     bool isComplete,
     int actionId,
     int actionStepId,
   ) async {
     try {
-      await remoteApi.toggleSingleActionStepComplete(
+      await remoteApi.requests.toggleSingleActionStepComplete(
         isComplete,
         actionId,
         actionStepId,
       );
+    } catch (error) {
+      rethrow;
+    }
+  }
 
+  Future addComment({
+    required int? actionId,
+    required int? requestId,
+    required String comment,
+  }) async {
+    try {
+      await remoteApi.requests.addComment(
+        actionId: actionId,
+        requestId: requestId,
+        text: comment,
+      );
     } catch (error) {
       rethrow;
     }

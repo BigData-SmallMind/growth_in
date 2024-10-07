@@ -300,4 +300,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get viewAllCommentsButtonLabel => 'View All';
+
+  @override
+  String get noCommentsIndicatorText => 'No Comments';
 }

@@ -1,16 +1,9 @@
-
-class Comment {
-  const Comment({
+class Project {
+  const Project({
     required this.id,
-    required this.author,
-    required this.text,
-    required this.dateCreated,
-    this.authorImage,
+    required this.name,
   });
 
   final int id;
-  final String author;
-  final String text;
-  final DateTime dateCreated;
-  final String? authorImage;
+  final String name;
 }

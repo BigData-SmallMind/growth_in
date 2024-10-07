@@ -75,7 +75,9 @@ extension RequestV1RMtoDM on RequestV1RM {
       return Request(
         id: id,
         name: name,
-        serviceName: serviceName ?? '',
+        serviceName: serviceName,
+        campaignName: campaignName,
+        projectName: projectName,
         dueDate: dueDateDM,
         startDate: startDateDM,
         descriptionHtml: null,
@@ -90,9 +92,13 @@ extension RequestV1RMtoDM on RequestV1RM {
   }
 }
 
-extension RequestsV1RMtoDM on List<RequestV1RM> {
-  List<Request> toDomainModel() {
-    return map((request) => request.toDomainModel()).toList();
+extension RequestsV1RMtoDM on RequestListPageRM {
+  RequestListPage toDomainModel() {
+    return RequestListPage(
+      requestsList:
+          requestsList.map((request) => request.toDomainModel()).toList(),
+      isLastPage: pagination.currentPage == pagination.lastPage,
+    );
   }
 }
 
@@ -110,7 +116,9 @@ extension RequestRMtoDM on RequestRM {
     return Request(
       id: id,
       name: name,
-      serviceName: serviceName ?? '',
+      serviceName: serviceName,
+      projectName: projectName,
+      campaignName: campaignName,
       dueDate: dueDateDM,
       startDate: startDateDM,
       descriptionHtml: descriptionHtml,
@@ -173,5 +181,20 @@ extension CommentRMtoDM on CommentRM {
 extension CommentsRMtoDM on List<CommentRM> {
   List<Comment> toDomainModel() {
     return map((comment) => comment.toDomainModel()).toList();
+  }
+}
+
+extension ProjectRMtoDM on ProjectRM {
+  Project toDomainModel() {
+    return Project(
+      id: id,
+      name: name,
+    );
+  }
+}
+
+extension ProjectsRMtoDM on List<ProjectRM> {
+  List<Project> toDomainModel() {
+    return map((project) => project.toDomainModel()).toList();
   }
 }

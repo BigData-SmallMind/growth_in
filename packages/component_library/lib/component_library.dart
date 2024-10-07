@@ -13,6 +13,8 @@ export 'src/comments.dart';
 export 'src/mark_as_complete_toggler.dart';
 export 'src/date_widget.dart';
 export 'src/ticket_card.dart';
+export 'src/add_comment.dart';
+export 'src/no_comments_indicator.dart';
 export 'src/column_builder.dart';
 export 'src/company_tile.dart';
 export 'src/growth_in_app_bar.dart';
