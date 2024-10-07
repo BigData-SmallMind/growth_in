@@ -34,7 +34,7 @@ class RequestRepository {
       final requests = await remoteApi.requests.getRequests(
         pageNumber: pageNumber,
         searchText: filterBy?.searchText,
-        status: filterBy?.requestStatus?.name,
+        status: filterBy?.requestStatus?.nameAr,
         projectIds: filterBy?.projects?.map((project) => project.id).toList(),
       );
 

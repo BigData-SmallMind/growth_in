@@ -5,15 +5,16 @@ import 'package:requests/src/components/bottom_sheet_buttons.dart';
 import 'package:requests/src/l10n/requests_localizations.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet({
-    super.key,
-    required this.setFilter,
-    required this.getFilter,
-    this.projects,
-  });
+  const FilterBottomSheet(
+      {super.key,
+      required this.setFilter,
+      required this.getFilter,
+      this.projects,
+      required this.onApply});
 
   final ValueSetter<FilterBy> setFilter;
   final ValueGetter<FilterBy> getFilter;
+  final VoidCallback onApply;
   final List<Project>? projects;
 
   @override
@@ -30,7 +31,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   }
 
   void _onApply() {
-    widget.setFilter(selectedFilter);
+    widget.onApply();
     Navigator.of(context).pop();
   }
 

@@ -22,6 +22,7 @@ class FilterButton extends StatelessWidget {
               setFilter: (filterBy) => cubit.setFilterBy(filterBy),
               getFilter: cubit.getFilterBy,
               projects: state.projects,
+              onApply: cubit.onApplyFilter,
             ),
           ),
         );
