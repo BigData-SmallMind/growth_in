@@ -1,0 +1,10 @@
+{
+  "meetingRequestsSectionTitle": "طلبات الاجتماع",
+  "upcomingSearchMeetingsSectionTitle": "الاجتماعات القادمة",
+  "viewAllTextButtonLabel": "عرض الكل",
+  "noSearchMeetingsPendingActionMessage": "لا توجد اجتماعات في انتظار الإجراء",
+  "cancelMeetingButtonLabel": "إلغاء الاجتماع",
+  "noUpcomingMeetingMessage": "لا توجد اجتماعات قادمة",
+  "noPastSearchMeetingsMessage": "لا توجد اجتماعات سابقة",
+  "pastSearchMeetingsSectionTitle": "الاجتماعات السابقة"
+}
