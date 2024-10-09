@@ -15,11 +15,13 @@ class PendingMeetingRequest extends StatelessWidget {
     final l10n = MeetingsLocalizations.of(context);
 
     return BlocBuilder<MeetingsCubit, MeetingsState>(builder: (context, state) {
-      final meeting = state.meetings?.awaitingAction.first;
+      final meeting = state.meetings?.awaitingAction.isNotEmpty == true
+          ? state.meetings?.awaitingAction.first
+          : null;
       final cubit = context.read<MeetingsCubit>();
-      return state.meetings?.awaitingAction.isNotEmpty == true
+      return meeting != null
           ? MeetingCard(
-              meeting: meeting!,
+              meeting: meeting,
               type: MeetingCardVariation.awaitingAction,
               onTap: () => cubit.onMeetingDetailsTapped(meeting),
             )

@@ -1,3 +1,9 @@
 {
-
+  "dayRowTitle": "اليوم",
+  "timeRowTitle": "الوقت",
+  "serviceRowTitle": "الخدمة",
+  "typeRowTitle": "النوع",
+  "linkRowTitle": "الرابط",
+  "meetingPlanSectionTitle": "خطة الاجتماع",
+  "meetingSummarySectionTitle": "ملخص الاجتماع"
 }

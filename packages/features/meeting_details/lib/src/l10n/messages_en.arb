@@ -1,2 +1,9 @@
 {
+  "dayRowTitle": "Day",
+  "timeRowTitle": "Time",
+  "serviceRowTitle": "Service",
+  "typeRowTitle": "Type",
+  "linkRowTitle": "Link",
+  "meetingPlanSectionTitle": "Meeting Plan",
+  "meetingSummarySectionTitle": "Meeting Summary"
 }

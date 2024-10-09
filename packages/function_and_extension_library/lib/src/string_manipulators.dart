@@ -186,3 +186,4 @@ Color hexToColor(String hexString) {
   buffer.write(hexString.replaceFirst('#', ''));
   return Color(int.parse(buffer.toString(), radix: 16));
 }
+

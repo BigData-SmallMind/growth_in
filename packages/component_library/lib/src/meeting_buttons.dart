@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class MeetingButtons extends StatelessWidget {
   const MeetingButtons({
     super.key,
+    this.flex = 1,
   });
-
+  final int flex;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -18,6 +19,8 @@ class MeetingButtons extends StatelessWidget {
             child: InkWell(
               onTap: () {},
               child: Container(
+                constraints: const BoxConstraints.expand(),
+
                 padding: const EdgeInsets.symmetric(
                   horizontal: Spacing.medium,
                 ),
@@ -31,7 +34,6 @@ class MeetingButtons extends StatelessWidget {
                       maxLines: 1,
                       style: textTheme.labelLarge?.copyWith(
                         color: const Color(0xFFB22F2F),
-
                       ),
                     ),
                   ],
@@ -43,6 +45,7 @@ class MeetingButtons extends StatelessWidget {
             child: InkWell(
               onTap: () {},
               child: Container(
+                constraints: const BoxConstraints.expand(),
                 padding: const EdgeInsets.symmetric(
                   horizontal: Spacing.medium,
                 ),

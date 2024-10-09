@@ -93,6 +93,47 @@ abstract class MeetingDetailsLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @dayRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get dayRowTitle;
+
+  /// No description provided for @timeRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get timeRowTitle;
+
+  /// No description provided for @serviceRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service'**
+  String get serviceRowTitle;
+
+  /// No description provided for @typeRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get typeRowTitle;
+
+  /// No description provided for @linkRowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get linkRowTitle;
+
+  /// No description provided for @meetingPlanSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting Plan'**
+  String get meetingPlanSectionTitle;
+
+  /// No description provided for @meetingSummarySectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting Summary'**
+  String get meetingSummarySectionTitle;
 }
 
 class _MeetingDetailsLocalizationsDelegate extends LocalizationsDelegate<MeetingDetailsLocalizations> {

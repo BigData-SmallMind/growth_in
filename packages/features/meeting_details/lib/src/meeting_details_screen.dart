@@ -1,3 +1,5 @@
+import 'package:function_and_extension_library/function_and_extension_library.dart';
+import 'package:meeting_details/src/l10n/meeting_details_localizations.dart';
 import 'package:meeting_repository/meeting_repository.dart';
 import 'package:meeting_details/src/meeting_details_cubit.dart';
 import 'package:component_library/component_library.dart';
@@ -41,6 +43,7 @@ class MeetingDetailsView extends StatelessWidget {
         final theme = GrowthInTheme.of(context);
         final meeting = state.meeting!;
         final cubit = context.read<MeetingDetailsCubit>();
+        final l10n = MeetingDetailsLocalizations.of(context);
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
@@ -68,7 +71,7 @@ class MeetingDetailsView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'l10n.dayRowTitle',
+                                l10n.dayRowTitle,
                                 style: textTheme.bodyMedium?.copyWith(
                                   color: const Color(
                                     0xFF797979,
@@ -77,7 +80,7 @@ class MeetingDetailsView extends StatelessWidget {
                               ),
                               VerticalGap.medium(),
                               Text(
-                                'l10n.timeRowTitle',
+                                l10n.timeRowTitle,
                                 style: textTheme.bodyMedium?.copyWith(
                                   color: const Color(
                                     0xFF797979,
@@ -86,7 +89,7 @@ class MeetingDetailsView extends StatelessWidget {
                               ),
                               VerticalGap.medium(),
                               Text(
-                                'l10n.serviceRowTitle',
+                                l10n.serviceRowTitle,
                                 style: textTheme.bodyMedium?.copyWith(
                                   color: const Color(
                                     0xFF797979,
@@ -95,7 +98,7 @@ class MeetingDetailsView extends StatelessWidget {
                               ),
                               VerticalGap.medium(),
                               Text(
-                                'l10n.typeRowTitle',
+                                l10n.typeRowTitle,
                                 style: textTheme.bodyMedium?.copyWith(
                                   color: const Color(
                                     0xFF797979,
@@ -104,7 +107,7 @@ class MeetingDetailsView extends StatelessWidget {
                               ),
                               VerticalGap.medium(),
                               Text(
-                                'l10n.linkRowTitle',
+                                l10n.linkRowTitle,
                                 style: textTheme.bodyMedium?.copyWith(
                                   color: const Color(
                                     0xFF797979,
@@ -115,20 +118,21 @@ class MeetingDetailsView extends StatelessWidget {
                           ),
                         ),
                         Expanded(
+                          flex: 4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                meeting.startDate
-                                        ?.toIso8601String()
-                                        .padLeft(10, '0') ??
-                                    '--',
+                                meeting.startDate?.extractDate() ?? '--',
                                 maxLines: 1,
+                                textDirection: TextDirection.ltr,
                               ),
                               VerticalGap.medium(),
                               Text(
-                                meeting.startDate?.hour.toString() ?? '--',
+                                meeting.startDate?.formatDateTimeTo12Hour() ??
+                                    '--',
                                 maxLines: 1,
+                                textDirection: TextDirection.ltr,
                               ),
                               VerticalGap.medium(),
                               Text('--'),
@@ -152,7 +156,7 @@ class MeetingDetailsView extends StatelessWidget {
                     VerticalGap.xLarge(),
                     if (meeting.plan != null) ...[
                       Text(
-                        'l10n.meetingPlanSectionTitle',
+                        l10n.meetingPlanSectionTitle,
                         style: textTheme.bodyMedium?.copyWith(
                           color: const Color(
                             0xFF797979,
@@ -207,7 +211,7 @@ class MeetingDetailsView extends StatelessWidget {
                     ],
                     if (meeting.summary != null) ...[
                       Text(
-                        'l10n.meetingSummarySectionTitle',
+                        l10n.meetingSummarySectionTitle,
                         style: textTheme.bodyMedium?.copyWith(
                           color: const Color(
                             0xFF797979,
@@ -223,7 +227,32 @@ class MeetingDetailsView extends StatelessWidget {
                   ],
                 ),
               ),
-              MeetingButtons(),
+              Row(
+                children: [
+                  Expanded(
+                    child: GrowthInElevatedButton(
+                      // bgColor: Colors.white,
+                      labelColor: Color(0xFFB22F2F),
+                      bgColor:  Colors.white,
+                      borderColor: theme.borderColor,
+                      icon: SvgAsset(AssetPathConstants.closeCirclePath),
+                      label: 'l10n.cancle',
+                      onTap: () {},
+                    ),
+                  ),
+                  Expanded(
+                    child: GrowthInElevatedButton(
+                      // bgColor: Colors.white,
+                      labelColor: Color(0xFFB22F2F),
+                      bgColor:  Colors.white,
+                      borderColor: theme.borderColor,
+                      icon: SvgAsset(AssetPathConstants.closeCirclePath),
+                      label: 'l10n.cancle',
+                      onTap: () {},
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         );
