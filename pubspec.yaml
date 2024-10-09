@@ -35,9 +35,6 @@ dependencies:
     path: packages/function_and_extension_library
 
 
-
-
-
   tab_container:
     path: packages/features/tab_container
   home:
@@ -93,12 +90,17 @@ dependencies:
     # Meetings
   meetings:
     path: packages/features/meetings
+  search_meetings:
+    path: packages/features/search_meetings
+  meeting_details:
+    path: packages/features/meeting_details
 
   # Domain Models and Component Library
   domain_models:
     path: packages/domain_models
   component_library:
     path: packages/component_library
+  flutter_downloader: ^1.11.8
 
 #
 #dependency_overrides:

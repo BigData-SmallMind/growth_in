@@ -3,7 +3,9 @@ import 'package:action_comments/action_comments.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:flutter/material.dart';
+import 'package:growth_in_api/growth_in_api.dart';
 import 'package:home/home.dart';
+import 'package:meeting_details/meeting_details.dart';
 import 'package:meeting_repository/meeting_repository.dart';
 import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
@@ -17,6 +19,7 @@ import 'package:requests/requests.dart';
 import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
+import 'package:search_meetings/search_meetings.dart';
 import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:submit_ticket/submit_ticket.dart';
@@ -94,7 +97,7 @@ Map<String, PageBuilder> buildRoutingTable({
                   routerDelegate.push(_PathConstants.profileSettingsPath),
               onRequestsTapped: () =>
                   routerDelegate.push(_PathConstants.requestsPath),
-              onMeetingsTapped : () =>
+              onMeetingsTapped: () =>
                   routerDelegate.push(_PathConstants.meetingsPath),
               onHelpAndSupportTapped: () =>
                   routerDelegate.push(_PathConstants.ticketsPath),
@@ -201,8 +204,44 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'meetings',
           child: MeetingsScreen(
             meetingRepository: meetingRepository,
+            onViewAllTapped: () =>
+                routerDelegate.push(_PathConstants.searchMeetingsPath),
+            oMeetingTapped: (int meetingId) => routerDelegate.push(
+              _PathConstants.meetingDetailsPath(
+                meetingId: meetingId,
+              ),
+            ),
           ),
         ),
+    _PathConstants.searchMeetingsPath: (_) => MaterialPage(
+          name: 'search-meetings',
+          child: SearchMeetingsScreen(
+            meetingRepository: meetingRepository,
+            oMeetingTapped: (int meetingId) => routerDelegate.push(
+              _PathConstants.meetingDetailsPath(
+                meetingId: meetingId,
+              ),
+            ),
+          ),
+        ),
+    _PathConstants.meetingDetailsPath(): (info) {
+      return MaterialPage(
+        name: 'meeting-details',
+        child: MeetingDetailsScreen(
+          meetingRepository: meetingRepository,
+          downloadUrl: UrlBuilder.filesDownloadUrl,
+        ),
+      );
+    },
+    _PathConstants.meetingDetailsPathTwo(): (info) {
+      return MaterialPage(
+        name: 'meeting-details',
+        child: MeetingDetailsScreen(
+          meetingRepository: meetingRepository,
+          downloadUrl: UrlBuilder.filesDownloadUrl,
+        ),
+      );
+    },
     _PathConstants.profileSettingsPath: (_) => MaterialPage(
           name: 'profile-settings',
           child: ProfileSettingsScreen(
@@ -330,6 +369,26 @@ class _PathConstants {
   static String get requestsPath => '${tabContainerPath}requests';
 
   static String get meetingsPath => '${tabContainerPath}meetings';
+
+  static String get searchMeetingsPath => '$meetingsPath/search';
+
+  static String get meetingIdPathParameter => 'meetingId';
+
+  static String meetingDetailsPath({
+    int? meetingId,
+  }) {
+    final completePath = '$meetingsPath'
+        '/${meetingId ?? ':$meetingIdPathParameter'}';
+    return completePath;
+  }
+
+  static String meetingDetailsPathTwo({
+    int? meetingId,
+  }) {
+    final completePath = '$searchMeetingsPath'
+        '/${meetingId ?? ':$meetingIdPathParameter'}';
+    return completePath;
+  }
 
   static String requestDetailsPath({int? requestId}) =>
       '$requestsPath/${requestId ?? ':$requestIdPathParameter'}';

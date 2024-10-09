@@ -10,12 +10,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:growth_in/firebase_options.dart';
 import 'package:growth_in/routing_table.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:home/home.dart';
 import 'package:key_value_storage/key_value_storage.dart';
+import 'package:meeting_details/meeting_details.dart';
 import 'package:meeting_repository/meeting_repository.dart';
 import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
@@ -28,6 +30,7 @@ import 'package:request_repository/request_repository.dart';
 import 'package:requests/requests.dart';
 import 'package:reset_password/reset_password.dart';
 import 'package:routemaster/routemaster.dart';
+import 'package:search_meetings/search_meetings.dart';
 import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:submit_ticket/submit_ticket.dart';
@@ -42,7 +45,7 @@ String? fontFamily;
 
 final ValueNotifier<bool> _isUserUnAuthSC = ValueNotifier(false);
 final ValueNotifier<InternetConnectionGrowthInException?>
-    _internetConnectionErrorVN = ValueNotifier(null);
+_internetConnectionErrorVN = ValueNotifier(null);
 final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
 final dynamic _connectInApi = GrowthInApi(
@@ -72,6 +75,8 @@ final _keyValueStorage = KeyValueStorage();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -97,7 +102,10 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _userRepository.getUser().first.then((user) {
+    _userRepository
+        .getUser()
+        .first
+        .then((user) {
       _signInSuccessVN.value = user?.id != null;
     });
     _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
@@ -110,7 +118,10 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
     super.didChangePlatformBrightness();
     // Get the brightness.
     setState(() {
-      _appBrightness = View.of(context).platformDispatcher.platformBrightness;
+      _appBrightness = View
+          .of(context)
+          .platformDispatcher
+          .platformBrightness;
     });
   }
 
@@ -157,17 +168,17 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
             // To control the system nav bar when it is changed
             // and when the widget first initializes
             value: _appBrightness == Brightness.dark ||
-                    SchedulerBinding
-                            .instance.platformDispatcher.platformBrightness ==
-                        Brightness.dark
+                SchedulerBinding
+                    .instance.platformDispatcher.platformBrightness ==
+                    Brightness.dark
                 ? SystemUiOverlayStyle.light.copyWith(
-                    systemNavigationBarIconBrightness: Brightness.light,
-                    systemNavigationBarColor: Colors.black,
-                  )
+              systemNavigationBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: Colors.black,
+            )
                 : SystemUiOverlayStyle.light.copyWith(
-                    systemNavigationBarIconBrightness: Brightness.dark,
-                    systemNavigationBarColor: Colors.white,
-                  ),
+              systemNavigationBarIconBrightness: Brightness.dark,
+              systemNavigationBarColor: Colors.white,
+            ),
             child: MaterialApp.router(
               theme: _lightTheme.materialThemeData.copyWith(
                 textTheme: _lightTheme.materialThemeData.textTheme.apply(
@@ -183,7 +194,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
               builder: (context, child) {
                 return Directionality(
                   textDirection:
-                      isArabic ? TextDirection.rtl : TextDirection.ltr,
+                  isArabic ? TextDirection.rtl : TextDirection.ltr,
                   child: InternetErrorIndicator(
                     child: child!,
                   ),
@@ -226,6 +237,8 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
 
                 // Meetings
                 MeetingsLocalizations.delegate,
+                SearchMeetingsLocalizations.delegate,
+                MeetingDetailsLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [
@@ -259,7 +272,7 @@ class _InternetErrorIndicatorState extends State<InternetErrorIndicator> {
   void initState() {
     super.initState();
     _internetConnectionErrorVN.addListener(
-      () {
+          () {
         if (_internetConnectionErrorVN.value != null) {
           showSnackBar(
             context: context,

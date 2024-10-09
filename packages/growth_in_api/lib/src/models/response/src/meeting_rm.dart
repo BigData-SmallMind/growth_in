@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'meeting_rm.g.dart';
 
 @JsonSerializable(createToJson: false)
@@ -14,6 +15,7 @@ class MeetingRM {
     this.link,
     this.summary,
     this.cancellationReason,
+    required this.createdAt,
   });
 
   @JsonKey(name: 'id')
@@ -36,6 +38,8 @@ class MeetingRM {
   final String? summary;
   @JsonKey(name: 'reason_meeting_cancle')
   final String? cancellationReason;
+  @JsonKey(name: 'created_at')
+  final String createdAt;
 
   static const fromJson = _$MeetingRMFromJson;
 }
@@ -59,4 +63,19 @@ class MeetingsRM {
   final List<MeetingRM>? past;
 
   static const fromJson = _$MeetingsRMFromJson;
+}
+
+@JsonSerializable(createToJson: false)
+class MeetingTypeRM {
+  MeetingTypeRM({
+    required this.id,
+    required this.name,
+  });
+
+  @JsonKey(name: 'id')
+  final int id;
+  @JsonKey(name: 'name')
+  final String name;
+
+  static const fromJson = _$MeetingTypeRMFromJson;
 }

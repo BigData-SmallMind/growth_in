@@ -15,28 +15,46 @@ class PendingMeetingRequests extends StatelessWidget {
     return BlocBuilder<SearchMeetingsCubit, SearchMeetingsState>(
       builder: (context, state) {
         final emptyList = state.meetings?.awaitingAction.isEmpty == true;
-        final pendingRequests = state.pendingMeetings;
+        final pendingRequests = state.awaitingActionMeetings;
         final l10n = SearchMeetingsLocalizations.of(context);
+        final theme = GrowthInTheme.of(context);
+         final cubit = context.read<SearchMeetingsCubit>();
         return emptyList
             ? Center(
                 child: Text(l10n.listIsEmptyText),
               )
             : ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
                 itemBuilder: (context, index) {
                   final month = pendingRequests.keys.toList()[index];
                   return Column(
                     children: [
-                      Text(month),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(month),
+                          HorizontalGap.small(),
+                          Expanded(
+                            child: Container(
+                              height: 1,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
+                          ),
+                        ],
+                      ),
+                      VerticalGap.mediumLarge(),
                       ColumnBuilder(
                         itemBuilder: (context, index) {
                           final meeting = pendingRequests[month]![index];
                           return MeetingCard(
                             meeting: meeting,
                             type: MeetingCardVariation.awaitingAction,
+                            onTap: () => cubit.onMeetingDetailsTapped(meeting),
                           );
                         },
                         itemCount: pendingRequests[month]!.length,
                       ),
+                      VerticalGap.mediumLarge(),
                     ],
                   );
                 },

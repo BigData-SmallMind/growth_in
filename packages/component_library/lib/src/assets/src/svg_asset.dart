@@ -92,6 +92,8 @@ class AssetPathConstants {
   static const String markAsCompletePath = '$iconsPath/mark-as-complete.svg';
   static const String markAsCompleteActivePath =
       '$iconsPath/mark-as-complete-active.svg';
-  static const String taskPath =
-      '$iconsPath/task.svg';
+  static const String taskPath = '$iconsPath/task.svg';
+
+  static const String tickCirclePath = '$iconsPath/tick_circle.svg';
+  static const String closeCirclePath = '$iconsPath/close_circle.svg';
 }

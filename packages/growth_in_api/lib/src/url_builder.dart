@@ -1,9 +1,17 @@
 class UrlBuilder {
-  UrlBuilder({
+  UrlBuilder._internal({
     String? baseUrl,
   }) : _baseUrl = baseUrl ?? 'https://laravel.growth-in.net/subgrowthin/api';
 
   final String _baseUrl;
+  // static const String imageDownloadUrl = 'https://laravel.growth-in.net/subgrowthin/public/images';
+  static const String filesDownloadUrl = 'https://laravel.growth-in.net/subgrowthin/public/files';
+
+  static final UrlBuilder _instance = UrlBuilder._internal();
+
+  factory UrlBuilder() {
+    return _instance;
+  }
 
   String buildSignInUrl() {
     final completeUrl = '$_baseUrl/login';
@@ -160,5 +168,9 @@ class UrlBuilder {
 
   String buildGetMeetingsUrl() {
     return '$_baseUrl/meetings';
+  }
+
+  String buildGetMeetingTypesUrl() {
+    return '$_baseUrl/meeting-types';
   }
 }

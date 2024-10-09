@@ -76,13 +76,6 @@ extension MeetingRMtoDM on MeetingRM {
     try {
       final filesMap =
           files == null ? null : json.decode(files!) as List<dynamic>;
-      // final filesDM = filesMap.entries
-      //     .map((e) => FileDM(
-      //           name: e.value['file_name'],
-      //           extension: e.value['file_type'],
-      //           size: e.value['file_size'],
-      //         ))
-      //     .toList();
       final filesDM = filesMap
           ?.map(
             (e) => FileDM(
@@ -92,6 +85,7 @@ extension MeetingRMtoDM on MeetingRM {
             ),
           )
           .toList();
+
       return Meeting(
         id: id,
         type: type,
@@ -103,6 +97,7 @@ extension MeetingRMtoDM on MeetingRM {
         link: link,
         summary: summary,
         cancellationReason: cancellationReason,
+        createdAt: DateTime.parse(createdAt),
       );
     } catch (error) {
       rethrow;
@@ -113,14 +108,29 @@ extension MeetingRMtoDM on MeetingRM {
 extension MeetingsRMtoDM on MeetingsRM {
   Meetings toDomainModel() {
     final latestMeeting = latest?.toDomainModel();
-    final allMeetings = all.map((e) => e.toDomainModel()).toList();
+    final awaitingAction = all.map((e) => e.toDomainModel()).toList();
     final upcomingMeetings = upcoming.map((e) => e.toDomainModel()).toList();
     final pastMeetings = past?.map((e) => e.toDomainModel()).toList();
     return Meetings(
       latestUpcoming: latestMeeting,
-      pendingAction: allMeetings,
+      awaitingAction: awaitingAction,
       upcoming: upcomingMeetings,
       past: pastMeetings,
     );
+  }
+}
+
+extension MeetingTypeRMtoDM on MeetingTypeRM {
+  MeetingType toDomainModel() {
+    return MeetingType(
+      id: id,
+      name: name,
+    );
+  }
+}
+
+extension ListMeetingTypeRMtoDM on List<MeetingTypeRM> {
+  List<MeetingType> toDomainModel() {
+    return map((e) => e.toDomainModel()).toList();
   }
 }

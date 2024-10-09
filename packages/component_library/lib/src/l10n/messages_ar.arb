@@ -105,7 +105,9 @@
   "percentActionsComplete": "المنتهي",
   "commentsSectionTitle": "التعليقات",
   "viewAllCommentsButtonLabel": "اظهر الكل",
-  "noCommentsIndicatorText": "لا توجد تعليقات"
+  "noCommentsIndicatorText": "لا توجد تعليقات",
+  "cancelMeetingButtonLabel": "إلغاء",
+  "setMeetingDateButtonLabel": "تحديد موعد"
 
 }
 

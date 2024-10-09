@@ -12,6 +12,7 @@ class Meeting {
     this.link,
     this.summary,
     this.cancellationReason,
+    required this.createdAt,
   });
 
   final int id;
@@ -24,26 +25,46 @@ class Meeting {
   final String? link;
   final String? summary;
   final String? cancellationReason;
+  final DateTime createdAt;
 
   int? get hoursTillStart => startDate?.difference(DateTime.now()).inHours;
+
+  bool get isToday {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final isToday = startDate != null && startDate!.isAtSameMomentAs(today);
+    return isToday;
+  }
+
+  bool get hasStarted => startDate != null && startDate!.isBefore(DateTime.now());
 }
 
 class Meetings {
   Meetings({
     this.latestUpcoming,
-    required this.pendingAction,
+    required this.awaitingAction,
     required this.upcoming,
     this.past,
   });
 
   final Meeting? latestUpcoming;
-  final List<Meeting> pendingAction;
+  final List<Meeting> awaitingAction;
   final List<Meeting> upcoming;
   final List<Meeting>? past;
 }
 
-enum MeetingCardType {
+enum MeetingCardVariation {
   upcoming,
-  pendingAction,
+  awaitingAction,
   past,
+}
+
+class MeetingType {
+  const MeetingType({
+    required this.id,
+    required this.name,
+  });
+
+  final int id;
+  final String name;
 }

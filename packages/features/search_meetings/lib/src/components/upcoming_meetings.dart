@@ -44,8 +44,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 //   }
 // }
 
-class UpcomingMeeting extends StatelessWidget {
-  const UpcomingMeeting({
+class UpcomingMeetings extends StatelessWidget {
+  const UpcomingMeetings({
     super.key,
   });
 
@@ -57,6 +57,7 @@ class UpcomingMeeting extends StatelessWidget {
         final upcomingMeetings = state.upcomingMeetings;
         final l10n = SearchMeetingsLocalizations.of(context);
         final theme = GrowthInTheme.of(context);
+        final cubit = context.read<SearchMeetingsCubit>();
         return emptyList
             ? Center(
                 child: Text(l10n.listIsEmptyText),
@@ -95,6 +96,8 @@ class UpcomingMeeting extends StatelessWidget {
                                 child: MeetingCard(
                                   meeting: meeting,
                                   type: MeetingCardVariation.upcoming,
+                                  onTap: () =>
+                                      cubit.onMeetingDetailsTapped(meeting),
                                 ),
                               ),
                             ],

@@ -5,8 +5,20 @@ import 'package:flutter/material.dart';
 class MeetingChangeNotifier with ChangeNotifier, EquatableMixin {
   MeetingChangeNotifier();
 
+  final ValueNotifier<MeetingCardVariation?> _meetingCardVariation =
+      ValueNotifier(null);
   final ValueNotifier<Meeting?> _meeting = ValueNotifier(null);
 
+  // This is a notifier of the meetingCardVariation
+  MeetingCardVariation? get meetingCardVariation => _meetingCardVariation.value;
+  void setMeetingsVariation(MeetingCardVariation? meetingCardVariation) {
+    _meetingCardVariation.value = meetingCardVariation;
+    notifyListeners();
+  }
+  Future clearMeeting() async {
+    _meetingCardVariation.value = null;
+    notifyListeners();
+  }
 
   // This is a notifier of the meeting
   Meeting? get meeting => _meeting.value;
@@ -14,13 +26,13 @@ class MeetingChangeNotifier with ChangeNotifier, EquatableMixin {
     _meeting.value = meeting;
     notifyListeners();
   }
-  Future clearMeeting() async {
+  Future clearMeetings() async {
     _meeting.value = null;
     notifyListeners();
   }
-
   @override
   List<Object?> get props => [
+        _meetingCardVariation,
         _meeting,
       ];
 }

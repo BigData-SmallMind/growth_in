@@ -1,5 +1,6 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meeting_repository/meeting_repository.dart';
 
@@ -8,32 +9,40 @@ part 'search_meetings_state.dart';
 class SearchMeetingsCubit extends Cubit<SearchMeetingsState> {
   SearchMeetingsCubit({
     required this.meetingRepository,
+    required this.oMeetingTapped,
   }) : super(
-          const SearchMeetingsState(),
-        ){
+          SearchMeetingsState(
+              variation: meetingRepository.changeNotifier.meetingCardVariation),
+        ) {
     getSearchMeetings();
   }
 
   final MeetingRepository meetingRepository;
+  final ValueSetter<int> oMeetingTapped;
 
   void getSearchMeetings() async {
     final loading = state.copyWith(
-      search_meetingsStatus: SearchMeetingsStatus.loading,
+      searchMeetingsStatus: SearchMeetingsStatus.loading,
     );
     emit(loading);
     try {
-      final search_meetings = await meetingRepository.getSearchMeetings();
+      final searchMeetings = await meetingRepository.getMeetings();
       final success = state.copyWith(
-        search_meetings: search_meetings,
-        search_meetingsStatus: SearchMeetingsStatus.success,
+        meetings: searchMeetings,
+        searchMeetingsStatus: SearchMeetingsStatus.success,
       );
       emit(success);
     } catch (error) {
       final failure = state.copyWith(
-        search_meetingsStatus: SearchMeetingsStatus.failure,
+        searchMeetingsStatus: SearchMeetingsStatus.failure,
       );
       emit(failure);
     }
+  }
+
+  void onMeetingDetailsTapped(Meeting meeting){
+    meetingRepository.changeNotifier.setMeeting(meeting);
+    oMeetingTapped(meeting.id);
   }
 
 // @override

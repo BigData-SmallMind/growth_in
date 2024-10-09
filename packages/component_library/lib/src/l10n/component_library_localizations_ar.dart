@@ -303,4 +303,10 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get noCommentsIndicatorText => 'لا توجد تعليقات';
+
+  @override
+  String get cancelMeetingButtonLabel => 'إلغاء';
+
+  @override
+  String get setMeetingDateButtonLabel => 'تحديد موعد';
 }

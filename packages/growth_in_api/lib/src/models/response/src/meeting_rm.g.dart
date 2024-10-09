@@ -22,6 +22,7 @@ MeetingRM _$MeetingRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           summary: $checkedConvert('meeting_summary', (v) => v as String?),
           cancellationReason:
               $checkedConvert('reason_meeting_cancle', (v) => v as String?),
+          createdAt: $checkedConvert('created_at', (v) => v as String),
         );
         return val;
       },
@@ -33,7 +34,8 @@ MeetingRM _$MeetingRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'plan': 'meeting_plan',
         'link': 'meeting_link',
         'summary': 'meeting_summary',
-        'cancellationReason': 'reason_meeting_cancle'
+        'cancellationReason': 'reason_meeting_cancle',
+        'createdAt': 'created_at'
       },
     );
 
@@ -70,5 +72,18 @@ MeetingsRM _$MeetingsRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'all': 'AllMeetingRequests',
         'upcoming': 'AllUpcomingMeeting',
         'past': 'historyMeeting'
+      },
+    );
+
+MeetingTypeRM _$MeetingTypeRMFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'MeetingTypeRM',
+      json,
+      ($checkedConvert) {
+        final val = MeetingTypeRM(
+          id: $checkedConvert('id', (v) => (v as num).toInt()),
+          name: $checkedConvert('name', (v) => v as String),
+        );
+        return val;
       },
     );

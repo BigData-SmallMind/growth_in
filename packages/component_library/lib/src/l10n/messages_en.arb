@@ -105,7 +105,9 @@
   "percentActionsComplete": "Steps Completed",
   "commentsSectionTitle": "Comments",
   "viewAllCommentsButtonLabel": "View All",
-  "noCommentsIndicatorText": "No Comments"
+  "noCommentsIndicatorText": "No Comments",
+  "cancelMeetingButtonLabel": "Cancel Meeting",
+  "setMeetingDateButtonLabel": "Set Date"
 
 
 }

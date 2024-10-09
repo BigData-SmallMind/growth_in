@@ -3,9 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 
 class MeetingsApi {
-
   final Dio _dio;
   final UrlBuilder _urlBuilder;
+  static const _meetingTypeJsonKey = 'meeting_types';
 
   MeetingsApi(
     this._dio,
@@ -21,6 +21,22 @@ class MeetingsApi {
       final meetings = response.data;
       final meetingsRM = MeetingsRM.fromJson(meetings);
       return meetingsRM;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<MeetingTypeRM>> getMeetingTypes() async {
+    final url = _urlBuilder.buildGetMeetingTypesUrl();
+    try {
+      final response = await _dio.get(
+        url,
+      );
+      final meetingTypes = response.data[_meetingTypeJsonKey] as List;
+      final meetingTypesRM = meetingTypes
+          .map((meetingType) => MeetingTypeRM.fromJson(meetingType))
+          .toList();
+      return meetingTypesRM;
     } catch (_) {
       rethrow;
     }

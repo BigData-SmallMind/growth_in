@@ -26,4 +26,16 @@ class MeetingRepository {
       rethrow;
     }
   }
+
+  Future<List<MeetingType>> getMeetingTypes() async {
+    try {
+      final meetingTypes = await remoteApi.meetings.getMeetingTypes();
+      final domainMeetingTypes = meetingTypes.toDomainModel();
+      return domainMeetingTypes;
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
+
+

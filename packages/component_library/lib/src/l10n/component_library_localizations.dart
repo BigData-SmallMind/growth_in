@@ -692,6 +692,18 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'No Comments'**
   String get noCommentsIndicatorText;
+
+  /// No description provided for @cancelMeetingButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Meeting'**
+  String get cancelMeetingButtonLabel;
+
+  /// No description provided for @setMeetingDateButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Date'**
+  String get setMeetingDateButtonLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

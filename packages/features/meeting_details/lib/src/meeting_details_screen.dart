@@ -7,16 +7,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MeetingDetailsScreen extends StatelessWidget {
   const MeetingDetailsScreen({
     required this.meetingRepository,
+    required this.downloadUrl,
     super.key,
   });
 
   final MeetingRepository meetingRepository;
+  final String downloadUrl;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MeetingDetailsCubit>(
       create: (_) => MeetingDetailsCubit(
         meetingRepository: meetingRepository,
+        downloadUrl: downloadUrl,
       ),
       child: MeetingDetailsView(),
     );
@@ -37,142 +40,190 @@ class MeetingDetailsView extends StatelessWidget {
         final textTheme = Theme.of(context).textTheme;
         final theme = GrowthInTheme.of(context);
         final meeting = state.meeting!;
+        final cubit = context.read<MeetingDetailsCubit>();
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
           ),
-          body: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: theme.screenMargin,
-            ),
+          body: Column(
             children: [
-              Text(
-                meeting.title,
-                style: textTheme.titleMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              VerticalGap.medium(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              Expanded(
+                flex: 10,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: theme.screenMargin,
+                  ),
+                  children: [
+                    Text(
+                      meeting.title,
+                      style: textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    VerticalGap.medium(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          'l10n.dayRowTitle',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: const Color(
-                              0xFF797979,
-                            ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'l10n.dayRowTitle',
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: const Color(
+                                    0xFF797979,
+                                  ),
+                                ),
+                              ),
+                              VerticalGap.medium(),
+                              Text(
+                                'l10n.timeRowTitle',
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: const Color(
+                                    0xFF797979,
+                                  ),
+                                ),
+                              ),
+                              VerticalGap.medium(),
+                              Text(
+                                'l10n.serviceRowTitle',
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: const Color(
+                                    0xFF797979,
+                                  ),
+                                ),
+                              ),
+                              VerticalGap.medium(),
+                              Text(
+                                'l10n.typeRowTitle',
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: const Color(
+                                    0xFF797979,
+                                  ),
+                                ),
+                              ),
+                              VerticalGap.medium(),
+                              Text(
+                                'l10n.linkRowTitle',
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: const Color(
+                                    0xFF797979,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        VerticalGap.medium(),
-                        Text(
-                          'l10n.timeRowTitle',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: const Color(
-                              0xFF797979,
-                            ),
-                          ),
-                        ),
-                        VerticalGap.medium(),
-                        Text(
-                          'l10n.serviceRowTitle',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: const Color(
-                              0xFF797979,
-                            ),
-                          ),
-                        ),
-                        VerticalGap.medium(),
-                        Text(
-                          'l10n.typeRowTitle',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: const Color(
-                              0xFF797979,
-                            ),
-                          ),
-                        ),
-                        VerticalGap.medium(),
-                        Text(
-                          'l10n.linkRowTitle',
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: const Color(
-                              0xFF797979,
-                            ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                meeting.startDate
+                                        ?.toIso8601String()
+                                        .padLeft(10, '0') ??
+                                    '--',
+                                maxLines: 1,
+                              ),
+                              VerticalGap.medium(),
+                              Text(
+                                meeting.startDate?.hour.toString() ?? '--',
+                                maxLines: 1,
+                              ),
+                              VerticalGap.medium(),
+                              Text('--'),
+                              VerticalGap.medium(),
+                              Text(
+                                meeting.type,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              VerticalGap.medium(),
+                              Text(
+                                meeting.link ?? '--',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          meeting.startDate
-                                  ?.toIso8601String()
-                                  .padLeft(10, '0') ??
-                              '--',
-                          maxLines: 1,
+                    VerticalGap.xLarge(),
+                    if (meeting.plan != null) ...[
+                      Text(
+                        'l10n.meetingPlanSectionTitle',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: const Color(
+                            0xFF797979,
+                          ),
                         ),
-                        VerticalGap.medium(),
-                        Text(
-                          meeting.startDate?.hour.toString() ?? '--',
-                          maxLines: 1,
+                      ),
+                      VerticalGap.medium(),
+                      Text(
+                        meeting.plan!,
+                        style: textTheme.bodyMedium,
+                      ),
+                    ],
+                    if (meeting.files != null) ...[
+                      SizedBox(
+                        height: 100,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final file = meeting.files![index];
+                            return InkWell(
+                              onTap: () => cubit.download(file),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    width: 50,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: theme.borderColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Center(child: Text(file.extension)),
+                                  ),
+                                  SizedBox(
+                                    width: 60,
+                                    child: Center(
+                                      child: Text(
+                                        file.name,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          itemCount: meeting.files!.length,
                         ),
-                        VerticalGap.medium(),
-                        Text('--'),
-                        VerticalGap.medium(),
-                        Text(
-                          meeting.type,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                      )
+                    ],
+                    if (meeting.summary != null) ...[
+                      Text(
+                        'l10n.meetingSummarySectionTitle',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: const Color(
+                            0xFF797979,
+                          ),
                         ),
-                        VerticalGap.medium(),
-                        Text(
-                          meeting.link ?? '--',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                      ),
+                      VerticalGap.medium(),
+                      Text(
+                        meeting.summary!,
+                        style: textTheme.bodyMedium,
+                      ),
+                    ],
+                  ],
+                ),
               ),
-              VerticalGap.xLarge(),
-              if (meeting.plan != null) ...[
-                Text(
-                  'l10n.meetingPlanSectionTitle',
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: const Color(
-                      0xFF797979,
-                    ),
-                  ),
-                ),
-                VerticalGap.medium(),
-                Text(
-                  meeting.plan!,
-                  style: textTheme.bodyMedium,
-                ),
-              ],
-              if (meeting.files != null) ...[],
-              if (meeting.summary != null) ...[
-                Text(
-                  'l10n.meetingSummarySectionTitle',
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: const Color(
-                      0xFF797979,
-                    ),
-                  ),
-                ),
-                VerticalGap.medium(),
-                Text(
-                  meeting.summary!,
-                  style: textTheme.bodyMedium,
-                ),
-              ],
+              MeetingButtons(),
             ],
           ),
         );

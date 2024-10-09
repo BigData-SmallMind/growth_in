@@ -1,7 +1,6 @@
 export 'package:formz/formz.dart' show FormzInput, Formz, FormzSubmissionStatus;
 
 export 'src/dynamic.dart';
-
 export 'src/otp_code.dart';
 export 'src/domain.dart';
 export 'src/email.dart';
