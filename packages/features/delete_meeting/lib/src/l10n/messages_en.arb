@@ -1,0 +1,7 @@
+{
+  "otherReasonTextFieldHint": "Type the reason here",
+  "requiredFieldErrorMessage": "Required",
+  "requiredTextMessage": "Required",
+  "confirmMeetingDeletionButtonLabel": "Confirm",
+  "meetingDeletedSuccessfully": "Meeting deleted successfully"
+}

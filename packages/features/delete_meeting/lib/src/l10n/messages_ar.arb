@@ -1,0 +1,7 @@
+{
+  "otherReasonTextFieldHint": "اكتب السبب هنا",
+  "requiredFieldErrorMessage": "مطلوب",
+  "requiredTextMessage": "مطلوب",
+  "confirmMeetingDeletionButtonLabel": "تأكيد",
+  "meetingDeletedSuccessfully": "تم حذف الاجتماع بنجاح"
+}
