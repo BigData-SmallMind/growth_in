@@ -55,8 +55,8 @@ class TicketMessagesView extends StatelessWidget {
                   horizontal: theme.screenMargin,
                 ),
               ),
-              MessagesList(),
-              SendMessage(),
+              const MessagesList(),
+              const SendMessage(),
             ],
           ),
         );

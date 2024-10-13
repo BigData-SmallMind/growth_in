@@ -25,14 +25,14 @@ class SubmitTicketBottomSheet extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: context.releaseFocus,
-        child: SubmitTicketView(),
+        child: const SubmitTicketView(),
       ),
     );
   }
 }
 
 class SubmitTicketView extends StatelessWidget {
-  const SubmitTicketView();
+  const SubmitTicketView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +68,11 @@ class SubmitTicketView extends StatelessWidget {
           expand: false,
           initialChildSize: 0.8,
           builder: (context, scrollController) => ListView(
-            padding: EdgeInsets.all(Spacing.medium),
+            padding: const EdgeInsets.all(Spacing.medium),
             controller: scrollController,
             children: [
               if (state.ticketsTypes.isNotEmpty) ...[
-                TicketTypeSelector(),
+                const TicketTypeSelector(),
                 VerticalGap.medium(),
               ],
               if (typeError == DynamicValidationError.empty) ...[
@@ -84,9 +84,9 @@ class SubmitTicketView extends StatelessWidget {
                 ),
                 VerticalGap.medium(),
               ],
-              TitleTextField(),
+              const TitleTextField(),
               VerticalGap.medium(),
-              DescriptionTextField(),
+              const DescriptionTextField(),
               VerticalGap.medium(),
               isSubmissionInProgress
                   ? GrowthInElevatedButton.inProgress(

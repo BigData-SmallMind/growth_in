@@ -68,7 +68,7 @@ class RequestDetailsView extends StatelessWidget {
                       children: [
                         HorizontalGap.custom(theme.screenMargin),
                         Text(request!.name),
-                        Spacer(),
+                        const Spacer(),
                         MarkAsCompleteToggler(
                           isComplete: request.isComplete,
                           isLoading: state.toggleRequestCompleteStatus ==
@@ -79,7 +79,7 @@ class RequestDetailsView extends StatelessWidget {
                       ],
                     ),
                     VerticalGap.medium(),
-                    Divider(),
+                    const Divider(),
                     VerticalGap.medium(),
                     Row(
                       children: [
@@ -116,7 +116,7 @@ class RequestDetailsView extends StatelessWidget {
                       ],
                     ),
                     VerticalGap.medium(),
-                    Divider(),
+                    const Divider(),
                     VerticalGap.medium(),
                     Padding(
                       padding:
@@ -130,7 +130,7 @@ class RequestDetailsView extends StatelessWidget {
                       child: Text(
                         request.descriptionHtml!,
                         style: textTheme.bodySmall?.copyWith(
-                          color: Color(0xFF636262),
+                          color: const Color(0xFF636262),
                         ),
                       ),
                     ),

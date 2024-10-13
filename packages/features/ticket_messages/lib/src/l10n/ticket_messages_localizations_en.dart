@@ -2,7 +2,7 @@ import 'ticket_messages_localizations.dart';
 
 /// The translations for English (`en`).
 class TicketMessagesLocalizationsEn extends TicketMessagesLocalizations {
-  TicketMessagesLocalizationsEn([String locale = 'en']) : super(locale);
+  TicketMessagesLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Help & Support';

@@ -52,7 +52,7 @@ class _CurrentPasswordState extends State<CurrentPassword> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.currentPasswordTextFieldLabel + ' *',
+              '${l10n.currentPasswordTextFieldLabel} *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),

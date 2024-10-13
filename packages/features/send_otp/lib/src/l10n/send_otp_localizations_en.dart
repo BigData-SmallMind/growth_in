@@ -2,7 +2,7 @@ import 'send_otp_localizations.dart';
 
 /// The translations for English (`en`).
 class SendOtpLocalizationsEn extends SendOtpLocalizations {
-  SendOtpLocalizationsEn([String locale = 'en']) : super(locale);
+  SendOtpLocalizationsEn([super.locale = 'en']);
 
   @override
   String get sendOtpTitle => 'ٍSomething went wrong';

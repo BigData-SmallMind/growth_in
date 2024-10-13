@@ -134,6 +134,24 @@ abstract class MeetingDetailsLocalizations {
   /// In en, this message translates to:
   /// **'Meeting Summary'**
   String get meetingSummarySectionTitle;
+
+  /// No description provided for @cancelMeetingButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Request'**
+  String get cancelMeetingButtonLabel;
+
+  /// No description provided for @rescheduleMeetingButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Appointment'**
+  String get rescheduleMeetingButtonLabel;
+
+  /// No description provided for @setMeetingTimeButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Appointment'**
+  String get setMeetingTimeButtonLabel;
 }
 
 class _MeetingDetailsLocalizationsDelegate extends LocalizationsDelegate<MeetingDetailsLocalizations> {

@@ -48,7 +48,7 @@ class _DescriptionTextFieldState extends State<DescriptionTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.descriptionTextFieldLabel + ' *',
+            '${l10n.descriptionTextFieldLabel} *',
             style: textTheme.titleSmall,
           ),
           VerticalGap.medium(),

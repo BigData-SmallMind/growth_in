@@ -50,7 +50,7 @@ class _PasswordWidgetState extends State<PasswordWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.passwordTextFieldLabel + ' *',
+              '${l10n.passwordTextFieldLabel} *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),

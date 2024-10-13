@@ -23,9 +23,12 @@ class PendingMeetingRequest extends StatelessWidget {
           ? MeetingCard(
               meeting: meeting,
               type: MeetingCardVariation.awaitingAction,
-              onTap: () => cubit.onMeetingDetailsTapped(meeting),
+              onTap: () => cubit.onMeetingDetailsTapped(
+                meeting,
+                MeetingCardVariation.awaitingAction,
+              ),
             )
-          : Container(
+          : SizedBox(
               height: 150,
               child: Center(
                 child: Text(l10n.noMeetingsPendingActionMessage),

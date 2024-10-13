@@ -52,7 +52,7 @@ class _NewEmailConfirmationState extends State<NewEmailConfirmation> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.newEmailConfirmationTextFieldLabel + ' *',
+              '${l10n.newEmailConfirmationTextFieldLabel} *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),

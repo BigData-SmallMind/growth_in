@@ -6,8 +6,8 @@ import 'package:ticket_messages/src/ticket_messages_cubit.dart';
 
 class MessagesList extends StatelessWidget {
   const MessagesList({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class MessagesList extends StatelessWidget {
             state.fetchingStatus == TicketMessagesFetchingStatus.inProgress;
         return Expanded(
           child: loading
-              ? CenteredCircularProgressIndicator()
+              ? const CenteredCircularProgressIndicator()
               : RefreshIndicator(
                   onRefresh: () async {
                     context.read<TicketMessagesCubit>().getTicketMessages();
@@ -57,7 +57,7 @@ class MessageCard extends StatelessWidget {
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: Spacing.medium,
       ),
       margin: EdgeInsets.only(
@@ -67,13 +67,13 @@ class MessageCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: theme.borderColor),
         borderRadius: BorderRadius.circular(10),
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: Spacing.small),
+            padding: const EdgeInsets.symmetric(horizontal: Spacing.small),
             child: Row(
               children: [
                 ProfileImage(
@@ -96,10 +96,10 @@ class MessageCard extends StatelessWidget {
             ),
           ),
           VerticalGap.medium(),
-          Divider(),
+          const Divider(),
           VerticalGap.medium(),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: Spacing.small),
+            padding: const EdgeInsets.symmetric(horizontal: Spacing.small),
             child: Text(
               message.text,
               style: textTheme.bodyMedium,

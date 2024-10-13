@@ -99,10 +99,10 @@ abstract class MoreLocalizations {
   /// **'Meetings'**
   String get meetingsTileTitle;
 
-  /// No description provided for @ordersTileTitle.
+  /// No description provided for @requestsTileTitle.
   ///
   /// In en, this message translates to:
-  /// **'Orders'**
+  /// **'Requests'**
   String get requestsTileTitle;
 
   /// No description provided for @formsTileTitle.

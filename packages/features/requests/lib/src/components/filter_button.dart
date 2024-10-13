@@ -14,7 +14,7 @@ class FilterButton extends StatelessWidget {
     return BlocBuilder<RequestsCubit, RequestsState>(
       builder: (context, state) {
         return IconButton(
-          icon: Icon(Icons.filter_alt_outlined),
+          icon: const Icon(Icons.filter_alt_outlined),
           onPressed: () => showModalBottomSheet(
             context: context,
             showDragHandle: true,

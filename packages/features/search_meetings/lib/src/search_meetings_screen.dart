@@ -23,7 +23,7 @@ class SearchMeetingsScreen extends StatelessWidget {
         meetingRepository: meetingRepository,
         oMeetingTapped: oMeetingTapped,
       ),
-      child: SearchMeetingsView(),
+      child: const SearchMeetingsView(),
     );
   }
 }
@@ -40,16 +40,16 @@ class SearchMeetingsView extends StatelessWidget {
         final loading =
             state.searchMeetingsStatus == SearchMeetingsStatus.loading;
         return Scaffold(
-          appBar: GrowthInAppBar(
+          appBar: const GrowthInAppBar(
             logoVariation: false,
           ),
           body: loading
               ? const CenteredCircularProgressIndicator()
               : state.variation == MeetingCardVariation.awaitingAction
-                  ? PendingMeetingRequests()
+                  ? const PendingMeetingRequests()
                   : state.variation == MeetingCardVariation.upcoming
-                      ? UpcomingMeetings()
-                      : PastMeetings(),
+                      ? const UpcomingMeetings()
+                      : const PastMeetings(),
         );
       },
     );

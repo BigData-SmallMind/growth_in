@@ -76,7 +76,7 @@ class _TicketsViewState extends State<TicketsView>
             title: Text(l10n.appBarTitle),
           ),
           body: state.tickets?.isEmpty == true
-              ? NoTicketsIndicator()
+              ? const NoTicketsIndicator()
               : Column(
                   children: [
                     GrowthInTabBar(
@@ -97,7 +97,7 @@ class _TicketsViewState extends State<TicketsView>
                         ),
                         child: TabBarView(
                           controller: _tabController,
-                          children: [
+                          children: const [
                             TicketsList(active: true),
                             TicketsList(active: false),
                           ],

@@ -6,9 +6,9 @@ import 'package:tickets/src/tickets_cubit.dart';
 
 class TicketsList extends StatelessWidget {
   const TicketsList({
-    Key? key,
+    super.key,
     required this.active,
-  }) : super(key: key);
+  });
   final bool active;
 
   @override
@@ -19,7 +19,7 @@ class TicketsList extends StatelessWidget {
         final cubit = context.read<TicketsCubit>();
         final l10n = TicketsLocalizations.of(context);
         return state.tickets == null
-            ? CenteredCircularProgressIndicator()
+            ? const CenteredCircularProgressIndicator()
             : RefreshIndicator(
                 onRefresh: () async {
                   context.read<TicketsCubit>().getTickets();

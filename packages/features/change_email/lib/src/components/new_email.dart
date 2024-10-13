@@ -49,7 +49,7 @@ class _NewEmailState extends State<NewEmail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.newEmailTextFieldLabel + ' *',
+              '${l10n.newEmailTextFieldLabel} *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),
@@ -57,7 +57,7 @@ class _NewEmailState extends State<NewEmail> {
               obscuringCharacter: '*',
               focusNode: _focusNode,
               decoration: InputDecoration(
-                prefixIconConstraints: BoxConstraints(
+                prefixIconConstraints: const BoxConstraints(
                   minWidth: 0,
                   minHeight: 0,
                 ),

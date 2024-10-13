@@ -169,10 +169,10 @@ class ChangeEmailCubit extends Cubit<ChangeEmailState> {
     }
   }
 
-  @override
-  Future<void> close() async {
-    return super.close();
-  }
+  // @override
+  // Future<void> close() async {
+  //   return super.close();
+  // }
 // @override
 // Future<void> onChange(change) async {
 //   print('+++++++${change.currentState.email}');

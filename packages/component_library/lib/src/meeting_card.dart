@@ -67,15 +67,7 @@ class MeetingCard extends StatelessWidget {
                     textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
-            if (type == MeetingCardVariation.awaitingAction) ...[
-              VerticalGap.xLarge(),
-              const Divider(),
-              const MeetingButtons(),
-              Container(
-                decoration: const BoxDecoration(color: Color(0xFF26BFBF)),
-                height: 5,
-              )
-            ],
+
             if (type == MeetingCardVariation.upcoming ||
                 type == MeetingCardVariation.past) ...[
               VerticalGap.medium(),
@@ -115,6 +107,15 @@ class MeetingCard extends StatelessWidget {
                     ],
                   ),
                 ),
+              )
+            ],
+            if (type == MeetingCardVariation.awaitingAction) ...[
+              VerticalGap.xLarge(),
+              const Divider(),
+              const MeetingButtons(),
+              Container(
+                decoration: const BoxDecoration(color: Color(0xFF26BFBF)),
+                height: 5,
               )
             ],
           ],

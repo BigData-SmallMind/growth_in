@@ -53,8 +53,8 @@ class HomeView extends StatelessWidget {
             children: [
               Expanded(
                 child: TextButton(
-                  child: Text('logout'),
                   onPressed: cubit.logout,
+                  child: const Text('logout'),
                 ),
               ),
             ],

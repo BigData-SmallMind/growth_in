@@ -4,8 +4,10 @@ class UrlBuilder {
   }) : _baseUrl = baseUrl ?? 'https://laravel.growth-in.net/subgrowthin/api';
 
   final String _baseUrl;
+
   // static const String imageDownloadUrl = 'https://laravel.growth-in.net/subgrowthin/public/images';
-  static const String filesDownloadUrl = 'https://laravel.growth-in.net/subgrowthin/public/files';
+  static const String filesDownloadUrl =
+      'https://laravel.growth-in.net/subgrowthin/public/files';
 
   static final UrlBuilder _instance = UrlBuilder._internal();
 
@@ -172,5 +174,12 @@ class UrlBuilder {
 
   String buildGetMeetingTypesUrl() {
     return '$_baseUrl/meeting-types';
+  }
+
+  String buildDeleteMeetingUrl({
+    required int id,
+    required String reason,
+  }) {
+    return '$_baseUrl/meeting-date/$id?reason_meeting_cancle=$reason';
   }
 }

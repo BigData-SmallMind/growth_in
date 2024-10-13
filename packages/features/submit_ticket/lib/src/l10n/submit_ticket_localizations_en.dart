@@ -2,7 +2,7 @@ import 'submit_ticket_localizations.dart';
 
 /// The translations for English (`en`).
 class SubmitTicketLocalizationsEn extends SubmitTicketLocalizations {
-  SubmitTicketLocalizationsEn([String locale = 'en']) : super(locale);
+  SubmitTicketLocalizationsEn([super.locale = 'en']);
 
   @override
   String get ticketSubmissionSuccessSnackBarMessage => 'Ticket submitted successfully';

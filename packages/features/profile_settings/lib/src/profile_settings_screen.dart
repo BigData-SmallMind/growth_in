@@ -61,7 +61,7 @@ class ProfileSettingsView extends StatelessWidget {
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: theme.screenMargin),
               ),
-              Divider(),
+              const Divider(),
               ListTile(
                 title: Text(
                   l10n.changePasswordTileTitle,
@@ -75,7 +75,7 @@ class ProfileSettingsView extends StatelessWidget {
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: theme.screenMargin),
               ),
-              Divider(),
+              const Divider(),
               ListTile(
                 title: Text(
                   l10n.changeEmailTileTitle,
@@ -89,7 +89,7 @@ class ProfileSettingsView extends StatelessWidget {
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: theme.screenMargin),
               ),
-              Divider(),
+              const Divider(),
               ListTile(
                 title: Text(
                   l10n.notificationsTileTitle,
@@ -103,7 +103,7 @@ class ProfileSettingsView extends StatelessWidget {
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: theme.screenMargin),
               ),
-              Divider(),
+              const Divider(),
             ],
           ),
         );

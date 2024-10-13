@@ -39,12 +39,15 @@ class PastMeeting extends StatelessWidget {
                   child: MeetingCard(
                     meeting: meeting,
                     type: MeetingCardVariation.past,
-                    onTap: () => cubit.onMeetingDetailsTapped(meeting),
+                    onTap: () => cubit.onMeetingDetailsTapped(
+                      meeting,
+                      MeetingCardVariation.past,
+                    ),
                   ),
                 ),
               ],
             )
-          : Container(
+          : SizedBox(
               height: 150,
               child: Center(
                 child: Text(l10n.noPastMeetingsMessage),

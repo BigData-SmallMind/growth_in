@@ -1,3 +1,4 @@
+import 'package:domain_models/domain_models.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:meeting_details/src/l10n/meeting_details_localizations.dart';
 import 'package:meeting_repository/meeting_repository.dart';
@@ -9,11 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MeetingDetailsScreen extends StatelessWidget {
   const MeetingDetailsScreen({
     required this.meetingRepository,
+    required this.onCancelMeetingTapped,
     required this.downloadUrl,
     super.key,
   });
 
   final MeetingRepository meetingRepository;
+  final ValueSetter<Meeting> onCancelMeetingTapped;
   final String downloadUrl;
 
   @override
@@ -21,9 +24,10 @@ class MeetingDetailsScreen extends StatelessWidget {
     return BlocProvider<MeetingDetailsCubit>(
       create: (_) => MeetingDetailsCubit(
         meetingRepository: meetingRepository,
+        onCancelMeetingTapped: onCancelMeetingTapped,
         downloadUrl: downloadUrl,
       ),
-      child: MeetingDetailsView(),
+      child: const MeetingDetailsView(),
     );
   }
 }
@@ -37,15 +41,19 @@ class MeetingDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MeetingDetailsCubit, MeetingDetailsState>(
       builder: (context, state) {
-        final loading =
-            state.searchMeetingsStatus == MeetingDetailsStatus.loading;
+        // final loading =
+        //     state.searchMeetingsStatus == MeetingDetailsStatus.loading;
         final textTheme = Theme.of(context).textTheme;
         final theme = GrowthInTheme.of(context);
         final meeting = state.meeting!;
+        final isPastMeeting = state.variation == MeetingCardVariation.past;
+        final isUpcomingMeeting =
+            state.variation == MeetingCardVariation.upcoming;
+
         final cubit = context.read<MeetingDetailsCubit>();
         final l10n = MeetingDetailsLocalizations.of(context);
         return Scaffold(
-          appBar: GrowthInAppBar(
+          appBar: const GrowthInAppBar(
             logoVariation: false,
           ),
           body: Column(
@@ -135,7 +143,7 @@ class MeetingDetailsView extends StatelessWidget {
                                 textDirection: TextDirection.ltr,
                               ),
                               VerticalGap.medium(),
-                              Text('--'),
+                              const Text('--'),
                               VerticalGap.medium(),
                               Text(
                                 meeting.type,
@@ -227,32 +235,62 @@ class MeetingDetailsView extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: GrowthInElevatedButton(
-                      // bgColor: Colors.white,
-                      labelColor: Color(0xFFB22F2F),
-                      bgColor:  Colors.white,
-                      borderColor: theme.borderColor,
-                      icon: SvgAsset(AssetPathConstants.closeCirclePath),
-                      label: 'l10n.cancle',
-                      onTap: () {},
+              if (!isPastMeeting) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      labelColor: const Color(0xFFB22F2F),
+                      icon: const SvgAsset(AssetPathConstants.closeCirclePath),
+                      label: l10n.cancelMeetingButtonLabel,
+                      onTap: () => cubit.onCancelMeetingTapped(meeting),
+                      decoration: BoxDecoration(
+                        border: BorderDirectional(
+                          bottom: BorderSide(
+                            color: theme.borderColor,
+                          ),
+                          top: BorderSide(
+                            color: theme.borderColor,
+                          ),
+                          start: BorderSide(
+                            color: theme.borderColor,
+                          ),
+                        ),
+                        borderRadius: const BorderRadiusDirectional.only(
+                          topStart: Radius.circular(10),
+                          bottomStart: Radius.circular(10),
+                        ),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: GrowthInElevatedButton(
-                      // bgColor: Colors.white,
-                      labelColor: Color(0xFFB22F2F),
-                      bgColor:  Colors.white,
-                      borderColor: theme.borderColor,
-                      icon: SvgAsset(AssetPathConstants.closeCirclePath),
-                      label: 'l10n.cancle',
+                    CustomButton(
+                      labelColor: const Color(0xFF4B88CF),
+                      icon: const SvgAsset(AssetPathConstants.editPath),
+                      label: isUpcomingMeeting
+                          ? l10n.rescheduleMeetingButtonLabel
+                          : l10n.setMeetingTimeButtonLabel,
                       onTap: () {},
+                      decoration: BoxDecoration(
+                        border: BorderDirectional(
+                          bottom: BorderSide(
+                            color: theme.borderColor,
+                          ),
+                          top: BorderSide(
+                            color: theme.borderColor,
+                          ),
+                          end: BorderSide(
+                            color: theme.borderColor,
+                          ),
+                        ),
+                        borderRadius: const BorderRadiusDirectional.only(
+                          topEnd: Radius.circular(10),
+                          bottomEnd: Radius.circular(10),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                VerticalGap.large(),
+              ]
             ],
           ),
         );

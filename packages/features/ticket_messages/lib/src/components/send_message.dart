@@ -5,7 +5,7 @@ import 'package:ticket_messages/src/l10n/ticket_messages_localizations.dart';
 import 'package:ticket_messages/src/ticket_messages_cubit.dart';
 
 class SendMessage extends StatefulWidget {
-  const SendMessage({Key? key}) : super(key: key);
+  const SendMessage({super.key});
 
   @override
   State<SendMessage> createState() => _SendMessageState();
@@ -24,13 +24,13 @@ class _SendMessageState extends State<SendMessage> {
         final submissionInProgress =
             state.submissionStatus == TicketMessagesSubmissionStatus.inProgress;
         return AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           height: attachVisible ? 150 : 60,
           padding: EdgeInsets.symmetric(
             horizontal: theme.screenMargin,
             vertical: Spacing.small,
           ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xFFF4F4F4),
           ),
           child: ListView(
@@ -51,7 +51,7 @@ class _SendMessageState extends State<SendMessage> {
                           ),
                           filled: true,
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             horizontal: Spacing.medium,
                           ),
                         ),
@@ -63,7 +63,7 @@ class _SendMessageState extends State<SendMessage> {
                     Stack(
                       children: [
                         IconButton(
-                          icon: SvgAsset(
+                          icon: const SvgAsset(
                             AssetPathConstants.addPath,
                           ),
                           onPressed: () {
@@ -76,12 +76,12 @@ class _SendMessageState extends State<SendMessage> {
                             start: 0,
                             top: 0,
                             child: Container(
-                                padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
+                                padding: const EdgeInsets.all(2),
+                                decoration: const BoxDecoration(
                                   color: Colors.green,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.attach_file,
                                   size: 10,
                                   color: Colors.white,
@@ -92,20 +92,20 @@ class _SendMessageState extends State<SendMessage> {
                     submissionInProgress
                         ? Transform.scale(
                             scale: 0.5,
-                            child: CenteredCircularProgressIndicator(),
+                            child: const CenteredCircularProgressIndicator(),
                           )
                         : IconButton(
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
                                 state.isMessageEmpty
                                     ? Colors.grey
-                                    : Color(0xFF2B9279),
+                                    : const Color(0xFF2B9279),
                               ),
                               shape: WidgetStateProperty.all(
-                                CircleBorder(),
+                                const CircleBorder(),
                               ),
                             ),
-                            icon: SvgAsset(AssetPathConstants.sendPath),
+                            icon: const SvgAsset(AssetPathConstants.sendPath),
                             onPressed:
                                 state.isMessageEmpty ? null : cubit.sendMessage,
                           ),
@@ -126,11 +126,11 @@ class _SendMessageState extends State<SendMessage> {
                                 Colors.white,
                               ),
                               shape: WidgetStateProperty.all(
-                                CircleBorder(),
+                                const CircleBorder(),
                               ),
                             ),
                             icon:
-                                Icon(Icons.cancel_outlined, color: Colors.red),
+                                const Icon(Icons.cancel_outlined, color: Colors.red),
                             onPressed: submissionInProgress
                                 ? null
                                 : cubit.deletePickedFile,
@@ -150,10 +150,10 @@ class _SendMessageState extends State<SendMessage> {
                               Colors.white,
                             ),
                             shape: WidgetStateProperty.all(
-                              CircleBorder(),
+                              const CircleBorder(),
                             ),
                           ),
-                          icon: SvgAsset(AssetPathConstants.documentTextPath),
+                          icon: const SvgAsset(AssetPathConstants.documentTextPath),
                           onPressed:
                               submissionInProgress ? null : cubit.pickFile,
                         ),
@@ -171,10 +171,10 @@ class _SendMessageState extends State<SendMessage> {
                               Colors.white,
                             ),
                             shape: WidgetStateProperty.all(
-                              CircleBorder(),
+                              const CircleBorder(),
                             ),
                           ),
-                          icon: SvgAsset(AssetPathConstants.imagePath),
+                          icon: const SvgAsset(AssetPathConstants.imagePath),
                           onPressed: submissionInProgress
                               ? null
                               : cubit.pickImageFromGallery,
@@ -193,10 +193,10 @@ class _SendMessageState extends State<SendMessage> {
                               Colors.white,
                             ),
                             shape: WidgetStateProperty.all(
-                              CircleBorder(),
+                              const CircleBorder(),
                             ),
                           ),
-                          icon: SvgAsset(AssetPathConstants.cameraPath),
+                          icon: const SvgAsset(AssetPathConstants.cameraPath),
                           onPressed:
                               submissionInProgress ? null : cubit.capturePhoto,
                         ),

@@ -11,7 +11,7 @@ class ActionCommentsCubit extends Cubit<ActionCommentsState> {
     required this.requestRepository,
     required this.actionId,
   }) : super(
-          ActionCommentsState(),
+          const ActionCommentsState(),
         ) {
     getComments();
   }
@@ -69,8 +69,8 @@ class ActionCommentsCubit extends Cubit<ActionCommentsState> {
     }
   }
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
+  // @override
+  // Future<void> close() {
+  //   return super.close();
+  // }
 }

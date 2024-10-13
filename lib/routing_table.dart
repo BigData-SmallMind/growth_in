@@ -2,6 +2,8 @@ import 'package:action/action.dart';
 import 'package:action_comments/action_comments.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
+import 'package:delete_meeting/delete_meeting.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:home/home.dart';
@@ -39,6 +41,31 @@ Map<String, PageBuilder> buildRoutingTable({
 }) {
   routerDelegate.addListener(() {
     debugPrint('${routerDelegate.currentConfiguration?.path}');
+  });
+
+  final meetingDetailsScreen = Builder(builder: (context) {
+    return MeetingDetailsScreen(
+      meetingRepository: meetingRepository,
+      downloadUrl: UrlBuilder.filesDownloadUrl,
+      onCancelMeetingTapped: (Meeting meeting) => showModalBottomSheet(
+        showDragHandle: true,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => DeleteMeetingBottomSheet(
+          meetingRepository: meetingRepository,
+          meeting: meeting,
+          onCancellationSuccess: () async {
+            final isCurrentRouteSearch = routerDelegate
+                    .currentConfiguration?.path
+                    .contains(_PathConstants.searchMeetingsPath) ==
+                true;
+            await routerDelegate.pop();
+            await routerDelegate.pop();
+            if (isCurrentRouteSearch) await routerDelegate.pop();
+          },
+        ),
+      ),
+    );
   });
   return {
     _PathConstants.tabContainerPath: (_) => TabPage(
@@ -218,7 +245,7 @@ Map<String, PageBuilder> buildRoutingTable({
           child: SearchMeetingsScreen(
             meetingRepository: meetingRepository,
             oMeetingTapped: (int meetingId) => routerDelegate.push(
-              _PathConstants.meetingDetailsPath(
+              _PathConstants.meetingDetailsPathTwo(
                 meetingId: meetingId,
               ),
             ),
@@ -227,19 +254,13 @@ Map<String, PageBuilder> buildRoutingTable({
     _PathConstants.meetingDetailsPath(): (info) {
       return MaterialPage(
         name: 'meeting-details',
-        child: MeetingDetailsScreen(
-          meetingRepository: meetingRepository,
-          downloadUrl: UrlBuilder.filesDownloadUrl,
-        ),
+        child: meetingDetailsScreen,
       );
     },
     _PathConstants.meetingDetailsPathTwo(): (info) {
       return MaterialPage(
-        name: 'meeting-details',
-        child: MeetingDetailsScreen(
-          meetingRepository: meetingRepository,
-          downloadUrl: UrlBuilder.filesDownloadUrl,
-        ),
+        name: 'meeting-details-two',
+        child: meetingDetailsScreen,
       );
     },
     _PathConstants.profileSettingsPath: (_) => MaterialPage(

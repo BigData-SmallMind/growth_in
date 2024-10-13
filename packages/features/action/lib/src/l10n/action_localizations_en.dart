@@ -2,7 +2,7 @@ import 'action_localizations.dart';
 
 /// The translations for English (`en`).
 class ActionLocalizationsEn extends ActionLocalizations {
-  ActionLocalizationsEn([String locale = 'en']) : super(locale);
+  ActionLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Requests';

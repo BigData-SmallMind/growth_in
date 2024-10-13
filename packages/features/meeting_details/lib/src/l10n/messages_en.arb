@@ -5,5 +5,8 @@
   "typeRowTitle": "Type",
   "linkRowTitle": "Link",
   "meetingPlanSectionTitle": "Meeting Plan",
-  "meetingSummarySectionTitle": "Meeting Summary"
+  "meetingSummarySectionTitle": "Meeting Summary",
+  "cancelMeetingButtonLabel": "Cancel Request",
+  "rescheduleMeetingButtonLabel": "Edit Appointment",
+  "setMeetingTimeButtonLabel": "Set Appointment"
 }

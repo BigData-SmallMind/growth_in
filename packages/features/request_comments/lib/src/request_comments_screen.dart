@@ -23,7 +23,7 @@ class RequestCommentsScreen extends StatelessWidget {
         requestRepository: requestRepository,
         requestId: requestId,
       ),
-      child: RequestCommentsView(),
+      child: const RequestCommentsView(),
     );
   }
 }

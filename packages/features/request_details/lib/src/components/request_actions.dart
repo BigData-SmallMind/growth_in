@@ -26,27 +26,27 @@ class RequestActions extends StatelessWidget {
           // onTap: cubit.onActionTapped,
           child: Column(
             children: [
-              Divider(),
+              const Divider(),
               VerticalGap.medium(),
               Row(
                 children: [
                   HorizontalGap.custom(theme.screenMargin),
                   Text(l10n.actionsSectionTitle),
-                  Spacer(),
+                  const Spacer(),
                   TextButton(
+                      onPressed: cubit.onViewAllActionsTapped,
                       child: Text(
                         l10n.viewAllActionsButtonLabel,
                         style: textTheme.bodySmall?.copyWith(
                           color: theme.primaryColor,
                           decoration: TextDecoration.underline,
                         ),
-                      ),
-                      onPressed: cubit.onViewAllActionsTapped),
+                      )),
                   HorizontalGap.custom(theme.screenMargin),
                 ],
               ),
               VerticalGap.medium(),
-              Container(
+              SizedBox(
                 height: 100,
                 child: ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),

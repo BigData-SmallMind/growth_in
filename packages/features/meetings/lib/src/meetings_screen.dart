@@ -28,7 +28,7 @@ class MeetingsScreen extends StatelessWidget {
         onViewAllTapped: onViewAllTapped,
         oMeetingTapped: oMeetingTapped,
       ),
-      child: MeetingsView(),
+      child: const MeetingsView(),
     );
   }
 }
@@ -47,7 +47,7 @@ class MeetingsView extends StatelessWidget {
         final l10n = MeetingsLocalizations.of(context);
         final cubit = context.read<MeetingsCubit>();
         return Scaffold(
-          appBar: GrowthInAppBar(
+          appBar: const GrowthInAppBar(
             logoVariation: false,
           ),
           floatingActionButton: FloatingActionButton(
@@ -60,47 +60,52 @@ class MeetingsView extends StatelessWidget {
           ),
           body: loading
               ? const CenteredCircularProgressIndicator()
-              : ListView(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: theme.screenMargin,
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    cubit.getMeetings();
+                  },
+                  child: ListView(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: theme.screenMargin,
+                    ),
+                    children: [
+                      MeetingSectionHeader(
+                        title: l10n.meetingRequestsSectionTitle,
+                        onViewAll: () {
+                          cubit.onViewAllTapped();
+                          cubit.setMeetingsCardsType(
+                              MeetingCardVariation.awaitingAction);
+                        },
+                      ),
+                      VerticalGap.medium(),
+                      const PendingMeetingRequest(),
+                      VerticalGap.medium(),
+                      const Divider(),
+                      VerticalGap.medium(),
+                      MeetingSectionHeader(
+                        title: l10n.upcomingMeetingsSectionTitle,
+                        onViewAll: () {
+                          cubit.onViewAllTapped();
+                          cubit.setMeetingsCardsType(
+                              MeetingCardVariation.upcoming);
+                        },
+                      ),
+                      VerticalGap.medium(),
+                      const UpcomingMeeting(),
+                      VerticalGap.medium(),
+                      const Divider(),
+                      VerticalGap.medium(),
+                      MeetingSectionHeader(
+                        title: l10n.pastMeetingsSectionTitle,
+                        onViewAll: () {
+                          cubit.onViewAllTapped();
+                          cubit.setMeetingsCardsType(MeetingCardVariation.past);
+                        },
+                      ),
+                      VerticalGap.medium(),
+                      const PastMeeting(),
+                    ],
                   ),
-                  children: [
-                    MeetingSectionHeader(
-                      title: l10n.meetingRequestsSectionTitle,
-                      onViewAll: () {
-                        cubit.onViewAllTapped();
-                        cubit.setMeetingsCardsType(
-                            MeetingCardVariation.awaitingAction);
-                      },
-                    ),
-                    VerticalGap.medium(),
-                    PendingMeetingRequest(),
-                    VerticalGap.medium(),
-                    Divider(),
-                    VerticalGap.medium(),
-                    MeetingSectionHeader(
-                      title: l10n.upcomingMeetingsSectionTitle,
-                      onViewAll: () {
-                        cubit.onViewAllTapped();
-                        cubit.setMeetingsCardsType(
-                            MeetingCardVariation.upcoming);
-                      },
-                    ),
-                    VerticalGap.medium(),
-                    UpcomingMeeting(),
-                    VerticalGap.medium(),
-                    Divider(),
-                    VerticalGap.medium(),
-                    MeetingSectionHeader(
-                      title: l10n.pastMeetingsSectionTitle,
-                      onViewAll: () {
-                        cubit.onViewAllTapped();
-                        cubit.setMeetingsCardsType(MeetingCardVariation.past);
-                      },
-                    ),
-                    VerticalGap.medium(),
-                    PastMeeting(),
-                  ],
                 ),
         );
       },

@@ -31,7 +31,7 @@ class SubmitTicketCubit extends Cubit<SubmitTicketState> {
     final isAlreadySelected = state.type.value == newValue;
     final newState = state.copyWith(
       type: isAlreadySelected
-          ? Dynamic<TicketType?>.unvalidated()
+          ? const Dynamic<TicketType?>.unvalidated()
           : Dynamic<TicketType?>.validated(
               newValue,
               isRequired: true,
@@ -42,7 +42,7 @@ class SubmitTicketCubit extends Cubit<SubmitTicketState> {
 
   Future onTitleChanged(String newValue) async {
     final newState = state.copyWith(
-      ticketTitle: Dynamic<String>.validated(
+      title: Dynamic<String>.validated(
         newValue,
         isRequired: true,
       ),
@@ -52,7 +52,7 @@ class SubmitTicketCubit extends Cubit<SubmitTicketState> {
 
   Future onTitleUnfocused() async {
     final newState = state.copyWith(
-      ticketTitle: Dynamic<String>.validated(
+      title: Dynamic<String>.validated(
         state.title.value,
         isRequired: true,
       ),
@@ -62,7 +62,7 @@ class SubmitTicketCubit extends Cubit<SubmitTicketState> {
 
   Future onDescriptionChanged(String newValue) async {
     final newState = state.copyWith(
-      ticketDescription: Dynamic<String>.validated(
+      description: Dynamic<String>.validated(
         newValue,
         isRequired: true,
       ),
@@ -72,7 +72,7 @@ class SubmitTicketCubit extends Cubit<SubmitTicketState> {
 
   Future onDescriptionUnfocused() async {
     final newState = state.copyWith(
-      ticketDescription: Dynamic<String>.validated(
+      description: Dynamic<String>.validated(
         state.description.value,
         isRequired: true,
       ),
@@ -102,8 +102,8 @@ class SubmitTicketCubit extends Cubit<SubmitTicketState> {
 
     final newState = state.copyWith(
       type: problemType,
-      ticketTitle: ticketTitle,
-      ticketDescription: ticketDescription,
+      title: ticketTitle,
+      description: ticketDescription,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
           : FormzSubmissionStatus.initial,

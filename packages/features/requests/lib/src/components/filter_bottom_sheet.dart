@@ -61,7 +61,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 itemCount: RequestStatus.values.length,
                 itemBuilder: (context, index) {
                   final status = RequestStatus.values[index];
-                  final onStatusTap = () {
+                  onStatusTap() {
                     final updatedFilter = selectedFilter.requestStatus == status
                         ? FilterBy(
                             projects: selectedFilter.projects,
@@ -70,7 +70,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           )
                         : selectedFilter.copyWith(requestStatus: status);
                     onFilterChanged(updatedFilter);
-                  };
+                  }
                   return ListTile(
                     visualDensity: VisualDensity.compact,
                     title: Text(
@@ -83,7 +83,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     selected: selectedFilter.requestStatus == status,
                     leading: Checkbox(
                       shape:
-                          ContinuousRectangleBorder(side: BorderSide(width: 1)),
+                          const ContinuousRectangleBorder(side: BorderSide(width: 1)),
                       value: selectedFilter.requestStatus == status,
                       onChanged: (_) {},
                     ),
@@ -91,14 +91,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 },
               ),
               if (widget.projects != null) ...[
-                Divider(),
+                const Divider(),
                 VerticalGap.medium(),
                 Text(l10n.projectsFilterSectionTitle),
                 ColumnBuilder(
                   itemCount: widget.projects!.length,
                   itemBuilder: (context, index) {
                     final project = widget.projects![index];
-                    final onProjectTap = () {
+                    void onProjectTap() {
                       final List<Project> updatedSelectedProjects =
                           selectedFilter.projects?.contains(project) ?? false
                               ? selectedFilter.projects!
@@ -109,7 +109,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         projects: updatedSelectedProjects,
                       );
                       onFilterChanged(updatedFilter);
-                    };
+                    }
                     return ListTile(
                       title: Text(
                         project.name,
@@ -118,7 +118,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       selected:
                           selectedFilter.projects?.contains(project) ?? false,
                       leading: Checkbox(
-                        shape: ContinuousRectangleBorder(
+                        shape: const ContinuousRectangleBorder(
                             side: BorderSide(width: 1)),
                         value:
                             selectedFilter.projects?.contains(project) ?? false,

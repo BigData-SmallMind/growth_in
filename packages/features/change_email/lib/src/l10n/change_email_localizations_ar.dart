@@ -2,7 +2,7 @@ import 'change_email_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ChangeEmailLocalizationsAr extends ChangeEmailLocalizations {
-  ChangeEmailLocalizationsAr([String locale = 'ar']) : super(locale);
+  ChangeEmailLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get changeEmailSuccessMessage => 'تم تغيير البريد الإلكتروني بنجاح';

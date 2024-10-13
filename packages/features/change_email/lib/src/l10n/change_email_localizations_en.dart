@@ -2,7 +2,7 @@ import 'change_email_localizations.dart';
 
 /// The translations for English (`en`).
 class ChangeEmailLocalizationsEn extends ChangeEmailLocalizations {
-  ChangeEmailLocalizationsEn([String locale = 'en']) : super(locale);
+  ChangeEmailLocalizationsEn([super.locale = 'en']);
 
   @override
   String get changeEmailSuccessMessage => 'Your email has been reset successfully';

@@ -15,6 +15,7 @@ class GrowthInElevatedButton extends StatelessWidget {
     this.bgColor,
     this.borderColor = Colors.transparent,
     this.iconAlignment = IconAlignment.start,
+    this.buttonStyle,
     super.key,
   });
 
@@ -24,6 +25,7 @@ class GrowthInElevatedButton extends StatelessWidget {
     double? height,
     double? borderRadius,
     IconAlignment iconAlignment = IconAlignment.start,
+    ButtonStyle? buttonStyle,
     Key? key,
   }) : this(
           iconAlignment: iconAlignment,
@@ -37,6 +39,7 @@ class GrowthInElevatedButton extends StatelessWidget {
             scale: 0.4,
             child: const CircularProgressIndicator(),
           ),
+          buttonStyle: buttonStyle,
           key: key,
         );
 
@@ -50,24 +53,25 @@ class GrowthInElevatedButton extends StatelessWidget {
   final double? width;
   final double? borderRadius;
   final IconAlignment iconAlignment;
+  final ButtonStyle? buttonStyle;
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme =
-        GrowthInTheme.of(context).materialThemeData.colorScheme;
+    final colorScheme = GrowthInTheme.of(context).materialThemeData.colorScheme;
     final screenWidth = MediaQuery.of(context).size.width;
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
 
-    final buttonStyle = ElevatedButton.styleFrom(
-      backgroundColor: bgColor ?? colorScheme.primary,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          borderRadius ?? theme.elevatedButtonBorderRadius,
-        ),
-        side: BorderSide(color: borderColor),
-      ),
-    );
+    final buttonStyle = this.buttonStyle ??
+        ElevatedButton.styleFrom(
+          backgroundColor: bgColor ?? colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              borderRadius ?? theme.elevatedButtonBorderRadius,
+            ),
+            side: BorderSide(color: borderColor),
+          ),
+        );
     return SizedBox(
       height: height ?? elevatedButtonHeight,
       width: width ?? screenWidth,

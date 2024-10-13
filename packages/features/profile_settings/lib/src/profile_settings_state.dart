@@ -4,7 +4,7 @@ class ProfileSettingsState extends Equatable {
   const ProfileSettingsState();
 
   ProfileSettingsState copyWith() {
-    return ProfileSettingsState();
+    return const ProfileSettingsState();
   }
 
   @override

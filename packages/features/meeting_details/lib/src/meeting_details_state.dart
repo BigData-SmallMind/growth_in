@@ -11,14 +11,17 @@ class MeetingDetailsState extends Equatable {
   final MeetingDetailsStatus searchMeetingsStatus;
   final MeetingCardVariation? variation;
 
+  bool get shouldShowButtons => variation == MeetingCardVariation.past;
+
+
   MeetingDetailsState copyWith({
     Meeting? meeting,
     MeetingDetailsStatus? searchMeetingsStatus,
+    MeetingCardVariation? variation,
   }) {
     return MeetingDetailsState(
       meeting: meeting ?? this.meeting,
       searchMeetingsStatus: searchMeetingsStatus ?? this.searchMeetingsStatus,
-      variation: variation,
     );
   }
 

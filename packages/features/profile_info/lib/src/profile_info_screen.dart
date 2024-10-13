@@ -63,7 +63,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView>
             title: Text(l10n.profileInfoTitle),
           ),
           body: state.user == null
-              ? CenteredCircularProgressIndicator()
+              ? const CenteredCircularProgressIndicator()
               : Column(
                   children: [
                     GrowthInTabBar(
@@ -86,7 +86,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView>
                         ),
                         child: TabBarView(
                           controller: _tabController,
-                          children: [
+                          children: const [
                             Info(),
                             Center(child: Text('Files')),
                           ],
@@ -127,7 +127,7 @@ class Info extends StatelessWidget {
             Text(
               'Company rep name goes here',
               style: textTheme.bodySmall?.copyWith(
-                color: Color(0xFF8D9695),
+                color: const Color(0xFF8D9695),
               ),
             ),
             VerticalGap.large(),
@@ -135,8 +135,8 @@ class Info extends StatelessWidget {
             VerticalGap.small(),
             TextFormField(
               initialValue: state.user!.name,
-              style: TextStyle(color: Color(0xFFADADAD)),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Color(0xFFADADAD)),
+              decoration: const InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 0,
                   horizontal: Spacing.small,
@@ -157,7 +157,7 @@ class Info extends StatelessWidget {
                       child: Stack(
                         children: [
                           TextFormField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: 0,
                                 horizontal: Spacing.small,
@@ -170,7 +170,7 @@ class Info extends StatelessWidget {
                               child: Text(
                                 '${state.user!.countryCode} +',
                                 style: textTheme.titleMedium?.copyWith(
-                                  color: Color(0xFFADADAD),
+                                  color: const Color(0xFFADADAD),
                                 ),
                               ),
                             ),
@@ -191,8 +191,8 @@ class Info extends StatelessWidget {
                         initialValue: state.user!.phone,
                         textDirection: TextDirection.ltr,
                         textAlign: TextAlign.end,
-                        style: TextStyle(color: Color(0xFFADADAD)),
-                        decoration: InputDecoration(
+                        style: const TextStyle(color: Color(0xFFADADAD)),
+                        decoration: const InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
                             vertical: 0,
                             horizontal: Spacing.small,
@@ -209,8 +209,8 @@ class Info extends StatelessWidget {
             VerticalGap.small(),
             TextFormField(
               initialValue: selectedCompany!.name,
-              style: TextStyle(color: Color(0xFFADADAD)),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Color(0xFFADADAD)),
+              decoration: const InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 0,
                   horizontal: Spacing.small,
@@ -218,7 +218,7 @@ class Info extends StatelessWidget {
               ),
             ),
             VerticalGap.large(),
-            Divider(),
+            const Divider(),
             VerticalGap.xxxLarge(),
             // social media
             Text(
@@ -236,13 +236,13 @@ class Info extends StatelessWidget {
                     width: 50,
                     height: double.infinity,
                     decoration: BoxDecoration(
-                      color: Color(0xFFF4F7F9),
+                      color: const Color(0xFFF4F7F9),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: Color(0xFFD9D9D9),
+                        color: const Color(0xFFD9D9D9),
                       ),
                     ),
-                    child: SvgAsset(
+                    child: const SvgAsset(
                       AssetPathConstants.facebookPath,
                       width: 20,
                       height: 20,
@@ -255,8 +255,8 @@ class Info extends StatelessWidget {
                         TextFormField(
                           initialValue: 'facebook.com/dummy_user',
                           style: textTheme.titleSmall
-                              ?.copyWith(color: Color(0xFFADADAD)),
-                          decoration: InputDecoration(
+                              ?.copyWith(color: const Color(0xFFADADAD)),
+                          decoration: const InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                               vertical: 0,
                               horizontal: Spacing.small,
@@ -278,7 +278,7 @@ class Info extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {},
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.delete_outline,
                                   color: Color(0xFFB22F2F),
                                 ),
@@ -301,13 +301,13 @@ class Info extends StatelessWidget {
                     width: 50,
                     height: double.infinity,
                     decoration: BoxDecoration(
-                      color: Color(0xFFF4F7F9),
+                      color: const Color(0xFFF4F7F9),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: Color(0xFFD9D9D9),
+                        color: const Color(0xFFD9D9D9),
                       ),
                     ),
-                    child: SvgAsset(
+                    child: const SvgAsset(
                       AssetPathConstants.instaPath,
                       width: 20,
                       height: 20,
@@ -320,8 +320,8 @@ class Info extends StatelessWidget {
                         TextFormField(
                           initialValue: 'instagram.com/dummy_user',
                           style: textTheme.titleSmall
-                              ?.copyWith(color: Color(0xFFADADAD)),
-                          decoration: InputDecoration(
+                              ?.copyWith(color: const Color(0xFFADADAD)),
+                          decoration: const InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                               vertical: 0,
                               horizontal: Spacing.small,
@@ -343,7 +343,7 @@ class Info extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {},
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.delete_outline,
                                   color: Color(0xFFB22F2F),
                                 ),

@@ -36,7 +36,9 @@ class Meeting {
     return isToday;
   }
 
-  bool get hasStarted => startDate != null && startDate!.isBefore(DateTime.now());
+  bool get hasStarted =>
+      startDate != null && startDate!.isBefore(DateTime.now());
+
 }
 
 class Meetings {
@@ -67,4 +69,37 @@ class MeetingType {
 
   final int id;
   final String name;
+}
+
+enum MeetingCancellationReason {
+  noSuitableTime,
+  personalProblem,
+  unTimelyResponse,
+  other;
+
+  String get nameAr {
+    switch (this) {
+      case MeetingCancellationReason.noSuitableTime:
+        return 'لا يوجد مواعيد مناسبة';
+      case MeetingCancellationReason.personalProblem:
+        return 'مشكلة مع أشخاص';
+      case MeetingCancellationReason.unTimelyResponse:
+        return 'عدم السرعة في الرد';
+      case MeetingCancellationReason.other:
+        return 'سبب آخر';
+    }
+  }
+
+  String get nameEn {
+    switch (this) {
+      case MeetingCancellationReason.noSuitableTime:
+        return 'No suitable time';
+      case MeetingCancellationReason.personalProblem:
+        return 'Personal problem';
+      case MeetingCancellationReason.unTimelyResponse:
+        return 'Untimely response';
+      case MeetingCancellationReason.other:
+        return 'Other';
+    }
+  }
 }

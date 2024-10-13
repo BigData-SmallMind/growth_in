@@ -1,5 +1,5 @@
 import 'package:component_library/component_library.dart';
-import 'package:domain_models/src/request.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -37,10 +37,13 @@ class RequestCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: Spacing.small,
                         vertical: Spacing.xSmall,
                       ),
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFEBF2FF),
+                          borderRadius: BorderRadius.circular(5)),
                       child: Text(
                         request.serviceName != null
                             ? request.serviceName!
@@ -50,9 +53,6 @@ class RequestCard extends StatelessWidget {
                                     ? request.campaignName!
                                     : '',
                       ),
-                      decoration: BoxDecoration(
-                          color: Color(0xFFEBF2FF),
-                          borderRadius: BorderRadius.circular(5)),
                     ),
                     VerticalGap.small(),
                     Text(request.name),
@@ -60,7 +60,7 @@ class RequestCard extends StatelessWidget {
                     DateAndTimeWidget(date: request.startDate),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 CircularPercentIndicator(
                   radius: 25,
                   center: Text(
@@ -68,7 +68,7 @@ class RequestCard extends StatelessWidget {
                   percent: request.percentActionStepsComplete,
                   circularStrokeCap: CircularStrokeCap.round,
                   lineWidth: 3,
-                  progressColor: Color(0xFF4CAF50),
+                  progressColor: const Color(0xFF4CAF50),
                 )
               ],
             ),

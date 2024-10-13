@@ -96,4 +96,6 @@ class AssetPathConstants {
 
   static const String tickCirclePath = '$iconsPath/tick_circle.svg';
   static const String closeCirclePath = '$iconsPath/close_circle.svg';
+
+  static const String editPath = '$iconsPath/edit-2.svg';
 }

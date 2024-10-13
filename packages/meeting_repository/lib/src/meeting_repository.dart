@@ -36,6 +36,21 @@ class MeetingRepository {
       rethrow;
     }
   }
+
+  Future deleteMeeting ({
+    required int id,
+    required String reason,
+  }) async {
+    try {
+      await remoteApi.meetings.deleteMeeting(
+        id: id,
+        reason: reason,
+      );
+      changeNotifier.setShouldReFetchMeetings(true);
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
 
 

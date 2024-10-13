@@ -74,7 +74,7 @@ class MoreView extends StatelessWidget {
             toolbarHeight: 0,
           ),
           body: state.user == null
-              ? CenteredCircularProgressIndicator()
+              ? const CenteredCircularProgressIndicator()
               : ListView(
                   children: [
                     VerticalGap.large(),
@@ -92,13 +92,13 @@ class MoreView extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
                       ),
-                      leading: SvgAsset(
+                      leading: const SvgAsset(
                         AssetPathConstants.videoPath,
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     ),
-                    Divider(),
+                    const Divider(),
                     // Requests tile
                     ListTile(
                       title: Text(l10n.requestsTileTitle),
@@ -107,13 +107,13 @@ class MoreView extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
                       ),
-                      leading: SvgAsset(
+                      leading: const SvgAsset(
                         AssetPathConstants.taskSquarePath,
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     ),
-                    Divider(),
+                    const Divider(),
                     //forms tile
                     ListTile(
                       title: Text(l10n.formsTileTitle),
@@ -122,13 +122,13 @@ class MoreView extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
                       ),
-                      leading: SvgAsset(
+                      leading: const SvgAsset(
                         AssetPathConstants.stickyNotePath,
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     ),
-                    Divider(),
+                    const Divider(),
                     // plans and services tile
                     ListTile(
                       title: Text(l10n.plansAndServicesTileTitle),
@@ -137,13 +137,13 @@ class MoreView extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
                       ),
-                      leading: SvgAsset(
+                      leading: const SvgAsset(
                         AssetPathConstants.walletPath,
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     ),
-                    Divider(),
+                    const Divider(),
                     //settings tile
                     ListTile(
                       title: Text(l10n.settingsTileTitle),
@@ -152,13 +152,13 @@ class MoreView extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
                       ),
-                      leading: SvgAsset(
+                      leading: const SvgAsset(
                         AssetPathConstants.gearPath,
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     ),
-                    Divider(),
+                    const Divider(),
                     //help tile
                     ListTile(
                       title: Text(l10n.helpTileTitle),
@@ -167,13 +167,13 @@ class MoreView extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
                       ),
-                      leading: SvgAsset(
+                      leading: const SvgAsset(
                         AssetPathConstants.headphonePath,
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     ),
-                    Divider(),
+                    const Divider(),
                     //logout tile
                     ListTile(
                       title: Text(l10n.logoutTileTitle),
@@ -182,13 +182,13 @@ class MoreView extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.grey,
                       ),
-                      leading: SvgAsset(
+                      leading: const SvgAsset(
                         AssetPathConstants.logoutPath,
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     ),
-                    Divider(),
+                    const Divider(),
                     VerticalGap.large(),
                   ],
                 ),

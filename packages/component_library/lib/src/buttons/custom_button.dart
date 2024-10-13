@@ -46,9 +46,9 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
     return InkWell(
-      onTap: () {},
+      borderRadius: decoration?.borderRadius?.resolve(Directionality.of(context)),
+      onTap: onTap,
       child: Container(
         height: height ?? elevatedButtonHeight,
         constraints: constraints,

@@ -80,7 +80,7 @@ class ActionView extends StatelessWidget {
                         child: Text(
                           action.steps[0].description,
                           style: textTheme.bodyMedium
-                              ?.copyWith(color: Color(0xFF636262)),
+                              ?.copyWith(color: const Color(0xFF636262)),
                         ),
                       ),
                       VerticalGap.medium(),
@@ -97,9 +97,9 @@ class ActionView extends StatelessWidget {
                             Text(
                               '(${action.completeStepsCount}/${action.steps.length})',
                               style: textTheme.titleMedium
-                                  ?.copyWith(color: Color(0xFF636262)),
+                                  ?.copyWith(color: const Color(0xFF636262)),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             MarkAsCompleteToggler(
                               isComplete: action.isComplete,
                               isLoading: state.toggleStepsCompleteStatus ==
@@ -146,7 +146,7 @@ class ActionView extends StatelessWidget {
                             title: Text(
                               step.description,
                               style: textTheme.bodyMedium
-                                  ?.copyWith(color: Color(0xFF454444)),
+                                  ?.copyWith(color: const Color(0xFF454444)),
                             ),
                           );
                         },
@@ -157,7 +157,7 @@ class ActionView extends StatelessWidget {
                           onViewAllTapped: cubit.onViewAllCommentsTapped,
                           comments: state.comments,
                         ),
-                      if (state.comments.isEmpty) NoCommentsIndicator(),
+                      if (state.comments.isEmpty) const NoCommentsIndicator(),
                       AddComment(
                         enabled: state.comment?.isNotEmpty == true,
                         onCommentChanged: cubit.onCommentChanged,

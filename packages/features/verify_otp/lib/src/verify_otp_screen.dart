@@ -47,7 +47,7 @@ class VerifyOtpView extends StatelessWidget {
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Scaffold(
-        appBar: GrowthInAppBar(
+        appBar: const GrowthInAppBar(
           logoVariation: false,
         ),
         extendBody: true,
@@ -187,10 +187,10 @@ class _VerifyOtpForm extends StatelessWidget {
                         : theme.borderColor,
                   ),
                   separatorBuilder: (context, index) => index == 2
-                      ? Padding(
-                          padding: const EdgeInsets.only(
+                      ? const Padding(
+                          padding: EdgeInsets.only(
                               bottom: Spacing.mediumLarge),
-                          child: const Icon(
+                          child: Icon(
                             Icons.minimize,
                           ),
                         )
@@ -221,7 +221,7 @@ class _VerifyOtpForm extends StatelessWidget {
                 height: Spacing.huge,
               ),
               VerticalGap.large(),
-              ResendOtp(),
+              const ResendOtp(),
               VerticalGap.large(),
               isSubmissionInProgress
                   ? GrowthInElevatedButton.inProgress(

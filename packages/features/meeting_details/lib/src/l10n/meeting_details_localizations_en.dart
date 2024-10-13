@@ -2,7 +2,7 @@ import 'meeting_details_localizations.dart';
 
 /// The translations for English (`en`).
 class MeetingDetailsLocalizationsEn extends MeetingDetailsLocalizations {
-  MeetingDetailsLocalizationsEn([String locale = 'en']) : super(locale);
+  MeetingDetailsLocalizationsEn([super.locale = 'en']);
 
   @override
   String get dayRowTitle => 'Day';
@@ -24,4 +24,13 @@ class MeetingDetailsLocalizationsEn extends MeetingDetailsLocalizations {
 
   @override
   String get meetingSummarySectionTitle => 'Meeting Summary';
+
+  @override
+  String get cancelMeetingButtonLabel => 'Cancel Request';
+
+  @override
+  String get rescheduleMeetingButtonLabel => 'Edit Appointment';
+
+  @override
+  String get setMeetingTimeButtonLabel => 'Set Appointment';
 }

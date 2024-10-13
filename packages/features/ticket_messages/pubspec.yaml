@@ -19,5 +19,10 @@ dependencies:
   function_and_extension_library:
     path: ../../function_and_extension_library
   image_picker: ^1.1.2
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+dev_dependencies:
+  flutter_lints: ^4.0.0
 
 

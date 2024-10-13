@@ -41,4 +41,22 @@ class MeetingsApi {
       rethrow;
     }
   }
+
+  Future deleteMeeting({
+    required int id,
+    required String reason,
+  }) async {
+    final url = _urlBuilder.buildDeleteMeetingUrl(
+      id: id,
+      reason: reason,
+    );
+    try {
+      await _dio.delete(
+        url,
+        data: {'reason': reason},
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

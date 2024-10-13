@@ -12,16 +12,17 @@ part 'meeting_details_state.dart';
 class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
   MeetingDetailsCubit({
     required this.meetingRepository,
+    required this.onCancelMeetingTapped,
     required this.downloadUrl,
   }) : super(
           MeetingDetailsState(
             meeting: meetingRepository.changeNotifier.meeting,
+            variation: meetingRepository.changeNotifier.meetingCardVariation,
           ),
         );
   final MeetingRepository meetingRepository;
+  final ValueSetter<Meeting> onCancelMeetingTapped;
   final String downloadUrl;
-
-
 
   void download(FileDM file) async {
     try {
@@ -45,6 +46,9 @@ class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
       debugPrint(e.toString());
     }
   }
+
+
+
 
 // @override
 // Future<void> close() async {

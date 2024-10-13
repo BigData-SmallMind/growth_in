@@ -47,7 +47,7 @@ class _TitleTextFieldState extends State<TitleTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.titleTextFieldLabel + ' *',
+            '${l10n.titleTextFieldLabel} *',
             style: textTheme.titleSmall,
           ),
           VerticalGap.medium(),

@@ -17,15 +17,15 @@ class SubmitTicketState extends Equatable {
 
   SubmitTicketState copyWith({
     Dynamic<TicketType?>? type,
-    Dynamic<String?>? ticketTitle,
-    Dynamic<String?>? ticketDescription,
+    Dynamic<String?>? title,
+    Dynamic<String?>? description,
     List<TicketType>? ticketsTypes,
     FormzSubmissionStatus? submissionStatus,
   }) {
     return SubmitTicketState(
       type: type ?? this.type,
-      title: ticketTitle ?? this.title,
-      description: ticketDescription ?? this.description,
+      title: title ?? this.title,
+      description: description ?? this.description,
       ticketsTypes: ticketsTypes ?? this.ticketsTypes,
       submissionStatus: submissionStatus ?? this.submissionStatus,
     );

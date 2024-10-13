@@ -5,8 +5,6 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 class UpcomingMeeting extends StatelessWidget {
   const UpcomingMeeting({
     super.key,
@@ -18,7 +16,7 @@ class UpcomingMeeting extends StatelessWidget {
       builder: (context, state) {
         final meeting = state.meetings?.latestUpcoming;
         final l10n = MeetingsLocalizations.of(context);
-  final cubit = context.read<MeetingsCubit>();
+        final cubit = context.read<MeetingsCubit>();
         return meeting != null
             ? Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,12 +29,15 @@ class UpcomingMeeting extends StatelessWidget {
                     child: MeetingCard(
                       meeting: meeting,
                       type: MeetingCardVariation.upcoming,
-                      onTap: () => cubit.onMeetingDetailsTapped(meeting),
+                      onTap: () => cubit.onMeetingDetailsTapped(
+                        meeting,
+                        MeetingCardVariation.upcoming,
+                      ),
                     ),
                   ),
                 ],
               )
-            : Container(
+            : SizedBox(
                 height: 150,
                 child: Center(
                   child: Text(l10n.noUpcomingMeetingMessage),
@@ -46,4 +47,3 @@ class UpcomingMeeting extends StatelessWidget {
     );
   }
 }
-

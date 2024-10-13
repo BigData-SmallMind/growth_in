@@ -176,8 +176,8 @@ class ActionCubit extends Cubit<ActionState> {
     }
   }
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
+  // @override
+  // Future<void> close() {
+  //   return super.close();
+  // }
 }

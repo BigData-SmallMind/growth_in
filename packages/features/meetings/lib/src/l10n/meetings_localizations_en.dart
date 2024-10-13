@@ -2,7 +2,7 @@ import 'meetings_localizations.dart';
 
 /// The translations for English (`en`).
 class MeetingsLocalizationsEn extends MeetingsLocalizations {
-  MeetingsLocalizationsEn([String locale = 'en']) : super(locale);
+  MeetingsLocalizationsEn([super.locale = 'en']);
 
   @override
   String get meetingRequestsSectionTitle => 'Meeting Requests';

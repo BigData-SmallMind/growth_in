@@ -20,7 +20,7 @@ class NoTicketsIndicator extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgAsset(AssetPathConstants.noTicketsPath),
+          const SvgAsset(AssetPathConstants.noTicketsPath),
           VerticalGap.xLarge(),
           Text(
             l10n.noTicketsMessageTitle,

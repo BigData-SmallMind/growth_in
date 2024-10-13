@@ -2,7 +2,7 @@ import 'action_comments_localizations.dart';
 
 /// The translations for English (`en`).
 class ActionCommentsLocalizationsEn extends ActionCommentsLocalizations {
-  ActionCommentsLocalizationsEn([String locale = 'en']) : super(locale);
+  ActionCommentsLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Requests';

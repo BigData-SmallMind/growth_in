@@ -2,7 +2,7 @@ import 'send_otp_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class SendOtpLocalizationsAr extends SendOtpLocalizations {
-  SendOtpLocalizationsAr([String locale = 'ar']) : super(locale);
+  SendOtpLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get sendOtpTitle => 'نسيت كلمة المرور؟';

@@ -45,8 +45,9 @@ class MeetingsCubit extends Cubit<MeetingsState> {
       meetingRepository.changeNotifier.setMeetingsVariation(variation);
 
 
-  void onMeetingDetailsTapped(Meeting meeting){
+  void onMeetingDetailsTapped(Meeting meeting, MeetingCardVariation variation){
     meetingRepository.changeNotifier.setMeeting(meeting);
+    setMeetingsCardsType(variation);
     oMeetingTapped(meeting.id);
   }
 // @override

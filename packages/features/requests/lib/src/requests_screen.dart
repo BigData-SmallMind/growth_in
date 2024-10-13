@@ -58,7 +58,7 @@ class RequestsView extends StatelessWidget {
                 HorizontalGap.small(),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       prefixIconConstraints:
                           BoxConstraints(minWidth: 40, minHeight: 10),
                       prefixIcon: Icon(
@@ -76,7 +76,7 @@ class RequestsView extends StatelessWidget {
                         scale: 0.6,
                         child: const CenteredCircularProgressIndicator(),
                       )
-                    : FilterButton(),
+                    : const FilterButton(),
               ],
             ),
           ),
