@@ -11,12 +11,14 @@ class MeetingDetailsScreen extends StatelessWidget {
   const MeetingDetailsScreen({
     required this.meetingRepository,
     required this.onCancelMeetingTapped,
+    required this.onScheduleMeetingTapped,
     required this.downloadUrl,
     super.key,
   });
 
   final MeetingRepository meetingRepository;
   final ValueSetter<Meeting> onCancelMeetingTapped;
+  final ValueSetter<Meeting> onScheduleMeetingTapped;
   final String downloadUrl;
 
   @override
@@ -25,6 +27,7 @@ class MeetingDetailsScreen extends StatelessWidget {
       create: (_) => MeetingDetailsCubit(
         meetingRepository: meetingRepository,
         onCancelMeetingTapped: onCancelMeetingTapped,
+        onScheduleMeetingTapped: onScheduleMeetingTapped,
         downloadUrl: downloadUrl,
       ),
       child: const MeetingDetailsView(),
@@ -268,7 +271,7 @@ class MeetingDetailsView extends StatelessWidget {
                       label: isUpcomingMeeting
                           ? l10n.rescheduleMeetingButtonLabel
                           : l10n.setMeetingTimeButtonLabel,
-                      onTap: () {},
+                      onTap: () => cubit.onScheduleMeetingTapped(meeting),
                       decoration: BoxDecoration(
                         border: BorderDirectional(
                           bottom: BorderSide(

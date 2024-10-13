@@ -42,8 +42,6 @@ class MeetingChangeNotifier with ChangeNotifier, EquatableMixin {
   void setShouldReFetchMeetings(bool? shouldReFetchMeetings) {
     _shouldReFetchMeetings.value = shouldReFetchMeetings;
     notifyListeners();
-    _shouldReFetchMeetings.value = false;
-    notifyListeners();
   }
 
   Future clearShouldReFetchMeetings() async {

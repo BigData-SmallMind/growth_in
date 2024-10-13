@@ -2,7 +2,7 @@ import 'meeting_details_localizations.dart';
 
 /// The translations for English (`en`).
 class MeetingDetailsLocalizationsEn extends MeetingDetailsLocalizations {
-  MeetingDetailsLocalizationsEn([super.locale = 'en']);
+  MeetingDetailsLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get dayRowTitle => 'Day';

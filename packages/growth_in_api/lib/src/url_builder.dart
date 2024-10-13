@@ -182,4 +182,8 @@ class UrlBuilder {
   }) {
     return '$_baseUrl/meeting-date/$id?reason_meeting_cancle=$reason';
   }
+
+  String buildGetAvailableSlotsUrl() {
+    return '$_baseUrl/meeting-slots-client';
+  }
 }

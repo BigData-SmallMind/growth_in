@@ -2,7 +2,7 @@ import 'submit_ticket_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class SubmitTicketLocalizationsAr extends SubmitTicketLocalizations {
-  SubmitTicketLocalizationsAr([super.locale = 'ar']);
+  SubmitTicketLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get ticketSubmissionSuccessSnackBarMessage => 'تم إرسال التذكرة بنجاح';

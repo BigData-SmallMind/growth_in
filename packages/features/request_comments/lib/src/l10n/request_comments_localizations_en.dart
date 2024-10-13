@@ -2,7 +2,7 @@ import 'request_comments_localizations.dart';
 
 /// The translations for English (`en`).
 class RequestCommentsLocalizationsEn extends RequestCommentsLocalizations {
-  RequestCommentsLocalizationsEn([super.locale = 'en']);
+  RequestCommentsLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Requests';

@@ -852,6 +852,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  schedule_meeting:
+    dependency: "direct main"
+    description:
+      path: "packages/features/schedule_meeting"
+      relative: true
+    source: path
+    version: "0.0.0"
   search_meetings:
     dependency: "direct main"
     description:
@@ -936,18 +943,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "75683ee7356d240243e491526a669069ea9280275299bb79760f1aaf6d4e07d1"
+      sha256: e17dcc7a1d0701e84d0a83c0040503cdcc6c72e44db0d733ab4c706dd5b8b9f8
       url: "https://pub.dev"
     source: hosted
-    version: "25.2.6"
+    version: "25.2.7"
   syncfusion_flutter_datepicker:
     dependency: transitive
     description:
       name: syncfusion_flutter_datepicker
-      sha256: e001c3b5dee7d27f39a8db51c3cc9d8d89ecd6f7fe136c91da58f831285e7d2f
+      sha256: ebe93b6b54937164ee8b19cd036f314f226a5d69c47da97d05ce07a0ecae4dee
       url: "https://pub.dev"
     source: hosted
-    version: "25.2.6"
+    version: "25.2.7"
   tab_container:
     dependency: "direct main"
     description:

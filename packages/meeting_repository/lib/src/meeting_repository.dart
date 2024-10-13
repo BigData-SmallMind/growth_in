@@ -37,7 +37,7 @@ class MeetingRepository {
     }
   }
 
-  Future deleteMeeting ({
+  Future deleteMeeting({
     required int id,
     required String reason,
   }) async {
@@ -51,6 +51,19 @@ class MeetingRepository {
       rethrow;
     }
   }
+
+  Future<List<MeetingSlot>> getAvailableSlots({
+    required DateTime date,
+  }) async {
+    try {
+      final availableSlotsDM = await remoteApi.meetings.getAvailableSlots(
+        date: date.millisecondsSinceEpoch,
+      );
+      final availableSlots = availableSlotsDM.toDomainModel();
+
+      return availableSlots;
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
-
-

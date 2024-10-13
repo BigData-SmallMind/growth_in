@@ -17,8 +17,10 @@ class PastMeeting extends StatelessWidget {
       final textTheme = Theme.of(context).textTheme;
       final l10n = MeetingsLocalizations.of(context);
       final cubit = context.read<MeetingsCubit>();
-      final meeting = state.meetings?.past?.first;
-      return state.meetings?.past?.isNotEmpty == true
+
+      final hasPastMeetings = state.meetings?.past?.isNotEmpty == true;
+      final meeting = hasPastMeetings ? state.meetings?.past?.first : null;
+      return hasPastMeetings
           ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

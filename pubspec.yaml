@@ -96,6 +96,8 @@ dependencies:
     path: packages/features/meeting_details
   delete_meeting:
     path: packages/features/delete_meeting
+  schedule_meeting:
+    path: packages/features/schedule_meeting
 
   # Domain Models and Component Library
   domain_models:

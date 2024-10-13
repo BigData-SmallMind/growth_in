@@ -103,3 +103,13 @@ enum MeetingCancellationReason {
     }
   }
 }
+
+class MeetingSlot {
+  const MeetingSlot({
+    required this.start,
+    required this.end,
+  });
+
+  final DateTime start;
+  final DateTime end;
+}

@@ -12,23 +12,30 @@ class SearchMeetingsCubit extends Cubit<SearchMeetingsState> {
     required this.oMeetingTapped,
   }) : super(
           SearchMeetingsState(
-              variation: meetingRepository.changeNotifier.meetingCardVariation),
+            variation: meetingRepository.changeNotifier.meetingCardVariation,
+          ),
         ) {
-    getSearchMeetings();
+    getMeetings();
+    meetingRepository.changeNotifier.addListener(() {
+      if (meetingRepository.changeNotifier.shouldReFetchMeetings == true) {
+        getMeetings();
+        meetingRepository.changeNotifier.clearShouldReFetchMeetings();
+      }
+    });
   }
 
   final MeetingRepository meetingRepository;
   final ValueSetter<int> oMeetingTapped;
 
-  void getSearchMeetings() async {
+  void getMeetings() async {
     final loading = state.copyWith(
       searchMeetingsStatus: SearchMeetingsStatus.loading,
     );
     emit(loading);
     try {
-      final searchMeetings = await meetingRepository.getMeetings();
+      final meetings = await meetingRepository.getMeetings();
       final success = state.copyWith(
-        meetings: searchMeetings,
+        meetings: meetings,
         searchMeetingsStatus: SearchMeetingsStatus.success,
       );
       emit(success);
@@ -40,7 +47,7 @@ class SearchMeetingsCubit extends Cubit<SearchMeetingsState> {
     }
   }
 
-  void onMeetingDetailsTapped(Meeting meeting){
+  void onMeetingDetailsTapped(Meeting meeting) {
     meetingRepository.changeNotifier.setMeeting(meeting);
     oMeetingTapped(meeting.id);
   }

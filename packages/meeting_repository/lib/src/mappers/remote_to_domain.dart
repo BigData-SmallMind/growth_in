@@ -64,7 +64,9 @@
 import 'dart:convert';
 
 import 'package:domain_models/domain_models.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:growth_in_api/growth_in_api.dart';
+import 'package:intl/intl.dart';
 
 extension MeetingRMtoDM on MeetingRM {
   // "meeting_start_date": "2024-09-02 14:30:00",
@@ -131,6 +133,26 @@ extension MeetingTypeRMtoDM on MeetingTypeRM {
 
 extension ListMeetingTypeRMtoDM on List<MeetingTypeRM> {
   List<MeetingType> toDomainModel() {
+    return map((e) => e.toDomainModel()).toList();
+  }
+}
+
+extension MeetingSlotStringtoDM on String {
+  MeetingSlot toDomainModel() {
+    final startTime = split(' ')[1];
+    final endTime = split(' ').last;
+    final dateFormat = DateFormat("HH:mm");
+    final startTimeDM = dateFormat.parse(startTime);
+    final endTimeDM = dateFormat.parse(endTime);
+    return MeetingSlot(
+      start: startTimeDM,
+      end: endTimeDM,
+    );
+  }
+}
+
+extension ListMeetingSlotStringtoDM on List<String> {
+  List<MeetingSlot> toDomainModel() {
     return map((e) => e.toDomainModel()).toList();
   }
 }

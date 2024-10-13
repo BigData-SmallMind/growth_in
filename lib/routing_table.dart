@@ -21,6 +21,7 @@ import 'package:requests/requests.dart';
 import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
+import 'package:schedule_meeting/schedule_meeting.dart';
 import 'package:search_meetings/search_meetings.dart';
 import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
@@ -52,6 +53,25 @@ Map<String, PageBuilder> buildRoutingTable({
         isScrollControlled: true,
         context: context,
         builder: (context) => DeleteMeetingBottomSheet(
+          meetingRepository: meetingRepository,
+          meeting: meeting,
+          onCancellationSuccess: () async {
+            final isCurrentRouteSearch = routerDelegate
+                    .currentConfiguration?.path
+                    .contains(_PathConstants.searchMeetingsPath) ==
+                true;
+            await routerDelegate.pop();
+            await routerDelegate.pop();
+            if (isCurrentRouteSearch) await routerDelegate.pop();
+          },
+        ),
+      ),
+      onScheduleMeetingTapped: (Meeting meeting) => showModalBottomSheet(
+        showDragHandle: true,
+        isScrollControlled: true,
+        useSafeArea: true,
+        context: context,
+        builder: (context) => ScheduleMeetingBottomSheet(
           meetingRepository: meetingRepository,
           meeting: meeting,
           onCancellationSuccess: () async {

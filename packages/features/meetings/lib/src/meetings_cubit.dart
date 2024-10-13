@@ -15,6 +15,12 @@ class MeetingsCubit extends Cubit<MeetingsState> {
           const MeetingsState(),
         ) {
     getMeetings();
+    meetingRepository.changeNotifier.addListener(() {
+      if (meetingRepository.changeNotifier.shouldReFetchMeetings == true) {
+        getMeetings();
+        meetingRepository.changeNotifier.clearShouldReFetchMeetings();
+      }
+    });
   }
 
   final VoidCallback onViewAllTapped;
@@ -44,8 +50,7 @@ class MeetingsCubit extends Cubit<MeetingsState> {
   void setMeetingsCardsType(MeetingCardVariation variation) =>
       meetingRepository.changeNotifier.setMeetingsVariation(variation);
 
-
-  void onMeetingDetailsTapped(Meeting meeting, MeetingCardVariation variation){
+  void onMeetingDetailsTapped(Meeting meeting, MeetingCardVariation variation) {
     meetingRepository.changeNotifier.setMeeting(meeting);
     setMeetingsCardsType(variation);
     oMeetingTapped(meeting.id);

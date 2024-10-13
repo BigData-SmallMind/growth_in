@@ -2,7 +2,7 @@ import 'meeting_details_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class MeetingDetailsLocalizationsAr extends MeetingDetailsLocalizations {
-  MeetingDetailsLocalizationsAr([super.locale = 'ar']);
+  MeetingDetailsLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get dayRowTitle => 'اليوم';

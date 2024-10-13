@@ -6,6 +6,7 @@ class MeetingsApi {
   final Dio _dio;
   final UrlBuilder _urlBuilder;
   static const _meetingTypeJsonKey = 'meeting_types';
+  static const _slotsJsonKey = 'slots';
 
   MeetingsApi(
     this._dio,
@@ -55,6 +56,20 @@ class MeetingsApi {
         url,
         data: {'reason': reason},
       );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<String>> getAvailableSlots({required int date}) async {
+    final url = _urlBuilder.buildGetAvailableSlotsUrl();
+    try {
+      final response = await _dio.get(
+        url,
+        queryParameters: {'day': date},
+      );
+      final availableSlots = response.data[_slotsJsonKey] as List;
+      return availableSlots.map((slot) => slot.toString()).toList();
     } catch (_) {
       rethrow;
     }

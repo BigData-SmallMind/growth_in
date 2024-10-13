@@ -2,7 +2,7 @@ import 'profile_settings_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ProfileSettingsLocalizationsAr extends ProfileSettingsLocalizations {
-  ProfileSettingsLocalizationsAr([super.locale = 'ar']);
+  ProfileSettingsLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'اعدادت  حسابي';

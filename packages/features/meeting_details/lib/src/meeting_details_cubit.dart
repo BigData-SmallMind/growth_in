@@ -13,6 +13,7 @@ class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
   MeetingDetailsCubit({
     required this.meetingRepository,
     required this.onCancelMeetingTapped,
+    required this.onScheduleMeetingTapped,
     required this.downloadUrl,
   }) : super(
           MeetingDetailsState(
@@ -22,6 +23,7 @@ class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
         );
   final MeetingRepository meetingRepository;
   final ValueSetter<Meeting> onCancelMeetingTapped;
+  final ValueSetter<Meeting> onScheduleMeetingTapped;
   final String downloadUrl;
 
   void download(FileDM file) async {

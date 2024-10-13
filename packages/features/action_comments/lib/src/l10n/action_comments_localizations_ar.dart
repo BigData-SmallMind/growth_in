@@ -2,7 +2,7 @@ import 'action_comments_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ActionCommentsLocalizationsAr extends ActionCommentsLocalizations {
-  ActionCommentsLocalizationsAr([super.locale = 'ar']);
+  ActionCommentsLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'الطلبات';
