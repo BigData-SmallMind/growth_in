@@ -9,11 +9,15 @@ class MeetingCard extends StatelessWidget {
     required this.meeting,
     required this.type,
     required this.onTap,
+    this.onCancelMeetingTapped,
+    this.onScheduleMeetingTapped,
   });
 
   final Meeting meeting;
   final MeetingCardVariation type;
   final VoidCallback onTap;
+  final VoidCallback? onCancelMeetingTapped;
+  final VoidCallback? onScheduleMeetingTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +71,6 @@ class MeetingCard extends StatelessWidget {
                     textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
-
             if (type == MeetingCardVariation.upcoming ||
                 type == MeetingCardVariation.past) ...[
               VerticalGap.medium(),
@@ -112,7 +115,10 @@ class MeetingCard extends StatelessWidget {
             if (type == MeetingCardVariation.awaitingAction) ...[
               VerticalGap.xLarge(),
               const Divider(),
-              const MeetingButtons(),
+              MeetingButtons(
+                onCancelTapped: onCancelMeetingTapped!,
+                onScheduleTapped: onScheduleMeetingTapped!,
+              ),
               Container(
                 decoration: const BoxDecoration(color: Color(0xFF26BFBF)),
                 height: 5,
@@ -124,4 +130,3 @@ class MeetingCard extends StatelessWidget {
     );
   }
 }
-

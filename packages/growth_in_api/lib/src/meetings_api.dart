@@ -74,4 +74,21 @@ class MeetingsApi {
       rethrow;
     }
   }
+
+  Future updateMeetingDate ({
+    required int id,
+    required String date,
+  }) async {
+    final url = _urlBuilder.buildUpdateMeetingDateUrl(
+      id: id,
+    );
+    try {
+      await _dio.post(
+        url,
+        data: {'meeting_date': date},
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

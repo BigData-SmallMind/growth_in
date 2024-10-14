@@ -62,7 +62,9 @@ Map<String, PageBuilder> buildRoutingTable({
                 true;
             await routerDelegate.pop();
             await routerDelegate.pop();
-            if (isCurrentRouteSearch) await routerDelegate.pop();
+            if (isCurrentRouteSearch) {
+              await routerDelegate.pop();
+            }
           },
         ),
       ),
@@ -74,14 +76,8 @@ Map<String, PageBuilder> buildRoutingTable({
         builder: (context) => ScheduleMeetingBottomSheet(
           meetingRepository: meetingRepository,
           meeting: meeting,
-          onCancellationSuccess: () async {
-            final isCurrentRouteSearch = routerDelegate
-                    .currentConfiguration?.path
-                    .contains(_PathConstants.searchMeetingsPath) ==
-                true;
+          onSchedulingSuccess: () async {
             await routerDelegate.pop();
-            await routerDelegate.pop();
-            if (isCurrentRouteSearch) await routerDelegate.pop();
           },
         ),
       ),
@@ -249,16 +245,44 @@ Map<String, PageBuilder> buildRoutingTable({
         ),
     _PathConstants.meetingsPath: (_) => MaterialPage(
           name: 'meetings',
-          child: MeetingsScreen(
-            meetingRepository: meetingRepository,
-            onViewAllTapped: () =>
-                routerDelegate.push(_PathConstants.searchMeetingsPath),
-            oMeetingTapped: (int meetingId) => routerDelegate.push(
-              _PathConstants.meetingDetailsPath(
-                meetingId: meetingId,
+          child: Builder(builder: (context) {
+            return MeetingsScreen(
+              meetingRepository: meetingRepository,
+              onViewAllTapped: () =>
+                  routerDelegate.push(_PathConstants.searchMeetingsPath),
+              onMeetingTapped: (int meetingId) => routerDelegate.push(
+                _PathConstants.meetingDetailsPath(
+                  meetingId: meetingId,
+                ),
               ),
-            ),
-          ),
+              onCancelMeetingTapped: (Meeting meeting) => showModalBottomSheet(
+                showDragHandle: true,
+                isScrollControlled: true,
+                context: context,
+                builder: (context) => DeleteMeetingBottomSheet(
+                  meetingRepository: meetingRepository,
+                  meeting: meeting,
+                  onCancellationSuccess: () async {
+                    await routerDelegate.pop();
+                  },
+                ),
+              ),
+              onScheduleMeetingTapped: (Meeting meeting) =>
+                  showModalBottomSheet(
+                showDragHandle: true,
+                isScrollControlled: true,
+                useSafeArea: true,
+                context: context,
+                builder: (context) => ScheduleMeetingBottomSheet(
+                  meetingRepository: meetingRepository,
+                  meeting: meeting,
+                  onSchedulingSuccess: () async {
+                    await routerDelegate.pop();
+                  },
+                ),
+              ),
+            );
+          }),
         ),
     _PathConstants.searchMeetingsPath: (_) => MaterialPage(
           name: 'search-meetings',

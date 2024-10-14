@@ -20,7 +20,17 @@ class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
             meeting: meetingRepository.changeNotifier.meeting,
             variation: meetingRepository.changeNotifier.meetingCardVariation,
           ),
+        ) {
+    meetingRepository.changeNotifier.addListener(() {
+      if (meetingRepository.changeNotifier.shouldReFetchMeetings == true) {
+        final updatedMeetingState = state.copyWith(
+          meeting: meetingRepository.changeNotifier.meeting,
         );
+        if (!isClosed) emit(updatedMeetingState);
+      }
+    });
+  }
+
   final MeetingRepository meetingRepository;
   final ValueSetter<Meeting> onCancelMeetingTapped;
   final ValueSetter<Meeting> onScheduleMeetingTapped;
@@ -48,9 +58,6 @@ class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
       debugPrint(e.toString());
     }
   }
-
-
-
 
 // @override
 // Future<void> close() async {

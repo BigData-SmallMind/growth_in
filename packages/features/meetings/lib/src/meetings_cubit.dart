@@ -10,24 +10,30 @@ class MeetingsCubit extends Cubit<MeetingsState> {
   MeetingsCubit({
     required this.meetingRepository,
     required this.onViewAllTapped,
-    required this.oMeetingTapped,
+    required this.onMeetingTapped,
+    required this.onCancelMeetingTapped,
+    required this.onScheduleMeetingTapped,
+
   }) : super(
           const MeetingsState(),
         ) {
     getMeetings();
     meetingRepository.changeNotifier.addListener(() {
       if (meetingRepository.changeNotifier.shouldReFetchMeetings == true) {
-        getMeetings();
-        meetingRepository.changeNotifier.clearShouldReFetchMeetings();
+        getMeetings().then((_) {
+          meetingRepository.changeNotifier.clearShouldReFetchMeetings();
+        });
       }
     });
   }
 
   final VoidCallback onViewAllTapped;
   final MeetingRepository meetingRepository;
-  final ValueSetter<int> oMeetingTapped;
+  final ValueSetter<int> onMeetingTapped;
+  final ValueSetter<Meeting> onCancelMeetingTapped;
+  final ValueSetter<Meeting> onScheduleMeetingTapped;
 
-  void getMeetings() async {
+  Future getMeetings() async {
     final loading = state.copyWith(
       meetingsStatus: MeetingsStatus.loading,
     );
@@ -53,11 +59,12 @@ class MeetingsCubit extends Cubit<MeetingsState> {
   void onMeetingDetailsTapped(Meeting meeting, MeetingCardVariation variation) {
     meetingRepository.changeNotifier.setMeeting(meeting);
     setMeetingsCardsType(variation);
-    oMeetingTapped(meeting.id);
+    onMeetingTapped(meeting.id);
   }
-// @override
-// Future<void> close() async {
-//   userRepository.deleteOtpVerificationTokenSupplierString();
-//   return super.close();
-// }
+
+  // @override
+  // Future<void> close() async {
+  //   debugPrint('asdasdas');
+  //   return super.close();
+  // }
 }

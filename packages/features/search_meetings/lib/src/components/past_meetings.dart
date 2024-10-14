@@ -47,21 +47,28 @@ class PastMeetings extends StatelessWidget {
                       ColumnBuilder(
                         itemBuilder: (context, index) {
                           final meeting = pastMeetings[month]![index];
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                          return Column(
                             children: [
-                              DayNameWidget(
-                                dateTime: meeting.startDate!,
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  DayNameWidget(
+                                    dateTime: meeting.startDate!,
+                                  ),
+                                  HorizontalGap.medium(),
+                                  Expanded(
+                                    child: MeetingCard(
+                                      meeting: meeting,
+                                      type: MeetingCardVariation.past,
+                                      onTap: () =>
+                                          cubit.onMeetingDetailsTapped(meeting),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              HorizontalGap.medium(),
-                              Expanded(
-                                child: MeetingCard(
-                                  meeting: meeting,
-                                  type: MeetingCardVariation.past,
-                                  onTap: () =>
-                                      cubit.onMeetingDetailsTapped(meeting),
-                                ),
-                              ),
+                              if(index != pastMeetings[month]!.length - 1)
+                              VerticalGap.mediumLarge(),
+
                             ],
                           );
                         },

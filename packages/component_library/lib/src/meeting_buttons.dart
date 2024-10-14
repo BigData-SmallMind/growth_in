@@ -5,8 +5,12 @@ class MeetingButtons extends StatelessWidget {
   const MeetingButtons({
     super.key,
     this.flex = 1,
+    required this.onCancelTapped,
+    required this.onScheduleTapped,
   });
   final int flex;
+  final VoidCallback onCancelTapped;
+  final VoidCallback onScheduleTapped;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -17,7 +21,7 @@ class MeetingButtons extends StatelessWidget {
         children: [
           Expanded(
             child: InkWell(
-              onTap: () {},
+              onTap: onCancelTapped,
               child: Container(
                 constraints: const BoxConstraints.expand(),
 
@@ -43,7 +47,7 @@ class MeetingButtons extends StatelessWidget {
           ),
           Expanded(
             child: InkWell(
-              onTap: () {},
+              onTap: onScheduleTapped,
               child: Container(
                 constraints: const BoxConstraints.expand(),
                 padding: const EdgeInsets.symmetric(

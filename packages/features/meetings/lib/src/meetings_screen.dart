@@ -8,25 +8,36 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/components.dart';
 
-class MeetingsScreen extends StatelessWidget {
+class MeetingsScreen extends StatefulWidget {
   const MeetingsScreen({
     required this.meetingRepository,
     required this.onViewAllTapped,
-    required this.oMeetingTapped,
+    required this.onMeetingTapped,
+    required this.onCancelMeetingTapped,
+    required this.onScheduleMeetingTapped,
     super.key,
   });
 
   final MeetingRepository meetingRepository;
   final VoidCallback onViewAllTapped;
-  final ValueSetter<int> oMeetingTapped;
+  final ValueSetter<int> onMeetingTapped;
+  final ValueSetter<Meeting> onCancelMeetingTapped;
+  final ValueSetter<Meeting> onScheduleMeetingTapped;
 
+  @override
+  State<MeetingsScreen> createState() => _MeetingsScreenState();
+}
+
+class _MeetingsScreenState extends State<MeetingsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MeetingsCubit>(
       create: (_) => MeetingsCubit(
-        meetingRepository: meetingRepository,
-        onViewAllTapped: onViewAllTapped,
-        oMeetingTapped: oMeetingTapped,
+        meetingRepository: widget.meetingRepository,
+        onViewAllTapped: widget.onViewAllTapped,
+        onMeetingTapped: widget.onMeetingTapped,
+        onCancelMeetingTapped: widget.onCancelMeetingTapped,
+        onScheduleMeetingTapped: widget.onScheduleMeetingTapped,
       ),
       child: const MeetingsView(),
     );

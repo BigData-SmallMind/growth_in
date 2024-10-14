@@ -6,17 +6,19 @@ class ScheduleMeetingState extends Equatable {
     this.availableSlotsFetchStatus = AvailableSlotsFetchStatus.initial,
     this.submissionStatus = FormzSubmissionStatus.initial,
     this.selectedSlot,
+    this.selectedDay,
   });
   final List<MeetingSlot>? availableSlots;
   final AvailableSlotsFetchStatus availableSlotsFetchStatus;
   final FormzSubmissionStatus submissionStatus;
   final MeetingSlot? selectedSlot;
-
+  final DateTime? selectedDay;
   ScheduleMeetingState copyWith({
     List<MeetingSlot>? availableSlots,
     AvailableSlotsFetchStatus? availableSlotsFetchStatus,
     FormzSubmissionStatus? submissionStatus,
     MeetingSlot? selectedSlot,
+    DateTime? selectedDay,
   }) {
     return ScheduleMeetingState(
       availableSlots: availableSlots ?? this.availableSlots,
@@ -24,6 +26,7 @@ class ScheduleMeetingState extends Equatable {
           availableSlotsFetchStatus ?? this.availableSlotsFetchStatus,
       selectedSlot: selectedSlot ?? this.selectedSlot,
       submissionStatus: submissionStatus ?? this.submissionStatus,
+      selectedDay: selectedDay ?? this.selectedDay,
     );
   }
 
@@ -33,6 +36,7 @@ class ScheduleMeetingState extends Equatable {
         availableSlotsFetchStatus,
         availableSlots,
         selectedSlot,
+        selectedDay,
       ];
 }
 

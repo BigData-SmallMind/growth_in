@@ -39,6 +39,24 @@ class Meeting {
   bool get hasStarted =>
       startDate != null && startDate!.isBefore(DateTime.now());
 
+  Meeting copyWith({
+    DateTime? startDate,
+    DateTime? endDate,
+  }) {
+    return Meeting(
+      id: id,
+      type: type,
+      title: title,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      plan: plan,
+      files: files,
+      link: link,
+      summary: summary,
+      cancellationReason: cancellationReason,
+      createdAt: createdAt,
+    );
+  }
 }
 
 class Meetings {
@@ -112,4 +130,14 @@ class MeetingSlot {
 
   final DateTime start;
   final DateTime end;
+
+  MeetingSlot copyWith({
+    DateTime? start,
+    DateTime? end,
+  }) {
+    return MeetingSlot(
+      start: start ?? this.start,
+      end: end ?? this.end,
+    );
+  }
 }

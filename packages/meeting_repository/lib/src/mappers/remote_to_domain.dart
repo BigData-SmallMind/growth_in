@@ -64,7 +64,6 @@
 import 'dart:convert';
 
 import 'package:domain_models/domain_models.dart';
-import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:intl/intl.dart';
 
@@ -156,3 +155,4 @@ extension ListMeetingSlotStringtoDM on List<String> {
     return map((e) => e.toDomainModel()).toList();
   }
 }
+

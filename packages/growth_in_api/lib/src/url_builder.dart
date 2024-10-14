@@ -186,4 +186,8 @@ class UrlBuilder {
   String buildGetAvailableSlotsUrl() {
     return '$_baseUrl/meeting-slots-client';
   }
+
+  String buildUpdateMeetingDateUrl({required int id}) {
+    return '$_baseUrl/meeting-date/$id';
+  }
 }

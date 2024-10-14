@@ -22,8 +22,9 @@ class ScheduleMeetingCubit extends Cubit<ScheduleMeetingState> {
   final VoidCallback onSchedulingSuccess;
 
   void getAvailableSlots(DateTime date) async {
-    final loadingAvailableSlots = state.copyWith(
+    final loadingAvailableSlots = ScheduleMeetingState(
       availableSlotsFetchStatus: AvailableSlotsFetchStatus.loading,
+      selectedDay: date,
     );
     emit(loadingAvailableSlots);
     try {
@@ -32,13 +33,15 @@ class ScheduleMeetingCubit extends Cubit<ScheduleMeetingState> {
       );
       final successAvailableSlots = ScheduleMeetingState(
         availableSlots: availableSlots,
+        selectedDay: state.selectedDay,
         availableSlotsFetchStatus: AvailableSlotsFetchStatus.success,
       );
       emit(successAvailableSlots);
     } catch (error) {
-      final failureAvailableSlots = state.copyWith(
+      final failureAvailableSlots = ScheduleMeetingState(
         availableSlotsFetchStatus: AvailableSlotsFetchStatus.failure,
-        availableSlots: [],
+        selectedDay: state.selectedDay,
+        availableSlots: const [],
       );
       emit(failureAvailableSlots);
     }
@@ -50,6 +53,30 @@ class ScheduleMeetingCubit extends Cubit<ScheduleMeetingState> {
         selectedSlot: meetingSlot,
       ),
     );
+  }
+
+  void scheduleMeeting() async {
+    final loading = state.copyWith(
+      submissionStatus: FormzSubmissionStatus.inProgress,
+    );
+    emit(loading);
+    try {
+      await meetingRepository.updateMeetingDate(
+        id: meeting.id,
+        meetingSlot: state.selectedSlot!,
+        selectedDay: state.selectedDay!,
+      );
+      final success = state.copyWith(
+        submissionStatus: FormzSubmissionStatus.success,
+      );
+      emit(success);
+      onSchedulingSuccess();
+    } catch (error) {
+      final failure = state.copyWith(
+        submissionStatus: FormzSubmissionStatus.failure,
+      );
+      emit(failure);
+    }
   }
 
 // @override
