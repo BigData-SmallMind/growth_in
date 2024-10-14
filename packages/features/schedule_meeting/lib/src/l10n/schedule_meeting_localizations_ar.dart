@@ -9,4 +9,10 @@ class ScheduleMeetingLocalizationsAr extends ScheduleMeetingLocalizations {
 
   @override
   String get noSlotsAvailableIndicatorText => 'لا توجد فترات زمنية متاحة';
+
+  @override
+  String get schedulingInProgressButtonLabel => 'جارٍ التأكيد...';
+
+  @override
+  String get confirmMeetingScheduleButtonLabel => 'تأكيد';
 }

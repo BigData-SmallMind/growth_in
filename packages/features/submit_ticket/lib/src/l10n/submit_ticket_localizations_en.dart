@@ -15,4 +15,10 @@ class SubmitTicketLocalizationsEn extends SubmitTicketLocalizations {
 
   @override
   String get requiredFieldErrorMessage => 'This field is required';
+
+  @override
+  String get submissionInProgressButtonLabel => 'Submitting...';
+
+  @override
+  String get submitButtonLabel => 'Submit';
 }

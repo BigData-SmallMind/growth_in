@@ -3,6 +3,8 @@
   "titleTextFieldLabel": "Ticket Title",
   "descriptionTextFieldLabel": "Ticket Description",
   "descriptionTextFieldLabel": "Description",
-  "requiredFieldErrorMessage": "This field is required"
+  "requiredFieldErrorMessage": "This field is required",
+  "submissionInProgressButtonLabel": "Submitting...",
+  "submitButtonLabel": "Submit"
 
 }

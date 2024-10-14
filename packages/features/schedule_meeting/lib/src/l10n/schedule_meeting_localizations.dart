@@ -104,6 +104,18 @@ abstract class ScheduleMeetingLocalizations {
   /// In en, this message translates to:
   /// **'No slots available'**
   String get noSlotsAvailableIndicatorText;
+
+  /// No description provided for @schedulingInProgressButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirming...'**
+  String get schedulingInProgressButtonLabel;
+
+  /// No description provided for @confirmMeetingScheduleButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirmMeetingScheduleButtonLabel;
 }
 
 class _ScheduleMeetingLocalizationsDelegate extends LocalizationsDelegate<ScheduleMeetingLocalizations> {

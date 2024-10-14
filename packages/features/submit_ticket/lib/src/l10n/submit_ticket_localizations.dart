@@ -116,6 +116,18 @@ abstract class SubmitTicketLocalizations {
   /// In en, this message translates to:
   /// **'This field is required'**
   String get requiredFieldErrorMessage;
+
+  /// No description provided for @submissionInProgressButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting...'**
+  String get submissionInProgressButtonLabel;
+
+  /// No description provided for @submitButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submitButtonLabel;
 }
 
 class _SubmitTicketLocalizationsDelegate extends LocalizationsDelegate<SubmitTicketLocalizations> {

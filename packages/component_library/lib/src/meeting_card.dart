@@ -27,11 +27,11 @@ class MeetingCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: type == MeetingCardVariation.past ? null : 130,
+        height:
+            type == MeetingCardVariation.past ? null : 130,
         padding: EdgeInsets.only(
           top: Spacing.medium,
-          bottom: type == MeetingCardVariation.past ||
-                  (meeting.isToday && !meeting.hasStarted)
+          bottom: type == MeetingCardVariation.past
               ? Spacing.medium
               : 0,
         ),
@@ -116,8 +116,8 @@ class MeetingCard extends StatelessWidget {
               VerticalGap.xLarge(),
               const Divider(),
               MeetingButtons(
-                onCancelTapped: onCancelMeetingTapped!,
-                onScheduleTapped: onScheduleMeetingTapped!,
+                onCancelTapped: onCancelMeetingTapped ?? () {},
+                onScheduleTapped: onScheduleMeetingTapped ?? () {},
               ),
               Container(
                 decoration: const BoxDecoration(color: Color(0xFF26BFBF)),

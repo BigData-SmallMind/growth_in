@@ -111,7 +111,7 @@ class ScheduleMeetingView extends StatelessWidget {
               VerticalGap.medium(),
               schedulingInProgress
                   ? GrowthInElevatedButton.inProgress(
-                      label: 'l10n.schedulingInProgressButtonLabel',
+                      label: l10n.schedulingInProgressButtonLabel,
                     )
                   : GrowthInElevatedButton(
                       labelColor: state.selectedSlot == null
@@ -123,7 +123,7 @@ class ScheduleMeetingView extends StatelessWidget {
                       bgColor: state.selectedSlot == null
                           ? theme.borderColor
                           : colorScheme.surface,
-                      label: 'l10n.confirmMeetingScheduleButtonLabel',
+                      label: l10n.confirmMeetingScheduleButtonLabel,
                       onTap: state.selectedSlot == null
                           ? null
                           : cubit.scheduleMeeting,

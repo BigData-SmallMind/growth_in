@@ -4,6 +4,8 @@
     "descriptionTextFieldLabel": "تفاصيل الرسالة",
     "descriptionTextFieldLabel": "الوصف",
   "requiredFieldErrorMessage": "مطلوب*",
-    "titleTextFieldLabel": "العنوان"
+    "titleTextFieldLabel": "العنوان",
+  "submissionInProgressButtonLabel": "جارٍ الإرسال...",
+  "submitButtonLabel": "إرسال"
 }
 

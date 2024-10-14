@@ -90,11 +90,11 @@ class SubmitTicketView extends StatelessWidget {
               VerticalGap.medium(),
               isSubmissionInProgress
                   ? GrowthInElevatedButton.inProgress(
-                      label: 'l10n.submissionInProgressButtonLabel',
+                      label: l10n.submissionInProgressButtonLabel,
                       height: 40,
                     )
                   : GrowthInElevatedButton(
-                      label: 'l10n.submitButtonLabel',
+                      label: l10n.submitButtonLabel,
                       onTap: cubit.onSubmit,
                       height: 40,
                     )

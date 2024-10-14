@@ -15,4 +15,10 @@ class SubmitTicketLocalizationsAr extends SubmitTicketLocalizations {
 
   @override
   String get requiredFieldErrorMessage => 'مطلوب*';
+
+  @override
+  String get submissionInProgressButtonLabel => 'جارٍ الإرسال...';
+
+  @override
+  String get submitButtonLabel => 'إرسال';
 }

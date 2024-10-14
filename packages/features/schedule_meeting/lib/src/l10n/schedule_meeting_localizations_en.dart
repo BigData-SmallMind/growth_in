@@ -9,4 +9,10 @@ class ScheduleMeetingLocalizationsEn extends ScheduleMeetingLocalizations {
 
   @override
   String get noSlotsAvailableIndicatorText => 'No slots available';
+
+  @override
+  String get schedulingInProgressButtonLabel => 'Confirming...';
+
+  @override
+  String get confirmMeetingScheduleButtonLabel => 'Confirm';
 }

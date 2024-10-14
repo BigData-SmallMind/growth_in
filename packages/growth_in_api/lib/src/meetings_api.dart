@@ -5,7 +5,7 @@ import 'package:growth_in_api/growth_in_api.dart';
 class MeetingsApi {
   final Dio _dio;
   final UrlBuilder _urlBuilder;
-  static const _meetingTypeJsonKey = 'meeting_types';
+  static const _meetingTypeJsonKey = 'meeting_type';
   static const _slotsJsonKey = 'slots';
 
   MeetingsApi(

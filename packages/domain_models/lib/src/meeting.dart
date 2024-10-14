@@ -32,7 +32,9 @@ class Meeting {
   bool get isToday {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final isToday = startDate != null && startDate!.isAtSameMomentAs(today);
+    final isToday = startDate != null &&
+        startDate!.isAfter(today) &&
+        startDate!.isBefore(today.add(const Duration(days: 1)));
     return isToday;
   }
 
