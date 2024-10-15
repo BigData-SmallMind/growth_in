@@ -52,9 +52,9 @@ class SearchMeetingsCubit extends Cubit<SearchMeetingsState> {
     oMeetingTapped(meeting.id);
   }
 
-// @override
-// Future<void> close() async {
-//   userRepository.deleteOtpVerificationTokenSupplierString();
-//   return super.close();
-// }
+@override
+Future<void> close() async {
+  debugPrint('asdasd');
+  return super.close();
+}
 }

@@ -2,6 +2,7 @@ import 'package:action/action.dart';
 import 'package:action_comments/action_comments.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
+import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
@@ -250,6 +251,9 @@ Map<String, PageBuilder> buildRoutingTable({
               meetingRepository: meetingRepository,
               onViewAllTapped: () =>
                   routerDelegate.push(_PathConstants.searchMeetingsPath),
+              onCreateMeetingTapped: () => routerDelegate.push(
+                _PathConstants.createMeetingPath,
+              ),
               onMeetingTapped: (int meetingId) => routerDelegate.push(
                 _PathConstants.meetingDetailsPath(
                   meetingId: meetingId,
@@ -281,6 +285,14 @@ Map<String, PageBuilder> buildRoutingTable({
                   },
                 ),
               ),
+            );
+          }),
+        ),
+    _PathConstants.createMeetingPath: (_) => MaterialPage(
+          name: 'create-meeting',
+          child: Builder(builder: (context) {
+            return CreateMeetingScreen(
+              meetingRepository: meetingRepository,
             );
           }),
         ),
@@ -434,6 +446,8 @@ class _PathConstants {
   static String get requestsPath => '${tabContainerPath}requests';
 
   static String get meetingsPath => '${tabContainerPath}meetings';
+
+  static String get createMeetingPath => '${meetingsPath}/create';
 
   static String get searchMeetingsPath => '$meetingsPath/search';
 

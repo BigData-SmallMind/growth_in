@@ -12,6 +12,7 @@ class MeetingsCubit extends Cubit<MeetingsState> {
     required this.onViewAllTapped,
     required this.onMeetingTapped,
     required this.onCancelMeetingTapped,
+    required this.onCreateMeetingTapped,
     required this.onScheduleMeetingTapped,
 
   }) : super(
@@ -31,6 +32,7 @@ class MeetingsCubit extends Cubit<MeetingsState> {
   final MeetingRepository meetingRepository;
   final ValueSetter<int> onMeetingTapped;
   final ValueSetter<Meeting> onCancelMeetingTapped;
+  final VoidCallback onCreateMeetingTapped;
   final ValueSetter<Meeting> onScheduleMeetingTapped;
 
   Future getMeetings() async {

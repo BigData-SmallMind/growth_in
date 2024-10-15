@@ -4,6 +4,7 @@ import 'package:action/action.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:component_library/component_library.dart';
+import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:dio/dio.dart';
 import 'package:domain_models/domain_models.dart';
@@ -243,6 +244,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 MeetingDetailsLocalizations.delegate,
                 DeleteMeetingLocalizations.delegate,
                 ScheduleMeetingLocalizations.delegate,
+                CreateMeetingLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

@@ -99,6 +99,13 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  create_meeting:
+    dependency: "direct main"
+    description:
+      path: "packages/features/create_meeting"
+      relative: true
+    source: path
+    version: "0.0.0"
   cross_file:
     dependency: transitive
     description:

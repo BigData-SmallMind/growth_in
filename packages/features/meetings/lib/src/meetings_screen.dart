@@ -12,6 +12,7 @@ class MeetingsScreen extends StatefulWidget {
   const MeetingsScreen({
     required this.meetingRepository,
     required this.onViewAllTapped,
+    required this.onCreateMeetingTapped,
     required this.onMeetingTapped,
     required this.onCancelMeetingTapped,
     required this.onScheduleMeetingTapped,
@@ -20,6 +21,7 @@ class MeetingsScreen extends StatefulWidget {
 
   final MeetingRepository meetingRepository;
   final VoidCallback onViewAllTapped;
+  final VoidCallback onCreateMeetingTapped;
   final ValueSetter<int> onMeetingTapped;
   final ValueSetter<Meeting> onCancelMeetingTapped;
   final ValueSetter<Meeting> onScheduleMeetingTapped;
@@ -36,6 +38,7 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
         meetingRepository: widget.meetingRepository,
         onViewAllTapped: widget.onViewAllTapped,
         onMeetingTapped: widget.onMeetingTapped,
+        onCreateMeetingTapped: widget.onCreateMeetingTapped,
         onCancelMeetingTapped: widget.onCancelMeetingTapped,
         onScheduleMeetingTapped: widget.onScheduleMeetingTapped,
       ),
@@ -64,9 +67,7 @@ class MeetingsView extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor: theme.secondaryColor,
             shape: const CircleBorder(),
-            onPressed: () {
-              context.read<MeetingsCubit>().getMeetings();
-            },
+            onPressed: cubit.onCreateMeetingTapped,
             child: const Icon(Icons.add),
           ),
           body: loading
