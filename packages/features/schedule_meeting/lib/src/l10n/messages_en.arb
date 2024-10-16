@@ -1,6 +1,4 @@
 {
-  "timeSlotsSectionTitle": "Time Slots",
-  "noSlotsAvailableIndicatorText": "No slots available",
   "schedulingInProgressButtonLabel": "Confirming...",
   "confirmMeetingScheduleButtonLabel": "Confirm"
 

@@ -1,13 +1,11 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:form_fields/form_fields.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:meeting_repository/meeting_repository.dart';
 import 'package:schedule_meeting/src/l10n/schedule_meeting_localizations.dart';
 import 'package:schedule_meeting/src/schedule_meeting_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ScheduleMeetingBottomSheet extends StatelessWidget {
   const ScheduleMeetingBottomSheet({
@@ -45,7 +43,6 @@ class ScheduleMeetingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = GrowthInTheme.of(context).materialThemeData.colorScheme;
     final theme = GrowthInTheme.of(context);
-    final textTheme = Theme.of(context).textTheme;
     final l10n = ScheduleMeetingLocalizations.of(context);
     return BlocConsumer<ScheduleMeetingCubit, ScheduleMeetingState>(
       listener: (context, state) {},
@@ -63,9 +60,15 @@ class ScheduleMeetingView extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MeetingSlotPicker(
-                cubit: cubit,
-                isLoadingSlots: isLoadingSlots,
+              Expanded(
+                child: MeetingSlotPicker(
+                  expandCalendar: true,
+                  isLoadingSlots: isLoadingSlots,
+                  getAvailableSlots: cubit.getAvailableSlots,
+                  availableSlots: state.availableSlots,
+                  selectedMeetingSlot: state.selectedSlot,
+                  selectMeetingSlot: cubit.selectMeetingSlot,
+                ),
               ),
               schedulingInProgress
                   ? GrowthInElevatedButton.inProgress(
@@ -88,118 +91,6 @@ class ScheduleMeetingView extends StatelessWidget {
                     ),
               VerticalGap.medium(),
             ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class MeetingSlotPicker extends StatelessWidget {
-  const MeetingSlotPicker({
-    super.key,
-    required this.cubit,
-    required this.isLoadingSlots,
-    this.availableSlots,
-  });
-
-  final ScheduleMeetingCubit cubit;
-  final bool isLoadingSlots;
-  final List<MeetingSlot>? availableSlots;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = GrowthInTheme.of(context).materialThemeData.colorScheme;
-    final theme = GrowthInTheme.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final l10n = ScheduleMeetingLocalizations.of(context);
-    return Column(
-      children: [
-        SfDateRangePicker(
-          backgroundColor: colorScheme.surface,
-          showNavigationArrow: true,
-          allowViewNavigation: true,
-          headerStyle: DateRangePickerHeaderStyle(
-            textAlign: TextAlign.center,
-            backgroundColor: Colors.transparent,
-            textStyle:
-                textTheme.titleMedium?.copyWith(color: theme.primaryColor),
-          ),
-          onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-            cubit.getAvailableSlots(args.value as DateTime);
-          },
-          enablePastDates: false,
-          selectionMode: DateRangePickerSelectionMode.single,
-        ),
-        VerticalGap.medium(),
-        Text(l10n.timeSlotsSectionTitle),
-        VerticalGap.medium(),
-        Expanded(
-          child: isLoadingSlots
-              ? const CenteredCircularProgressIndicator()
-              : availableSlots?.isNotEmpty == true
-                  ? GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: Spacing.medium,
-                        mainAxisSpacing: Spacing.medium,
-                        mainAxisExtent: 50,
-                      ),
-                      itemCount: availableSlots!.length,
-                      itemBuilder: (context, index) {
-                        final meetingSlot = availableSlots![index];
-                        return MeetingSlotWidget(meetingSlot: meetingSlot);
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                        l10n.noSlotsAvailableIndicatorText,
-                        style: textTheme.titleLarge,
-                      ),
-                    ),
-        ),
-        VerticalGap.medium(),
-      ],
-    );
-  }
-}
-
-class MeetingSlotWidget extends StatelessWidget {
-  const MeetingSlotWidget({
-    super.key,
-    required this.meetingSlot,
-  });
-
-  final MeetingSlot meetingSlot;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = GrowthInTheme.of(context).materialThemeData.colorScheme;
-    final theme = GrowthInTheme.of(context);
-    return BlocBuilder<ScheduleMeetingCubit, ScheduleMeetingState>(
-      builder: (context, state) {
-        final outputFormat = intl.DateFormat("hh:mm a");
-
-        final startTime = outputFormat.format(meetingSlot.start);
-        final endTime = outputFormat.format(meetingSlot.end);
-        final cubit = context.read<ScheduleMeetingCubit>();
-        final isSelected = state.selectedSlot == meetingSlot;
-        return InkWell(
-          onTap: () => cubit.selectMeetingSlot(meetingSlot),
-          child: Container(
-            decoration: BoxDecoration(
-              color: colorScheme.surface,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: isSelected ? theme.primaryColor : theme.borderColor,
-              ),
-            ),
-            child: Center(
-              child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text('$startTime - $endTime')),
-            ),
           ),
         );
       },

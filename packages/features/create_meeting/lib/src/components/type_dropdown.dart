@@ -27,25 +27,34 @@ class TypeDropdown extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${'l10n.typeTextFieldLabel'} *',
+              '${l10n.typeTextFieldLabel} *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),
-            DropdownButton<MeetingType>(
-              isExpanded: true,
-
-              value: state.selectedType.value,
-              items: state.meetingTypes
-                  .map(
-                    (meetingType) => DropdownMenuItem(
-                      value: meetingType,
-                      child: Text(meetingType.name),
-                    ),
-                  )
-                  .toList(),
-              onChanged: isSubmissionInProgress
-                  ? null
-                  : (meetingType) => cubit.onMeetingTypeChanged(meetingType!),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: error != null
+                      ? theme.errorColor
+                      : theme.materialThemeData.colorScheme.surface,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: DropdownButton<MeetingType>(
+                isExpanded: true,
+                value: state.selectedType.value,
+                items: state.meetingTypes
+                    .map(
+                      (meetingType) => DropdownMenuItem(
+                        value: meetingType,
+                        child: Text(meetingType.name),
+                      ),
+                    )
+                    .toList(),
+                onChanged: isSubmissionInProgress
+                    ? null
+                    : (meetingType) => cubit.onMeetingTypeChanged(meetingType!),
+              ),
             ),
             if (error != null) ...[
               VerticalGap.small(),

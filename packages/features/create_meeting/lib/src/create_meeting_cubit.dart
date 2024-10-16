@@ -136,10 +136,10 @@ class CreateMeetingCubit extends Cubit<CreateMeetingState> {
     final newState = state.copyWith(
       title: title,
       selectedType: selectedType,
+      currentStep: 0,
     );
 
     emit(newState);
-
     if (isFormValid) {
       final newState = state.copyWith(
         currentStep: 1,
@@ -189,73 +189,54 @@ class CreateMeetingCubit extends Cubit<CreateMeetingState> {
     emit(newState);
   }
 
-// void onLastStepSubmit() async {
-//   final title = Dynamic<String>.validated(
-//     state.title.value,
-//     isRequired: true,
-//   );
-//   final selectedType = Dynamic<MeetingType?>.validated(
-//     state.selectedType.value,
-//     isRequired: true,
-//   );
-//
-//   final isFormValid = Formz.validate([
-//     title,
-//     selectedType,
-//   ]);
-//
-//   final newState = state.copyWith(
-//     title: title,
-//     selectedType: selectedType,
-//     submissionStatus: isFormValid
-//         ? FormzSubmissionStatus.inProgress
-//         : FormzSubmissionStatus.initial,
-//   );
-//
-//   emit(newState);
-//
-//   if (isFormValid) {
-//     final user = await userRepository.getUser().first;
-//     try {
-//       await meetingRepository.createMeeting(
-//         title: title.value!,
-//         description: state.description,
-//         files: state.files,
-//         type: selectedType.value!.name,
-//         userId: user!.id,
-//       );
-//
-//       final newState = state.copyWith(currentStep: 2,);
-//       emit(newState);
-//     } catch (error) {
-//       final newState = state.copyWith(
-//         title: Dynamic<String>.validated(
-//           title.value,
-//           isRequired: true,
-//         ),
-//         selectedType: Dynamic<MeetingType?>.validated(
-//           selectedType.value,
-//           isRequired: true,
-//         ),
-//       );
-//       emit(newState);
-//     }
-//   }
-// }
+  void onLastStepSubmit() async {
+    final newState = state.copyWith(
+      submissionStatus: FormzSubmissionStatus.inProgress,
+    );
 
-// @override
-// Future<void> close() async {
-//   return super.close();
-// }
-//   @override
-//   Future<void> onChange(change) async {
-//     print('+++++++${change.currentState.email}');
-//     print('-------${change.nextState.email}');
-//     super.onChange(change);
-//   }
+    emit(newState);
+
+    final user = await userRepository.getUser().first;
+    try {
+      await meetingRepository.createMeeting(
+        title: state.title.value!,
+        description: state.description,
+        files: state.files,
+        type: state.selectedType.value!.name,
+        meetingSlot: state.selectedSlot!,
+        selectedDay: state.selectedDay!,
+        userId: user!.id,
+      );
+
+      final newState = state.copyWith(
+        submissionStatus: FormzSubmissionStatus.success,
+      );
+      emit(newState);
+    } catch (error) {
+      final newState = state.copyWith(
+        submissionStatus: FormzSubmissionStatus.failure,
+      );
+      emit(newState);
+    }
+  }
+
   void onStepContinue() {
-    if (state.currentStep == 0) onFirstStepSubmit();
-    if (state.currentStep == 1) onSecondStepSubmit();
-    // if (state.currentStep == 2) onLastStepSubmit();
+    if (state.currentStep == 0) {
+      onFirstStepSubmit();
+      return;
+    }
+    if (state.currentStep == 1) {
+      onSecondStepSubmit();
+      return;
+    }
+    if (state.currentStep == 2) onLastStepSubmit();
+  }
+
+  void onStepTapped(int newValue) {
+    if (newValue > state.currentStep) return;
+    final newState = state.copyWith(
+      currentStep: newValue,
+    );
+    emit(newState);
   }
 }

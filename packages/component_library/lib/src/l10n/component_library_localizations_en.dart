@@ -312,4 +312,10 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get companyClosedText => 'Closed';
+
+  @override
+  String get timeSlotsSectionTitle => 'Time Slots';
+
+  @override
+  String get noSlotsAvailableIndicatorText => 'No slots available';
 }

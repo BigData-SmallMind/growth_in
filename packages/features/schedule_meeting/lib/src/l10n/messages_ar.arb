@@ -1,6 +1,5 @@
 {
-  "timeSlotsSectionTitle": "اختر وقتًا للاجتماع",
-  "noSlotsAvailableIndicatorText": "لا توجد فترات زمنية متاحة",
+
   "schedulingInProgressButtonLabel": "جارٍ التأكيد...",
   "confirmMeetingScheduleButtonLabel": "تأكيد"
 }

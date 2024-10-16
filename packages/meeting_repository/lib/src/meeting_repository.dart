@@ -112,6 +112,7 @@ class MeetingRepository {
         userId: userId,
         files: files,
       );
+      changeNotifier.setShouldReFetchMeetings(true);
     } catch (error) {
       rethrow;
     }

@@ -7,11 +7,13 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     required this.logoVariation,
     this.onBackTapped,
+    this.toolbarHeight,
   });
 
   final Widget? title;
   final bool logoVariation;
   final VoidCallback? onBackTapped;
+  final double? toolbarHeight;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -21,6 +23,7 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
     final theme = GrowthInTheme.of(context);
     return logoVariation
         ? AppBar(
+            toolbarHeight: toolbarHeight,
             backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
             leading: Container(
@@ -44,6 +47,7 @@ class GrowthInAppBar extends StatelessWidget implements PreferredSizeWidget {
             title: title != null ? (title!) : null,
           )
         : AppBar(
+            toolbarHeight: toolbarHeight,
             backgroundColor: Colors.transparent,
             title: title != null ? (title!) : null,
             centerTitle: false,

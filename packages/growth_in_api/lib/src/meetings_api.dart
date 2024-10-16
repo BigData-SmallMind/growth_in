@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 
 class MeetingsApi {
@@ -109,20 +110,35 @@ class MeetingsApi {
       description: description,
     );
     final now = DateTime.now().toIso8601String();
-    final multipartFiles = files?.map((file) {
-      final fileExtension = file.path.split('.').last;
-      return MultipartFile.fromFile(
-        file.path,
-        filename: 'MEETING_FILES_$now.$fileExtension',
-      );
-    });
+    // final multipartFiles = files?.map((file) async {
+    //   final fileExtension = file.path.split('.').last;
+    //   return await MultipartFile.fromFile(
+    //     file.path,
+    //     filename: 'MEETING_FILES_$now.$fileExtension',
+    //   );
+    // });
+    List<MultipartFile> multipartFiles = [];
+    if (files != null) {
+      for (var file in files) {
+        final fileExtension = file.path.split('.').last;
+        final multipartFile = await MultipartFile.fromFile(
+          file.path,
+          filename: 'MEETING_FILES_$now.$fileExtension',
+        );
+        multipartFiles.add(multipartFile);
+      }
+    }
+    final requestJsonBody = {
+      if (files != null) 'files[]': multipartFiles,
+    };
+    final formData = FormData.fromMap(requestJsonBody);
+
     try {
-      await _dio.post(
+     final response =  await _dio.post(
         url,
-        data: {
-          if (files != null) 'files': multipartFiles,
-        },
+        data: formData,
       );
+     debugPrint('response: $response');
     } catch (_) {
       rethrow;
     }

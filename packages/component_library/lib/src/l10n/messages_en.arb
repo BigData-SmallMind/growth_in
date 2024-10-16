@@ -108,7 +108,9 @@
   "noCommentsIndicatorText": "No Comments",
   "cancelMeetingButtonLabel": "Cancel Meeting",
   "setMeetingDateButtonLabel": "Set Date",
-  "companyClosedText": "Closed"
+  "companyClosedText": "Closed",
+  "timeSlotsSectionTitle": "Time Slots",
+  "noSlotsAvailableIndicatorText": "No slots available"
 
 
 }

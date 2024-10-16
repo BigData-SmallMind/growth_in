@@ -33,4 +33,13 @@ class CreateMeetingLocalizationsEn extends CreateMeetingLocalizations {
 
   @override
   String get stepThreeLabel => 'Meeting Details';
+
+  @override
+  String get typeTextFieldLabel => 'Type of meeting';
+
+  @override
+  String get selectedSlotLabel => 'Time';
+
+  @override
+  String get selectedDayLabel => 'Day';
 }

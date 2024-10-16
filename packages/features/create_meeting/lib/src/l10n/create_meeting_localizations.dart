@@ -152,6 +152,24 @@ abstract class CreateMeetingLocalizations {
   /// In en, this message translates to:
   /// **'Meeting Details'**
   String get stepThreeLabel;
+
+  /// No description provided for @typeTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Type of meeting'**
+  String get typeTextFieldLabel;
+
+  /// No description provided for @selectedSlotLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get selectedSlotLabel;
+
+  /// No description provided for @selectedDayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get selectedDayLabel;
 }
 
 class _CreateMeetingLocalizationsDelegate extends LocalizationsDelegate<CreateMeetingLocalizations> {

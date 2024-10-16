@@ -108,7 +108,9 @@
   "noCommentsIndicatorText": "لا توجد تعليقات",
   "cancelMeetingButtonLabel": "إلغاء",
   "setMeetingDateButtonLabel": "تحديد موعد",
-  "companyClosedText": "مغلق"
+  "companyClosedText": "مغلق",
+  "timeSlotsSectionTitle": "اختر وقتًا للاجتماع",
+  "noSlotsAvailableIndicatorText": "لا توجد فترات زمنية متاحة"
 
 }
 

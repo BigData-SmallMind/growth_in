@@ -33,4 +33,13 @@ class CreateMeetingLocalizationsAr extends CreateMeetingLocalizations {
 
   @override
   String get stepThreeLabel => 'تفاصيل الجتماع';
+
+  @override
+  String get typeTextFieldLabel => 'نوع الاجتماع';
+
+  @override
+  String get selectedSlotLabel => 'الوقت';
+
+  @override
+  String get selectedDayLabel => 'اليوم';
 }

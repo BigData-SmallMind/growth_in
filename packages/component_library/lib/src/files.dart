@@ -19,7 +19,8 @@ class Files extends StatelessWidget {
     final theme = GrowthInTheme.of(context);
     return SizedBox(
       height: 100,
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (context, index) =>  HorizontalGap.medium(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           final file = files![index];

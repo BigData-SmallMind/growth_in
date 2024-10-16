@@ -710,6 +710,18 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Closed'**
   String get companyClosedText;
+
+  /// No description provided for @timeSlotsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Slots'**
+  String get timeSlotsSectionTitle;
+
+  /// No description provided for @noSlotsAvailableIndicatorText.
+  ///
+  /// In en, this message translates to:
+  /// **'No slots available'**
+  String get noSlotsAvailableIndicatorText;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

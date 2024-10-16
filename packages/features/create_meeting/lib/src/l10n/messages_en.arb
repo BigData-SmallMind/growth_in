@@ -8,5 +8,9 @@
   "lastStepButtonLabel": "Book",
   "stepOneLabel": "Fill in the general details",
   "stepTwoLabel": "Date",
-  "stepThreeLabel": "Meeting Details"
+  "stepThreeLabel": "Meeting Details",
+  "typeTextFieldLabel": "Type of meeting",
+  "selectedSlotLabel": "Time",
+  "selectedDayLabel": "Day"
+
 }

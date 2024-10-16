@@ -8,5 +8,8 @@
   "lastStepButtonLabel": "حجز",
   "stepOneLabel": "املي التفاصيل العامة",
   "stepTwoLabel": "التاريخ",
-  "stepThreeLabel": "تفاصيل الجتماع"
+  "stepThreeLabel": "تفاصيل الجتماع",
+  "typeTextFieldLabel": "نوع الاجتماع",
+  "selectedSlotLabel": "الوقت",
+  "selectedDayLabel": "اليوم"
 }
