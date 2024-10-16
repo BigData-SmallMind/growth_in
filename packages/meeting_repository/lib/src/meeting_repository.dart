@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:domain_models/domain_models.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:key_value_storage/key_value_storage.dart';
@@ -87,6 +89,29 @@ class MeetingRepository {
       );
       changeNotifier.setMeeting(updatedMeeting);
       changeNotifier.setShouldReFetchMeetings(true);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future createMeeting({
+    required String title,
+    required String type,
+    String? description,
+    required MeetingSlot meetingSlot,
+    required DateTime selectedDay,
+    required int userId,
+    List<File>? files,
+  }) async {
+    try {
+      await remoteApi.meetings.createMeeting(
+        title: title,
+        type: type,
+        description: description,
+        startDate: meetingSlot.toRemoteModel(selectedDay),
+        userId: userId,
+        files: files,
+      );
     } catch (error) {
       rethrow;
     }

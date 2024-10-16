@@ -5,17 +5,32 @@ class CreateMeetingLocalizationsAr extends CreateMeetingLocalizations {
   CreateMeetingLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get homeTabLabel => 'الرئيسية';
+  String get descriptionTextFieldLabel => 'تفاصيل خطة الاجتماع';
 
   @override
-  String get cmsTabLabel => 'المحتوى';
+  String get descriptionTextFieldHint => 'خطة الإجتماع أو أهم النقاط';
 
   @override
-  String get messagesTabLabel => 'التواصل';
+  String get titleTextFieldLabel => 'عنوان الاجتماع';
 
   @override
-  String get filesTabLabel => 'ملفاتي';
+  String get requiredFieldErrorMessage => 'مطلوب';
 
   @override
-  String get menuTabLabel => 'المزيد';
+  String get titleTextFieldHint => 'أدخل العنوان هنا';
+
+  @override
+  String get nextStepButtonLabel => 'الخطوة التالية';
+
+  @override
+  String get lastStepButtonLabel => 'حجز';
+
+  @override
+  String get stepOneLabel => 'املي التفاصيل العامة';
+
+  @override
+  String get stepTwoLabel => 'التاريخ';
+
+  @override
+  String get stepThreeLabel => 'تفاصيل الجتماع';
 }

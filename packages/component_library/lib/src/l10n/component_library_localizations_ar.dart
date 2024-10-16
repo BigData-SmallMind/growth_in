@@ -309,4 +309,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get setMeetingDateButtonLabel => 'تحديد موعد';
+
+  @override
+  String get companyClosedText => 'مغلق';
 }

@@ -8,6 +8,7 @@ class CompanyRM {
     required this.id,
     required this.name,
     required this.sector,
+    required this.isClosed,
     this.profileImage,
     this.email,
   });
@@ -18,6 +19,8 @@ class CompanyRM {
   final String name;
   @JsonKey(name: 'company_sector')
   final String sector;
+  @JsonKey(name: 'is_closed')
+  final int isClosed;
   @JsonKey(name: 'profile_image')
   final String? profileImage;
   @JsonKey(name: 'email')

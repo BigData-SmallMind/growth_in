@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 
@@ -75,7 +76,7 @@ class MeetingsApi {
     }
   }
 
-  Future updateMeetingDate ({
+  Future updateMeetingDate({
     required int id,
     required String date,
   }) async {
@@ -86,6 +87,41 @@ class MeetingsApi {
       await _dio.post(
         url,
         data: {'meeting_date': date},
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future createMeeting({
+    required String title,
+    required String type,
+    String? description,
+    required String startDate,
+    required int userId,
+    List<File>? files,
+  }) async {
+    final url = _urlBuilder.buildCreateMeetingUrl(
+      userId: userId,
+      title: title,
+      type: type,
+      startDate: startDate,
+      description: description,
+    );
+    final now = DateTime.now().toIso8601String();
+    final multipartFiles = files?.map((file) {
+      final fileExtension = file.path.split('.').last;
+      return MultipartFile.fromFile(
+        file.path,
+        filename: 'MEETING_FILES_$now.$fileExtension',
+      );
+    });
+    try {
+      await _dio.post(
+        url,
+        data: {
+          if (files != null) 'files': multipartFiles,
+        },
       );
     } catch (_) {
       rethrow;

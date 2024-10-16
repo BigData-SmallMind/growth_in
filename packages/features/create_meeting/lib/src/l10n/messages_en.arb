@@ -1,8 +1,12 @@
 {
-  "homeTabLabel": "Contacts",
-  "cmsTabLabel": "Dashboard",
-  "messagesTabLabel": "Companies",
-  "filesTabLabel": "Deals",
-  "menuTabLabel": "Menu"
-
+  "descriptionTextFieldLabel": "Meeting Plan Details",
+  "descriptionTextFieldHint": "Meeting plan or key points",
+  "titleTextFieldLabel": "Meeting Title",
+  "requiredFieldErrorMessage": "Required",
+  "titleTextFieldHint": "Enter the title here",
+  "nextStepButtonLabel": "Next Step",
+  "lastStepButtonLabel": "Book",
+  "stepOneLabel": "Fill in the general details",
+  "stepTwoLabel": "Date",
+  "stepThreeLabel": "Meeting Details"
 }

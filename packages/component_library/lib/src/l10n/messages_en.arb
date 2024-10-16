@@ -107,7 +107,8 @@
   "viewAllCommentsButtonLabel": "View All",
   "noCommentsIndicatorText": "No Comments",
   "cancelMeetingButtonLabel": "Cancel Meeting",
-  "setMeetingDateButtonLabel": "Set Date"
+  "setMeetingDateButtonLabel": "Set Date",
+  "companyClosedText": "Closed"
 
 
 }

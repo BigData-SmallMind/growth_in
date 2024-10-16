@@ -1,7 +1,12 @@
 {
-  "homeTabLabel": "الرئيسية",
-  "cmsTabLabel": "المحتوى",
-  "messagesTabLabel": "التواصل",
-  "filesTabLabel": "ملفاتي",
-  "menuTabLabel": "المزيد"
+  "descriptionTextFieldLabel": "تفاصيل خطة الاجتماع",
+  "descriptionTextFieldHint": "خطة الإجتماع أو أهم النقاط",
+  "titleTextFieldLabel": "عنوان الاجتماع",
+  "requiredFieldErrorMessage": "مطلوب",
+  "titleTextFieldHint": "أدخل العنوان هنا",
+  "nextStepButtonLabel": "الخطوة التالية",
+  "lastStepButtonLabel": "حجز",
+  "stepOneLabel": "املي التفاصيل العامة",
+  "stepTwoLabel": "التاريخ",
+  "stepThreeLabel": "تفاصيل الجتماع"
 }

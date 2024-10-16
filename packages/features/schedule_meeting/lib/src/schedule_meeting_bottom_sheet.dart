@@ -63,52 +63,10 @@ class ScheduleMeetingView extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SfDateRangePicker(
-                backgroundColor: colorScheme.surface,
-                showNavigationArrow: true,
-                allowViewNavigation: true,
-                headerStyle: DateRangePickerHeaderStyle(
-                  textAlign: TextAlign.center,
-                  backgroundColor: Colors.transparent,
-                  textStyle: textTheme.titleMedium
-                      ?.copyWith(color: theme.primaryColor),
-                ),
-                onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-                  cubit.getAvailableSlots(args.value as DateTime);
-                },
-                enablePastDates: false,
-                selectionMode: DateRangePickerSelectionMode.single,
+              MeetingSlotPicker(
+                cubit: cubit,
+                isLoadingSlots: isLoadingSlots,
               ),
-              VerticalGap.medium(),
-              Text(l10n.timeSlotsSectionTitle),
-              VerticalGap.medium(),
-              Expanded(
-                child: isLoadingSlots
-                    ? const CenteredCircularProgressIndicator()
-                    : state.availableSlots?.isNotEmpty == true
-                        ? GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: Spacing.medium,
-                              mainAxisSpacing: Spacing.medium,
-                              mainAxisExtent: 50,
-                            ),
-                            itemCount: state.availableSlots!.length,
-                            itemBuilder: (context, index) {
-                              final meetingSlot = state.availableSlots![index];
-                              return MeetingSlotWidget(
-                                  meetingSlot: meetingSlot);
-                            },
-                          )
-                        : Center(
-                            child: Text(
-                              l10n.noSlotsAvailableIndicatorText,
-                              style: textTheme.titleLarge,
-                            ),
-                          ),
-              ),
-              VerticalGap.medium(),
               schedulingInProgress
                   ? GrowthInElevatedButton.inProgress(
                       label: l10n.schedulingInProgressButtonLabel,
@@ -133,6 +91,76 @@ class ScheduleMeetingView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class MeetingSlotPicker extends StatelessWidget {
+  const MeetingSlotPicker({
+    super.key,
+    required this.cubit,
+    required this.isLoadingSlots,
+    this.availableSlots,
+  });
+
+  final ScheduleMeetingCubit cubit;
+  final bool isLoadingSlots;
+  final List<MeetingSlot>? availableSlots;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = GrowthInTheme.of(context).materialThemeData.colorScheme;
+    final theme = GrowthInTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final l10n = ScheduleMeetingLocalizations.of(context);
+    return Column(
+      children: [
+        SfDateRangePicker(
+          backgroundColor: colorScheme.surface,
+          showNavigationArrow: true,
+          allowViewNavigation: true,
+          headerStyle: DateRangePickerHeaderStyle(
+            textAlign: TextAlign.center,
+            backgroundColor: Colors.transparent,
+            textStyle:
+                textTheme.titleMedium?.copyWith(color: theme.primaryColor),
+          ),
+          onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+            cubit.getAvailableSlots(args.value as DateTime);
+          },
+          enablePastDates: false,
+          selectionMode: DateRangePickerSelectionMode.single,
+        ),
+        VerticalGap.medium(),
+        Text(l10n.timeSlotsSectionTitle),
+        VerticalGap.medium(),
+        Expanded(
+          child: isLoadingSlots
+              ? const CenteredCircularProgressIndicator()
+              : availableSlots?.isNotEmpty == true
+                  ? GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: Spacing.medium,
+                        mainAxisSpacing: Spacing.medium,
+                        mainAxisExtent: 50,
+                      ),
+                      itemCount: availableSlots!.length,
+                      itemBuilder: (context, index) {
+                        final meetingSlot = availableSlots![index];
+                        return MeetingSlotWidget(meetingSlot: meetingSlot);
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        l10n.noSlotsAvailableIndicatorText,
+                        style: textTheme.titleLarge,
+                      ),
+                    ),
+        ),
+        VerticalGap.medium(),
+      ],
     );
   }
 }

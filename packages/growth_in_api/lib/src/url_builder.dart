@@ -190,4 +190,26 @@ class UrlBuilder {
   String buildUpdateMeetingDateUrl({required int id}) {
     return '$_baseUrl/meeting-date/$id';
   }
+
+  String buildCreateMeetingUrl({
+    required String title,
+    required String type,
+    String? description,
+    required String startDate,
+    required int userId,
+  }) {
+    final meetingPlanSlug =
+        description != null ? '&meeting_plan=$description' : '';
+    final meetingTitleSlug = '&meeting_title=$title';
+    final meetingTypeSlug = '&meeting_type=$type';
+    final meetingDateSlug = '&meeting_date=$startDate';
+    final userIdSlug = '&user_id=$userId';
+    final completeUrl = '$_baseUrl/meetings?'
+        '$meetingTitleSlug'
+        '$meetingPlanSlug'
+        '$meetingTypeSlug'
+        '$meetingDateSlug'
+        '$userIdSlug';
+    return completeUrl;
+  }
 }

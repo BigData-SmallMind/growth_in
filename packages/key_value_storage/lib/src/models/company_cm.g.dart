@@ -19,7 +19,8 @@ class CompanyCMAdapter extends TypeAdapter<CompanyCM> {
     return CompanyCM(
       id: fields[0] as int,
       name: fields[1] as String,
-      sector: fields[2] as String,
+      sector: fields[3] as String,
+      isClosed: fields[2] as bool,
       isSelected: fields[4] as bool,
       profileImage: fields[5] as String?,
       email: fields[6] as String?,
@@ -29,12 +30,14 @@ class CompanyCMAdapter extends TypeAdapter<CompanyCM> {
   @override
   void write(BinaryWriter writer, CompanyCM obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
+      ..write(obj.isClosed)
+      ..writeByte(3)
       ..write(obj.sector)
       ..writeByte(4)
       ..write(obj.isSelected)

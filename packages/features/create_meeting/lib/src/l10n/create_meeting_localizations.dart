@@ -93,35 +93,65 @@ abstract class CreateMeetingLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @homeTabLabel.
+  /// No description provided for @descriptionTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Contacts'**
-  String get homeTabLabel;
+  /// **'Meeting Plan Details'**
+  String get descriptionTextFieldLabel;
 
-  /// No description provided for @cmsTabLabel.
+  /// No description provided for @descriptionTextFieldHint.
   ///
   /// In en, this message translates to:
-  /// **'Dashboard'**
-  String get cmsTabLabel;
+  /// **'Meeting plan or key points'**
+  String get descriptionTextFieldHint;
 
-  /// No description provided for @messagesTabLabel.
+  /// No description provided for @titleTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Companies'**
-  String get messagesTabLabel;
+  /// **'Meeting Title'**
+  String get titleTextFieldLabel;
 
-  /// No description provided for @filesTabLabel.
+  /// No description provided for @requiredFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Deals'**
-  String get filesTabLabel;
+  /// **'Required'**
+  String get requiredFieldErrorMessage;
 
-  /// No description provided for @menuTabLabel.
+  /// No description provided for @titleTextFieldHint.
   ///
   /// In en, this message translates to:
-  /// **'Menu'**
-  String get menuTabLabel;
+  /// **'Enter the title here'**
+  String get titleTextFieldHint;
+
+  /// No description provided for @nextStepButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Step'**
+  String get nextStepButtonLabel;
+
+  /// No description provided for @lastStepButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Book'**
+  String get lastStepButtonLabel;
+
+  /// No description provided for @stepOneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the general details'**
+  String get stepOneLabel;
+
+  /// No description provided for @stepTwoLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get stepTwoLabel;
+
+  /// No description provided for @stepThreeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting Details'**
+  String get stepThreeLabel;
 }
 
 class _CreateMeetingLocalizationsDelegate extends LocalizationsDelegate<CreateMeetingLocalizations> {

@@ -36,7 +36,7 @@ class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
   final ValueSetter<Meeting> onScheduleMeetingTapped;
   final String downloadUrl;
 
-  void download(FileDM file) async {
+  void downloadFile(FileDM file) async {
     try {
       final downloadPermissionStatus = await Permission.storage.request();
       if (downloadPermissionStatus.isGranted) {

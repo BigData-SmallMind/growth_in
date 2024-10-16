@@ -5,17 +5,32 @@ class CreateMeetingLocalizationsEn extends CreateMeetingLocalizations {
   CreateMeetingLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get homeTabLabel => 'Contacts';
+  String get descriptionTextFieldLabel => 'Meeting Plan Details';
 
   @override
-  String get cmsTabLabel => 'Dashboard';
+  String get descriptionTextFieldHint => 'Meeting plan or key points';
 
   @override
-  String get messagesTabLabel => 'Companies';
+  String get titleTextFieldLabel => 'Meeting Title';
 
   @override
-  String get filesTabLabel => 'Deals';
+  String get requiredFieldErrorMessage => 'Required';
 
   @override
-  String get menuTabLabel => 'Menu';
+  String get titleTextFieldHint => 'Enter the title here';
+
+  @override
+  String get nextStepButtonLabel => 'Next Step';
+
+  @override
+  String get lastStepButtonLabel => 'Book';
+
+  @override
+  String get stepOneLabel => 'Fill in the general details';
+
+  @override
+  String get stepTwoLabel => 'Date';
+
+  @override
+  String get stepThreeLabel => 'Meeting Details';
 }

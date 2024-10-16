@@ -293,6 +293,7 @@ Map<String, PageBuilder> buildRoutingTable({
           child: Builder(builder: (context) {
             return CreateMeetingScreen(
               meetingRepository: meetingRepository,
+              userRepository: userRepository,
             );
           }),
         ),
@@ -447,7 +448,7 @@ class _PathConstants {
 
   static String get meetingsPath => '${tabContainerPath}meetings';
 
-  static String get createMeetingPath => '${meetingsPath}/create';
+  static String get createMeetingPath => '$meetingsPath/create';
 
   static String get searchMeetingsPath => '$meetingsPath/search';
 

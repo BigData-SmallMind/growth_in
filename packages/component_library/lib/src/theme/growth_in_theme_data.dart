@@ -17,6 +17,7 @@ abstract class GrowthInThemeData {
   final successTextColor = const Color(0xFF19B100);
 
   final errorColor = const Color(0xFFF56342);
+  final errorContainerColor = const Color(0xFFFFF0ED);
 
   final secondaryContainerBgColor = const Color(0xFFDCE3F6);
   final tertiaryContainerBgColor = const Color.fromRGBO(228, 240, 232, 0.44);

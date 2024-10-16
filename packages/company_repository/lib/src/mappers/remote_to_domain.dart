@@ -7,6 +7,7 @@ extension CompanyRMtoDM on CompanyRM {
       id: id,
       name: name,
       sector: sector,
+      isClosed: isClosed == 1,
       profileImage: profileImage,
       email: email,
     );

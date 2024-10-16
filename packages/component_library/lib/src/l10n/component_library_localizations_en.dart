@@ -309,4 +309,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get setMeetingDateButtonLabel => 'Set Date';
+
+  @override
+  String get companyClosedText => 'Closed';
 }

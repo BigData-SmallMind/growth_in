@@ -107,7 +107,8 @@
   "viewAllCommentsButtonLabel": "اظهر الكل",
   "noCommentsIndicatorText": "لا توجد تعليقات",
   "cancelMeetingButtonLabel": "إلغاء",
-  "setMeetingDateButtonLabel": "تحديد موعد"
+  "setMeetingDateButtonLabel": "تحديد موعد",
+  "companyClosedText": "مغلق"
 
 }
 

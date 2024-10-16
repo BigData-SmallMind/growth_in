@@ -180,46 +180,11 @@ class MeetingDetailsView extends StatelessWidget {
                         style: textTheme.bodyMedium,
                       ),
                     ],
-                    if (meeting.files != null) ...[
-                      SizedBox(
-                        height: 100,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final file = meeting.files![index];
-                            return InkWell(
-                              onTap: () => cubit.download(file),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(10),
-                                    width: 50,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: theme.borderColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Center(child: Text(file.extension)),
-                                  ),
-                                  SizedBox(
-                                    width: 60,
-                                    child: Center(
-                                      child: Text(
-                                        file.name,
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          itemCount: meeting.files!.length,
-                        ),
-                      )
-                    ],
+                    if (meeting.files != null)
+                      Files(
+                        files: meeting.files,
+                        onFileTapped: cubit.downloadFile,
+                      ),
                     if (meeting.summary != null) ...[
                       Text(
                         l10n.meetingSummarySectionTitle,
@@ -301,3 +266,4 @@ class MeetingDetailsView extends StatelessWidget {
     );
   }
 }
+

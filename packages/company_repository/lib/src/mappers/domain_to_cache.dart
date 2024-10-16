@@ -7,6 +7,7 @@ extension CompanyDMtoCM on Company {
       id: id,
       name: name,
       sector: sector,
+      isClosed: isClosed,
       isSelected: isSelected,
       profileImage: profileImage,
       email: email,

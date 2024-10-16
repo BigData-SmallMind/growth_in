@@ -8,6 +8,7 @@ class CompanyCM {
     required this.id,
     required this.name,
     required this.sector,
+    required this.isClosed,
     required this.isSelected,
     this.profileImage,
     required this.email,
@@ -18,6 +19,8 @@ class CompanyCM {
   @HiveField(1)
   final String name;
   @HiveField(2)
+  final bool isClosed;
+  @HiveField(3)
   final String sector;
   @HiveField(4)
   final bool isSelected;

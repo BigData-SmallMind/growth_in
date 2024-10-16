@@ -24,15 +24,19 @@ class CompanyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final theme = GrowthInTheme.of(context);
+    final l10n = ComponentLibraryLocalizations.of(context);
     //assert that either onCompanySelected or onTap is not null
     assert(onCompanySelected != null || onTap != null,
         'onCompanySelected or onTap must be provided');
     return ListTile(
       enabled: !isSubmissionInProgress,
-      selected: company.isSelected,
+      selected: company.isSelected && !company.isClosed,
       selectedTileColor: theme.tertiaryContainerBgColor,
+      tileColor: company.isClosed ? theme.errorContainerColor : null,
       contentPadding: const EdgeInsets.symmetric(
-          vertical: Spacing.small, horizontal: Spacing.medium),
+        vertical: Spacing.small,
+        horizontal: Spacing.medium,
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +78,16 @@ class CompanyTile extends StatelessWidget {
                 color: theme.dimmedTextColor,
               ),
             ),
-          ]
+          ],
+          if (company.isClosed) ...[
+            VerticalGap.small(),
+            Text(
+              l10n.companyClosedText,
+              style: textTheme.bodySmall?.copyWith(
+                color: theme.errorColor,
+              ),
+            ),
+          ],
         ],
       ),
       leading: ProfileImage(
@@ -90,8 +103,9 @@ class CompanyTile extends StatelessWidget {
                       child: const CircularProgressIndicator(),
                     )
                   : null),
-      onTap: onTap ?? () => onCompanySelected!(company),
+      onTap: company.isClosed
+          ? null
+          : (onTap ?? () => onCompanySelected!(company)),
     );
   }
 }
-

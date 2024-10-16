@@ -704,6 +704,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Set Date'**
   String get setMeetingDateButtonLabel;
+
+  /// No description provided for @companyClosedText.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get companyClosedText;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

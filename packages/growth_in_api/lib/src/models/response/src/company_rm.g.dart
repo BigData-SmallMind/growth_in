@@ -14,6 +14,7 @@ CompanyRM _$CompanyRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           name: $checkedConvert('company_name', (v) => v as String),
           sector: $checkedConvert('company_sector', (v) => v as String),
+          isClosed: $checkedConvert('is_closed', (v) => (v as num).toInt()),
           profileImage: $checkedConvert('profile_image', (v) => v as String?),
           email: $checkedConvert('email', (v) => v as String?),
         );
@@ -22,6 +23,7 @@ CompanyRM _$CompanyRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       fieldKeyMap: const {
         'name': 'company_name',
         'sector': 'company_sector',
+        'isClosed': 'is_closed',
         'profileImage': 'profile_image'
       },
     );
