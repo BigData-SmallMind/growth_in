@@ -2,7 +2,7 @@ import 'tickets_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class TicketsLocalizationsAr extends TicketsLocalizations {
-  TicketsLocalizationsAr([String locale = 'ar']) : super(locale);
+  TicketsLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get appBarTitle => 'الدعم و المساعده';

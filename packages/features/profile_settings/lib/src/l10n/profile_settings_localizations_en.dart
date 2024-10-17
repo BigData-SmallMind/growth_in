@@ -2,7 +2,7 @@ import 'profile_settings_localizations.dart';
 
 /// The translations for English (`en`).
 class ProfileSettingsLocalizationsEn extends ProfileSettingsLocalizations {
-  ProfileSettingsLocalizationsEn([String locale = 'en']) : super(locale);
+  ProfileSettingsLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Account Settings';

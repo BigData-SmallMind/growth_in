@@ -78,14 +78,23 @@ class UrlBuilder {
   }
 
   String buildVerifyOtpUrl(String email, String otp) {
-    return '$_baseUrl/forget_email_verification?email=$email&otp=$otp';
+    final emailQuery = '?email=$email';
+    final otpQuery = '&otp=$otp';
+    final cgiParams = '$emailQuery'
+        '$otpQuery';
+    return '$_baseUrl/forget_email_verification$cgiParams';
   }
 
   String buildResetPasswordUrl(
     String newPassword,
     String newPasswordConfirmation,
   ) {
-    return '$_baseUrl/reset_password?new_password=$newPassword&new_password_confirmation=$newPasswordConfirmation';
+    final newPasswordQuery = '?new_password=$newPassword';
+    final newPasswordConfirmationQuery =
+        '&new_password_confirmation=$newPasswordConfirmation';
+    final cgiParams = '$newPasswordQuery'
+        '$newPasswordConfirmationQuery';
+    return '$_baseUrl/reset_password$cgiParams';
   }
 
   String buildGetRequestsUrl({
@@ -200,16 +209,29 @@ class UrlBuilder {
   }) {
     final meetingPlanSlug =
         description != null ? '&meeting_plan=$description' : '';
-    final meetingTitleSlug = '&meeting_title=$title';
-    final meetingTypeSlug = '&meeting_type=$type';
-    final meetingDateSlug = '&meeting_date=$startDate';
+    final titleSlug = '&meeting_title=$title';
+    final typeSlug = '&meeting_type=$type';
+    final dateSlug = '&meeting_date=$startDate';
     final userIdSlug = '&user_id=$userId';
     final completeUrl = '$_baseUrl/meetings?'
-        '$meetingTitleSlug'
+        '$titleSlug'
         '$meetingPlanSlug'
-        '$meetingTypeSlug'
-        '$meetingDateSlug'
+        '$typeSlug'
+        '$dateSlug'
         '$userIdSlug';
     return completeUrl;
   }
+
+  String buildGetChatMessagesUrl() {
+    return '$_baseUrl/fetch-open-chat-messages';
+  }
+
+  String buildSendChatMessageUrl({required int companyId}) {
+    return '$_baseUrl/send-open-chat-messages/$companyId';
+  }
+
+  String buildGetFormsUrl() {
+    return '$_baseUrl/forms';
+  }
+
 }

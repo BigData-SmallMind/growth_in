@@ -3,17 +3,14 @@ import 'package:growth_in_api/growth_in_api.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 import 'package:request_repository/src/mappers/remote_to_domain.dart';
 import 'package:request_repository/src/request_change_notifier.dart';
-import 'package:request_repository/src/request_local_storage.dart';
 
 class RequestRepository {
   RequestRepository({
     required KeyValueStorage noSqlStorage,
     required this.remoteApi,
-  })  : changeNotifier = RequestChangeNotifier(),
-        _localStorage = RequestLocalStorage(noSqlStorage: noSqlStorage);
+  }) : changeNotifier = RequestChangeNotifier();
 
   final GrowthInApi remoteApi;
-  final RequestLocalStorage _localStorage;
   final RequestChangeNotifier changeNotifier;
 
   Future<List<Project>> getProjects() async {
@@ -94,8 +91,9 @@ class RequestRepository {
       final request = await remoteApi.requests.getRequest(id);
       final requestHasActions =
           request.actions != null && request.actions!.isNotEmpty;
-      final comments =
-          requestHasActions ? await remoteApi.requests.getComments(id, null) : null;
+      final comments = requestHasActions
+          ? await remoteApi.requests.getComments(id, null)
+          : null;
       final domainComments = comments?.toDomainModel() ?? [];
       final domainRequest = request.toDomainModel(domainComments);
       changeNotifier.setRequest(domainRequest);

@@ -2,7 +2,7 @@ import 'profile_info_localizations.dart';
 
 /// The translations for English (`en`).
 class ProfileInfoLocalizationsEn extends ProfileInfoLocalizations {
-  ProfileInfoLocalizationsEn([String locale = 'en']) : super(locale);
+  ProfileInfoLocalizationsEn([super.locale = 'en']);
 
   @override
   String get profileInfoTitle => 'My Account Information';

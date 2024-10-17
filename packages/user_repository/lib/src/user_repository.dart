@@ -421,7 +421,7 @@ class UserRepository {
     }
   }
 
-  Future createMessage({
+  Future createTicketMessage({
     required int ticketId,
     required String text,
     required File? file,
@@ -432,6 +432,88 @@ class UserRepository {
         text: text,
         file: file,
       );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<DateGroupedChats> getDateGroupedChats() async {
+    final user = await getUser().first;
+    final userSelectedCompanyId = user!.companies
+        .firstWhere(
+          (company) => company.isSelected,
+        )
+        .id;
+    try {
+      final dateGroupedChatsRM =
+          await remoteApi.openLineChatApi.getChatMessages();
+      final dateGroupedChats = dateGroupedChatsRM.toDomainModel();
+      final dateGroupedChatsDM = dateGroupedChats.copyWith(
+        list: dateGroupedChats.list
+            .map(
+              (chat) => chat.copyWith(
+                messages: chat.messages.map(
+                  (message) {
+                    final isSentByMe =
+                        message.sender.id == userSelectedCompanyId;
+                    return message.copyWith(
+                      isSentByMe: isSentByMe,
+                    );
+                  },
+                ).toList(),
+              ),
+            )
+            .toList(),
+      );
+      return dateGroupedChatsDM;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future sendChatMessage({
+    required String message,
+    List<File>? files,
+  }) async {
+    final user = await getUser().first;
+    final companyId = user!.companies
+        .firstWhere(
+          (company) => company.isSelected,
+        )
+        .id;
+    try {
+      await remoteApi.openLineChatApi.sendMessage(
+        companyId: companyId,
+        message: message,
+        files: files,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future initPusher() async {
+    await remoteApi.pusherApi.initPusher();
+  }
+
+  Future subscribeToChat() async {
+    final user = await getUser().first;
+    final userSelectedCompanyId = user!.companies
+        .firstWhere(
+          (company) => company.isSelected,
+        )
+        .id;
+    final chatSubscription = remoteApi.pusherApi.subscribeToChat(
+      companyId: userSelectedCompanyId,
+    );
+    return chatSubscription;
+  }
+
+  Future getForms() async {
+    try {
+      final formsRM = await remoteApi.formsApi.getForms();
+      final forms = formsRM.toDomainModel();
+      return forms;
     } catch (error) {
       rethrow;
     }

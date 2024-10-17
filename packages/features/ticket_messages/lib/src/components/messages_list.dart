@@ -110,4 +110,3 @@ class MessageCard extends StatelessWidget {
     );
   }
 }
-

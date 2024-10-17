@@ -8,6 +8,7 @@ export 'src/otp_verification.dart';
 export 'src/locale_preference.dart';
 export 'src/file_dm.dart';
 export 'src/request.dart';
+export 'src/chat_messages.dart';
 export 'src/meeting.dart';
 export 'src/comment.dart';
 export 'src/action.dart';

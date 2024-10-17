@@ -2,7 +2,7 @@ import 'create_meeting_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class CreateMeetingLocalizationsAr extends CreateMeetingLocalizations {
-  CreateMeetingLocalizationsAr([String locale = 'ar']) : super(locale);
+  CreateMeetingLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get descriptionTextFieldLabel => 'تفاصيل خطة الاجتماع';

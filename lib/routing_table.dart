@@ -2,6 +2,7 @@ import 'package:action/action.dart';
 import 'package:action_comments/action_comments.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
+import 'package:chat/chat.dart';
 import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:domain_models/domain_models.dart';
@@ -40,11 +41,16 @@ Map<String, PageBuilder> buildRoutingTable({
   required RequestRepository requestRepository,
   required MeetingRepository meetingRepository,
   required ValueNotifier<bool> signInSuccessVN,
+  required ValueNotifier<bool> isUserUnAuthSC,
 }) {
   routerDelegate.addListener(() {
     debugPrint('${routerDelegate.currentConfiguration?.path}');
   });
-
+  isUserUnAuthSC.addListener(() {
+    if (isUserUnAuthSC.value) {
+      signInSuccessVN.value = false;
+    }
+  });
   final meetingDetailsScreen = Builder(builder: (context) {
     return MeetingDetailsScreen(
       meetingRepository: meetingRepository,
@@ -90,7 +96,7 @@ Map<String, PageBuilder> buildRoutingTable({
           paths: [
             _PathConstants.homePath,
             _PathConstants.homePath,
-            _PathConstants.homePath,
+            _PathConstants.chatPath,
             _PathConstants.homePath,
             _PathConstants.morePath,
           ],
@@ -120,6 +126,12 @@ Map<String, PageBuilder> buildRoutingTable({
           child: HomeScreen(
             userRepository: userRepository,
             onLogout: () => signInSuccessVN.value = false,
+          ),
+        ),
+    _PathConstants.chatPath: (_) => MaterialPage(
+          name: 'chat',
+          child: ChatScreen(
+            userRepository: userRepository,
           ),
         ),
     _PathConstants.morePath: (_) => MaterialPage(
@@ -441,6 +453,8 @@ class _PathConstants {
   static String get tabContainerPath => '/';
 
   static String get homePath => '${tabContainerPath}home';
+
+  static String get chatPath => '${tabContainerPath}chat';
 
   static String get morePath => '${tabContainerPath}more';
 

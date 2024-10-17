@@ -2,7 +2,7 @@ import 'delete_meeting_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class DeleteMeetingLocalizationsAr extends DeleteMeetingLocalizations {
-  DeleteMeetingLocalizationsAr([String locale = 'ar']) : super(locale);
+  DeleteMeetingLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get otherReasonTextFieldHint => 'اكتب السبب هنا';

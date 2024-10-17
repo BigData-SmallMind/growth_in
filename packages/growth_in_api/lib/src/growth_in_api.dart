@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
 import 'package:growth_in_api/growth_in_api.dart';
+import 'package:growth_in_api/src/forms_api.dart';
 import 'package:growth_in_api/src/meetings_api.dart';
+import 'package:growth_in_api/src/pusher_api.dart';
 
 typedef TokenSupplier = Future<String?> Function();
 
@@ -17,7 +19,10 @@ class GrowthInApi {
     required this.urlBuilder,
   })  : auth = AuthApi(dio, urlBuilder),
         requests = RequestsApi(dio, urlBuilder),
-        meetings = MeetingsApi(dio, urlBuilder) {
+        meetings = MeetingsApi(dio, urlBuilder),
+        openLineChatApi = OpenLineChatApi(dio, urlBuilder),
+        formsApi = FormsApi(dio, urlBuilder),
+        pusherApi = PusherApi() {
     dio.setUpAuthHeaders(
       userTokenSupplier: userTokenSupplier,
       otpVerificationTokenSupplier: otpVerificationTokenSupplier,
@@ -37,7 +42,7 @@ class GrowthInApi {
     );
   }
 
-  // final FirebaseMessaging _firebaseMessaging;
+// final FirebaseMessaging _firebaseMessaging;
   final Dio dio;
   final ValueNotifier<bool> isUserUnAuthenticatedVN;
   final ValueNotifier internetConnectionErrorVN;
@@ -45,6 +50,9 @@ class GrowthInApi {
   final AuthApi auth;
   final RequestsApi requests;
   final MeetingsApi meetings;
+  final OpenLineChatApi openLineChatApi;
+  final FormsApi formsApi;
+  final PusherApi pusherApi;
 }
 
 extension on Dio {

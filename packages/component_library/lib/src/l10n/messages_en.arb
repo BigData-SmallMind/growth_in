@@ -110,7 +110,8 @@
   "setMeetingDateButtonLabel": "Set Date",
   "companyClosedText": "Closed",
   "timeSlotsSectionTitle": "Time Slots",
-  "noSlotsAvailableIndicatorText": "No slots available"
+  "noSlotsAvailableIndicatorText": "No slots available",
+  "unAuthSnackBarErrorMessage": "You must login first"
 
 
 }

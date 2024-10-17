@@ -2,7 +2,7 @@ import 'schedule_meeting_localizations.dart';
 
 /// The translations for English (`en`).
 class ScheduleMeetingLocalizationsEn extends ScheduleMeetingLocalizations {
-  ScheduleMeetingLocalizationsEn([String locale = 'en']) : super(locale);
+  ScheduleMeetingLocalizationsEn([super.locale = 'en']);
 
   @override
   String get timeSlotsSectionTitle => 'Time Slots';

@@ -2,7 +2,7 @@ import 'delete_meeting_localizations.dart';
 
 /// The translations for English (`en`).
 class DeleteMeetingLocalizationsEn extends DeleteMeetingLocalizations {
-  DeleteMeetingLocalizationsEn([String locale = 'en']) : super(locale);
+  DeleteMeetingLocalizationsEn([super.locale = 'en']);
 
   @override
   String get otherReasonTextFieldHint => 'Type the reason here';

@@ -722,6 +722,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'No slots available'**
   String get noSlotsAvailableIndicatorText;
+
+  /// No description provided for @unAuthSnackBarErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You must login first'**
+  String get unAuthSnackBarErrorMessage;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

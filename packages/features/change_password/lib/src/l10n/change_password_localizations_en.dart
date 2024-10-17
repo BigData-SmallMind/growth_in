@@ -2,7 +2,7 @@ import 'change_password_localizations.dart';
 
 /// The translations for English (`en`).
 class ChangePasswordLocalizationsEn extends ChangePasswordLocalizations {
-  ChangePasswordLocalizationsEn([String locale = 'en']) : super(locale);
+  ChangePasswordLocalizationsEn([super.locale = 'en']);
 
   @override
   String get changePasswordSuccessMessage => 'Your password has been reset successfully';

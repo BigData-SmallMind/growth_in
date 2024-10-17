@@ -2,7 +2,7 @@ import 'meetings_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class MeetingsLocalizationsAr extends MeetingsLocalizations {
-  MeetingsLocalizationsAr([String locale = 'ar']) : super(locale);
+  MeetingsLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get meetingRequestsSectionTitle => 'طلبات الاجتماع';

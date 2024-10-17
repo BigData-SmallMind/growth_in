@@ -3,6 +3,7 @@ import 'package:action_comments/action_comments.dart';
 import 'package:action/action.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
+import 'package:chat/chat.dart';
 import 'package:component_library/component_library.dart';
 import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
@@ -46,9 +47,9 @@ import 'package:verify_otp/verify_otp.dart';
 
 String? fontFamily;
 
-final ValueNotifier<bool> _isUserUnAuthSC = ValueNotifier(false);
+final ValueNotifier<bool> _isUserUnAuthVN = ValueNotifier(false);
 final ValueNotifier<InternetConnectionGrowthInException?>
-_internetConnectionErrorVN = ValueNotifier(null);
+    _internetConnectionErrorVN = ValueNotifier(null);
 final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
 final dynamic _connectInApi = GrowthInApi(
@@ -57,7 +58,7 @@ final dynamic _connectInApi = GrowthInApi(
   userTokenSupplier: () => _userRepository.getUserToken(),
   otpVerificationTokenSupplier: () =>
       _userRepository.getOtpVerificationTokenSupplierToken(),
-  isUserUnAuthenticatedVN: _isUserUnAuthSC,
+  isUserUnAuthenticatedVN: _isUserUnAuthVN,
   internetConnectionErrorVN: _internetConnectionErrorVN,
 );
 
@@ -105,10 +106,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _userRepository
-        .getUser()
-        .first
-        .then((user) {
+    _userRepository.getUser().first.then((user) {
       _signInSuccessVN.value = user?.id != null;
     });
     _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
@@ -121,10 +119,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
     super.didChangePlatformBrightness();
     // Get the brightness.
     setState(() {
-      _appBrightness = View
-          .of(context)
-          .platformDispatcher
-          .platformBrightness;
+      _appBrightness = View.of(context).platformDispatcher.platformBrightness;
     });
   }
 
@@ -143,6 +138,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
           requestRepository: _requestRepository,
           meetingRepository: _meetingRepository,
           signInSuccessVN: _signInSuccessVN,
+          isUserUnAuthSC: _isUserUnAuthVN,
         ),
       );
     },
@@ -171,17 +167,17 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
             // To control the system nav bar when it is changed
             // and when the widget first initializes
             value: _appBrightness == Brightness.dark ||
-                SchedulerBinding
-                    .instance.platformDispatcher.platformBrightness ==
-                    Brightness.dark
+                    SchedulerBinding
+                            .instance.platformDispatcher.platformBrightness ==
+                        Brightness.dark
                 ? SystemUiOverlayStyle.light.copyWith(
-              systemNavigationBarIconBrightness: Brightness.light,
-              systemNavigationBarColor: Colors.black,
-            )
+                    systemNavigationBarIconBrightness: Brightness.light,
+                    systemNavigationBarColor: Colors.black,
+                  )
                 : SystemUiOverlayStyle.light.copyWith(
-              systemNavigationBarIconBrightness: Brightness.dark,
-              systemNavigationBarColor: Colors.white,
-            ),
+                    systemNavigationBarIconBrightness: Brightness.dark,
+                    systemNavigationBarColor: Colors.white,
+                  ),
             child: MaterialApp.router(
               theme: _lightTheme.materialThemeData.copyWith(
                 textTheme: _lightTheme.materialThemeData.textTheme.apply(
@@ -197,7 +193,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
               builder: (context, child) {
                 return Directionality(
                   textDirection:
-                  isArabic ? TextDirection.rtl : TextDirection.ltr,
+                      isArabic ? TextDirection.rtl : TextDirection.ltr,
                   child: InternetErrorIndicator(
                     child: child!,
                   ),
@@ -211,6 +207,9 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 GlobalWidgetsLocalizations.delegate,
                 ComponentLibraryLocalizations.delegate,
                 TabContainerLocalizations.delegate,
+                MoreLocalizations.delegate,
+                HomeLocalizations.delegate,
+                ChatLocalizations.delegate,
 
                 // Authentication
                 SignInLocalizations.delegate,
@@ -219,8 +218,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 ResetPasswordLocalizations.delegate,
                 ChangePasswordLocalizations.delegate,
                 ChangeEmailLocalizations.delegate,
-                MoreLocalizations.delegate,
-                HomeLocalizations.delegate,
+
                 SwitchAccountCompanyLocalizations.delegate,
 
                 // Profile
@@ -278,11 +276,26 @@ class _InternetErrorIndicatorState extends State<InternetErrorIndicator> {
   void initState() {
     super.initState();
     _internetConnectionErrorVN.addListener(
-          () {
+      () {
         if (_internetConnectionErrorVN.value != null) {
           showSnackBar(
             context: context,
             snackBar: const InternetErrorSnackBar(),
+          );
+        }
+      },
+    );
+
+    _isUserUnAuthVN.addListener(
+      () {
+        if (_isUserUnAuthVN.value) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: ComponentLibraryLocalizations.of(context)
+                  .unAuthSnackBarErrorMessage,
+            ),
           );
         }
       },

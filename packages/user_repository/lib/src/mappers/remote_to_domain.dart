@@ -26,7 +26,6 @@ extension UserRMtoDM on UserRM {
 
 extension TicketRMtoDM on TicketRM {
   TicketStatus ticketStatusRMtoDM(String ticketStatus) {
-    // مفتوحة , محلولة , مغلقة
     switch (ticketStatus) {
       case 'مفتوحة':
         return TicketStatus.open;
@@ -85,5 +84,59 @@ extension TicketMessageRMtoDM on TicketMessageRM {
 extension TicketMessagesRMtoDM on List<TicketMessageRM> {
   List<TicketMessage> toDomainModel() {
     return map((ticketMessage) => ticketMessage.toDomainModel()).toList();
+  }
+}
+
+extension DateGroupedChatsRMtoDM on DateGroupedChatsRM {
+  DateGroupedChats toDomainModel() {
+    final chatsDM = chats.map((chat) => chat.toDomainModel()).toList();
+    return DateGroupedChats(
+      list: chatsDM,
+    );
+  }
+}
+
+extension ChatMessagesRMtoDM on ChatRM {
+  Chat toDomainModel() {
+    final messagesDM =
+        messages.map((message) => message.toDomainModel()).toList();
+    final dateDM = DateTime.parse(date);
+    return Chat(
+      date: dateDM,
+      messages: messagesDM,
+    );
+  }
+}
+
+extension ChatMessageRMtoDM on ChatMessageRM {
+  ChatMessage toDomainModel() {
+    final dateDM = DateTime.parse(date);
+    return ChatMessage(
+      id: id,
+      text: text,
+      files: files?.map((file) => file.toDomainModel()).toList(),
+      date: dateDM,
+      sender: sender.toDomainModel(),
+    );
+  }
+}
+
+extension SenderRMtoDM on SenderRM {
+  Sender toDomainModel() {
+    return Sender(
+      id: id,
+      name: name,
+      image: image,
+    );
+  }
+}
+
+extension FileRMtoDM on FileRM {
+  FileDM toDomainModel() {
+    return FileDM(
+      name: name,
+      extension: name.split('.').last,
+      size: size,
+    );
   }
 }

@@ -154,7 +154,7 @@ class CreateMeetingView extends StatelessWidget {
                                 if (state.title.value?.isNotEmpty == true)
                                   Text(
                                     state.title.value!,
-                                    style: textTheme.titleMedium,
+                                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                 if (state.description?.isNotEmpty == true) ...[
                                   VerticalGap.medium(),
@@ -179,7 +179,7 @@ class CreateMeetingView extends StatelessWidget {
                                         width: 100,
                                         child: Text(
                                           l10n.typeTextFieldLabel,
-                                          style: textTheme.titleSmall,
+                                          style: textTheme.titleSmall?.copyWith(color: const Color(0xFF797979)),
                                         ),
                                       ),
                                       Text(
@@ -196,7 +196,7 @@ class CreateMeetingView extends StatelessWidget {
                                         width: 100,
                                         child: Text(
                                           l10n.selectedSlotLabel,
-                                          style: textTheme.titleSmall,
+                                          style: textTheme.titleSmall?.copyWith(color: const Color(0xFF797979)),
                                         ),
                                       ),
                                       Text(
@@ -215,7 +215,7 @@ class CreateMeetingView extends StatelessWidget {
                                         width: 100,
                                         child: Text(
                                           l10n.selectedDayLabel,
-                                          style: textTheme.titleSmall,
+                                          style: textTheme.titleSmall?.copyWith(color: const Color(0xFF797979)),
                                         ),
                                       ),
                                       Text(

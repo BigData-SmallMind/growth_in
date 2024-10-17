@@ -113,6 +113,7 @@ class LightGrowthInThemeData extends GrowthInThemeData {
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(textFieldBorderRadius),
+            borderSide: BorderSide(color: borderColor),
           ),
           suffixIconColor: secondaryIconColor,
           border: OutlineInputBorder(
@@ -136,6 +137,7 @@ class LightGrowthInThemeData extends GrowthInThemeData {
               color: primaryColor,
             ),
           ),
+
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: primaryColor,

@@ -2,7 +2,7 @@ import 'create_meeting_localizations.dart';
 
 /// The translations for English (`en`).
 class CreateMeetingLocalizationsEn extends CreateMeetingLocalizations {
-  CreateMeetingLocalizationsEn([String locale = 'en']) : super(locale);
+  CreateMeetingLocalizationsEn([super.locale = 'en']);
 
   @override
   String get descriptionTextFieldLabel => 'Meeting Plan Details';

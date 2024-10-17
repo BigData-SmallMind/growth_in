@@ -110,7 +110,8 @@
   "setMeetingDateButtonLabel": "تحديد موعد",
   "companyClosedText": "مغلق",
   "timeSlotsSectionTitle": "اختر وقتًا للاجتماع",
-  "noSlotsAvailableIndicatorText": "لا توجد فترات زمنية متاحة"
+  "noSlotsAvailableIndicatorText": "لا توجد فترات زمنية متاحة",
+  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول"
 
 }
 

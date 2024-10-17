@@ -6,15 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class MeetingSlotPicker extends StatelessWidget {
-  const MeetingSlotPicker({
-    super.key,
-    required this.isLoadingSlots,
-    this.availableSlots,
-    required this.getAvailableSlots,
-    required this.selectedMeetingSlot,
-    required this.selectMeetingSlot,
-    required this.expandCalendar
-  });
+  const MeetingSlotPicker(
+      {super.key,
+      required this.isLoadingSlots,
+      this.availableSlots,
+      required this.getAvailableSlots,
+      required this.selectedMeetingSlot,
+      required this.selectMeetingSlot,
+      required this.expandCalendar});
 
   final bool isLoadingSlots;
   final List<MeetingSlot>? availableSlots;
@@ -22,6 +21,7 @@ class MeetingSlotPicker extends StatelessWidget {
   final MeetingSlot? selectedMeetingSlot;
   final void Function(MeetingSlot) selectMeetingSlot;
   final bool expandCalendar;
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = GrowthInTheme.of(context).materialThemeData.colorScheme;
@@ -50,9 +50,39 @@ class MeetingSlotPicker extends StatelessWidget {
         VerticalGap.medium(),
         Text(l10n.timeSlotsSectionTitle),
         VerticalGap.medium(),
-        if(expandCalendar)
-        Expanded(
-          child: isLoadingSlots
+        if (expandCalendar)
+          Expanded(
+            child: isLoadingSlots
+                ? const CenteredCircularProgressIndicator()
+                : availableSlots?.isNotEmpty == true
+                    ? GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: Spacing.medium,
+                          mainAxisSpacing: Spacing.medium,
+                          mainAxisExtent: 50,
+                        ),
+                        itemCount: availableSlots!.length,
+                        itemBuilder: (context, index) {
+                          final meetingSlot = availableSlots![index];
+                          return MeetingSlotWidget(
+                            meetingSlot: meetingSlot,
+                            selectedMeetingSlot: selectedMeetingSlot,
+                            selectMeetingSlot: selectMeetingSlot,
+                          );
+                        },
+                      )
+                    : Center(
+                        child: Text(
+                          l10n.noSlotsAvailableIndicatorText,
+                          style: textTheme.titleLarge,
+                        ),
+                      ),
+          ),
+        if (!expandCalendar)
+          isLoadingSlots
               ? const CenteredCircularProgressIndicator()
               : availableSlots?.isNotEmpty == true
                   ? GridView.builder(
@@ -80,37 +110,6 @@ class MeetingSlotPicker extends StatelessWidget {
                         style: textTheme.titleLarge,
                       ),
                     ),
-        ),
-        if(!expandCalendar)
-        isLoadingSlots
-            ? const CenteredCircularProgressIndicator()
-            : availableSlots?.isNotEmpty == true
-            ? GridView.builder(
-          shrinkWrap: true,
-          gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: Spacing.medium,
-            mainAxisSpacing: Spacing.medium,
-            mainAxisExtent: 50,
-          ),
-          itemCount: availableSlots!.length,
-          itemBuilder: (context, index) {
-            final meetingSlot = availableSlots![index];
-            return MeetingSlotWidget(
-              meetingSlot: meetingSlot,
-              selectedMeetingSlot: selectedMeetingSlot,
-              selectMeetingSlot: selectMeetingSlot,
-            );
-          },
-        )
-            : Center(
-          child: Text(
-            l10n.noSlotsAvailableIndicatorText,
-            style: textTheme.titleLarge,
-          ),
-        ),
-
         VerticalGap.medium(),
       ],
     );
@@ -137,11 +136,12 @@ class MeetingSlotWidget extends StatelessWidget {
     final startTime = outputFormat.format(meetingSlot.start);
     final endTime = outputFormat.format(meetingSlot.end);
     final isSelected = selectedMeetingSlot == meetingSlot;
+    final textTheme = Theme.of(context).textTheme;
     return InkWell(
       onTap: () => selectMeetingSlot(meetingSlot),
       child: Container(
         decoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: isSelected ? colorScheme.secondary : colorScheme.surface,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: isSelected ? theme.primaryColor : theme.borderColor,
@@ -150,7 +150,12 @@ class MeetingSlotWidget extends StatelessWidget {
         child: Center(
           child: Directionality(
               textDirection: TextDirection.ltr,
-              child: Text('$startTime - $endTime')),
+              child: Text(
+                '$startTime - $endTime',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: isSelected ? colorScheme.surface : null,
+                ),
+              )),
         ),
       ),
     );

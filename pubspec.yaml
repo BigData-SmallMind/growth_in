@@ -39,6 +39,8 @@ dependencies:
     path: packages/features/tab_container
   home:
     path: packages/features/home
+  chat:
+    path: packages/features/chat
   more:
     path: packages/features/more
 

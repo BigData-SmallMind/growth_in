@@ -114,7 +114,7 @@ class TicketMessagesCubit extends Cubit<TicketMessagesState> {
     );
     emit(newState);
     try {
-      await userRepository.createMessage(
+      await userRepository.createTicketMessage(
         ticketId: state.ticket!.id,
         text: state.message!,
         file: state.file,

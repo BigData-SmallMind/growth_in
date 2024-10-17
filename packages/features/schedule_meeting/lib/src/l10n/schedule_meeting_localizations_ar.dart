@@ -2,7 +2,7 @@ import 'schedule_meeting_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ScheduleMeetingLocalizationsAr extends ScheduleMeetingLocalizations {
-  ScheduleMeetingLocalizationsAr([String locale = 'ar']) : super(locale);
+  ScheduleMeetingLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get timeSlotsSectionTitle => 'اختر وقتًا للاجتماع';

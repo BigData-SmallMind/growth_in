@@ -6,17 +6,14 @@ import 'package:key_value_storage/key_value_storage.dart';
 import 'package:meeting_repository/src/mappers/domain_to_remote.dart';
 import 'package:meeting_repository/src/mappers/mappers.dart';
 import 'package:meeting_repository/src/meeting_change_notifier.dart';
-import 'package:meeting_repository/src/meeting_local_storage.dart';
 
 class MeetingRepository {
   MeetingRepository({
     required KeyValueStorage noSqlStorage,
     required this.remoteApi,
-  })  : changeNotifier = MeetingChangeNotifier(),
-        _localStorage = MeetingLocalStorage(noSqlStorage: noSqlStorage);
+  }) : changeNotifier = MeetingChangeNotifier();
 
   final GrowthInApi remoteApi;
-  final MeetingLocalStorage _localStorage;
   final MeetingChangeNotifier changeNotifier;
 
   Future<Meetings> getMeetings() async {

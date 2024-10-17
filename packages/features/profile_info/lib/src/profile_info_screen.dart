@@ -134,6 +134,8 @@ class Info extends StatelessWidget {
             Text(l10n.fullNameFieldLabel),
             VerticalGap.small(),
             TextFormField(
+              enabled: false,
+
               initialValue: state.user!.name,
               style: const TextStyle(color: Color(0xFFADADAD)),
               decoration: const InputDecoration(
@@ -157,6 +159,8 @@ class Info extends StatelessWidget {
                       child: Stack(
                         children: [
                           TextFormField(
+                            enabled: false,
+
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: 0,
@@ -188,6 +192,7 @@ class Info extends StatelessWidget {
                       Text(l10n.phoneNumberFieldLabel),
                       VerticalGap.small(),
                       TextFormField(
+                        enabled: false,
                         initialValue: state.user!.phone,
                         textDirection: TextDirection.ltr,
                         textAlign: TextAlign.end,
@@ -208,6 +213,7 @@ class Info extends StatelessWidget {
             Text(l10n.companyNameFieldLabel),
             VerticalGap.small(),
             TextFormField(
+              enabled: false,
               initialValue: selectedCompany!.name,
               style: const TextStyle(color: Color(0xFFADADAD)),
               decoration: const InputDecoration(

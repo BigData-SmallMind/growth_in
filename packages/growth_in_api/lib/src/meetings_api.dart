@@ -110,13 +110,6 @@ class MeetingsApi {
       description: description,
     );
     final now = DateTime.now().toIso8601String();
-    // final multipartFiles = files?.map((file) async {
-    //   final fileExtension = file.path.split('.').last;
-    //   return await MultipartFile.fromFile(
-    //     file.path,
-    //     filename: 'MEETING_FILES_$now.$fileExtension',
-    //   );
-    // });
     List<MultipartFile> multipartFiles = [];
     if (files != null) {
       for (var file in files) {
