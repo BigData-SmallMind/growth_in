@@ -93,18 +93,6 @@ abstract class ScheduleMeetingLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @timeSlotsSectionTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Time Slots'**
-  String get timeSlotsSectionTitle;
-
-  /// No description provided for @noSlotsAvailableIndicatorText.
-  ///
-  /// In en, this message translates to:
-  /// **'No slots available'**
-  String get noSlotsAvailableIndicatorText;
-
   /// No description provided for @schedulingInProgressButtonLabel.
   ///
   /// In en, this message translates to:

@@ -80,16 +80,3 @@ StepRM _$StepRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       },
       fieldKeyMap: const {'id': 'content_id', 'isCompleted': 'is_completed'},
     );
-
-ServiceRM _$ServiceRMFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'ServiceRM',
-      json,
-      ($checkedConvert) {
-        final val = ServiceRM(
-          id: $checkedConvert('id', (v) => (v as num).toInt()),
-          name: $checkedConvert('service_name', (v) => v as String),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'name': 'service_name'},
-    );

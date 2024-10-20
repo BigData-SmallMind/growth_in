@@ -7,6 +7,7 @@ import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
+import 'package:forms/forms.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:home/home.dart';
 import 'package:meeting_details/meeting_details.dart';
@@ -153,6 +154,7 @@ Map<String, PageBuilder> buildRoutingTable({
                   routerDelegate.push(_PathConstants.profileSettingsPath),
               onRequestsTapped: () =>
                   routerDelegate.push(_PathConstants.requestsPath),
+              onFormsTapped: () => routerDelegate.push(_PathConstants.formsPath),
               onMeetingsTapped: () =>
                   routerDelegate.push(_PathConstants.meetingsPath),
               onHelpAndSupportTapped: () =>
@@ -254,6 +256,16 @@ Map<String, PageBuilder> buildRoutingTable({
             actionId: int.parse(
               info.pathParameters[_PathConstants.actionIdPathParameter] ?? '',
             ),
+          ),
+        ),
+    _PathConstants.formsPath: (_) => MaterialPage(
+          name: 'forms',
+          child: Builder(
+            builder: (context) {
+              return FormsScreen(
+                userRepository: userRepository,
+              );
+            },
           ),
         ),
     _PathConstants.meetingsPath: (_) => MaterialPage(
@@ -459,6 +471,8 @@ class _PathConstants {
   static String get morePath => '${tabContainerPath}more';
 
   static String get requestsPath => '${tabContainerPath}requests';
+
+  static String get formsPath => '${tabContainerPath}forms';
 
   static String get meetingsPath => '${tabContainerPath}meetings';
 

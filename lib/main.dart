@@ -15,6 +15,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:forms/forms.dart';
 import 'package:growth_in/firebase_options.dart';
 import 'package:growth_in/routing_table.dart';
 import 'package:growth_in_api/growth_in_api.dart';
@@ -218,7 +219,6 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 ResetPasswordLocalizations.delegate,
                 ChangePasswordLocalizations.delegate,
                 ChangeEmailLocalizations.delegate,
-
                 SwitchAccountCompanyLocalizations.delegate,
 
                 // Profile
@@ -243,6 +243,9 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 DeleteMeetingLocalizations.delegate,
                 ScheduleMeetingLocalizations.delegate,
                 CreateMeetingLocalizations.delegate,
+
+                // Forms
+                FormsLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

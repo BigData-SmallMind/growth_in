@@ -5,6 +5,7 @@ export 'src/bottom_sheets/bottom_sheets.dart';
 export 'src/assets/assets.dart';
 export 'src/nav_bar_tab.dart';
 export 'src/profile_image.dart';
+export 'src/form_questions/form_questions.dart';
 export 'src/indicators/indicators.dart';
 export 'src/gap/gap.dart';
 export 'src/row_builder.dart';

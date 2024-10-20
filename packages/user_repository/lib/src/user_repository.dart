@@ -509,11 +509,21 @@ class UserRepository {
     return chatSubscription;
   }
 
-  Future getForms() async {
+  Future<FormsDM> getForms() async {
     try {
       final formsRM = await remoteApi.formsApi.getForms();
       final forms = formsRM.toDomainModel();
       return forms;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<FormsSections> getFormSections(int formId) async {
+    try {
+      final formSectionsRM = await remoteApi.formsApi.getFormSections(formId);
+      final formSections = formSectionsRM.toDomainModel();
+      return formSections;
     } catch (error) {
       rethrow;
     }

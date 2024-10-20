@@ -4,6 +4,7 @@ export 'src/dynamic.dart';
 export 'src/otp_code.dart';
 export 'src/domain.dart';
 export 'src/email.dart';
+export 'src/form_question.dart';
 export 'src/password.dart';
 export 'src/password_confirmation.dart';
 export 'src/email_confirmation.dart';

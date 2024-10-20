@@ -5,12 +5,6 @@ class ScheduleMeetingLocalizationsEn extends ScheduleMeetingLocalizations {
   ScheduleMeetingLocalizationsEn([super.locale = 'en']);
 
   @override
-  String get timeSlotsSectionTitle => 'Time Slots';
-
-  @override
-  String get noSlotsAvailableIndicatorText => 'No slots available';
-
-  @override
   String get schedulingInProgressButtonLabel => 'Confirming...';
 
   @override

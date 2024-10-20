@@ -111,7 +111,9 @@
   "companyClosedText": "مغلق",
   "timeSlotsSectionTitle": "اختر وقتًا للاجتماع",
   "noSlotsAvailableIndicatorText": "لا توجد فترات زمنية متاحة",
-  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول"
+  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول",
+  "essayQuestionTextFieldLabel": "أضف إجابتك هنا..",
+  "requiredFieldErrorMessage": "مطلوب *"
 
 }
 

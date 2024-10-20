@@ -7,6 +7,7 @@ export 'src/ticket_message.dart';
 export 'src/otp_verification.dart';
 export 'src/locale_preference.dart';
 export 'src/file_dm.dart';
+export 'src/forms_sections.dart';
 export 'src/request.dart';
 export 'src/chat_messages.dart';
 export 'src/meeting.dart';
@@ -15,4 +16,5 @@ export 'src/action.dart';
 export 'src/project.dart';
 export 'src/filter_by.dart';
 export 'src/request_status.dart';
+export 'src/forms.dart';
 

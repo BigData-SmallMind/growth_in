@@ -111,7 +111,9 @@
   "companyClosedText": "Closed",
   "timeSlotsSectionTitle": "Time Slots",
   "noSlotsAvailableIndicatorText": "No slots available",
-  "unAuthSnackBarErrorMessage": "You must login first"
+  "unAuthSnackBarErrorMessage": "You must login first",
+  "essayQuestionTextFieldLabel": "Add your answer here..",
+  "requiredFieldErrorMessage": "Required*"
 
 
 }

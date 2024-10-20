@@ -15,7 +15,6 @@ class MessagesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        final theme = GrowthInTheme.of(context);
         final loading = state.fetchingStatus == ChatFetchingStatus.inProgress;
         final error = state.fetchingStatus == ChatFetchingStatus.failure;
         final textTheme = Theme.of(context).textTheme;

@@ -1,0 +1,8 @@
+{
+  "appBarTitle": "النماذج",
+  "waitingToCompleteFormText": "نحن في إنتظار إكمالك النموذج لبدأ العمل",
+  "incompleteFormsSectionTitle": "النماذج الغير مكتملة",
+  "previousFormsSectionTitle": "النماذج المكتملة",
+  "noFormsErrorMessage": "لا توجد نماذج",
+  "noFormsErrorTitle": "لا توجد نماذج"
+}

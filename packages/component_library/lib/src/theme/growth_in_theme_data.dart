@@ -11,7 +11,6 @@ abstract class GrowthInThemeData {
   final secondaryColor = const Color(0xFF1A877E);
   final tertiaryColor = const Color(0xFF08B295);
 
-
   final successContainerColor = const Color(0xFFE3FFEC);
   final successOnContainerColor = const Color(0xFF19B100);
   final successTextColor = const Color(0xFF19B100);
@@ -24,6 +23,7 @@ abstract class GrowthInThemeData {
   final borderColor = const Color(0xFFD9D9D9);
   final dimmedTextColor = const Color(0xFF5A5D66);
   final secondaryIconColor = const Color(0xFF8B8B8B);
+  final  questionDescriptionColor = const Color(0xFF797979);
 
   final screenMargin = Spacing.mediumLarge;
   final listViewVerticalSpacing = Spacing.medium;
@@ -50,12 +50,12 @@ abstract class GrowthInThemeData {
     fontWeight: FontWeight.w500,
     color: const Color(0xFF1F1F1F).withOpacity(0.5),
   );
+
 }
 
 class LightGrowthInThemeData extends GrowthInThemeData {
   @override
   ThemeData get materialThemeData => ThemeData(
-
         textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(
@@ -93,7 +93,6 @@ class LightGrowthInThemeData extends GrowthInThemeData {
           error: errorColor,
           errorContainer: const Color(0xFFFFF0ED),
         ),
-
         tabBarTheme: const TabBarTheme(
           unselectedLabelColor: Color(0xFFC3C5C8),
           labelColor: Colors.white,
@@ -103,9 +102,7 @@ class LightGrowthInThemeData extends GrowthInThemeData {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-
         inputDecorationTheme: InputDecorationTheme(
-
           hintStyle: hintStyle,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: Spacing.medium,
@@ -137,7 +134,6 @@ class LightGrowthInThemeData extends GrowthInThemeData {
               color: primaryColor,
             ),
           ),
-
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: primaryColor,

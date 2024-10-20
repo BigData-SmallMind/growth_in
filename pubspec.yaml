@@ -30,7 +30,6 @@ dependencies:
     path: packages/company_repository
   meeting_repository:
     path: packages/meeting_repository
-
   function_and_extension_library:
     path: packages/function_and_extension_library
 
@@ -102,6 +101,10 @@ dependencies:
     path: packages/features/schedule_meeting
   create_meeting:
     path: packages/features/create_meeting
+
+  # Forms
+  forms:
+    path: packages/features/forms
 
   # Domain Models and Component Library
   domain_models:

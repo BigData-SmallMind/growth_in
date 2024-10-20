@@ -1,0 +1,9 @@
+{
+  "appBarTitle": "Forms",
+  "waitingToCompleteFormText": "We are waiting for you to complete the form to start working",
+  "incompleteFormsSectionTitle": "Incomplete Forms",
+  "previousFormsSectionTitle": "Previous Forms",
+  "noFormsErrorMessage": "No forms found",
+  "noFormsErrorTitle": "No forms"
+
+}

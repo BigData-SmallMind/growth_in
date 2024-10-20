@@ -140,3 +140,108 @@ extension FileRMtoDM on FileRM {
     );
   }
 }
+
+extension FormsRMtoDM on FormsRM {
+  FormsDM toDomainModel() {
+    return FormsDM(
+      list: list.map((form) => form.toDomainModel()).toList(),
+      previous: previous.map((form) => form.toDomainModel()).toList(),
+    );
+  }
+}
+
+extension FormRMtoDM on FormRM {
+  FormDM toDomainModel() {
+    return FormDM(
+      id: id,
+      name: name,
+      status: status,
+      totalQuestions: totalQuestions,
+      totalAnsweredQuestions: totalAnsweredQuestions,
+      services: services.map((service) => service.toDomainModel()).toList(),
+    );
+  }
+}
+
+extension ServiceRMtoDM on ServiceRM {
+  ServiceDM toDomainModel() {
+    return ServiceDM(
+      id: id,
+      name: name,
+    );
+  }
+}
+
+extension FormsSectionsRMtoDM on FormsSectionsRM {
+  FormsSections toDomainModel() {
+    final sectionsDM =
+        sections.map((section) => section.toDomainModel()).toList();
+    return FormsSections(
+      id: id,
+      list: sectionsDM,
+      isCompleted: isCompleted,
+      formName: formName,
+      serviceName: serviceName,
+    );
+  }
+}
+
+extension FormSectionRMtoDM on FormSectionRM {
+  FormSection toDomainModel() {
+    final questionsDM =
+        questions.map((question) => question.toDomainModel()).toList();
+    return FormSection(
+      id: id,
+      name: name,
+      questions: questionsDM,
+    );
+  }
+}
+
+extension QuestionRMtoDM on QuestionRM {
+  QuestionType questionTypeRMtoDM(String questionType) {
+    switch (questionType) {
+      case 'اجوبة طويلة':
+        return QuestionType.longEssay;
+      case 'اجوبة قصيرة':
+        return QuestionType.essay;
+      case 'مقياس خطي':
+        return QuestionType.slider;
+      case 'الاسئلة متعددة الاختيارات':
+        return QuestionType.multipleChoice;
+      case 'قائمة منسدلة':
+        return QuestionType.dropdown;
+      case 'رفع ملف':
+        return QuestionType.fileUpload;
+      case 'تعدد اختيار الصور':
+        return QuestionType.multipleImageChoice;
+      case 'تاريخ/ساعة':
+        return QuestionType.datetime;
+      case 'سؤال صور مع اجوبة':
+        return QuestionType.imageQuestion;
+      default:
+        throw Exception('Unknown question type');
+    }
+  }
+
+  Question toDomainModel() {
+    return Question(
+      id: id,
+      text: text,
+      description: description,
+      type: questionTypeRMtoDM(type),
+      allowMultipleAnswers: allowMultipleAnswers,
+      allowAnotherAnswer: allowAnotherAnswer,
+      answer: answer,
+      anotherAnswer: anotherAnswer,
+      allowDate: allowDate,
+      allowTime: allowTime,
+      isTimeRange: isTimeRange,
+      choices: choices,
+      imageChoices: imageChoices,
+      sliderMin: sliderMin,
+      sliderMax: sliderMax,
+      isRequired: isRequired,
+    );
+  }
+}

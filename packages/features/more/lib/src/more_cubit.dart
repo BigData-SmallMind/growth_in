@@ -12,6 +12,7 @@ class MoreCubit extends Cubit<MoreState> {
     required this.onCompanyTileTap,
     required this.onLogout,
     required this.onRequestsTapped,
+    required this.onFormsTapped,
     required this.onMeetingsTapped,
     required this.onHelpAndSupportTapped,
     required this.onProfileSettingsTapped,
@@ -28,6 +29,7 @@ class MoreCubit extends Cubit<MoreState> {
   final VoidCallback onCompanyTileTap;
   final VoidCallback onLogout;
   final VoidCallback onRequestsTapped;
+  final VoidCallback onFormsTapped;
   final VoidCallback onMeetingsTapped;
   final VoidCallback onHelpAndSupportTapped;
   final VoidCallback onProfileSettingsTapped;

@@ -370,6 +370,13 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  forms:
+    dependency: "direct main"
+    description:
+      path: "packages/features/forms"
+      relative: true
+    source: path
+    version: "0.0.0"
   formz:
     dependency: transitive
     description:
