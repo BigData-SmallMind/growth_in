@@ -43,9 +43,8 @@ class _FileUploadQuestionState extends State<FileUploadQuestion> {
           )
           .toList();
       files.addAll(filesDM);
+      widget.onChanged(newFiles);
       setState(() {});
-    } else {
-      // User canceled the picker
     }
   }
 
@@ -90,6 +89,7 @@ class _FileUploadQuestionState extends State<FileUploadQuestion> {
                 onTap: pickFiles,
                 child: const SvgAsset(
                   AssetPathConstants.pickFilesPath,
+                  height: 60,
                 ),
               ),
               HorizontalGap.large(),

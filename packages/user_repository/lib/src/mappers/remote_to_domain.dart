@@ -228,13 +228,15 @@ extension QuestionRMtoDM on QuestionRM {
     final isFileUploadQuestion =
         questionTypeRMtoDM(type) == QuestionType.fileUpload;
     final fileUploadAnswers = isFileUploadQuestion
-        ? (answer as List).map(
-            (answer) => FileDM(
-              name: answer['file_name'],
-              extension: answer['file_name'].split('.').last,
-              size: (answer['file_size'] as double).toInt(),
-            ),
-          ).toList()
+        ? (answer as List)
+            .map(
+              (answer) => FileDM(
+                name: answer['file_name'],
+                extension: answer['file_name'].split('.').last,
+                size: (answer['file_size'] as double).toInt(),
+              ),
+            )
+            .toList()
         : answer;
     return Question(
       id: id,
@@ -249,7 +251,6 @@ extension QuestionRMtoDM on QuestionRM {
       allowTime: allowTime,
       isTimeRange: isTimeRange,
       choices: imageChoices ?? choices,
-      imageChoices: imageChoices,
       sliderMin: sliderMin,
       sliderMax: sliderMax,
       isRequired: isRequired,

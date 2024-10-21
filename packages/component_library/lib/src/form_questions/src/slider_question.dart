@@ -63,6 +63,8 @@ class _SliderQuestionState extends State<SliderQuestion> {
           ),
           VerticalGap.medium(),
           Slider(
+
+            activeColor: theme.secondaryColor,
             secondaryActiveColor: theme.borderColor,
             secondaryTrackValue: widget.question.sliderMax!.toDouble(),
             min: widget.question.sliderMin!.toDouble(),

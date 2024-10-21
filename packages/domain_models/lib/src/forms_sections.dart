@@ -96,7 +96,6 @@ class Question {
     this.allowTime,
     this.isTimeRange,
     this.choices,
-    this.imageChoices,
     this.sliderMin,
     this.sliderMax,
     required this.isRequired,
@@ -115,7 +114,6 @@ class Question {
   final bool? allowTime;
   final bool? isTimeRange;
   final List<String>? choices;
-  final List<String>? imageChoices;
   final int? sliderMin;
   final int? sliderMax;
   final bool isRequired;
@@ -137,7 +135,6 @@ class Question {
       allowTime: allowTime,
       isTimeRange: isTimeRange,
       choices: choices,
-      imageChoices: imageChoices,
       sliderMin: sliderMin,
       sliderMax: sliderMax,
       isRequired: isRequired,

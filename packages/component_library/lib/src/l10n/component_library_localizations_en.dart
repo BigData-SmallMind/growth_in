@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
+  ComponentLibraryLocalizationsEn([super.locale = 'en']);
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect email or password';
@@ -38,7 +38,8 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get emptyListIndicatorText => 'No items available';
 
   @override
-  String get generalExceptionMessage => 'An error occurred, please try again later';
+  String get generalExceptionMessage =>
+      'An error occurred, please try again later';
 
   @override
   String get tryAgainButtonLabel => 'Try Again';
@@ -215,7 +216,8 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get emailTaskTypeTileTitle => 'Email';
 
   @override
-  String get activeInactiveStatusSearchTextFieldLabel => 'Active/Inactive Status';
+  String get activeInactiveStatusSearchTextFieldLabel =>
+      'Active/Inactive Status';
 
   @override
   String get jobTitleBottomSheetTitle => 'Job Title';
@@ -257,7 +259,8 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get dealStageSearchTextFieldLabel => 'Deal Stage';
 
   @override
-  String get noInternetConnectionSnackBarErrorMessage => 'No internet connection. Please check your network settings.';
+  String get noInternetConnectionSnackBarErrorMessage =>
+      'No internet connection. Please check your network settings.';
 
   @override
   String get userExpiredSnackBarErrorMessage => 'Your membership has expired';
