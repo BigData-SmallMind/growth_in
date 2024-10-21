@@ -9,6 +9,9 @@ class UrlBuilder {
   static const String filesDownloadUrl =
       'https://laravel.growth-in.net/subgrowthin/public/files';
 
+  static const String imageDownloadUrl =
+      'https://laravel.growth-in.net/subgrowthin/public/images';
+
   static final UrlBuilder _instance = UrlBuilder._internal();
 
   factory UrlBuilder() {
@@ -233,8 +236,8 @@ class UrlBuilder {
   String buildGetFormsUrl() {
     return '$_baseUrl/forms';
   }
+
   String buildGetFormSectionsUrl(int companyId) {
     return '$_baseUrl/fetch-answers/$companyId';
   }
-
 }

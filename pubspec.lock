@@ -370,6 +370,13 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  form_section:
+    dependency: "direct main"
+    description:
+      path: "packages/features/form_section"
+      relative: true
+    source: path
+    version: "0.0.0"
   forms:
     dependency: "direct main"
     description:

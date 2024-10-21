@@ -1,5 +1,6 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -8,11 +9,15 @@ part 'forms_state.dart';
 class FormsCubit extends Cubit<FormsState> {
   FormsCubit({
     required this.userRepository,
+    required this.imageDownloadUrl,
+    required this.onFormTapped,
   }) : super(const FormsState()) {
     fetchForms();
   }
 
   final UserRepository userRepository;
+  final String imageDownloadUrl;
+  final ValueSetter<int> onFormTapped;
 
   void fetchForms() async {
     final loading =

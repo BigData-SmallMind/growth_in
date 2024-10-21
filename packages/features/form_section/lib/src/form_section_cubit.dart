@@ -9,11 +9,15 @@ part 'form_section_state.dart';
 class FormSectionCubit extends Cubit<FormSectionState> {
   FormSectionCubit({
     required this.userRepository,
+    required this.imageDownloadUrl,
+    required this.formId,
   }) : super(const FormSectionState()) {
     fetchFormSection();
   }
 
   final UserRepository userRepository;
+  final String imageDownloadUrl;
+  final int formId;
 
   void fetchFormSection() async {
     final loading = state.copyWith(
@@ -21,16 +25,13 @@ class FormSectionCubit extends Cubit<FormSectionState> {
     emit(loading);
     try {
       final formSections = await userRepository.getFormSections(formId);
-      final formSection = formSections.firstWhere(
-        (element) => element.id == formSectionId,
-        orElse: () => FormSection(
-          id: 0,
-          name: '',
-          questions: [],
-        ),
-      );
+      final formSection = formSections.list.first;
+      final questions = formSection.questions.map((question) {
+        return FormQuestion.unvalidated(question);
+      }).toList();
       final success = state.copyWith(
         formSection: formSection,
+        questions: questions,
         formSectionFetchingStatus: FormSectionFetchingStatus.success,
       );
       emit(success);
@@ -44,5 +45,57 @@ class FormSectionCubit extends Cubit<FormSectionState> {
 //   requestRepository.changeNotifier.clearRequest();
 //   return super.close();
 // }
+  }
+
+  void onQuestionChanged(Question question) {
+    final prevQuestions = state.questions;
+    final questions = prevQuestions.map((prevQuestion) {
+      if (prevQuestion.value?.id == question.id) {
+        return FormQuestion.validated(question);
+      }
+      return prevQuestion;
+    }).toList();
+    final newState = state.copyWith(questions: questions);
+    emit(newState);
+  }
+
+
+  void onSubmit() async {
+    final questions = state.questions.map((question) {
+      return FormQuestion.validated(question.value);
+    }).toList();
+
+    final isFormValid = Formz.validate([
+      ...questions,
+    ]);
+
+    final newState = state.copyWith(
+      questions: questions,
+      submissionStatus: isFormValid
+          ? FormzSubmissionStatus.inProgress
+          : FormzSubmissionStatus.initial,
+    );
+
+    emit(newState);
+
+    if (isFormValid) {
+      try {
+        // final user = await userRepository.signIn(
+        //   email: email.value!,
+        //   password: password.value!,
+        // );
+
+        final newState = state.copyWith(
+          questions: questions,
+          submissionStatus: FormzSubmissionStatus.success,
+        );
+        emit(newState);
+      } catch (error) {
+        final newState = state.copyWith(
+          submissionStatus: FormzSubmissionStatus.failure,
+        );
+        emit(newState);
+      }
+    }
   }
 }

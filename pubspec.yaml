@@ -105,6 +105,8 @@ dependencies:
   # Forms
   forms:
     path: packages/features/forms
+  form_section:
+    path: packages/features/form_section
 
   # Domain Models and Component Library
   domain_models:

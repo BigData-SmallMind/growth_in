@@ -102,7 +102,7 @@ abstract class ComponentLibraryLocalizations {
   /// No description provided for @requiredFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Required*'**
+  /// **'Required *'**
   String get requiredFieldErrorMessage;
 
   /// No description provided for @emailTextFieldLabel.
@@ -728,6 +728,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'You must login first'**
   String get unAuthSnackBarErrorMessage;
+
+  /// No description provided for @essayQuestionTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your answer here..'**
+  String get essayQuestionTextFieldLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

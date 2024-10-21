@@ -2,13 +2,13 @@ import 'component_library_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsAr([super.locale = 'ar']);
+  ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
 
   @override
-  String get requiredFieldErrorMessage => 'مطلوب*';
+  String get requiredFieldErrorMessage => 'مطلوب *';
 
   @override
   String get emailTextFieldLabel => 'البريد الإلكتروني';
@@ -321,4 +321,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get unAuthSnackBarErrorMessage => 'يجب تسجيل الدخول';
+
+  @override
+  String get essayQuestionTextFieldLabel => 'أضف إجابتك هنا..';
 }

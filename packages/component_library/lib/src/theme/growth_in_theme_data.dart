@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // If the number of properties get too big, we can start grouping them in
 // classes like Flutter does with TextTheme, ButtonTheme, etc, inside ThemeData.
 abstract class GrowthInThemeData {
+
   ThemeData get materialThemeData;
 
   final iconColor = const Color(0xFF191F6D);

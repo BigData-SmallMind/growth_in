@@ -19,21 +19,25 @@ class EssayQuestion extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
-
+    final l10n = ComponentLibraryLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(Spacing.mediumLarge),
       decoration: BoxDecoration(
         border: Border.all(
-          color: theme.borderColor,
+          color: error == FormQuestionValidationError.empty
+              ? theme.errorColor
+              : theme.borderColor,
         ),
+        borderRadius: BorderRadius.circular(theme.textFieldBorderRadius),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            question.text + (question.isRequired ? '*' : ''),
+            question.text + (question.isRequired ? ' *' : ''),
             style: textTheme.labelMedium,
           ),
+          VerticalGap.small(),
           Text(
             question.description,
             style: textTheme.bodySmall?.copyWith(
@@ -42,13 +46,15 @@ class EssayQuestion extends StatelessWidget {
           ),
           VerticalGap.medium(),
           TextFormField(
+            initialValue: question.answer as String?,
             maxLines: question.type == QuestionType.longEssay ? 4 : null,
             onChanged: onChanged,
             decoration: InputDecoration(
               isDense: true,
-              hintText: 'l10n.essayQuestionTextFieldLabel',
-              errorText: error == DynamicValidationError.empty
-                  ? 'l10n.requiredFieldErrorMessage'
+              hintText: l10n.essayQuestionTextFieldLabel +
+                  (question.isRequired ? ' *' : ''),
+              errorText: error == FormQuestionValidationError.empty
+                  ? l10n.requiredFieldErrorMessage
                   : null,
             ),
           ),

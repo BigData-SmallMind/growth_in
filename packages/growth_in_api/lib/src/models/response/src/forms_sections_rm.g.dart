@@ -38,7 +38,7 @@ FormSectionRM _$FormSectionRMFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = FormSectionRM(
-          id: $checkedConvert('section_id', (v) => (v as num).toInt()),
+          id: $checkedConvert('id', (v) => (v as num).toInt()),
           name: $checkedConvert('section_name', (v) => v as String),
           questions: $checkedConvert(
               'questions',
@@ -48,7 +48,7 @@ FormSectionRM _$FormSectionRMFromJson(Map<String, dynamic> json) =>
         );
         return val;
       },
-      fieldKeyMap: const {'id': 'section_id', 'name': 'section_name'},
+      fieldKeyMap: const {'name': 'section_name'},
     );
 
 QuestionRM _$QuestionRMFromJson(Map<String, dynamic> json) => $checkedCreate(
@@ -66,16 +66,32 @@ QuestionRM _$QuestionRMFromJson(Map<String, dynamic> json) => $checkedCreate(
               $checkedConvert('allow_another_answers', (v) => v as bool),
           answer: $checkedConvert('answer', (v) => v),
           anotherAnswer: $checkedConvert('another_answer', (v) => v),
+          allowDate: $checkedConvert('allow_date', (v) => v as bool?),
+          allowTime: $checkedConvert('allow_time', (v) => v as bool?),
+          isTimeRange: $checkedConvert('allow_scale', (v) => v as bool?),
+          choices: $checkedConvert('options',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
+          imageChoices: $checkedConvert('image_options',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
+          sliderMin: $checkedConvert('scale_from', (v) => (v as num?)?.toInt()),
+          sliderMax: $checkedConvert('scale_to', (v) => (v as num?)?.toInt()),
           isRequired: $checkedConvert('is_required', (v) => v as bool),
         );
         return val;
       },
       fieldKeyMap: const {
-        'questionText': 'question_text',
-        'questionType': 'question_type',
+        'text': 'question_text',
+        'type': 'question_type',
         'allowMultipleAnswers': 'allow_multiple_answers',
         'allowAnotherAnswer': 'allow_another_answers',
         'anotherAnswer': 'another_answer',
+        'allowDate': 'allow_date',
+        'allowTime': 'allow_time',
+        'isTimeRange': 'allow_scale',
+        'choices': 'options',
+        'imageChoices': 'image_options',
+        'sliderMin': 'scale_from',
+        'sliderMax': 'scale_to',
         'isRequired': 'is_required'
       },
     );

@@ -108,6 +108,7 @@ class Question {
   final QuestionType type;
   final bool allowMultipleAnswers;
   final bool allowAnotherAnswer;
+  // could be a string, a list of strings or an entirely different type
   final dynamic answer;
   final dynamic anotherAnswer;
   final bool? allowDate;
@@ -118,8 +119,31 @@ class Question {
   final int? sliderMin;
   final int? sliderMax;
   final bool isRequired;
-}
 
+  Question copyWith({
+    dynamic answer,
+    bool? allowMultipleAnswers,
+  }) {
+    return Question(
+      id: id,
+      text: text,
+      description: description,
+      type: type,
+      allowMultipleAnswers: allowMultipleAnswers?? this.allowMultipleAnswers,
+      allowAnotherAnswer: allowAnotherAnswer,
+      answer: answer ?? this.answer,
+      anotherAnswer: anotherAnswer,
+      allowDate: allowDate,
+      allowTime: allowTime,
+      isTimeRange: isTimeRange,
+      choices: choices,
+      imageChoices: imageChoices,
+      sliderMin: sliderMin,
+      sliderMax: sliderMax,
+      isRequired: isRequired,
+    );
+  }
+}
 
 enum QuestionType {
   essay,

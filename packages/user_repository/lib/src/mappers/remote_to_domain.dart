@@ -225,6 +225,17 @@ extension QuestionRMtoDM on QuestionRM {
   }
 
   Question toDomainModel() {
+    final isFileUploadQuestion =
+        questionTypeRMtoDM(type) == QuestionType.fileUpload;
+    final fileUploadAnswers = isFileUploadQuestion
+        ? (answer as List).map(
+            (answer) => FileDM(
+              name: answer['file_name'],
+              extension: answer['file_name'].split('.').last,
+              size: (answer['file_size'] as double).toInt(),
+            ),
+          ).toList()
+        : answer;
     return Question(
       id: id,
       text: text,
@@ -232,12 +243,12 @@ extension QuestionRMtoDM on QuestionRM {
       type: questionTypeRMtoDM(type),
       allowMultipleAnswers: allowMultipleAnswers,
       allowAnotherAnswer: allowAnotherAnswer,
-      answer: answer,
+      answer: isFileUploadQuestion ? fileUploadAnswers : answer,
       anotherAnswer: anotherAnswer,
       allowDate: allowDate,
       allowTime: allowTime,
       isTimeRange: isTimeRange,
-      choices: choices,
+      choices: imageChoices ?? choices,
       imageChoices: imageChoices,
       sliderMin: sliderMin,
       sliderMax: sliderMax,

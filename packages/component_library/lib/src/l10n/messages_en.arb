@@ -113,7 +113,7 @@
   "noSlotsAvailableIndicatorText": "No slots available",
   "unAuthSnackBarErrorMessage": "You must login first",
   "essayQuestionTextFieldLabel": "Add your answer here..",
-  "requiredFieldErrorMessage": "Required*"
+  "requiredFieldErrorMessage": "Required *"
 
 
 }

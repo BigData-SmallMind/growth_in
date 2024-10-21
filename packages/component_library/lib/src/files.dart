@@ -20,6 +20,7 @@ class Files extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: ListView.separated(
+        shrinkWrap: true,
         separatorBuilder: (context, index) =>  HorizontalGap.medium(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {

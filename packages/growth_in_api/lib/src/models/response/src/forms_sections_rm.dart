@@ -34,7 +34,7 @@ class FormSectionRM {
     required this.questions,
   });
 
-  @JsonKey(name: 'section_id')
+  @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'section_name')
   final String name;
@@ -89,7 +89,7 @@ class QuestionRM {
   final bool? isTimeRange;
   @JsonKey(name: 'options')
   final List<String>? choices;
-  @JsonKey(name: 'imageOptions')
+  @JsonKey(name: 'image_options')
   final List<String>? imageChoices;
   @JsonKey(name: 'scale_from')
   final int? sliderMin;

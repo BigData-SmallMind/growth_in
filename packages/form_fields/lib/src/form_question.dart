@@ -10,8 +10,7 @@ class FormQuestion extends FormzInput<Question?, FormQuestionValidationError>
 
   const FormQuestion.validated(super.value) : super.dirty();
 
-  static final _domainRegex =
-      RegExp(r'^(?!://)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}$');
+
 
   @override
   FormQuestionValidationError? validator(Question? value) {

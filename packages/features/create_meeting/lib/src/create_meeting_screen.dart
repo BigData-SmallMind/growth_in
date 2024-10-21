@@ -97,7 +97,8 @@ class CreateMeetingView extends StatelessWidget {
                                     GestureDetector(
                                       onTap: cubit.pickFiles,
                                       child: const SvgAsset(
-                                          AssetPathConstants.pickFilesPath),
+                                        AssetPathConstants.pickFilesPath,
+                                      ),
                                     ),
                                     HorizontalGap.large(),
                                     Expanded(
@@ -154,7 +155,8 @@ class CreateMeetingView extends StatelessWidget {
                                 if (state.title.value?.isNotEmpty == true)
                                   Text(
                                     state.title.value!,
-                                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                                    style: textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                 if (state.description?.isNotEmpty == true) ...[
                                   VerticalGap.medium(),
@@ -179,7 +181,8 @@ class CreateMeetingView extends StatelessWidget {
                                         width: 100,
                                         child: Text(
                                           l10n.typeTextFieldLabel,
-                                          style: textTheme.titleSmall?.copyWith(color: const Color(0xFF797979)),
+                                          style: textTheme.titleSmall?.copyWith(
+                                              color: const Color(0xFF797979)),
                                         ),
                                       ),
                                       Text(
@@ -196,7 +199,8 @@ class CreateMeetingView extends StatelessWidget {
                                         width: 100,
                                         child: Text(
                                           l10n.selectedSlotLabel,
-                                          style: textTheme.titleSmall?.copyWith(color: const Color(0xFF797979)),
+                                          style: textTheme.titleSmall?.copyWith(
+                                              color: const Color(0xFF797979)),
                                         ),
                                       ),
                                       Text(
@@ -215,7 +219,8 @@ class CreateMeetingView extends StatelessWidget {
                                         width: 100,
                                         child: Text(
                                           l10n.selectedDayLabel,
-                                          style: textTheme.titleSmall?.copyWith(color: const Color(0xFF797979)),
+                                          style: textTheme.titleSmall?.copyWith(
+                                              color: const Color(0xFF797979)),
                                         ),
                                       ),
                                       Text(

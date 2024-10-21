@@ -15,6 +15,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:form_section/form_section.dart';
 import 'package:forms/forms.dart';
 import 'package:growth_in/firebase_options.dart';
 import 'package:growth_in/routing_table.dart';
@@ -246,6 +247,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
 
                 // Forms
                 FormsLocalizations.delegate,
+                FormSectionLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

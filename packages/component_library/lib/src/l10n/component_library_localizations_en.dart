@@ -2,13 +2,13 @@ import 'component_library_localizations.dart';
 
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsEn([super.locale = 'en']);
+  ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect email or password';
 
   @override
-  String get requiredFieldErrorMessage => 'Required*';
+  String get requiredFieldErrorMessage => 'Required *';
 
   @override
   String get emailTextFieldLabel => 'Email';
@@ -321,4 +321,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get unAuthSnackBarErrorMessage => 'You must login first';
+
+  @override
+  String get essayQuestionTextFieldLabel => 'Add your answer here..';
 }

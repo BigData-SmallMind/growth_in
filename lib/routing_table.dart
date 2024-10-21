@@ -7,6 +7,7 @@ import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
+import 'package:form_section/form_section.dart';
 import 'package:forms/forms.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:home/home.dart';
@@ -154,7 +155,8 @@ Map<String, PageBuilder> buildRoutingTable({
                   routerDelegate.push(_PathConstants.profileSettingsPath),
               onRequestsTapped: () =>
                   routerDelegate.push(_PathConstants.requestsPath),
-              onFormsTapped: () => routerDelegate.push(_PathConstants.formsPath),
+              onFormsTapped: () =>
+                  routerDelegate.push(_PathConstants.formsPath),
               onMeetingsTapped: () =>
                   routerDelegate.push(_PathConstants.meetingsPath),
               onHelpAndSupportTapped: () =>
@@ -264,10 +266,29 @@ Map<String, PageBuilder> buildRoutingTable({
             builder: (context) {
               return FormsScreen(
                 userRepository: userRepository,
+                imageDownloadUrl: UrlBuilder.imageDownloadUrl,
+                onFormTapped: (formId) => routerDelegate.push(
+                  _PathConstants.formSectionPath(
+                    formId: formId,
+                  ),
+                ),
               );
             },
           ),
         ),
+    _PathConstants.formSectionPath(): (info) {
+      final formId = int.parse(
+        info.pathParameters['formId'] ?? '',
+      );
+      return MaterialPage(
+        name: 'form-section',
+        child: FormSectionScreen(
+          userRepository: userRepository,
+          imageDownloadUrl: UrlBuilder.imageDownloadUrl,
+          formId: formId,
+        ),
+      );
+    },
     _PathConstants.meetingsPath: (_) => MaterialPage(
           name: 'meetings',
           child: Builder(builder: (context) {
@@ -473,6 +494,14 @@ class _PathConstants {
   static String get requestsPath => '${tabContainerPath}requests';
 
   static String get formsPath => '${tabContainerPath}forms';
+
+  static String formSectionPath({
+    int? formId,
+  }) {
+    final completePath = '$formsPath'
+        '/${formId ?? ':formId'}';
+    return completePath;
+  }
 
   static String get meetingsPath => '${tabContainerPath}meetings';
 
