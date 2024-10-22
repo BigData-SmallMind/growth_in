@@ -3,23 +3,23 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:form_fields/form_fields.dart';
 
-class SliderQuestion extends StatefulWidget {
-  const SliderQuestion({
+class TimeQuestion extends StatefulWidget {
+  const TimeQuestion({
     super.key,
     required this.onChanged,
     required this.question,
     this.error,
   });
 
-  final ValueChanged<int> onChanged;
+  final ValueChanged<String> onChanged;
   final Question question;
   final FormQuestionValidationError? error;
 
   @override
-  State<SliderQuestion> createState() => _SliderQuestionState();
+  State<TimeQuestion> createState() => _TimeQuestionState();
 }
 
-class _SliderQuestionState extends State<SliderQuestion> {
+class _TimeQuestionState extends State<TimeQuestion> {
   Question? updatedQuestion;
 
   @override
@@ -28,7 +28,7 @@ class _SliderQuestionState extends State<SliderQuestion> {
     super.initState();
   }
 
-  void updateQuestion(int answer) {
+  void updateQuestion(String? answer) {
     updatedQuestion = widget.question.copyWith(answer: answer);
     setState(() {});
   }
@@ -37,14 +37,6 @@ class _SliderQuestionState extends State<SliderQuestion> {
   Widget build(BuildContext context) {
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final sliderMinimum = widget.question.sliderMin;
-    final sliderMaximum = widget.question.sliderMax;
-    final currentValue = (updatedQuestion?.answer != null &&
-            updatedQuestion?.answer?.toDouble() <= sliderMaximum &&
-            updatedQuestion?.answer?.toDouble() >= sliderMinimum)
-        ? updatedQuestion?.answer.toDouble()
-        : sliderMinimum?.toDouble();
-
     return Container(
       padding: const EdgeInsets.all(Spacing.mediumLarge),
       decoration: BoxDecoration(
@@ -70,20 +62,27 @@ class _SliderQuestionState extends State<SliderQuestion> {
             ),
           ),
           VerticalGap.medium(),
-          Slider(
-            activeColor: theme.secondaryColor,
-            secondaryActiveColor: theme.borderColor,
-            secondaryTrackValue: sliderMaximum!.toDouble(),
-            min: sliderMinimum!.toDouble(),
-            max: sliderMaximum.toDouble(),
-            divisions: sliderMaximum - sliderMinimum,
-            label: currentValue.toString(),
-            value: currentValue,
-            onChanged: (value) {
-              widget.onChanged(value.toInt());
-              updateQuestion(value.toInt());
-            },
-          ),
+          GestureDetector(
+            onTap: () => showTimePicker(
+              context: context,
+              initialTime: updatedQuestion?.answer == null
+                  ? TimeOfDay.now()
+                  : TimeOfDay(
+                      hour: int.parse(updatedQuestion?.answer.split(':').first),
+                      minute:
+                          int.parse(updatedQuestion?.answer.split(':').last),
+                    ),
+            ).then((value) {
+              // widget.onChanged(
+              //   value.toString(),
+              // );
+              updateQuestion('${value?.hour}:${value?.minute}');
+            }),
+            child: TextField(
+              enabled: false,
+              controller: TextEditingController(text: updatedQuestion?.answer),
+            ),
+          )
         ],
       ),
     );

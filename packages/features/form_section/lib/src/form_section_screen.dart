@@ -117,8 +117,44 @@ class FormSectionView extends StatelessWidget {
                                 );
                               },
                             );
-                            case QuestionType.fileUpload:
+                          case QuestionType.fileUpload:
                             return FileUploadQuestion(
+                              question: question,
+                              error: error,
+                              onChanged: (answer) {
+                                cubit.onQuestionChanged(
+                                  question.copyWith(
+                                    answer: answer,
+                                  ),
+                                );
+                              },
+                            );
+                          case QuestionType.dateOnly:
+                            return DateQuestion(
+                              question: question,
+                              error: error,
+                              onChanged: (answer) {
+                                cubit.onQuestionChanged(
+                                  question.copyWith(
+                                    answer: answer,
+                                  ),
+                                );
+                              },
+                            );
+                          case QuestionType.timeOnly:
+                            return TimeQuestion(
+                              question: question,
+                              error: error,
+                              onChanged: (answer) {
+                                cubit.onQuestionChanged(
+                                  question.copyWith(
+                                    answer: answer,
+                                  ),
+                                );
+                              },
+                            );
+                            case QuestionType.dateAndTime:
+                            return DateAndTimeQuestion(
                               question: question,
                               error: error,
                               onChanged: (answer) {

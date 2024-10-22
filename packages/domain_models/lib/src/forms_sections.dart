@@ -107,6 +107,7 @@ class Question {
   final QuestionType type;
   final bool allowMultipleAnswers;
   final bool allowAnotherAnswer;
+
   // could be a string, a list of strings or an entirely different type
   final dynamic answer;
   final dynamic anotherAnswer;
@@ -127,7 +128,7 @@ class Question {
       text: text,
       description: description,
       type: type,
-      allowMultipleAnswers: allowMultipleAnswers?? this.allowMultipleAnswers,
+      allowMultipleAnswers: allowMultipleAnswers ?? this.allowMultipleAnswers,
       allowAnotherAnswer: allowAnotherAnswer,
       answer: answer ?? this.answer,
       anotherAnswer: anotherAnswer,
@@ -150,6 +151,12 @@ enum QuestionType {
   dropdown,
   fileUpload,
   multipleImageChoice,
-  datetime,
-  imageQuestion,
+  dateType,
+  dateOnly,
+  timeOnly,
+  dateAndTime,
+  dateRange,
+  timeRange,
+  dateAndTimeRange,
+  imageQuestion;
 }

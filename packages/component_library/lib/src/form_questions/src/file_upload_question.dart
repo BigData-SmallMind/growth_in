@@ -96,7 +96,8 @@ class _FileUploadQuestionState extends State<FileUploadQuestion> {
               Expanded(
                 child: Files(
                   files: [
-                    ...widget.question.answer as List<FileDM>,
+                    if (widget.question.answer != null)
+                      ...widget.question.answer as List<FileDM>,
                     ...files,
                   ],
                 ),

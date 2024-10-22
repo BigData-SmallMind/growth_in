@@ -249,6 +249,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 FormsLocalizations.delegate,
                 FormSectionLocalizations.delegate,
               ],
+              // locale: const Locale('en'),
               locale: localePreference?.toLocale(),
               supportedLocales: const [
                 Locale('en', ''),

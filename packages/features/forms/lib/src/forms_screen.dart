@@ -183,12 +183,14 @@ class FormCard extends StatelessWidget {
                 child: Row(
                   children: [
                     HorizontalGap.custom(theme.screenMargin),
-                    Text(
-                      l10n.waitingToCompleteFormText,
-                      style: textTheme.bodyMedium?.copyWith(
-                          color: theme.materialThemeData.colorScheme.surface),
+                    Expanded(
+                      child: Text(
+                        l10n.waitingToCompleteFormText,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: theme.materialThemeData.colorScheme.surface,
+                        ),
+                      ),
                     ),
-                    const Spacer(),
                     Text(
                       '${form.totalAnsweredQuestions}/${form.totalQuestions}',
                       style: textTheme.bodyMedium?.copyWith(

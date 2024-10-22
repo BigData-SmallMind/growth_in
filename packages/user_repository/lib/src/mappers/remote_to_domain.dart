@@ -216,7 +216,7 @@ extension QuestionRMtoDM on QuestionRM {
       case 'تعدد اختيار الصور':
         return QuestionType.multipleImageChoice;
       case 'تاريخ/ساعة':
-        return QuestionType.datetime;
+        return QuestionType.dateType;
       case 'سؤال صور مع اجوبة':
         return QuestionType.imageQuestion;
       default:
@@ -224,36 +224,66 @@ extension QuestionRMtoDM on QuestionRM {
     }
   }
 
+  QuestionType dateTimeQuestionTypeRMtoDM() {
+    if (isTimeRange == true) {
+      if (allowDate == true && allowTime == true) {
+        return QuestionType.dateAndTimeRange;
+      } else if (allowDate == true) {
+        return QuestionType.dateRange;
+      } else if (allowTime == true) {
+        return QuestionType.timeRange;
+      }
+    }
+    if (allowDate == true && allowTime == true) {
+      return QuestionType.dateAndTime;
+    } else if (allowDate == true) {
+      return QuestionType.dateOnly;
+    } else if (allowTime == true) {
+      return QuestionType.timeOnly;
+    }
+    throw Exception('Unknown question type');
+  }
+
   Question toDomainModel() {
-    final isFileUploadQuestion =
-        questionTypeRMtoDM(type) == QuestionType.fileUpload;
-    final fileUploadAnswers = isFileUploadQuestion
-        ? (answer as List)
-            .map(
-              (answer) => FileDM(
-                name: answer['file_name'],
-                extension: answer['file_name'].split('.').last,
-                size: (answer['file_size'] as double).toInt(),
-              ),
-            )
-            .toList()
-        : answer;
-    return Question(
-      id: id,
-      text: text,
-      description: description,
-      type: questionTypeRMtoDM(type),
-      allowMultipleAnswers: allowMultipleAnswers,
-      allowAnotherAnswer: allowAnotherAnswer,
-      answer: isFileUploadQuestion ? fileUploadAnswers : answer,
-      anotherAnswer: anotherAnswer,
-      allowDate: allowDate,
-      allowTime: allowTime,
-      isTimeRange: isTimeRange,
-      choices: imageChoices ?? choices,
-      sliderMin: sliderMin,
-      sliderMax: sliderMax,
-      isRequired: isRequired,
-    );
+    try {
+      final isFileUploadQuestion =
+          questionTypeRMtoDM(type) == QuestionType.fileUpload;
+      final fileUploadAnswers = isFileUploadQuestion
+          ? (answer as List?)
+              ?.map(
+                (answer) => FileDM(
+                  name: answer['file_name'],
+                  extension: answer['file_name'].split('.').last,
+                  size: (answer['file_size'] as double).toInt(),
+                ),
+              )
+              .toList()
+          : answer;
+      return Question(
+        id: id,
+        text: text,
+        description: description,
+        type: questionTypeRMtoDM(type) == QuestionType.dateType
+            ? dateTimeQuestionTypeRMtoDM()
+            : questionTypeRMtoDM(type),
+        allowMultipleAnswers: allowMultipleAnswers,
+        allowAnotherAnswer: allowAnotherAnswer,
+        answer: isFileUploadQuestion ? fileUploadAnswers : answer,
+        anotherAnswer: anotherAnswer,
+        allowDate: allowDate,
+        allowTime: allowTime,
+        isTimeRange: isTimeRange,
+        choices: imageChoices ?? choices,
+        sliderMin: (sliderMax != null && sliderMin != null)
+            ? (sliderMin! > sliderMax! ? sliderMax : sliderMin)
+            : null,
+        sliderMax: (sliderMax != null && sliderMin != null)
+            ? (sliderMax! < sliderMin! ? sliderMin : sliderMax)
+            : null,
+        isRequired: isRequired,
+      );
+    } catch (error) {
+      rethrow;
+    }
   }
 }
