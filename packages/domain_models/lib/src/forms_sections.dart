@@ -17,12 +17,12 @@ class FormsSections {
 class FormSection {
   FormSection({
     required this.id,
-    required this.name,
+    this.name,
     required this.questions,
   });
 
   final int id;
-  final String name;
+  final String? name;
   final List<Question> questions;
 }
 
@@ -121,16 +121,16 @@ class Question {
 
   Question copyWith({
     dynamic answer,
-    bool? allowMultipleAnswers,
+
   }) {
     return Question(
       id: id,
       text: text,
       description: description,
       type: type,
-      allowMultipleAnswers: allowMultipleAnswers ?? this.allowMultipleAnswers,
+      allowMultipleAnswers: allowMultipleAnswers,
       allowAnotherAnswer: allowAnotherAnswer,
-      answer: answer ?? this.answer,
+      answer: answer,
       anotherAnswer: anotherAnswer,
       allowDate: allowDate,
       allowTime: allowTime,

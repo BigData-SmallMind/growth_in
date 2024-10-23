@@ -30,14 +30,14 @@ class FormsSectionsRM {
 class FormSectionRM {
   FormSectionRM({
     required this.id,
-    required this.name,
+     this.name,
     required this.questions,
   });
 
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'section_name')
-  final String name;
+  final String? name;
   @JsonKey(name: 'questions')
   final List<QuestionRM> questions;
 

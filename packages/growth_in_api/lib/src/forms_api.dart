@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 
 class FormsApi {
@@ -36,6 +37,22 @@ class FormsApi {
       final formSections = response.data;
       final formSectionsRM = FormsSectionsRM.fromJson(formSections);
       return formSectionsRM;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future saveFormAnswers(List<Map<String, dynamic>> answers) async {
+    final url = _urlBuilder.buildSaveFormAnswers();
+    try {
+      final requestJsonBody = {
+        'answers': answers,
+      };
+      debugPrint('--');
+      // await _dio.post(
+      //   url,
+      //   data: requestJsonBody,
+      // );
     } catch (_) {
       rethrow;
     }

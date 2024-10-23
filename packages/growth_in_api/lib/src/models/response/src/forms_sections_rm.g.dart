@@ -39,7 +39,7 @@ FormSectionRM _$FormSectionRMFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = FormSectionRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
-          name: $checkedConvert('section_name', (v) => v as String),
+          name: $checkedConvert('section_name', (v) => v as String?),
           questions: $checkedConvert(
               'questions',
               (v) => (v as List<dynamic>)

@@ -11,7 +11,7 @@ class DateAndTimeQuestion extends StatefulWidget {
     this.error,
   });
 
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?> onChanged;
   final Question question;
   final FormQuestionValidationError? error;
 
@@ -31,6 +31,7 @@ class _DateAndTimeQuestionState extends State<DateAndTimeQuestion> {
   void updateQuestion(String? answer) {
     updatedQuestion = widget.question.copyWith(answer: answer);
     setState(() {});
+    widget.onChanged(answer?.replaceAll('-', '/'));
   }
 
   void pickDateAndTime() {
@@ -79,42 +80,59 @@ class _DateAndTimeQuestionState extends State<DateAndTimeQuestion> {
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
-    return Container(
-      padding: const EdgeInsets.all(Spacing.mediumLarge),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: widget.error == FormQuestionValidationError.empty
-              ? theme.errorColor
-              : theme.borderColor,
+    final l10n = ComponentLibraryLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(Spacing.mediumLarge),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: widget.error == FormQuestionValidationError.empty
+                  ? theme.errorColor
+                  : theme.borderColor,
+            ),
+            borderRadius: BorderRadius.circular(theme.textFieldBorderRadius),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.question.text + (widget.question.isRequired ? ' *' : ''),
+                style: textTheme.labelMedium,
+              ),
+              VerticalGap.small(),
+              Text(
+                widget.question.description,
+                style: textTheme.bodySmall?.copyWith(
+                  color: theme.questionDescriptionColor,
+                ),
+              ),
+              VerticalGap.medium(),
+              GestureDetector(
+                onTap: pickDateAndTime,
+                child: TextField(
+                  enabled: false,
+                  textDirection: TextDirection.ltr,
+                  textAlign: isArabic ? TextAlign.right : TextAlign.left,
+                  controller: TextEditingController(
+                      text: updatedQuestion?.answer?.replaceAll('/', '-')),
+                ),
+              )
+            ],
+          ),
         ),
-        borderRadius: BorderRadius.circular(theme.textFieldBorderRadius),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.question.text + (widget.question.isRequired ? ' *' : ''),
-            style: textTheme.labelMedium,
-          ),
-          VerticalGap.small(),
-          Text(
-            widget.question.description,
-            style: textTheme.bodySmall?.copyWith(
-              color: theme.questionDescriptionColor,
+        if (widget.error != null) ...[
+          VerticalGap.smallMedium(),
+          Padding(
+            padding: const EdgeInsets.only(left: Spacing.mediumLarge),
+            child: Text(
+              l10n.requiredFieldErrorMessage,
+              style: textTheme.bodySmall?.copyWith(color: theme.errorColor),
             ),
           ),
-          VerticalGap.medium(),
-          GestureDetector(
-            onTap: pickDateAndTime,
-            child: TextField(
-              enabled: false,
-              textDirection: TextDirection.ltr,
-              textAlign: isArabic ? TextAlign.right : TextAlign.left,
-              controller: TextEditingController(text: updatedQuestion?.answer),
-            ),
-          )
-        ],
-      ),
+        ]
+      ],
     );
   }
 }

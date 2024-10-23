@@ -59,7 +59,6 @@ class FormSectionCubit extends Cubit<FormSectionState> {
     emit(newState);
   }
 
-
   void onSubmit() async {
     final questions = state.questions.map((question) {
       return FormQuestion.validated(question.value);
@@ -79,11 +78,16 @@ class FormSectionCubit extends Cubit<FormSectionState> {
     emit(newState);
 
     if (isFormValid) {
+      final answers = questions.map((question) {
+        return {
+          'question_id': question.value!.id,
+          'answer': question.value!.answer,
+        };
+      }).toList();
       try {
-        // final user = await userRepository.signIn(
-        //   email: email.value!,
-        //   password: password.value!,
-        // );
+        await userRepository.saveFormAnswers(
+          answers: answers,
+        );
 
         final newState = state.copyWith(
           questions: questions,

@@ -44,48 +44,65 @@ class _SliderQuestionState extends State<SliderQuestion> {
             updatedQuestion?.answer?.toDouble() >= sliderMinimum)
         ? updatedQuestion?.answer.toDouble()
         : sliderMinimum?.toDouble();
-
-    return Container(
-      padding: const EdgeInsets.all(Spacing.mediumLarge),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: widget.error == FormQuestionValidationError.empty
-              ? theme.errorColor
-              : theme.borderColor,
-        ),
-        borderRadius: BorderRadius.circular(theme.textFieldBorderRadius),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.question.text + (widget.question.isRequired ? ' *' : ''),
-            style: textTheme.labelMedium,
+    final l10n = ComponentLibraryLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(Spacing.mediumLarge),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: widget.error == FormQuestionValidationError.empty
+                  ? theme.errorColor
+                  : theme.borderColor,
+            ),
+            borderRadius: BorderRadius.circular(theme.textFieldBorderRadius),
           ),
-          VerticalGap.small(),
-          Text(
-            widget.question.description,
-            style: textTheme.bodySmall?.copyWith(
-              color: theme.questionDescriptionColor,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.question.text + (widget.question.isRequired ? ' *' : ''),
+                style: textTheme.labelMedium,
+              ),
+              VerticalGap.small(),
+              Text(
+                widget.question.description,
+                style: textTheme.bodySmall?.copyWith(
+                  color: theme.questionDescriptionColor,
+                ),
+              ),
+              VerticalGap.medium(),
+              Slider(
+                activeColor: theme.secondaryColor,
+                secondaryActiveColor: theme.borderColor,
+                secondaryTrackValue: sliderMaximum!.toDouble(),
+                min: sliderMinimum!.toDouble(),
+                max: sliderMaximum.toDouble(),
+                divisions: (sliderMaximum - sliderMinimum > 0)
+                    ? sliderMaximum - sliderMinimum
+                    : null,
+                label: currentValue.toString(),
+                value: currentValue,
+                onChanged: (value) {
+                  widget.onChanged(value.toInt());
+                  updateQuestion(value.toInt());
+                },
+              ),
+            ],
+          ),
+        ),
+        if (widget.error != null) ...[
+          VerticalGap.smallMedium(),
+          Padding(
+            padding: const EdgeInsets.only(left: Spacing.mediumLarge),
+            child: Text(
+              l10n.requiredFieldErrorMessage,
+              style: textTheme.bodySmall?.copyWith(color: theme.errorColor),
             ),
           ),
-          VerticalGap.medium(),
-          Slider(
-            activeColor: theme.secondaryColor,
-            secondaryActiveColor: theme.borderColor,
-            secondaryTrackValue: sliderMaximum!.toDouble(),
-            min: sliderMinimum!.toDouble(),
-            max: sliderMaximum.toDouble(),
-            divisions: sliderMaximum - sliderMinimum,
-            label: currentValue.toString(),
-            value: currentValue,
-            onChanged: (value) {
-              widget.onChanged(value.toInt());
-              updateQuestion(value.toInt());
-            },
-          ),
-        ],
-      ),
+        ]
+      ],
     );
   }
 }

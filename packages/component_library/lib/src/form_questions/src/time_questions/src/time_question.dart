@@ -3,17 +3,51 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:form_fields/form_fields.dart';
 
-class EssayQuestion extends StatelessWidget {
-  const EssayQuestion({
+class TimeQuestion extends StatefulWidget {
+  const TimeQuestion({
     super.key,
     required this.onChanged,
     required this.question,
     this.error,
   });
 
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?> onChanged;
   final Question question;
   final FormQuestionValidationError? error;
+
+  @override
+  State<TimeQuestion> createState() => _TimeQuestionState();
+}
+
+class _TimeQuestionState extends State<TimeQuestion> {
+  Question? updatedQuestion;
+
+  @override
+  void initState() {
+    updatedQuestion = widget.question;
+    super.initState();
+  }
+
+  void updateQuestion(String? answer) {
+    updatedQuestion = widget.question.copyWith(answer: answer);
+    setState(() {});
+    widget.onChanged(answer);
+  }
+
+  void pickTime() async {
+    final time = await showTimePicker(
+      context: context,
+      initialTime: updatedQuestion?.answer == null
+          ? TimeOfDay.now()
+          : TimeOfDay(
+              hour: int.parse(updatedQuestion?.answer.split(':').first),
+              minute: int.parse(updatedQuestion?.answer.split(':').last),
+            ),
+    );
+
+    if (time == null) return;
+    updateQuestion('${time.hour}:${time.minute}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +55,12 @@ class EssayQuestion extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final l10n = ComponentLibraryLocalizations.of(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
         Container(
           padding: const EdgeInsets.all(Spacing.mediumLarge),
           decoration: BoxDecoration(
             border: Border.all(
-              color: error == FormQuestionValidationError.empty
+              color: widget.error == FormQuestionValidationError.empty
                   ? theme.errorColor
                   : theme.borderColor,
             ),
@@ -38,31 +70,28 @@ class EssayQuestion extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                question.text + (question.isRequired ? ' *' : ''),
+                widget.question.text + (widget.question.isRequired ? ' *' : ''),
                 style: textTheme.labelMedium,
               ),
               VerticalGap.small(),
               Text(
-                question.description,
+                widget.question.description,
                 style: textTheme.bodySmall?.copyWith(
                   color: theme.questionDescriptionColor,
                 ),
               ),
               VerticalGap.medium(),
-              TextFormField(
-                initialValue: question.answer as String?,
-                maxLines: question.type == QuestionType.longEssay ? 4 : null,
-                onChanged: onChanged,
-                decoration: InputDecoration(
-                  isDense: true,
-                  hintText: l10n.essayQuestionTextFieldLabel +
-                      (question.isRequired ? ' *' : ''),
+              GestureDetector(
+                onTap: pickTime,
+                child: TextField(
+                  enabled: false,
+                  controller: TextEditingController(text: updatedQuestion?.answer),
                 ),
-              ),
+              )
             ],
           ),
         ),
-        if (error != null) ...[
+                if (widget.error != null) ...[
           VerticalGap.smallMedium(),
           Padding(
             padding: const EdgeInsets.only(left: Spacing.mediumLarge),

@@ -528,4 +528,14 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future saveFormAnswers({
+    required List<Map<String, dynamic>> answers,
+  }) async {
+    try {
+      await remoteApi.formsApi.saveFormAnswers(answers);
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

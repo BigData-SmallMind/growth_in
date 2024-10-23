@@ -53,118 +53,134 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
     final allowMultipleAnswers = widget.question.allowMultipleAnswers;
     final isMultipleImageChoice =
         widget.question.type == QuestionType.multipleImageChoice;
-    return Container(
-      padding: const EdgeInsets.all(Spacing.mediumLarge),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: widget.error == FormQuestionValidationError.empty
-              ? theme.errorColor
-              : theme.borderColor,
-        ),
-        borderRadius: BorderRadius.circular(theme.textFieldBorderRadius),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.question.text + (widget.question.isRequired ? ' *' : ''),
-            style: textTheme.labelMedium,
+    final l10n = ComponentLibraryLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(Spacing.mediumLarge),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: widget.error == FormQuestionValidationError.empty
+                  ? theme.errorColor
+                  : theme.borderColor,
+            ),
+            borderRadius: BorderRadius.circular(theme.textFieldBorderRadius),
           ),
-          VerticalGap.small(),
-          Text(
-            widget.question.description,
-            style: textTheme.bodySmall?.copyWith(
-              color: theme.questionDescriptionColor,
-            ),
-          ),
-          VerticalGap.medium(),
-          if (!allowMultipleAnswers && !isDropdown)
-            ...widget.question.choices!.map(
-              (option) {
-                return RadioListTile(
-                  title: isMultipleImageChoice
-                      ? Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Image.network(
-                            '${widget.imageUrl}/$option',
-                            width: 20,
-                            height: 40,
-                          ),
-                        )
-                      : Text(option),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  value: option,
-                  groupValue: updatedQuestion?.answer,
-                  onChanged: (_) {
-                    widget.onChanged(option);
-                    updateQuestion(option);
-                  },
-                );
-              },
-            ),
-          if (allowMultipleAnswers && !isDropdown)
-            ...widget.question.choices!.map(
-              (option) {
-                return CheckboxListTile(
-                  checkboxShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(3),
-                    side: BorderSide(
-                      color: theme.borderColor,
-                      width: 1,
-                    ),
-                  ),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  contentPadding: EdgeInsets.zero,
-                  title: isMultipleImageChoice
-                      ? Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Image.network(
-                            '${widget.imageUrl}/$option',
-                            width: 20,
-                            height: 40,
-                          ),
-                        )
-                      : Text(option),
-                  value: ((updatedQuestion?.answer as List?)
-                          ?.map((e) => e.toString())
-                          .toList()
-                          .contains(option)) ??
-                      false,
-                  onChanged: (_) {
-                    widget.onChanged(option);
-                    updateQuestion(option);
-                  },
-                );
-              },
-            ),
-          if (isDropdown)
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: widget.error != null
-                      ? theme.errorColor
-                      : theme.materialThemeData.colorScheme.surface,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.question.text + (widget.question.isRequired ? ' *' : ''),
+                style: textTheme.labelMedium,
+              ),
+              VerticalGap.small(),
+              Text(
+                widget.question.description,
+                style: textTheme.bodySmall?.copyWith(
+                  color: theme.questionDescriptionColor,
                 ),
-                borderRadius: BorderRadius.circular(10),
               ),
-              child: DropdownButton<String>(
-                isExpanded: true,
-                value: updatedQuestion?.answer as String?,
-                onChanged: (String? value) {
-                  widget.onChanged(value!);
-                  updateQuestion(value);
-                },
-                items: widget.question.choices!.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
+              VerticalGap.medium(),
+              if (!allowMultipleAnswers && !isDropdown)
+                ...widget.question.choices!.map(
+                  (option) {
+                    return RadioListTile(
+                      title: isMultipleImageChoice
+                          ? Align(
+                              alignment: AlignmentDirectional.centerStart,
+                              child: Image.network(
+                                '${widget.imageUrl}/$option',
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Text(option),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                      value: option,
+                      groupValue: updatedQuestion?.answer,
+                      onChanged: (_) {
+                        widget.onChanged(option);
+                        updateQuestion(option);
+                      },
+                    );
+                  },
+                ),
+              if (allowMultipleAnswers && !isDropdown)
+                ...widget.question.choices!.map(
+                  (option) {
+                    return CheckboxListTile(
+                      checkboxShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3),
+                        side: BorderSide(
+                          color: theme.borderColor,
+                          width: 1,
+                        ),
+                      ),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                      title: isMultipleImageChoice
+                          ? Align(
+                              alignment: AlignmentDirectional.centerStart,
+                              child: Image.network(
+                                '${widget.imageUrl}/$option',
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Text(option),
+                      value: ((updatedQuestion?.answer as List?)
+                              ?.map((e) => e.toString())
+                              .toList()
+                              .contains(option)) ??
+                          false,
+                      onChanged: (_) {
+                        widget.onChanged(option);
+                        updateQuestion(option);
+                      },
+                    );
+                  },
+                ),
+              if (isDropdown)
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: theme.materialThemeData.colorScheme.surface,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    value: updatedQuestion?.answer as String?,
+                    onChanged: (String? value) {
+                      widget.onChanged(value!);
+                      updateQuestion(value);
+                    },
+                    items: widget.question.choices!.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        if (widget.error != null) ...[
+          VerticalGap.smallMedium(),
+          Padding(
+            padding: const EdgeInsets.only(left: Spacing.mediumLarge),
+            child: Text(
+              l10n.requiredFieldErrorMessage,
+              style: textTheme.bodySmall?.copyWith(color: theme.errorColor),
             ),
-        ],
-      ),
+          ),
+        ]
+      ],
     );
   }
 }
