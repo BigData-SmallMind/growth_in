@@ -280,8 +280,8 @@ extension QuestionRMtoDM on QuestionRM {
         sliderMax: (sliderMax != null && sliderMin != null)
             ? (sliderMax! < sliderMin! ? sliderMin : sliderMax)
             : null,
-        isRequired: true,
-        // isRequired: isRequired,
+        // isRequired: true,
+        isRequired: isRequired,
       );
     } catch (error) {
       rethrow;
