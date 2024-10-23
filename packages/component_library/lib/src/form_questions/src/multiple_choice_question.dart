@@ -32,7 +32,10 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
 
   void updateQuestion(dynamic answer) {
     if (widget.question.allowMultipleAnswers) {
-      final answersList = updatedQuestion?.answer as List? ?? [];
+      // final answersList = updatedQuestion?.answer as List? ?? [];
+      final answersList = updatedQuestion?.answer is String?
+          ? [updatedQuestion?.answer]
+          : updatedQuestion?.answer as List? ?? [];
       if (answersList.contains(answer)) {
         answersList.remove(answer);
       } else {
@@ -132,11 +135,13 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                               ),
                             )
                           : Text(option),
-                      value: ((updatedQuestion?.answer as List?)
+                      value: updatedQuestion?.answer is List?
+                          ? (updatedQuestion?.answer as List?)
                               ?.map((e) => e.toString())
                               .toList()
-                              .contains(option)) ??
-                          false,
+                              .contains(option)
+                          : updatedQuestion?.choices
+                              ?.contains(updatedQuestion?.answer as String?),
                       onChanged: (_) {
                         widget.onChanged(option);
                         updateQuestion(option);

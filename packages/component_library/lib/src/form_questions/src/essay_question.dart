@@ -50,7 +50,7 @@ class EssayQuestion extends StatelessWidget {
               ),
               VerticalGap.medium(),
               TextFormField(
-                initialValue: question.answer as String?,
+                initialValue: question.answer?.toString(),
                 maxLines: question.type == QuestionType.longEssay ? 4 : null,
                 onChanged: onChanged,
                 decoration: InputDecoration(

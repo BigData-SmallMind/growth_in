@@ -58,61 +58,65 @@ class FormsView extends StatelessWidget {
               ? const CenteredCircularProgressIndicator()
               : error || hasNoForms
                   ? ExceptionIndicator(
-                      onTryAgain: () => context.read<FormsCubit>().fetchForms(),
+                      onTryAgain: () => cubit.fetchForms(),
                       message: hasNoForms ? l10n.noFormsErrorMessage : null,
                       title: hasNoForms ? l10n.noFormsErrorTitle : null,
                     )
-                  : ListView(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
-                      children: [
-                        if (state.forms!.list.isNotEmpty) ...[
-                          Text(
-                            l10n.incompleteFormsSectionTitle,
-                            style: textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          VerticalGap.small(),
-                          ColumnBuilder(
-                            itemCount: state.forms!.list.length,
-                            itemBuilder: (context, index) {
-                              final form = state.forms!.list[index];
-                              return Column(
-                                children: [
-                                  FormCard(
-                                    form: form,
-                                    onFormTapped: () =>
-                                        cubit.onFormTapped(form.id),
-                                  ),
-                                  VerticalGap.medium(),
-                                ],
-                              );
-                            },
-                          ),
+                  : RefreshIndicator(
+                      onRefresh: cubit.fetchForms,
+                      child: ListView(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: theme.screenMargin),
+                        children: [
+                          if (state.forms!.list.isNotEmpty) ...[
+                            Text(
+                              l10n.incompleteFormsSectionTitle,
+                              style: textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            VerticalGap.small(),
+                            ColumnBuilder(
+                              itemCount: state.forms!.list.length,
+                              itemBuilder: (context, index) {
+                                final form = state.forms!.list[index];
+                                return Column(
+                                  children: [
+                                    FormCard(
+                                      form: form,
+                                      onFormTapped: () =>
+                                          cubit.onFormTapped(form.id),
+                                    ),
+                                    VerticalGap.medium(),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                          if (state.forms!.previous.isNotEmpty) ...[
+                            VerticalGap.large(),
+                            const Divider(),
+                            VerticalGap.large(),
+                            Text(
+                              l10n.previousFormsSectionTitle,
+                              style: textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            VerticalGap.small(),
+                            ColumnBuilder(
+                              itemCount: state.forms!.previous.length,
+                              itemBuilder: (context, index) {
+                                final form = state.forms!.previous[index];
+                                return FormCard(
+                                  form: form,
+                                  onFormTapped: () =>
+                                      cubit.onFormTapped(form.id),
+                                );
+                              },
+                            ),
+                            VerticalGap.large(),
+                          ]
                         ],
-                        if (state.forms!.previous.isNotEmpty) ...[
-                          VerticalGap.large(),
-                          const Divider(),
-                          VerticalGap.large(),
-                          Text(
-                            l10n.previousFormsSectionTitle,
-                            style: textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          VerticalGap.small(),
-                          ColumnBuilder(
-                            itemCount: state.forms!.previous.length,
-                            itemBuilder: (context, index) {
-                              final form = state.forms!.previous[index];
-                              return FormCard(
-                                form: form,
-                                onFormTapped: () => cubit.onFormTapped(form.id),
-                              );
-                            },
-                          ),
-                          VerticalGap.large(),
-                        ]
-                      ],
+                      ),
                     ),
         );
       },

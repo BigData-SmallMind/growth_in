@@ -19,7 +19,7 @@ class FormsCubit extends Cubit<FormsState> {
   final String imageDownloadUrl;
   final ValueSetter<int> onFormTapped;
 
-  void fetchForms() async {
+  Future fetchForms() async {
     final loading =
         state.copyWith(formsFetchingStatus: FormsFetchingStatus.loading);
     emit(loading);

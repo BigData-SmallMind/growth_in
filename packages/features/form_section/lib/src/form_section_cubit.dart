@@ -78,7 +78,8 @@ class FormSectionCubit extends Cubit<FormSectionState> {
     emit(newState);
 
     if (isFormValid) {
-      final answers = questions.map((question) {
+      final answers =
+          questions.where((question) => question.value?.answer != null).map((question) {
         return {
           'question_id': question.value!.id,
           'answer': question.value!.answer,

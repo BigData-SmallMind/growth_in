@@ -34,45 +34,33 @@ class _DateAndTimeQuestionState extends State<DateAndTimeQuestion> {
     widget.onChanged(answer?.replaceAll('-', '/'));
   }
 
-  void pickDateAndTime() {
-    showDatePicker(
+  void pickDateAndTime() async {
+    final date = await showDatePicker(
       context: context,
       initialDate: updatedQuestion?.answer != null
           ? DateTime.parse(updatedQuestion!.answer!.replaceAll('/', '-'))
           : DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
-    ).then(
-      (date) => date == null
-          ? null
-          : showTimePicker(
-              context: context,
-              initialTime: updatedQuestion?.answer == null
-                  ? TimeOfDay.now()
-                  : TimeOfDay(
-                      hour: int.parse(updatedQuestion?.answer
-                          .split(' ')[1]
-                          .split(':')
-                          .first),
-                      minute: int.parse(updatedQuestion?.answer
-                          .split(' ')[1]
-                          .split(':')
-                          .last),
-                    ),
-            ).then(
-              (time) {
-                // widget.onChanged(
-                //   value.toString(),
-                // );
-                if (time != null) {
-                  updateQuestion(
-                    '${date.toIso8601String().split('T').first} '
-                    '${time.hour}:${time.minute}',
-                  );
-                }
-              },
+    );
+    if (date == null && !mounted) return;
+    final time = await showTimePicker(
+      context: context,
+      initialTime: updatedQuestion?.answer == null
+          ? TimeOfDay.now()
+          : TimeOfDay(
+              hour: int.parse(
+                  updatedQuestion?.answer.split(' ')[1].split(':').first),
+              minute: int.parse(
+                  updatedQuestion?.answer.split(' ')[1].split(':').last),
             ),
     );
+    if (time != null) {
+      updateQuestion(
+        '${date!.toIso8601String().split('T').first} '
+        '${time.hour}:${time.minute}',
+      );
+    }
   }
 
   @override
