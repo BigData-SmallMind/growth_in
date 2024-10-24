@@ -91,7 +91,7 @@ class Question {
     required this.allowMultipleAnswers,
     required this.allowAnotherAnswer,
     this.answer,
-    this.anotherAnswer,
+    this.otherAnswer,
     this.allowDate,
     this.allowTime,
     this.isTimeRange,
@@ -110,7 +110,7 @@ class Question {
 
   // could be a string, a list of strings or an entirely different type
   final dynamic answer;
-  final dynamic anotherAnswer;
+  final String? otherAnswer;
   final bool? allowDate;
   final bool? allowTime;
   final bool? isTimeRange;
@@ -119,9 +119,8 @@ class Question {
   final int? sliderMax;
   final bool isRequired;
 
-  Question copyWith({
+  Question copyWithAnswer({
     dynamic answer,
-
   }) {
     return Question(
       id: id,
@@ -131,7 +130,29 @@ class Question {
       allowMultipleAnswers: allowMultipleAnswers,
       allowAnotherAnswer: allowAnotherAnswer,
       answer: answer,
-      anotherAnswer: anotherAnswer,
+      otherAnswer: otherAnswer,
+      allowDate: allowDate,
+      allowTime: allowTime,
+      isTimeRange: isTimeRange,
+      choices: choices,
+      sliderMin: sliderMin,
+      sliderMax: sliderMax,
+      isRequired: isRequired,
+    );
+  }
+
+  Question copyWithAnotherAnswer({
+    String? anotherAnswer,
+  }) {
+    return Question(
+      id: id,
+      text: text,
+      description: description,
+      type: type,
+      allowMultipleAnswers: allowMultipleAnswers,
+      allowAnotherAnswer: allowAnotherAnswer,
+      answer: answer,
+      otherAnswer: anotherAnswer,
       allowDate: allowDate,
       allowTime: allowTime,
       isTimeRange: isTimeRange,

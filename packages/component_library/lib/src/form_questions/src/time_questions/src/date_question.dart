@@ -29,7 +29,7 @@ class _DateQuestionState extends State<DateQuestion> {
   }
 
   void updateQuestion(String? answer) {
-    updatedQuestion = widget.question.copyWith(answer: answer);
+    updatedQuestion = widget.question.copyWithAnswer(answer: answer);
     setState(() {});
     widget.onChanged(answer?.replaceAll('-', '/'));
   }

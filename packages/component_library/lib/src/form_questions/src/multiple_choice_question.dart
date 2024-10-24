@@ -7,12 +7,14 @@ class MultipleChoiceQuestion extends StatefulWidget {
   const MultipleChoiceQuestion({
     super.key,
     required this.onChanged,
+    required this.onOtherAnswerChanged,
     required this.question,
     required this.imageUrl,
     this.error,
   });
 
-  final ValueChanged<String> onChanged;
+  final ValueChanged<dynamic> onChanged;
+  final ValueChanged<String?> onOtherAnswerChanged;
   final Question question;
   final FormQuestionValidationError? error;
   final String? imageUrl;
@@ -23,6 +25,8 @@ class MultipleChoiceQuestion extends StatefulWidget {
 
 class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
   Question? updatedQuestion;
+  bool isOtherAnswerChecked = false;
+  final otherController = TextEditingController();
 
   @override
   void initState() {
@@ -41,11 +45,20 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
       } else {
         answersList.add(answer);
       }
-      updatedQuestion = widget.question.copyWith(answer: answersList);
+      updatedQuestion = widget.question.copyWithAnswer(answer: answersList);
     } else {
-      updatedQuestion = widget.question.copyWith(answer: answer);
+      updatedQuestion = widget.question.copyWithAnswer(answer: answer);
     }
     setState(() {});
+    widget.onChanged(updatedQuestion?.answer);
+  }
+
+  void updatedAnotherAnswer(String? anotherAnswer) {
+    updatedQuestion = updatedQuestion?.copyWithAnotherAnswer(
+      anotherAnswer: anotherAnswer,
+    );
+    setState(() {});
+    widget.onOtherAnswerChanged(anotherAnswer);
   }
 
   @override
@@ -57,6 +70,10 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
     final isMultipleImageChoice =
         widget.question.type == QuestionType.multipleImageChoice;
     final l10n = ComponentLibraryLocalizations.of(context);
+    final isRadio = !allowMultipleAnswers && !isDropdown;
+    final isCheckBox = allowMultipleAnswers && !isDropdown;
+    final allowOther = widget.question.allowAnotherAnswer;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -85,7 +102,7 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                 ),
               ),
               VerticalGap.medium(),
-              if (!allowMultipleAnswers && !isDropdown)
+              if (isRadio)
                 ...widget.question.choices!.map(
                   (option) {
                     return RadioListTile(
@@ -105,13 +122,15 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                       value: option,
                       groupValue: updatedQuestion?.answer,
                       onChanged: (_) {
-                        widget.onChanged(option);
                         updateQuestion(option);
+                        updatedAnotherAnswer(null);
+                        isOtherAnswerChecked = false;
+                        otherController.clear();
                       },
                     );
                   },
                 ),
-              if (allowMultipleAnswers && !isDropdown)
+              if (isCheckBox)
                 ...widget.question.choices!.map(
                   (option) {
                     return CheckboxListTile(
@@ -136,14 +155,12 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                             )
                           : Text(option),
                       value: updatedQuestion?.answer is List?
-                          ? (updatedQuestion?.answer as List?)
-                              ?.map((e) => e.toString())
-                              .toList()
-                              .contains(option)
-                          : updatedQuestion?.choices
-                              ?.contains(updatedQuestion?.answer as String?),
+                          ? (updatedQuestion?.answer)?.any(
+                                (element) => element == option,
+                              ) ??
+                              false
+                          : option == updatedQuestion?.answer,
                       onChanged: (_) {
-                        widget.onChanged(option);
                         updateQuestion(option);
                       },
                     );
@@ -170,6 +187,38 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                         child: Text(value),
                       );
                     }).toList(),
+                  ),
+                ),
+              if (allowOther)
+                CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('l10n.otherAnswerTileTitle'),
+                  value: isOtherAnswerChecked,
+                  onChanged: (_) {
+                    isOtherAnswerChecked = !isOtherAnswerChecked;
+                    if (!isOtherAnswerChecked) {
+                      otherController.clear();
+                      updatedAnotherAnswer(null);
+                    }
+                    if(isOtherAnswerChecked) {
+                      updateQuestion(null);
+                    }
+                    setState(() {});
+                  },
+                ),
+              if (isOtherAnswerChecked)
+                TextField(
+                  controller: otherController,
+                  onChanged: (value) {
+                    otherController.text = value;
+                    updatedAnotherAnswer(value.isEmpty ? null : value);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'l10n.otherAnswerHintText',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
             ],

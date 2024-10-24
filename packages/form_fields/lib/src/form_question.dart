@@ -20,7 +20,7 @@ class FormQuestion extends FormzInput<Question?, FormQuestionValidationError>
     }
     if (value?.isRequired == true &&
         value?.answer == null &&
-        value?.anotherAnswer == null) {
+        value?.otherAnswer == null) {
       return FormQuestionValidationError.empty;
     }
     return null;

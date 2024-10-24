@@ -29,7 +29,7 @@ class _DateRangeQuestionState extends State<DateRangeQuestion> {
   }
 
   void updateQuestion(Map<String, dynamic> answer) {
-    updatedQuestion = widget.question.copyWith(answer: answer);
+    updatedQuestion = widget.question.copyWithAnswer(answer: answer);
     setState(() {});
     if (answer['from'] != null && answer['to'] != null) {
       final updatedMap = {

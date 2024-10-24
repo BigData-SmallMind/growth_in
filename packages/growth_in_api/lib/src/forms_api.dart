@@ -48,7 +48,10 @@ class FormsApi {
       final requestJsonBody = {
         'answers': answers,
       };
-      final formData = FormData.fromMap(requestJsonBody);
+      final formData = FormData.fromMap(
+        requestJsonBody,
+        ListFormat.multiCompatible,
+      );
 
       final response = await _dio.post(
         url,

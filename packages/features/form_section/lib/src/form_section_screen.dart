@@ -93,7 +93,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -108,8 +108,16 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
+                                        ),
+                                      );
+                                    },
+                                    onOtherAnswerChanged: (anotherAnswer) {
+                                      cubit.onQuestionChanged(
+                                        question.copyWithAnotherAnswer(
+                                          anotherAnswer: anotherAnswer,
+
                                         ),
                                       );
                                     },
@@ -120,7 +128,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -132,7 +140,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -144,7 +152,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -156,7 +164,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -168,7 +176,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -180,7 +188,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -192,7 +200,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );
@@ -204,7 +212,7 @@ class FormSectionView extends StatelessWidget {
                                     error: error,
                                     onChanged: (answer) {
                                       cubit.onQuestionChanged(
-                                        question.copyWith(
+                                        question.copyWithAnswer(
                                           answer: answer,
                                         ),
                                       );

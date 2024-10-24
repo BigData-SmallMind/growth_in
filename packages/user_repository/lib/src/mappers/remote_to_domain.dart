@@ -259,6 +259,7 @@ extension QuestionRMtoDM on QuestionRM {
               )
               .toList()
           : answer;
+
       return Question(
         id: id,
         text: text,
@@ -269,7 +270,7 @@ extension QuestionRMtoDM on QuestionRM {
         allowMultipleAnswers: allowMultipleAnswers,
         allowAnotherAnswer: allowAnotherAnswer,
         answer: isFileUploadQuestion ? fileUploadAnswers : answer,
-        anotherAnswer: anotherAnswer,
+        otherAnswer: anotherAnswer,
         allowDate: allowDate,
         allowTime: allowTime,
         isTimeRange: isTimeRange,

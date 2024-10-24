@@ -78,13 +78,19 @@ class FormSectionCubit extends Cubit<FormSectionState> {
     emit(newState);
 
     if (isFormValid) {
-      final answers =
-          questions.where((question) => question.value?.answer != null).map((question) {
-        return {
+      final answers = questions.map((question) {
+        final answer = question.value?.answer;
+        if (answer is List) {
+          answer.removeWhere((element) => element == null);
+        }
+        final answerMap = {
           'question_id': question.value!.id,
-          'answer': question.value!.answer,
+          'answer': answer,
+          'another_answer': question.value?.otherAnswer,
         };
+        return answerMap;
       }).toList();
+
       try {
         await userRepository.saveFormAnswers(
           answers: answers,
