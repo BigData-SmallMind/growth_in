@@ -5,5 +5,11 @@ class FormSectionLocalizationsEn extends FormSectionLocalizations {
   FormSectionLocalizationsEn([super.locale = 'en']);
 
   @override
-  String get appBarTitle => 'FormSection';
+  String get appBarTitle => 'Forms';
+
+  @override
+  String get submissionInProgressButtonLabel => 'Submitting...';
+
+  @override
+  String get submitButtonLabel => 'Submit';
 }

@@ -29,7 +29,7 @@ class _DateQuestionState extends State<DateQuestion> {
   }
 
   void updateQuestion(String? answer) {
-    updatedQuestion = widget.question.copyWithAnswer(answer: answer);
+    updatedQuestion = widget.question.copyWith(answer: answer);
     setState(() {});
     widget.onChanged(answer?.replaceAll('-', '/'));
   }
@@ -84,13 +84,14 @@ class _DateQuestionState extends State<DateQuestion> {
                 child: TextField(
                   enabled: false,
                   controller: TextEditingController(
-                      text: updatedQuestion?.answer?.replaceAll('/', '-')),
+                    text: updatedQuestion?.answer?.replaceAll('/', '-'),
+                  ),
                 ),
               )
             ],
           ),
         ),
-                if (widget.error != null) ...[
+        if (widget.error != null) ...[
           VerticalGap.smallMedium(),
           Padding(
             padding: const EdgeInsets.only(left: Spacing.mediumLarge),
@@ -100,7 +101,6 @@ class _DateQuestionState extends State<DateQuestion> {
             ),
           ),
         ]
-
       ],
     );
   }

@@ -218,7 +218,7 @@ extension QuestionRMtoDM on QuestionRM {
       case 'تاريخ/ساعة':
         return QuestionType.dateType;
       case 'سؤال صور مع اجوبة':
-        return QuestionType.imageQuestion;
+        return QuestionType.imageAndText;
       default:
         throw Exception('Unknown question type');
     }

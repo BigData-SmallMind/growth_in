@@ -7,14 +7,12 @@ class MultipleChoiceQuestion extends StatefulWidget {
   const MultipleChoiceQuestion({
     super.key,
     required this.onChanged,
-    required this.onOtherAnswerChanged,
     required this.question,
     required this.imageUrl,
     this.error,
   });
 
   final ValueChanged<dynamic> onChanged;
-  final ValueChanged<String?> onOtherAnswerChanged;
   final Question question;
   final FormQuestionValidationError? error;
   final String? imageUrl;
@@ -30,35 +28,61 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
 
   @override
   void initState() {
-    updatedQuestion = widget.question;
+    final isAnswerString = widget.question.answer is String;
+    final answer = isAnswerString
+        ? [widget.question.answer]
+        : widget.question.answer as List? ?? [];
+    final choices = widget.question.choices ?? [];
+    final choicesInAnswerButNotInChoices = answer
+        .where((element) => !choices.contains(element))
+        .map((e) => e.toString())
+        .toList();
+    final allChoices = [
+      ...choices,
+      ...choicesInAnswerButNotInChoices,
+    ];
+    updatedQuestion = widget.question.copyWith(
+      answer: answer,
+      choices: allChoices,
+    );
+    setState(() {});
     super.initState();
   }
 
-  void updateQuestion(dynamic answer) {
-    if (widget.question.allowMultipleAnswers) {
-      // final answersList = updatedQuestion?.answer as List? ?? [];
-      final answersList = updatedQuestion?.answer is String?
-          ? [updatedQuestion?.answer]
-          : updatedQuestion?.answer as List? ?? [];
-      if (answersList.contains(answer)) {
-        answersList.remove(answer);
-      } else {
-        answersList.add(answer);
-      }
-      updatedQuestion = widget.question.copyWithAnswer(answer: answersList);
+  void chooseAnswer(dynamic answer) {
+    final answersList = updatedQuestion?.answer as List? ?? [];
+    if (answersList.contains(answer)) {
+      answersList.remove(answer);
     } else {
-      updatedQuestion = widget.question.copyWithAnswer(answer: answer);
+      if (answer != null) answersList.add(answer);
     }
+    final shouldAllowMultipleAnswers = widget.question.allowMultipleAnswers;
+    updatedQuestion = updatedQuestion?.copyWith(
+        answer: shouldAllowMultipleAnswers ? answersList : [answer]);
     setState(() {});
     widget.onChanged(updatedQuestion?.answer);
   }
 
-  void updatedAnotherAnswer(String? anotherAnswer) {
-    updatedQuestion = updatedQuestion?.copyWithAnotherAnswer(
-      anotherAnswer: anotherAnswer,
-    );
+  void updateOtherAnswer(String answer) {
+    final answersList = updatedQuestion?.answer as List? ?? [];
+    final choicesLength = updatedQuestion?.choices?.length ?? 0;
+    // answersListWithOther is a list of answers that includes the other answer
+    final answersListWithOther = [
+      ...answersList,
+      answer,
+    ];
+    if (answersListWithOther.length > choicesLength) {
+      answersListWithOther.removeAt(choicesLength - 1);
+    }
+
+    final multipleAnswersAllowed = widget.question.allowMultipleAnswers;
+
+    updatedQuestion = updatedQuestion?.copyWith(
+        answer: multipleAnswersAllowed
+            ? answersListWithOther
+            : [if (answer.isNotEmpty) answer]);
     setState(() {});
-    widget.onOtherAnswerChanged(anotherAnswer);
+    widget.onChanged(updatedQuestion?.answer);
   }
 
   @override
@@ -103,27 +127,28 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
               ),
               VerticalGap.medium(),
               if (isRadio)
-                ...widget.question.choices!.map(
-                  (option) {
+                ...updatedQuestion!.choices!.map(
+                  (choice) {
                     return RadioListTile(
                       title: isMultipleImageChoice
                           ? Align(
                               alignment: AlignmentDirectional.centerStart,
                               child: Image.network(
-                                '${widget.imageUrl}/$option',
+                                '${widget.imageUrl}/$choice',
                                 width: 40,
                                 height: 40,
                                 fit: BoxFit.cover,
                               ),
                             )
-                          : Text(option),
+                          : Text(choice),
                       controlAffinity: ListTileControlAffinity.leading,
                       contentPadding: EdgeInsets.zero,
-                      value: option,
-                      groupValue: updatedQuestion?.answer,
+                      value: choice,
+                      groupValue: updatedQuestion?.answer.isNotEmpty
+                          ? updatedQuestion?.answer.first
+                          : false,
                       onChanged: (_) {
-                        updateQuestion(option);
-                        updatedAnotherAnswer(null);
+                        chooseAnswer(choice);
                         isOtherAnswerChecked = false;
                         otherController.clear();
                       },
@@ -131,8 +156,8 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                   },
                 ),
               if (isCheckBox)
-                ...widget.question.choices!.map(
-                  (option) {
+                ...updatedQuestion!.choices!.map(
+                  (choice) {
                     return CheckboxListTile(
                       checkboxShape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(3),
@@ -147,21 +172,19 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                           ? Align(
                               alignment: AlignmentDirectional.centerStart,
                               child: Image.network(
-                                '${widget.imageUrl}/$option',
+                                '${widget.imageUrl}/$choice',
                                 width: 40,
                                 height: 40,
                                 fit: BoxFit.cover,
                               ),
                             )
-                          : Text(option),
-                      value: updatedQuestion?.answer is List?
-                          ? (updatedQuestion?.answer)?.any(
-                                (element) => element == option,
-                              ) ??
-                              false
-                          : option == updatedQuestion?.answer,
+                          : Text(choice),
+                      value: (updatedQuestion?.answer)?.any(
+                            (element) => element == choice,
+                          ) ??
+                          false,
                       onChanged: (_) {
-                        updateQuestion(option);
+                        chooseAnswer(choice);
                       },
                     );
                   },
@@ -179,7 +202,7 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                     value: updatedQuestion?.answer as String?,
                     onChanged: (String? value) {
                       widget.onChanged(value!);
-                      updateQuestion(value);
+                      chooseAnswer(value);
                     },
                     items: widget.question.choices!.map((String value) {
                       return DropdownMenuItem<String>(
@@ -193,17 +216,12 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                 CheckboxListTile(
                   controlAffinity: ListTileControlAffinity.leading,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('l10n.otherAnswerTileTitle'),
+                  title: Text(l10n.otherAnswerTileTitle),
                   value: isOtherAnswerChecked,
                   onChanged: (_) {
                     isOtherAnswerChecked = !isOtherAnswerChecked;
-                    if (!isOtherAnswerChecked) {
-                      otherController.clear();
-                      updatedAnotherAnswer(null);
-                    }
-                    if(isOtherAnswerChecked) {
-                      updateQuestion(null);
-                    }
+                    otherController.clear();
+                    updateOtherAnswer('');
                     setState(() {});
                   },
                 ),
@@ -212,10 +230,10 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                   controller: otherController,
                   onChanged: (value) {
                     otherController.text = value;
-                    updatedAnotherAnswer(value.isEmpty ? null : value);
+                    updateOtherAnswer(value);
                   },
                   decoration: InputDecoration(
-                    hintText: 'l10n.otherAnswerHintText',
+                    hintText: l10n.otherAnswerHintText,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),

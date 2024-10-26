@@ -63,165 +63,174 @@ class FormSectionView extends StatelessWidget {
               ? const CenteredCircularProgressIndicator()
               : error
                   ? ExceptionIndicator(
-                      onTryAgain: () => cubit.fetchFormSection(),
+                      onTryAgain: () =>
+                          cubit.fetchFormSection(state.currentSection),
                     )
                   : Column(
                       children: [
                         Expanded(
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                VerticalGap.large(),
-                            itemCount: state.formSection!.questions.length,
-                            padding: EdgeInsets.all(
-                              theme.screenMargin,
+                          child: IgnorePointer(
+                            ignoring: submissionInProgress,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) =>
+                                  VerticalGap.large(),
+                              itemCount: state.formSection!.questions.length,
+                              padding: EdgeInsets.all(
+                                theme.screenMargin,
+                              ),
+                              itemBuilder: (context, index) {
+                                final question =
+                                    state.formSection!.questions[index];
+                                final error = state.questions
+                                    .firstWhere(
+                                      (q) => q.value?.id == question.id,
+                                      orElse: () =>
+                                          const FormQuestion.unvalidated(),
+                                    )
+                                    .error;
+                                switch (question.type) {
+                                  case QuestionType.essay ||
+                                        QuestionType.longEssay:
+                                    return EssayQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.multipleChoice ||
+                                        QuestionType.dropdown ||
+                                        QuestionType.multipleImageChoice:
+                                    return MultipleChoiceQuestion(
+                                      imageUrl: cubit.imageDownloadUrl,
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.slider:
+                                    return SliderQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.fileUpload:
+                                    return FileUploadQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.dateOnly:
+                                    return DateQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.timeOnly:
+                                    return TimeQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.dateAndTime:
+                                    return DateAndTimeQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.dateRange:
+                                    return DateRangeQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.timeRange:
+                                    return TimeRangeQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.dateAndTimeRange:
+                                    return DateAndTimeRangeQuestion(
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  case QuestionType.imageAndText:
+                                    return ImageAndTextQuestion(
+                                      imageDownloadUrl: cubit.imageDownloadUrl,
+                                      question: question,
+                                      error: error,
+                                      onChanged: (answer) {
+                                        cubit.onQuestionChanged(
+                                          question.copyWith(
+                                            answer: answer,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  default:
+                                    return const SizedBox.shrink();
+                                }
+                              },
                             ),
-                            itemBuilder: (context, index) {
-                              final question =
-                                  state.formSection!.questions[index];
-                              final error = state.questions
-                                  .firstWhere(
-                                    (q) => q.value?.id == question.id,
-                                    orElse: () =>
-                                        const FormQuestion.unvalidated(),
-                                  )
-                                  .error;
-                              switch (question.type) {
-                                case QuestionType.essay ||
-                                      QuestionType.longEssay:
-                                  return EssayQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.multipleChoice ||
-                                      QuestionType.dropdown ||
-                                      QuestionType.multipleImageChoice:
-                                  return MultipleChoiceQuestion(
-                                    imageUrl: cubit.imageDownloadUrl,
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                    onOtherAnswerChanged: (anotherAnswer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnotherAnswer(
-                                          anotherAnswer: anotherAnswer,
-
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.slider:
-                                  return SliderQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.fileUpload:
-                                  return FileUploadQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.dateOnly:
-                                  return DateQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.timeOnly:
-                                  return TimeQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.dateAndTime:
-                                  return DateAndTimeQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.dateRange:
-                                  return DateRangeQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.timeRange:
-                                  return TimeRangeQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                case QuestionType.dateAndTimeRange:
-                                  return DateAndTimeRangeQuestion(
-                                    question: question,
-                                    error: error,
-                                    onChanged: (answer) {
-                                      cubit.onQuestionChanged(
-                                        question.copyWithAnswer(
-                                          answer: answer,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                default:
-                                  return const SizedBox.shrink();
-                              }
-                            },
                           ),
                         ),
                         Padding(
@@ -230,12 +239,12 @@ class FormSectionView extends StatelessWidget {
                           ),
                           child: submissionInProgress
                               ? GrowthInElevatedButton.inProgress(
-                                  label: 'l10n.submissionInProgressButtonLabel',
+                                  label: l10n.submissionInProgressButtonLabel,
                                 )
                               : GrowthInElevatedButton(
                                   onTap: cubit.onSubmit,
                                   bgColor: theme.secondaryColor,
-                                  label: 'l10n.submitButtonLabel',
+                                  label: l10n.submitButtonLabel,
                                 ),
                         ),
                       ],

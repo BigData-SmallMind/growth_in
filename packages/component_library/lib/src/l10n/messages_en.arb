@@ -113,7 +113,14 @@
   "noSlotsAvailableIndicatorText": "No slots available",
   "unAuthSnackBarErrorMessage": "You must login first",
   "essayQuestionTextFieldLabel": "Add your answer here..",
-  "requiredFieldErrorMessage": "Required *"
+  "requiredFieldErrorMessage": "Required *",
+  "otherAnswerTileTitle": "Other",
+  "otherAnswerHintText": "Please specify",
+  "addImageAndTextButtonLabel": "Add Image & Text",
+  "imageAndTextDialogTitle": "Image and Text",
+  "nameTextFieldLabel": "Name",
+  "descriptionTextFieldLabel": "Description",
+  "addImageTextAnswerButtonLabel": "Add Image/Text Answer"
 
 
 }

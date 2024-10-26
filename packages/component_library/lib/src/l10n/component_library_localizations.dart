@@ -734,6 +734,48 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Add your answer here..'**
   String get essayQuestionTextFieldLabel;
+
+  /// No description provided for @otherAnswerTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get otherAnswerTileTitle;
+
+  /// No description provided for @otherAnswerHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Please specify'**
+  String get otherAnswerHintText;
+
+  /// No description provided for @addImageAndTextButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Image & Text'**
+  String get addImageAndTextButtonLabel;
+
+  /// No description provided for @imageAndTextDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Image and Text'**
+  String get imageAndTextDialogTitle;
+
+  /// No description provided for @nameTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameTextFieldLabel;
+
+  /// No description provided for @descriptionTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get descriptionTextFieldLabel;
+
+  /// No description provided for @addImageTextAnswerButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Image/Text Answer'**
+  String get addImageTextAnswerButtonLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

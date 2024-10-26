@@ -1,4 +1,6 @@
 {
-  "appBarTitle": "FormSection"
+  "appBarTitle": "Forms",
+  "submissionInProgressButtonLabel": "Submitting...",
+  "submitButtonLabel": "Submit"
 
 }

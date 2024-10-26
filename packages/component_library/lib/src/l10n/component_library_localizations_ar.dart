@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
+  ComponentLibraryLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
@@ -324,4 +324,25 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get essayQuestionTextFieldLabel => 'أضف إجابتك هنا..';
+
+  @override
+  String get otherAnswerTileTitle => 'أخرى';
+
+  @override
+  String get otherAnswerHintText => 'يرجى تحديد';
+
+  @override
+  String get addImageAndTextButtonLabel => 'إضافة صورة ونص';
+
+  @override
+  String get imageAndTextDialogTitle => 'صورة ونص';
+
+  @override
+  String get nameTextFieldLabel => 'الاسم';
+
+  @override
+  String get descriptionTextFieldLabel => 'الوصف';
+
+  @override
+  String get addImageTextAnswerButtonLabel => 'أضف إجابة صورة/نص';
 }

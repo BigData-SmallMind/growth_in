@@ -29,7 +29,7 @@ class _TimeQuestionState extends State<TimeQuestion> {
   }
 
   void updateQuestion(String? answer) {
-    updatedQuestion = widget.question.copyWithAnswer(answer: answer);
+    updatedQuestion = widget.question.copyWith(answer: answer);
     setState(() {});
     widget.onChanged(answer);
   }

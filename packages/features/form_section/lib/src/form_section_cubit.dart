@@ -12,24 +12,26 @@ class FormSectionCubit extends Cubit<FormSectionState> {
     required this.imageDownloadUrl,
     required this.formId,
   }) : super(const FormSectionState()) {
-    fetchFormSection();
+    final loading = state.copyWith(
+        formSectionFetchingStatus: FormSectionFetchingStatus.loading);
+    emit(loading);
+    fetchFormSection(0);
   }
 
   final UserRepository userRepository;
   final String imageDownloadUrl;
   final int formId;
 
-  void fetchFormSection() async {
-    final loading = state.copyWith(
-        formSectionFetchingStatus: FormSectionFetchingStatus.loading);
-    emit(loading);
+  Future fetchFormSection(int currentSectionIndex) async {
     try {
       final formSections = await userRepository.getFormSections(formId);
-      final formSection = formSections.list.first;
+      final formSection = formSections.list[currentSectionIndex];
       final questions = formSection.questions.map((question) {
         return FormQuestion.unvalidated(question);
       }).toList();
       final success = state.copyWith(
+        currentSection: currentSectionIndex,
+        isLastSection: currentSectionIndex == formSections.list.length - 1,
         formSection: formSection,
         questions: questions,
         formSectionFetchingStatus: FormSectionFetchingStatus.success,
@@ -82,11 +84,11 @@ class FormSectionCubit extends Cubit<FormSectionState> {
         final answer = question.value?.answer;
         if (answer is List) {
           answer.removeWhere((element) => element == null);
+          answer.removeWhere((element) => element == '');
         }
         final answerMap = {
           'question_id': question.value!.id,
-          'answer': answer,
-          'another_answer': question.value?.otherAnswer,
+          'answer': answer is List && answer.isEmpty ? null : answer,
         };
         return answerMap;
       }).toList();
@@ -95,9 +97,10 @@ class FormSectionCubit extends Cubit<FormSectionState> {
         await userRepository.saveFormAnswers(
           answers: answers,
         );
-
+        if (state.isLastSection == false) {
+          await fetchFormSection(state.currentSection + 1);
+        }
         final newState = state.copyWith(
-          questions: questions,
           submissionStatus: FormzSubmissionStatus.success,
         );
         emit(newState);

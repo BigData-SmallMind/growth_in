@@ -113,7 +113,14 @@
   "noSlotsAvailableIndicatorText": "لا توجد فترات زمنية متاحة",
   "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول",
   "essayQuestionTextFieldLabel": "أضف إجابتك هنا..",
-  "requiredFieldErrorMessage": "مطلوب *"
+  "requiredFieldErrorMessage": "مطلوب *",
+  "otherAnswerTileTitle": "أخرى",
+  "otherAnswerHintText": "يرجى تحديد",
+  "addImageAndTextButtonLabel": "إضافة صورة ونص",
+  "imageAndTextDialogTitle": "صورة ونص",
+  "nameTextFieldLabel": "الاسم",
+  "descriptionTextFieldLabel": "الوصف",
+  "addImageTextAnswerButtonLabel": "أضف إجابة صورة/نص"
 
 }
 

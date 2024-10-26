@@ -6,4 +6,10 @@ class FormSectionLocalizationsAr extends FormSectionLocalizations {
 
   @override
   String get appBarTitle => 'النماذج';
+
+  @override
+  String get submissionInProgressButtonLabel => 'جارٍ التقديم...';
+
+  @override
+  String get submitButtonLabel => 'تقديم';
 }

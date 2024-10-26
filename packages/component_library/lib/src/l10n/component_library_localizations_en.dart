@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
+  ComponentLibraryLocalizationsEn([super.locale = 'en']);
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect email or password';
@@ -324,4 +324,25 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get essayQuestionTextFieldLabel => 'Add your answer here..';
+
+  @override
+  String get otherAnswerTileTitle => 'Other';
+
+  @override
+  String get otherAnswerHintText => 'Please specify';
+
+  @override
+  String get addImageAndTextButtonLabel => 'Add Image & Text';
+
+  @override
+  String get imageAndTextDialogTitle => 'Image and Text';
+
+  @override
+  String get nameTextFieldLabel => 'Name';
+
+  @override
+  String get descriptionTextFieldLabel => 'Description';
+
+  @override
+  String get addImageTextAnswerButtonLabel => 'Add Image/Text Answer';
 }

@@ -23,6 +23,23 @@ class FormQuestion extends FormzInput<Question?, FormQuestionValidationError>
         value?.otherAnswer == null) {
       return FormQuestionValidationError.empty;
     }
+    //if it is an empty list return empty
+    if (value?.isRequired == true &&
+        value?.answer is List &&
+        (value?.answer as List).isEmpty) {
+      return FormQuestionValidationError.empty;
+    }
+    //if it is a list of empty strings return empty
+    if (value?.isRequired == true &&
+        value?.answer is List &&
+        (value?.answer as List).every((element) => element == '')) {
+      return FormQuestionValidationError.empty;
+    }
+    if (value?.isRequired == true &&
+        value?.answer is List &&
+        (value?.answer as List).every((element) => element == null)) {
+      return FormQuestionValidationError.empty;
+    }
     return null;
   }
 

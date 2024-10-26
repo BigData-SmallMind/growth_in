@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+
 class FormsSections {
   FormsSections({
     required this.id,
@@ -25,62 +28,6 @@ class FormSection {
   final String? name;
   final List<Question> questions;
 }
-
-// class QuestionRM {
-//   QuestionRM({
-//     required this.id,
-//     required this.text,
-//     required this.description,
-//     required this.type,
-//     required this.allowMultipleAnswers,
-//     required this.allowAnotherAnswer,
-//     this.answer,
-//     this.anotherAnswer,
-//     this.allowDate,
-//     this.allowTime,
-//     this.isTimeRange,
-//     this.choices,
-//     this.imageChoices,
-//     this.sliderMin,
-//     this.sliderMax,
-//     required this.isRequired,
-//   });
-//
-//   @JsonKey(name: 'id')
-//   final int id;
-//   @JsonKey(name: 'question_text')
-//   final String text;
-//   @JsonKey(name: 'description')
-//   final String description;
-//   @JsonKey(name: 'question_type')
-//   final String type;
-//   @JsonKey(name: 'allow_multiple_answers')
-//   final bool allowMultipleAnswers;
-//   @JsonKey(name: 'allow_another_answers')
-//   final bool allowAnotherAnswer;
-//   @JsonKey(name: 'answer')
-//   final dynamic answer;
-//   @JsonKey(name: 'another_answer')
-//   final dynamic anotherAnswer;
-//   @JsonKey(name: 'allow_date')
-//   final bool? allowDate;
-//   @JsonKey(name: 'allow_time')
-//   final bool? allowTime;
-//   @JsonKey(name: 'allow_scale')
-//   final bool? isTimeRange;
-//   @JsonKey(name: 'options')
-//   final List<String>? choices;
-//   @JsonKey(name: 'imageOptions')
-//   final List<String>? imageChoices;
-//   @JsonKey(name: 'scale_from')
-//   final int? sliderMin;
-//   @JsonKey(name: 'scale_to')
-//   final int? sliderMax;
-//   @JsonKey(name: 'is_required')
-//   final bool isRequired;
-//
-//   static const fromJson = _$QuestionRMFromJson;
-// }
 
 class Question {
   Question({
@@ -119,8 +66,9 @@ class Question {
   final int? sliderMax;
   final bool isRequired;
 
-  Question copyWithAnswer({
+  Question copyWith({
     dynamic answer,
+    List<String>? choices,
   }) {
     return Question(
       id: id,
@@ -134,29 +82,7 @@ class Question {
       allowDate: allowDate,
       allowTime: allowTime,
       isTimeRange: isTimeRange,
-      choices: choices,
-      sliderMin: sliderMin,
-      sliderMax: sliderMax,
-      isRequired: isRequired,
-    );
-  }
-
-  Question copyWithAnotherAnswer({
-    String? anotherAnswer,
-  }) {
-    return Question(
-      id: id,
-      text: text,
-      description: description,
-      type: type,
-      allowMultipleAnswers: allowMultipleAnswers,
-      allowAnotherAnswer: allowAnotherAnswer,
-      answer: answer,
-      otherAnswer: anotherAnswer,
-      allowDate: allowDate,
-      allowTime: allowTime,
-      isTimeRange: isTimeRange,
-      choices: choices,
+      choices: choices ?? this.choices,
       sliderMin: sliderMin,
       sliderMax: sliderMax,
       isRequired: isRequired,
@@ -179,5 +105,45 @@ enum QuestionType {
   dateRange,
   timeRange,
   dateAndTimeRange,
-  imageQuestion;
+  imageAndText;
+}
+
+class ImageAndTextAnswer {
+  ImageAndTextAnswer({
+    this.imageSlug,
+    required this.description,
+    required this.name,
+    this.imageBytes,
+    this.file,
+  });
+
+  final String? imageSlug;
+  final String description;
+  final String name;
+  final Uint8List? imageBytes;
+  final MultipartFile? file;
+
+  ImageAndTextAnswer copyWith({
+    String? imageSlug,
+    String? description,
+    String? name,
+    Uint8List? imageBytes,
+    MultipartFile? file,
+  }) {
+    return ImageAndTextAnswer(
+      imageSlug: imageSlug ?? this.imageSlug,
+      description: description ?? this.description,
+      name: name ?? this.name,
+      imageBytes: imageBytes ?? this.imageBytes,
+      file: file ?? this.file,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'product_image': imageSlug ?? file,
+      'product_description': description,
+      'product_name': name,
+    };
+  }
 }

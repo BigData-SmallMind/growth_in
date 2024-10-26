@@ -29,7 +29,7 @@ class _SliderQuestionState extends State<SliderQuestion> {
   }
 
   void updateQuestion(int answer) {
-    updatedQuestion = widget.question.copyWithAnswer(answer: answer);
+    updatedQuestion = widget.question.copyWith(answer: answer);
     setState(() {});
   }
 

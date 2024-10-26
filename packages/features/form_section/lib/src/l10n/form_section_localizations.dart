@@ -96,8 +96,20 @@ abstract class FormSectionLocalizations {
   /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'FormSection'**
+  /// **'Forms'**
   String get appBarTitle;
+
+  /// No description provided for @submissionInProgressButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting...'**
+  String get submissionInProgressButtonLabel;
+
+  /// No description provided for @submitButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submitButtonLabel;
 }
 
 class _FormSectionLocalizationsDelegate extends LocalizationsDelegate<FormSectionLocalizations> {
