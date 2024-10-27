@@ -363,4 +363,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get assetCountText => 'عدد الملحقات:';
+
+  @override
+  String get downloadAllTileTitle => 'تحميل الكل';
 }

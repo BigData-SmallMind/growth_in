@@ -363,4 +363,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get assetCountText => 'No. of assets:';
+
+  @override
+  String get downloadAllTileTitle => 'Download All';
 }

@@ -60,8 +60,7 @@ class FileCard extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: 100,
+                              Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: theme.screenMargin),
                                 child: Text(
@@ -110,8 +109,11 @@ class FileCard extends StatelessWidget {
                                 ),
                               ),
                               ListTile(
-                                title: const Text('l10n.downloadAllTileTitle'),
+                                title:  Text(l10n.downloadAllTileTitle),
                                 onTap: () {},
+                                leading: const SvgAsset(
+                                  AssetPathConstants.exportPath,
+                                ),
                               ),
                             ],
                           );

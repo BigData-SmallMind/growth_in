@@ -126,7 +126,8 @@
   "folderDetailsBottomSheetTitle": "Details",
   "mileStoneSectionTitle": "Milestone",
   "dueDateSectionTitle": "Due Date",
-  "assetCountText": "No. of assets:"
+  "assetCountText": "No. of assets:",
+  "downloadAllTileTitle": "Download All"
 
 
 }

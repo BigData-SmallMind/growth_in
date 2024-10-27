@@ -812,6 +812,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'No. of assets:'**
   String get assetCountText;
+
+  /// No description provided for @downloadAllTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Download All'**
+  String get downloadAllTileTitle;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

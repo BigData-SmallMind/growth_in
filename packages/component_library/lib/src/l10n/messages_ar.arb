@@ -126,7 +126,9 @@
   "folderDetailsBottomSheetTitle": "التفاصيل",
   "mileStoneSectionTitle": "الانجاز",
   "dueDateSectionTitle": "الموعد",
-  "assetCountText": "عدد الملحقات:"
+  "assetCountText": "عدد الملحقات:",
+  "downloadAllTileTitle": "تحميل الكل"
+
 
 
 }
