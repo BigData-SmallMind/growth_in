@@ -49,7 +49,7 @@ class QuestionRM {
   QuestionRM({
     required this.id,
     required this.text,
-    required this.description,
+     this.description,
     required this.type,
     required this.allowMultipleAnswers,
     required this.allowAnotherAnswer,
@@ -70,7 +70,7 @@ class QuestionRM {
   @JsonKey(name: 'question_text')
   final String text;
   @JsonKey(name: 'description')
-  final String description;
+  final String? description;
   @JsonKey(name: 'question_type')
   final String type;
   @JsonKey(name: 'allow_multiple_answers')

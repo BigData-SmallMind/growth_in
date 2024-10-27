@@ -48,6 +48,7 @@ class FilesList extends StatelessWidget {
                           return FileCard(
                             file: file,
                             onFileTapped: (file) => cubit.onFileTapped(file),
+                            downloadUrl: cubit.downloadUrl,
                           );
                         },
                       ),

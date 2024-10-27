@@ -58,7 +58,7 @@ QuestionRM _$QuestionRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = QuestionRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           text: $checkedConvert('question_text', (v) => v as String),
-          description: $checkedConvert('description', (v) => v as String),
+          description: $checkedConvert('description', (v) => v as String?),
           type: $checkedConvert('question_type', (v) => v as String),
           allowMultipleAnswers:
               $checkedConvert('allow_multiple_answers', (v) => v as bool),

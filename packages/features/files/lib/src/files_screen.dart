@@ -14,11 +14,13 @@ class FilesScreen extends StatelessWidget {
     required this.userRepository,
     required this.folderRepository,
     required this.folderId,
+    required this.downloadUrl,
   });
 
   final UserRepository userRepository;
   final FolderRepository folderRepository;
   final int folderId;
+  final String downloadUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class FilesScreen extends StatelessWidget {
         userRepository: userRepository,
         folderRepository: folderRepository,
         folderId: folderId,
+        downloadUrl: downloadUrl,
       ),
       child: const FilesView(),
     );

@@ -162,6 +162,7 @@ Map<String, PageBuilder> buildRoutingTable({
           userRepository: userRepository,
           folderRepository: folderRepository,
           folderId: folderId,
+          downloadUrl: UrlBuilder.filesDownloadUrl,
         ),
       );
     },

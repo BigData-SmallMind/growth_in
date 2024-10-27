@@ -42,6 +42,8 @@ class _SendMessageState extends State<SendMessage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        scrollPadding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom + 16*4),
                         controller: cubit.messageController,
                         enabled: !submissionInProgress,
                         decoration: InputDecoration(

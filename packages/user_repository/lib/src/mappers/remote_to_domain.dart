@@ -263,7 +263,7 @@ extension QuestionRMtoDM on QuestionRM {
       return Question(
         id: id,
         text: text,
-        description: description,
+        description: description ?? '',
         type: questionTypeRMtoDM(type) == QuestionType.dateType
             ? dateTimeQuestionTypeRMtoDM()
             : questionTypeRMtoDM(type),

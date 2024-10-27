@@ -33,7 +33,7 @@ class Question {
   Question({
     required this.id,
     required this.text,
-    required this.description,
+    this.description = '',
     required this.type,
     required this.allowMultipleAnswers,
     required this.allowAnotherAnswer,

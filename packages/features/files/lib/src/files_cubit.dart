@@ -11,6 +11,7 @@ class FilesCubit extends Cubit<FilesState> {
     required this.userRepository,
     required this.folderRepository,
     required this.folderId,
+    required this.downloadUrl,
   }) : super(const FilesState()) {
     getFiles();
   }
@@ -18,6 +19,7 @@ class FilesCubit extends Cubit<FilesState> {
   final UserRepository userRepository;
   final FolderRepository folderRepository;
   final int folderId;
+  final String downloadUrl;
 
   // get files
 

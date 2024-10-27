@@ -40,10 +40,8 @@ class ChatCubit extends Cubit<ChatState> {
       emit(successState);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (scrollController.hasClients) {
-          scrollController.animateTo(
+          scrollController.jumpTo(
             scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
           );
         }
       });
