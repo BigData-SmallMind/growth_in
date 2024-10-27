@@ -776,6 +776,42 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Add Image/Text Answer'**
   String get addImageTextAnswerButtonLabel;
+
+  /// No description provided for @dateQuestionTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateQuestionTextFieldLabel;
+
+  /// No description provided for @detailsTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get detailsTileTitle;
+
+  /// No description provided for @folderDetailsBottomSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get folderDetailsBottomSheetTitle;
+
+  /// No description provided for @mileStoneSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone'**
+  String get mileStoneSectionTitle;
+
+  /// No description provided for @dueDateSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get dueDateSectionTitle;
+
+  /// No description provided for @assetCountText.
+  ///
+  /// In en, this message translates to:
+  /// **'No. of assets:'**
+  String get assetCountText;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

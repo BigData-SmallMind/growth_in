@@ -1,5 +1,10 @@
 {
   "appBarTitle": "النماذج",
   "submissionInProgressButtonLabel": "جارٍ التقديم...",
-  "submitButtonLabel": "تقديم"
+  "submitButtonLabel": "تقديم",
+  "previousSectionButtonLabel": "القسم السابق",
+  "nextSectionButtonLabel": "القسم التالي",
+  "submitLastSectionButtonLabel": "تقديم",
+  "sectionLabel": "قسم",
+  "formSectionQuestionsCountLabel": "عدد الأسئلة"
 }

@@ -12,9 +12,6 @@ class FormSectionCubit extends Cubit<FormSectionState> {
     required this.imageDownloadUrl,
     required this.formId,
   }) : super(const FormSectionState()) {
-    final loading = state.copyWith(
-        formSectionFetchingStatus: FormSectionFetchingStatus.loading);
-    emit(loading);
     fetchFormSection(0);
   }
 
@@ -24,14 +21,19 @@ class FormSectionCubit extends Cubit<FormSectionState> {
 
   Future fetchFormSection(int currentSectionIndex) async {
     try {
+      final loading = state.copyWith(
+          formSectionFetchingStatus: FormSectionFetchingStatus.loading);
+      emit(loading);
       final formSections = await userRepository.getFormSections(formId);
       final formSection = formSections.list[currentSectionIndex];
       final questions = formSection.questions.map((question) {
         return FormQuestion.unvalidated(question);
       }).toList();
       final success = state.copyWith(
-        currentSection: currentSectionIndex,
+        currentSectionIndex: currentSectionIndex,
         isLastSection: currentSectionIndex == formSections.list.length - 1,
+        totalSections: formSections.list.length,
+        formSections: formSections.list,
         formSection: formSection,
         questions: questions,
         formSectionFetchingStatus: FormSectionFetchingStatus.success,
@@ -42,11 +44,6 @@ class FormSectionCubit extends Cubit<FormSectionState> {
           formSectionFetchingStatus: FormSectionFetchingStatus.error);
       emit(error);
     }
-// @override
-// Future<void> close() {
-//   requestRepository.changeNotifier.clearRequest();
-//   return super.close();
-// }
   }
 
   void onQuestionChanged(Question question) {
@@ -97,13 +94,15 @@ class FormSectionCubit extends Cubit<FormSectionState> {
         await userRepository.saveFormAnswers(
           answers: answers,
         );
-        if (state.isLastSection == false) {
-          await fetchFormSection(state.currentSection + 1);
-        }
         final newState = state.copyWith(
-          submissionStatus: FormzSubmissionStatus.success,
+          submissionStatus: state.isLastSection
+              ? FormzSubmissionStatus.success
+              : FormzSubmissionStatus.initial,
         );
         emit(newState);
+        if (state.isLastSection == false) {
+          await fetchFormSection(state.currentSectionIndex + 1);
+        }
       } catch (error) {
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.failure,
@@ -111,5 +110,9 @@ class FormSectionCubit extends Cubit<FormSectionState> {
         emit(newState);
       }
     }
+  }
+
+  void onPreviousSectionTapped() {
+    fetchFormSection(state.currentSectionIndex - 1);
   }
 }

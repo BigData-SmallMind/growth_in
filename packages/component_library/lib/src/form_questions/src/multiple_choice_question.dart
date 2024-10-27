@@ -199,7 +199,9 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                   ),
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    value: updatedQuestion?.answer as String?,
+                    value: (updatedQuestion?.answer as List? ?? []).isNotEmpty
+                        ? updatedQuestion?.answer.first
+                        : null,
                     onChanged: (String? value) {
                       widget.onChanged(value!);
                       chooseAnswer(value);

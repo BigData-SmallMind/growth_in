@@ -99,4 +99,9 @@ class AssetPathConstants {
 
   static const String editPath = '$iconsPath/edit-2.svg';
   static const String pickFilesPath = '$iconsPath/pick-files.svg';
+  static const String filePath = '$iconsPath/file.svg';
+  static const String messagePath = '$iconsPath/message.svg';
+  static const String coloredFolderPath = '$iconsPath/colored-folder.svg';
+  static const String fileV2Path = '$iconsPath/file-v2.svg';
+  static const String hyperlinkPath = '$iconsPath/hyperlink.svg';
 }

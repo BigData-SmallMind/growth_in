@@ -158,7 +158,7 @@ extension FormRMtoDM on FormRM {
       status: status,
       totalQuestions: totalQuestions,
       totalAnsweredQuestions: totalAnsweredQuestions,
-      services: services.map((service) => service.toDomainModel()).toList(),
+      services: services?.map((service) => service.toDomainModel()).toList(),
     );
   }
 }

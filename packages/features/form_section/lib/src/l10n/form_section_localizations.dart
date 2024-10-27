@@ -110,6 +110,36 @@ abstract class FormSectionLocalizations {
   /// In en, this message translates to:
   /// **'Submit'**
   String get submitButtonLabel;
+
+  /// No description provided for @previousSectionButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get previousSectionButtonLabel;
+
+  /// No description provided for @nextSectionButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get nextSectionButtonLabel;
+
+  /// No description provided for @submitLastSectionButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submitLastSectionButtonLabel;
+
+  /// No description provided for @sectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Section'**
+  String get sectionLabel;
+
+  /// No description provided for @formSectionQuestionsCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'No. of Questions'**
+  String get formSectionQuestionsCountLabel;
 }
 
 class _FormSectionLocalizationsDelegate extends LocalizationsDelegate<FormSectionLocalizations> {

@@ -120,7 +120,14 @@
   "imageAndTextDialogTitle": "صورة ونص",
   "nameTextFieldLabel": "الاسم",
   "descriptionTextFieldLabel": "الوصف",
-  "addImageTextAnswerButtonLabel": "أضف إجابة صورة/نص"
+  "addImageTextAnswerButtonLabel": "أضف إجابة صورة/نص",
+  "dateQuestionTextFieldLabel": "التاريخ",
+  "detailsTileTitle": "التفاصيل",
+  "folderDetailsBottomSheetTitle": "التفاصيل",
+  "mileStoneSectionTitle": "الانجاز",
+  "dueDateSectionTitle": "الموعد",
+  "assetCountText": "عدد الملحقات:"
+
 
 }
 

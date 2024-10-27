@@ -30,6 +30,8 @@ dependencies:
     path: packages/company_repository
   meeting_repository:
     path: packages/meeting_repository
+  folder_repository:
+    path: packages/folder_repository
   function_and_extension_library:
     path: packages/function_and_extension_library
 
@@ -72,6 +74,11 @@ dependencies:
   ticket_messages:
     path: packages/features/ticket_messages
 
+  # Files and folders
+  folders:
+    path: packages/features/folders
+  files:
+    path: packages/features/files
 
   # Requests
   requests:

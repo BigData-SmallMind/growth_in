@@ -25,6 +25,7 @@ class UserRepository {
   final UserChangeNotifier changeNotifier;
   final BehaviorSubject<LocalePreferenceDM?> _localePreferenceSubject =
       BehaviorSubject();
+  final BehaviorSubject<DateGroupedChats> _chatSubject = BehaviorSubject();
 
   Future<void> upsertLocalePreference(LocalePreferenceDM preference) async {
     await _localStorage.upsertLocalePreference(
@@ -507,6 +508,38 @@ class UserRepository {
       companyId: userSelectedCompanyId,
     );
     return chatSubscription;
+  }
+
+  Stream<DateGroupedChats> chatStream() async* {
+    final user = await getUser().first;
+    final userSelectedCompanyId = user!.companies
+        .firstWhere(
+          (company) => company.isSelected,
+        )
+        .id;
+    remoteApi.pusherApi.chatSC.listen((event) {
+      final dateGroupedChatsRM = event;
+      final dateGroupedChats = dateGroupedChatsRM.toDomainModel();
+      final dateGroupedChatsDM = dateGroupedChats.copyWith(
+        list: dateGroupedChats.list
+            .map(
+              (chat) => chat.copyWith(
+                messages: chat.messages.map(
+                  (message) {
+                    final isSentByMe =
+                        message.sender.id == userSelectedCompanyId;
+                    return message.copyWith(
+                      isSentByMe: isSentByMe,
+                    );
+                  },
+                ).toList(),
+              ),
+            )
+            .toList(),
+      );
+      _chatSubject.add(dateGroupedChatsDM);
+    });
+    yield* _chatSubject.stream;
   }
 
   Future<FormsDM> getForms() async {

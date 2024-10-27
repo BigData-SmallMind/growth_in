@@ -1,0 +1,11 @@
+{
+    "appBarTitle": "Files",
+    "activeFilesTabLabel": "Active",
+    "inActiveFilesTabLabel": "InActive",
+    "noFilesMessageTitle": "No Files!",
+    "noFilesMessageSubtitle": "No Files",
+    "noFilesButtonLabel": "Try Again",
+    "emptyListIndicatorText": "List is empty",
+    "folderDetailsBottomSheetTitle": "Details",
+    "mileStoneSectionTitle": "Milestone"
+}

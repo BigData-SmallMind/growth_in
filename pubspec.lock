@@ -231,6 +231,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.3+2"
+  files:
+    dependency: "direct main"
+    description:
+      path: "packages/features/files"
+      relative: true
+    source: path
+    version: "0.0.0"
   firebase_core:
     dependency: "direct main"
     description:
@@ -370,6 +377,20 @@ packages:
     dependency: transitive
     description: flutter
     source: sdk
+    version: "0.0.0"
+  folder_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/folder_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
+  folders:
+    dependency: "direct main"
+    description:
+      path: "packages/features/folders"
+      relative: true
+    source: path
     version: "0.0.0"
   form_fields:
     dependency: transitive

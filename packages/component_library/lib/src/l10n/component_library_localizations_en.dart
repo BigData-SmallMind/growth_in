@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsEn([super.locale = 'en']);
+  ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect email or password';
@@ -345,4 +345,22 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get addImageTextAnswerButtonLabel => 'Add Image/Text Answer';
+
+  @override
+  String get dateQuestionTextFieldLabel => 'Date';
+
+  @override
+  String get detailsTileTitle => 'Details';
+
+  @override
+  String get folderDetailsBottomSheetTitle => 'Details';
+
+  @override
+  String get mileStoneSectionTitle => 'Milestone';
+
+  @override
+  String get dueDateSectionTitle => 'Due Date';
+
+  @override
+  String get assetCountText => 'No. of assets:';
 }

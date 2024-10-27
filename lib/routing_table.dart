@@ -6,7 +6,10 @@ import 'package:chat/chat.dart';
 import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:files/files.dart';
 import 'package:flutter/material.dart';
+import 'package:folder_repository/folder_repository.dart';
+import 'package:folders/folders.dart';
 import 'package:form_section/form_section.dart';
 import 'package:forms/forms.dart';
 import 'package:growth_in_api/growth_in_api.dart';
@@ -42,6 +45,7 @@ Map<String, PageBuilder> buildRoutingTable({
   required UserRepository userRepository,
   required RequestRepository requestRepository,
   required MeetingRepository meetingRepository,
+  required FolderRepository folderRepository,
   required ValueNotifier<bool> signInSuccessVN,
   required ValueNotifier<bool> isUserUnAuthSC,
 }) {
@@ -99,7 +103,7 @@ Map<String, PageBuilder> buildRoutingTable({
             _PathConstants.homePath,
             _PathConstants.homePath,
             _PathConstants.chatPath,
-            _PathConstants.homePath,
+            _PathConstants.foldersPath,
             _PathConstants.morePath,
           ],
           child: BackButtonListener(
@@ -136,6 +140,31 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
           ),
         ),
+    _PathConstants.foldersPath: (_) => MaterialPage(
+          name: 'folders',
+          child: Builder(builder: (context) {
+            return FoldersScreen(
+              userRepository: userRepository,
+              folderRepository: folderRepository,
+              navigateToFiles: (int folderId) => routerDelegate.push(
+                _PathConstants.filesPath(folderId: folderId),
+              ),
+            );
+          }),
+        ),
+    _PathConstants.filesPath(): (info) {
+      final folderId = int.parse(
+        info.pathParameters['folderId'] ?? '',
+      );
+      return MaterialPage(
+        name: 'files',
+        child: FilesScreen(
+          userRepository: userRepository,
+          folderRepository: folderRepository,
+          folderId: folderId,
+        ),
+      );
+    },
     _PathConstants.morePath: (_) => MaterialPage(
           name: 'more',
           child: Builder(builder: (context) {
@@ -486,6 +515,13 @@ class _PathConstants {
   static String get tabContainerPath => '/';
 
   static String get homePath => '${tabContainerPath}home';
+
+  static String get foldersPath => '${tabContainerPath}folders';
+
+  static String filesPath({int? folderId}) {
+    final completePath = '${tabContainerPath}folder/${folderId ?? ':folderId'}';
+    return completePath;
+  }
 
   static String get chatPath => '${tabContainerPath}chat';
 

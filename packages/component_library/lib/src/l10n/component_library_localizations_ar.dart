@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsAr([super.locale = 'ar']);
+  ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
@@ -345,4 +345,22 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get addImageTextAnswerButtonLabel => 'أضف إجابة صورة/نص';
+
+  @override
+  String get dateQuestionTextFieldLabel => 'التاريخ';
+
+  @override
+  String get detailsTileTitle => 'التفاصيل';
+
+  @override
+  String get folderDetailsBottomSheetTitle => 'التفاصيل';
+
+  @override
+  String get mileStoneSectionTitle => 'الانجاز';
+
+  @override
+  String get dueDateSectionTitle => 'الموعد';
+
+  @override
+  String get assetCountText => 'عدد الملحقات:';
 }

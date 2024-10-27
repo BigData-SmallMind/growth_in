@@ -120,7 +120,13 @@
   "imageAndTextDialogTitle": "Image and Text",
   "nameTextFieldLabel": "Name",
   "descriptionTextFieldLabel": "Description",
-  "addImageTextAnswerButtonLabel": "Add Image/Text Answer"
+  "addImageTextAnswerButtonLabel": "Add Image/Text Answer",
+  "dateQuestionTextFieldLabel": "Date",
+  "detailsTileTitle": "Details",
+  "folderDetailsBottomSheetTitle": "Details",
+  "mileStoneSectionTitle": "Milestone",
+  "dueDateSectionTitle": "Due Date",
+  "assetCountText": "No. of assets:"
 
 
 }

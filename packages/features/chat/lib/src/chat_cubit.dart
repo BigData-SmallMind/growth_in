@@ -21,8 +21,8 @@ class ChatCubit extends Cubit<ChatState> {
     });
   }
 
+  final scrollController = ScrollController();
   final UserRepository userRepository;
-
   final ImagePicker _imagePicker;
   final TextEditingController messageController = TextEditingController();
 
@@ -38,6 +38,15 @@ class ChatCubit extends Cubit<ChatState> {
         dateGroupedChats: dateGroupedChats,
       );
       emit(successState);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollController.hasClients) {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
     } catch (_) {
       final failureState = state.copyWith(
         fetchingStatus: ChatFetchingStatus.failure,
@@ -134,7 +143,7 @@ class ChatCubit extends Cubit<ChatState> {
       );
       emit(initialState);
       messageController.clear();
-      getChat();
+      // getChat();
     } catch (e) {
       final failureState = state.copyWith(
         submissionStatus: ChatSubmissionStatus.failure,
@@ -143,4 +152,6 @@ class ChatCubit extends Cubit<ChatState> {
       rethrow;
     }
   }
+
+  Stream<DateGroupedChats> get chatStream => userRepository.chatStream();
 }

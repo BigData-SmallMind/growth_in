@@ -22,7 +22,7 @@ abstract class GrowthInThemeData {
   final secondaryContainerBgColor = const Color(0xFFDCE3F6);
   final tertiaryContainerBgColor = const Color.fromRGBO(228, 240, 232, 0.44);
   final borderColor = const Color(0xFFD9D9D9);
-  final dimmedTextColor = const Color(0xFF5A5D66);
+  final dimmedTextColor = const Color(0xFF6C6E75);
   final secondaryIconColor = const Color(0xFF8B8B8B);
   final  questionDescriptionColor = const Color(0xFF797979);
 

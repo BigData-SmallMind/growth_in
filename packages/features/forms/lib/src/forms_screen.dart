@@ -164,7 +164,9 @@ class FormCard extends StatelessWidget {
                       style: textTheme.titleMedium,
                     ),
                     VerticalGap.medium(),
-                    Text(form.services.isNotEmpty  ? form.services.first.name: ''),
+                    Text(form.services?.isNotEmpty == true
+                        ? form.services!.first.name
+                        : ''),
                     VerticalGap.medium(),
                   ],
                 ),

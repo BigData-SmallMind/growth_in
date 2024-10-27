@@ -43,7 +43,19 @@ class FormSectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FormSectionCubit, FormSectionState>(
+    return BlocConsumer<FormSectionCubit, FormSectionState>(
+      listener: (context, state) {
+        if (state.submissionStatus == FormzSubmissionStatus.success &&
+            state.isLastSection) {
+          showSnackBar(
+            context: context,
+            snackBar: SuccessSnackBar(
+              context: context,
+            ),
+          );
+          Navigator.of(context).pop();
+        }
+      },
       builder: (context, state) {
         final l10n = FormSectionLocalizations.of(context);
         final loading = state.formSectionFetchingStatus ==
@@ -54,6 +66,7 @@ class FormSectionView extends StatelessWidget {
         final theme = GrowthInTheme.of(context);
         final submissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
+        final textTheme = Theme.of(context).textTheme;
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
@@ -64,10 +77,64 @@ class FormSectionView extends StatelessWidget {
               : error
                   ? ExceptionIndicator(
                       onTryAgain: () =>
-                          cubit.fetchFormSection(state.currentSection),
+                          cubit.fetchFormSection(state.currentSectionIndex),
                     )
                   : Column(
                       children: [
+                        VerticalGap.large(),
+                        Container(
+                          padding: const EdgeInsets.all(Spacing.medium),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: theme.screenMargin),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: theme.secondaryColor,
+                              ),
+                              left: BorderSide(
+                                color: theme.secondaryColor,
+                              ),
+                              right: BorderSide(
+                                color: theme.secondaryColor,
+                              ),
+                              top: BorderSide(
+                                color: theme.secondaryColor,
+                                width: 10,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              theme.textFieldBorderRadius,
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    '${l10n.sectionLabel} ${state.currentSectionIndex + 1}',
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      color: theme.dimmedTextColor,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '${l10n.formSectionQuestionsCountLabel} ${state.formSection!.questions.length}',
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      color: theme.dimmedTextColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              VerticalGap.small(),
+                              Text(
+                                state.formSection?.name ?? '--',
+                                style: textTheme.titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
                         Expanded(
                           child: IgnorePointer(
                             ignoring: submissionInProgress,
@@ -233,20 +300,58 @@ class FormSectionView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(
-                            theme.screenMargin,
-                          ),
-                          child: submissionInProgress
-                              ? GrowthInElevatedButton.inProgress(
-                                  label: l10n.submissionInProgressButtonLabel,
-                                )
-                              : GrowthInElevatedButton(
-                                  onTap: cubit.onSubmit,
-                                  bgColor: theme.secondaryColor,
-                                  label: l10n.submitButtonLabel,
+                        Row(
+                          children: [
+                            HorizontalGap.custom(theme.screenMargin),
+                            if (state.currentSectionIndex > 0) ...[
+                              Expanded(
+                                child: GrowthInElevatedButton(
+                                  label: l10n.previousSectionButtonLabel,
+                                  onTap: cubit.onPreviousSectionTapped,
+                                  height: 40,
+                                  bgColor: Colors.white,
+                                  borderColor: theme.primaryColor,
+                                  labelColor: theme.primaryColor,
+                                  icon: Icon(
+                                    Icons.arrow_back,
+                                    color: theme.primaryColor,
+                                    size: 20,
+                                  ),
                                 ),
+                              ),
+                              HorizontalGap.custom(Spacing.medium)
+                            ],
+                            Expanded(
+                              child: submissionInProgress
+                                  ? GrowthInElevatedButton.inProgress(
+                                      iconAlignment: IconAlignment.end,
+                                      label:
+                                          l10n.submissionInProgressButtonLabel,
+                                      height: 40,
+                                    )
+                                  : GrowthInElevatedButton(
+                                      iconAlignment: IconAlignment.end,
+                                      onTap: cubit.onSubmit,
+                                      icon: state.isLastSection
+                                          ? null
+                                          : Icon(
+                                              Icons.arrow_forward,
+                                              color: theme.primaryColor,
+                                              size: 20,
+                                            ),
+                                      labelColor: theme.primaryColor,
+                                      borderColor: theme.primaryColor,
+                                      bgColor: Colors.white,
+                                      label: state.isLastSection
+                                          ? l10n.submitLastSectionButtonLabel
+                                          : '${l10n.nextSectionButtonLabel} (${state.currentSectionIndex + 1}/${state.totalSections})',
+                                      height: 40,
+                                    ),
+                            ),
+                            HorizontalGap.custom(theme.screenMargin),
+                          ],
                         ),
+                        VerticalGap.medium(),
                       ],
                     ),
         );

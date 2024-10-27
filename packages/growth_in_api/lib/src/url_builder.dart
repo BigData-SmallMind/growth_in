@@ -130,6 +130,14 @@ class UrlBuilder {
     return '$_baseUrl/tasks/$requestId';
   }
 
+  String buildGetFoldersUrl(int companyId) {
+    return '$_baseUrl/fetch-folders?company_id=$companyId';
+  }
+
+  String buildGetFilesUrl(int folderId) {
+    return '$_baseUrl/fetch-files/$folderId';
+  }
+
   String buildGetCommentsUrl(int? requestId, int? actionId) {
     // assert (requestId != null || actionId != null);
     assert(requestId != null || actionId != null);

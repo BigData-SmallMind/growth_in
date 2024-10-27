@@ -18,6 +18,7 @@ class MessagesList extends StatelessWidget {
         final loading = state.fetchingStatus == ChatFetchingStatus.inProgress;
         final error = state.fetchingStatus == ChatFetchingStatus.failure;
         final textTheme = Theme.of(context).textTheme;
+        final cubit = context.read<ChatCubit>();
         return Expanded(
           child: loading
               ? const CenteredCircularProgressIndicator()
@@ -30,6 +31,7 @@ class MessagesList extends StatelessWidget {
                         context.read<ChatCubit>().getChat();
                       },
                       child: ListView.builder(
+                        controller: cubit.scrollController,
                         itemCount: state.dateGroupedChats!.list.length,
                         itemBuilder: (context, index) {
                           final chat = state.dateGroupedChats!.list[index];
@@ -50,6 +52,21 @@ class MessagesList extends StatelessWidget {
                                 },
                                 itemCount: chat.messages.length,
                               ),
+                              StreamBuilder<DateGroupedChats>(
+                                  stream: cubit.chatStream,
+                                  builder: (context, snapshot) {
+                                    return snapshot.hasData
+                                        ? MessageCard(
+                                            message: (snapshot.data
+                                                    as DateGroupedChats)
+                                                .list
+                                                .first
+                                                .messages
+                                                .first,
+                                            isFirstElement: false,
+                                          )
+                                        : const SizedBox();
+                                  }),
                             ],
                           );
                         },

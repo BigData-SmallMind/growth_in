@@ -9,12 +9,15 @@ import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:dio/dio.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:files/files.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:folder_repository/folder_repository.dart';
+import 'package:folders/folders.dart';
 import 'package:form_section/form_section.dart';
 import 'package:forms/forms.dart';
 import 'package:growth_in/firebase_options.dart';
@@ -73,6 +76,10 @@ final _requestRepository = RequestRepository(
   noSqlStorage: _keyValueStorage,
 );
 final _meetingRepository = MeetingRepository(
+  remoteApi: _connectInApi,
+  noSqlStorage: _keyValueStorage,
+);
+final _folderRepository = FolderRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
 );
@@ -139,6 +146,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
           userRepository: _userRepository,
           requestRepository: _requestRepository,
           meetingRepository: _meetingRepository,
+          folderRepository: _folderRepository,
           signInSuccessVN: _signInSuccessVN,
           isUserUnAuthSC: _isUserUnAuthVN,
         ),
@@ -248,6 +256,10 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 // Forms
                 FormsLocalizations.delegate,
                 FormSectionLocalizations.delegate,
+
+                //Files and folders
+                FilesLocalizations.delegate,
+                FoldersLocalizations.delegate,
               ],
               // locale: const Locale('en'),
               locale: localePreference?.toLocale(),

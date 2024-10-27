@@ -12,4 +12,19 @@ class FormSectionLocalizationsAr extends FormSectionLocalizations {
 
   @override
   String get submitButtonLabel => 'تقديم';
+
+  @override
+  String get previousSectionButtonLabel => 'القسم السابق';
+
+  @override
+  String get nextSectionButtonLabel => 'القسم التالي';
+
+  @override
+  String get submitLastSectionButtonLabel => 'تقديم';
+
+  @override
+  String get sectionLabel => 'قسم';
+
+  @override
+  String get formSectionQuestionsCountLabel => 'عدد الأسئلة';
 }

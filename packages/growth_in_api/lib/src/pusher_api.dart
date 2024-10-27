@@ -5,12 +5,14 @@ import 'dart:developer';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:rxdart/subjects.dart';
 
+import 'models/response/src/chat_messages_rm.dart';
+
 class PusherApi {
   PusherApi()
       : _pusher = PusherChannelsFlutter.getInstance(),
         chatSC = BehaviorSubject();
 
-  final BehaviorSubject chatSC;
+  final BehaviorSubject<DateGroupedChatsRM> chatSC;
   final PusherChannelsFlutter _pusher;
   PusherChannel? _chatChannel;
 
@@ -96,6 +98,9 @@ class PusherApi {
   void _chatEvent(dynamic event) {
     Map<String, dynamic> data = json.decode(event.data);
     log('CHAT EVENT:::$data');
+    final DateGroupedChatsRM dateGroupedChatsRM =
+        DateGroupedChatsRM.fromJson(data);
+    chatSC.add(dateGroupedChatsRM);
     // final OfferRM? offerRM = OfferRM.fromJson(data[_offerJsonKey]);
     // offerRM != null ? chatSC.add(offerRM) : chatSC.add(null);
   }

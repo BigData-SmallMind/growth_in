@@ -53,6 +53,7 @@ class _DateQuestionState extends State<DateQuestion> {
     final textTheme = Theme.of(context).textTheme;
     final l10n = ComponentLibraryLocalizations.of(context);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           padding: const EdgeInsets.all(Spacing.mediumLarge),
@@ -82,6 +83,12 @@ class _DateQuestionState extends State<DateQuestion> {
               GestureDetector(
                 onTap: pickDate,
                 child: TextField(
+                  decoration: InputDecoration(
+                    isDense: true,
+                    hintText:
+                        '${l10n.dateQuestionTextFieldLabel}${widget.question.isRequired ? ' *' : ''}',
+                    prefixIcon: const Icon(Icons.calendar_today),
+                  ),
                   enabled: false,
                   controller: TextEditingController(
                     text: updatedQuestion?.answer?.replaceAll('/', '-'),

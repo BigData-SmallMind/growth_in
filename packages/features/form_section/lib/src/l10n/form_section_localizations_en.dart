@@ -12,4 +12,19 @@ class FormSectionLocalizationsEn extends FormSectionLocalizations {
 
   @override
   String get submitButtonLabel => 'Submit';
+
+  @override
+  String get previousSectionButtonLabel => 'Back';
+
+  @override
+  String get nextSectionButtonLabel => 'Next';
+
+  @override
+  String get submitLastSectionButtonLabel => 'Submit';
+
+  @override
+  String get sectionLabel => 'Section';
+
+  @override
+  String get formSectionQuestionsCountLabel => 'No. of Questions';
 }

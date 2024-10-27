@@ -1,6 +1,11 @@
 {
   "appBarTitle": "Forms",
   "submissionInProgressButtonLabel": "Submitting...",
-  "submitButtonLabel": "Submit"
+  "submitButtonLabel": "Submit",
+  "previousSectionButtonLabel": "Back",
+  "nextSectionButtonLabel": "Next",
+  "submitLastSectionButtonLabel": "Submit",
+  "sectionLabel": "Section",
+  "formSectionQuestionsCountLabel": "No. of Questions"
 
 }
