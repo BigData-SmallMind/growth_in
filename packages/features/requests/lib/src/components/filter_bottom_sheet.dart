@@ -112,7 +112,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     }
                     return ListTile(
                       title: Text(
-                        project.name,
+                        project.name!,
                       ),
                       onTap: onProjectTap,
                       selected:

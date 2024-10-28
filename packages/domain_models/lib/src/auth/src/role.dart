@@ -1,8 +1,3 @@
-// client
-// AccountManager
-// operation
-// admin
-// moderator
 
 enum Role {
   client,

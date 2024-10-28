@@ -1,5 +1,6 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:folder_repository/folder_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -11,7 +12,7 @@ class FilesCubit extends Cubit<FilesState> {
     required this.userRepository,
     required this.folderRepository,
     required this.folderId,
-    required this.downloadUrl,
+    required this.navigateToFile,
   }) : super(const FilesState()) {
     getFiles();
   }
@@ -19,7 +20,7 @@ class FilesCubit extends Cubit<FilesState> {
   final UserRepository userRepository;
   final FolderRepository folderRepository;
   final int folderId;
-  final String downloadUrl;
+  final ValueSetter<int> navigateToFile;
 
   // get files
 
@@ -43,12 +44,20 @@ class FilesCubit extends Cubit<FilesState> {
   }
 
   Future onFileTapped(FileV2DM file) async {
-    // userRepository.changeNotifier.setTicket(folder);
-    // navigateToTicketMessages(folder.id);
+    folderRepository.changeNotifier.setFile(file);
+    navigateToFile(file.id);
   }
 
 // @override
 // Future<void> close() {
 //   return super.close();
 // }
+
+  void downloadFiles(List<String> slugs) async {
+    try {
+      await folderRepository.downloadFiles(slugs);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }

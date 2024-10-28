@@ -2,36 +2,50 @@ part of 'file_cubit.dart';
 
 class FileState extends Equatable {
   const FileState({
-    this.newEmail = const Email.unvalidated(),
-    this.newEmailConfirmation = const EmailConfirmation.unvalidated(),
-    this.password = const Password.unvalidated(),
-    this.submissionStatus = FormzSubmissionStatus.initial,
+    this.file,
+    this.folder,
+    this.rejectionStatus = RejectionStatus.initial,
+    this.approvalStatus = ApprovalStatus.initial,
   });
 
-  final Email newEmail;
-  final EmailConfirmation newEmailConfirmation;
-  final Password password;
-  final FormzSubmissionStatus submissionStatus;
+  final FileV2DM? file;
+  final Folder? folder;
+  final RejectionStatus rejectionStatus;
+  final ApprovalStatus approvalStatus;
 
   FileState copyWith({
-    Email? newEmail,
-    EmailConfirmation? newEmailConfirmation,
-    Password? password,
-    FormzSubmissionStatus? submissionStatus,
+    FileV2DM? file,
+    Folder? folder,
+    RejectionStatus? rejectionStatus,
+    ApprovalStatus? approvalStatus,
   }) {
     return FileState(
-      newEmail: newEmail ?? this.newEmail,
-      newEmailConfirmation: newEmailConfirmation ?? this.newEmailConfirmation,
-      password: password ?? this.password,
-      submissionStatus: submissionStatus ?? this.submissionStatus,
+      file: file ?? this.file,
+      folder: folder ?? this.folder,
+      rejectionStatus: rejectionStatus ?? this.rejectionStatus,
+      approvalStatus: approvalStatus ?? this.approvalStatus,
     );
   }
 
   @override
   List<Object?> get props => [
-        newEmail,
-        newEmailConfirmation,
-        password,
-        submissionStatus,
+        file,
+        folder,
+        rejectionStatus,
+        approvalStatus,
       ];
+}
+
+enum RejectionStatus {
+  initial,
+  inProgress,
+  success,
+  failure,
+}
+
+enum ApprovalStatus {
+  initial,
+  inProgress,
+  success,
+  failure,
 }

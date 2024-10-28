@@ -1,4 +1,4 @@
-name: change_email
+name: file
 publish_to: none
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -15,10 +15,10 @@ dependencies:
     path: ../../domain_models
   user_repository:
     path: ../../user_repository
+  folder_repository:
+    path: ../../folder_repository
   function_and_extension_library:
     path: ../../function_and_extension_library
-  form_fields:
-    path: ../../form_fields
   flutter_localizations:
     sdk: flutter
   intl: ^0.19.0

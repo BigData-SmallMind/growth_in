@@ -1,6 +1,6 @@
 arb-dir: lib/src/l10n
 template-arb-file: messages_en.arb
-output-localization-file: folders_localizations.dart
-output-class: FoldersLocalizations
+output-localization-file: cms_localizations.dart
+output-class: CmsLocalizations
 synthetic-package: false
 nullable-getter: false

@@ -1,7 +1,8 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_fields/form_fields.dart';
+import 'package:folder_repository/folder_repository.dart';
 
 import 'package:user_repository/user_repository.dart';
 
@@ -10,169 +11,66 @@ part 'file_state.dart';
 class FileCubit extends Cubit<FileState> {
   FileCubit({
     required this.userRepository,
+    required this.folderRepository,
+    required this.onCommentsTapped,
   }) : super(
-          const FileState(),
+          FileState(
+            file: folderRepository.changeNotifier.file,
+            folder: folderRepository.changeNotifier.folder,
+          ),
         );
 
   final UserRepository userRepository;
+  final FolderRepository folderRepository;
+  final VoidCallback onCommentsTapped;
 
-  void onNewEmailChanged(String newValue) {
-    final previousScreenState = state;
-    final previousEmailState = previousScreenState.newEmail;
-    final shouldValidate = previousEmailState.isNotValid;
-    final newEmailState = shouldValidate
-        ? Email.validated(
-            newValue,
-            isRequired: true,
-          )
-        : Email.unvalidated(
-            newValue,
-          );
-
-    final newScreenState = state.copyWith(
-      newEmail: newEmailState,
-    );
-
-    emit(newScreenState);
-  }
-
-  void onNewEmailUnfocused() {
-    final newScreenState = state.copyWith(
-      newEmail: Email.validated(
-        state.newEmail.value,
-        isRequired: true,
-        isAlreadyRegistered: state.newEmail.isAlreadyRegistered
-      ),
-    );
-    emit(newScreenState);
-  }
-
-  void onNewEmailConfirmationChanged(String newValue) {
-    final previousScreenState = state;
-    final previousEmailState = previousScreenState.newEmailConfirmation;
-    final shouldValidate = previousEmailState.isNotValid;
-    final newEmailConfirmation = shouldValidate
-        ? EmailConfirmation.validated(
-            email: state.newEmail,
-            newValue,
-
-          )
-        : EmailConfirmation.unvalidated(
-            newValue,
-          );
-
-    final newScreenState = state.copyWith(
-      newEmailConfirmation: newEmailConfirmation,
-    );
-
-    emit(newScreenState);
-  }
-
-  void onNewEmailConfirmationUnfocused() {
-    final newScreenState = state.copyWith(
-      newEmailConfirmation: EmailConfirmation.validated(
-        email: state.newEmail,
-        state.newEmailConfirmation.value,
-      ),
-    );
-    emit(newScreenState);
-  }
-
-  void onPasswordChanged(String newValue) {
-    final previousScreenState = state;
-    final previousPasswordState = previousScreenState.password;
-    final shouldValidate = previousPasswordState.isNotValid;
-    final newPasswordState = shouldValidate
-        ? Password.validated(newValue, shouldCheckStrength: false)
-        : Password.unvalidated(
-            newValue,
-          );
-
-    final newScreenState = state.copyWith(
-      password: newPasswordState,
-    );
-
-    emit(newScreenState);
-  }
-
-  void onPasswordUnfocused() {
-    final newScreenState = state.copyWith(
-      password: Password.validated(
-        state.password.value,
-        shouldCheckStrength: false,
-      ),
-    );
-    emit(newScreenState);
-  }
-
-  void onSubmit() async {
-    final newEmail = Email.validated(
-      state.newEmail.value,
-      isRequired: true,
-    );
-    final newEmailConfirmation = EmailConfirmation.validated(
-      email: newEmail,
-      state.newEmailConfirmation.value,
-    );
-    final password = Password.validated(
-      state.password.value,
-      shouldCheckStrength: false,
-    );
-
-    final isFormValid =
-        Formz.validate([newEmail, newEmailConfirmation, password]);
-
-    final newState = state.copyWith(
-      newEmail: newEmail,
-      newEmailConfirmation: newEmailConfirmation,
-      password: password,
-      submissionStatus: isFormValid ? FormzSubmissionStatus.inProgress : null,
-    );
-
-    emit(newState);
-
-    if (isFormValid) {
-      try {
-        await userRepository.changeEmail(
-          newEmail: newEmail.value!,
-          newEmailConfirmation: newEmailConfirmation.value,
-          password: password.value!,
-        );
-        final otpVerification = OtpVerification(
-          email: newEmailConfirmation.value,
-          reason: OtpVerificationReason.changeEmail,
-        );
-        userRepository.changeNotifier.setOtpVerification(otpVerification);
-        final newState = state.copyWith(
-          submissionStatus: FormzSubmissionStatus.success,
-        );
-        emit(newState);
-      } catch (error) {
-        final newState = state.copyWith(
-          submissionStatus: error is! EmailAlreadyRegisteredException &&
-                  error is! WrongPasswordException
-              ? FormzSubmissionStatus.failure
-              : FormzSubmissionStatus.initial,
-          newEmail: Email.validated(
-            state.newEmail.value,
-            isAlreadyRegistered:
-                error is EmailAlreadyRegisteredException ? true : false,
-          ),
-          password: Password.validated(
-            state.password.value,
-            shouldCheckStrength: false,
-            invalidCredentials: error is WrongPasswordException ? true : false,
-          ),
-        );
-        emit(newState);
-      }
+  void downloadFiles(List<String> slugs) {
+    try {
+      folderRepository.downloadFiles(slugs);
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
-  // @override
-  // Future<void> close() async {
-  //   return super.close();
-  // }
+  void approveFile({
+    required bool shouldApprove,
+  }) async {
+    final isRejecting = !shouldApprove;
+    final isApproving = shouldApprove;
+    try {
+      final loading = state.copyWith(
+        approvalStatus:
+            isApproving ? ApprovalStatus.inProgress : ApprovalStatus.initial,
+        rejectionStatus:
+            isRejecting ? RejectionStatus.inProgress : RejectionStatus.initial,
+      );
+      emit(loading);
+      await folderRepository.approveFile(
+        fileId: state.file!.id,
+        shouldApprove: shouldApprove,
+      );
+      final successState = state.copyWith(
+        approvalStatus:
+            isApproving ? ApprovalStatus.success : ApprovalStatus.initial,
+        rejectionStatus:
+            isRejecting ? RejectionStatus.success : RejectionStatus.initial,
+      );
+      emit(successState);
+    } catch (error) {
+      final errorState = state.copyWith(
+        approvalStatus:
+            isApproving ? ApprovalStatus.failure : ApprovalStatus.initial,
+        rejectionStatus:
+            isRejecting ? RejectionStatus.failure : RejectionStatus.initial,
+      );
+      emit(errorState);
+    }
+  }
+
+// @override
+// Future<void> close() async {
+//   return super.close();
+// }
 // @override
 // Future<void> onChange(change) async {
 //   print('+++++++${change.currentState.email}');

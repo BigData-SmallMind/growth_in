@@ -2,23 +2,23 @@ import 'package:domain_models/domain_models.dart' as dm;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:request_repository/request_repository.dart';
+import 'package:folder_repository/folder_repository.dart';
 
 part 'file_comments_state.dart';
 
 class FileCommentsCubit extends Cubit<FileCommentsState> {
   FileCommentsCubit({
-    required this.requestRepository,
-    required this.actionId,
+    required this.folderRepository,
+    required this.fileId,
   }) : super(
           const FileCommentsState(),
         ) {
     getComments();
   }
 
-  final RequestRepository requestRepository;
+  final FolderRepository folderRepository;
   final TextEditingController commentController = TextEditingController();
-  final int actionId;
+  final int fileId;
 
   void getComments() async {
     final loadingState = state.copyWith(
@@ -26,7 +26,9 @@ class FileCommentsCubit extends Cubit<FileCommentsState> {
     );
     emit(loadingState);
     try {
-      final comments = await requestRepository.getFileComments(actionId);
+      final comments = await folderRepository.getFileComments(
+        fileId: fileId,
+      );
       final successState = state.copyWith(
         commentsFetchStatus: CommentsFetchStatus.success,
         comments: comments,
@@ -52,15 +54,16 @@ class FileCommentsCubit extends Cubit<FileCommentsState> {
     emit(loadingState);
     try {
       final comment = commentController.text;
-      await requestRepository.addComment(
-        actionId: actionId,
-        requestId: null,
+      await folderRepository.addComment(
+        fileId: fileId,
         comment: comment,
       );
       final successState = state.copyWith(
         addCommentStatus: AddCommentStatus.success,
       );
       emit(successState);
+      getComments();
+      commentController.clear();
     } catch (error) {
       final errorState = state.copyWith(
         addCommentStatus: AddCommentStatus.error,
@@ -69,8 +72,8 @@ class FileCommentsCubit extends Cubit<FileCommentsState> {
     }
   }
 
-  // @override
-  // Future<void> close() {
-  //   return super.close();
-  // }
+// @override
+// Future<void> close() {
+//   return super.close();
+// }
 }

@@ -1,6 +1,6 @@
 arb-dir: lib/src/l10n
 template-arb-file: messages_en.arb
-output-localization-file: change_email_localizations.dart
-output-class: ChangeEmailLocalizations
+output-localization-file: file_localizations.dart
+output-class: FileLocalizations
 synthetic-package: false
 nullable-getter: false

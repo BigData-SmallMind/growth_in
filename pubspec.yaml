@@ -32,6 +32,8 @@ dependencies:
     path: packages/meeting_repository
   folder_repository:
     path: packages/folder_repository
+  cms_repository:
+    path: packages/cms_repository
   function_and_extension_library:
     path: packages/function_and_extension_library
 
@@ -79,6 +81,10 @@ dependencies:
     path: packages/features/folders
   files:
     path: packages/features/files
+  file:
+    path: packages/features/file
+  file_comments:
+    path: packages/features/file_comments
 
   # Requests
   requests:
@@ -93,6 +99,10 @@ dependencies:
     path: packages/features/action_comments
   request_comments:
     path: packages/features/request_comments
+
+  # CMS
+  cms:
+    path: packages/features/cms
 
 
     # Meetings

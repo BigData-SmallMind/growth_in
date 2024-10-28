@@ -2,35 +2,49 @@ part of 'cms_cubit.dart';
 
 class CmsState extends Equatable {
   const CmsState({
-    this.cms,
-    this.fetchingStatus = CmsFetchingStatus.initial,
+    this.posts,
+    this.campaigns,
+    this.campaignsFetchingStatus = CampaignsFetchingStatus.initial,
+    this.postsFetchingStatus = PostsFetchingStatus.initial,
   });
 
-  final Cms? cms;
-  final CmsFetchingStatus fetchingStatus;
-
-  List<Folder> get activeCms => cms?.active ?? [];
-
-  List<Folder> get inActiveCms => cms?.inactive ?? [];
+  final List<Post>? posts;
+  final List<Campaign>? campaigns;
+  final PostsFetchingStatus postsFetchingStatus;
+  final CampaignsFetchingStatus campaignsFetchingStatus;
 
   CmsState copyWith({
-    Cms? cms,
-    CmsFetchingStatus? fetchingStatus,
+    List<Post>? posts,
+    List<Campaign>? campaigns,
+    PostsFetchingStatus? postsFetchingStatus,
+    CampaignsFetchingStatus? campaignsFetchingStatus,
   }) {
     return CmsState(
-      cms: cms ?? this.cms,
-      fetchingStatus: fetchingStatus ?? this.fetchingStatus,
+      posts: posts ?? this.posts,
+      campaigns: campaigns ?? this.campaigns,
+      postsFetchingStatus: postsFetchingStatus ?? this.postsFetchingStatus,
+      campaignsFetchingStatus:
+          campaignsFetchingStatus ?? this.campaignsFetchingStatus,
     );
   }
 
   @override
   List<Object?> get props => [
-        cms,
-        fetchingStatus,
+        posts,
+        campaigns,
+        postsFetchingStatus,
+        campaignsFetchingStatus,
       ];
 }
 
-enum CmsFetchingStatus {
+enum PostsFetchingStatus {
+  initial,
+  inProgress,
+  success,
+  failure,
+}
+
+enum CampaignsFetchingStatus {
   initial,
   inProgress,
   success,

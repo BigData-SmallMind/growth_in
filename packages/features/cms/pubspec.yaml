@@ -1,4 +1,4 @@
-name: folders
+name: cms
 publish_to: none
 
 environment:
@@ -15,8 +15,8 @@ dependencies:
     path: ../../domain_models
   user_repository:
     path: ../../user_repository
-  folder_repository:
-    path: ../../folder_repository
+  cms_repository:
+    path: ../../cms_repository
   flutter_localizations:
     sdk: flutter
   intl: ^0.19.0

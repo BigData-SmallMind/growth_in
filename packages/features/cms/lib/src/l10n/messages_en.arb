@@ -1,10 +1,11 @@
 {
     "appBarTitle": "Files",
-    "activeFoldersTabLabel": "Active",
-    "inActiveFoldersTabLabel": "InActive",
-    "noFoldersMessageTitle": "No Folders!",
-    "noFoldersMessageSubtitle": "No Folders",
-    "noFoldersButtonLabel": "Try Again",
+    "calendarTabLabel": "Calendar",
+    "timelineTabLabel": "Timeline",
+    "campaignsTabLabel": "Campaigns",
+    "noCmsMessageTitle": "No Cms!",
+    "noCmsMessageSubtitle": "No Cms",
+    "noCmsButtonLabel": "Try Again",
     "emptyListIndicatorText": "List is empty",
     "folderDetailsBottomSheetTitle": "Details",
     "mileStoneSectionTitle": "Milestone"

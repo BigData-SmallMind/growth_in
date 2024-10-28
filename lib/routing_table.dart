@@ -3,9 +3,13 @@ import 'package:action_comments/action_comments.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:chat/chat.dart';
+import 'package:cms/cms.dart';
+import 'package:cms_repository/cms_repository.dart';
 import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:file/file.dart';
+import 'package:file_comments/file_comments.dart';
 import 'package:files/files.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_repository/folder_repository.dart';
@@ -46,6 +50,7 @@ Map<String, PageBuilder> buildRoutingTable({
   required RequestRepository requestRepository,
   required MeetingRepository meetingRepository,
   required FolderRepository folderRepository,
+  required CmsRepository cmsRepository,
   required ValueNotifier<bool> signInSuccessVN,
   required ValueNotifier<bool> isUserUnAuthSC,
 }) {
@@ -60,7 +65,7 @@ Map<String, PageBuilder> buildRoutingTable({
   final meetingDetailsScreen = Builder(builder: (context) {
     return MeetingDetailsScreen(
       meetingRepository: meetingRepository,
-      downloadUrl: UrlBuilder.filesDownloadUrl,
+      folderRepository: folderRepository,
       onCancelMeetingTapped: (Meeting meeting) => showModalBottomSheet(
         showDragHandle: true,
         isScrollControlled: true,
@@ -101,7 +106,7 @@ Map<String, PageBuilder> buildRoutingTable({
           backBehavior: TabBackBehavior.history,
           paths: [
             _PathConstants.homePath,
-            _PathConstants.homePath,
+            _PathConstants.cmsPath,
             _PathConstants.chatPath,
             _PathConstants.foldersPath,
             _PathConstants.morePath,
@@ -134,6 +139,18 @@ Map<String, PageBuilder> buildRoutingTable({
             onLogout: () => signInSuccessVN.value = false,
           ),
         ),
+    _PathConstants.cmsPath: (_) => MaterialPage(
+          name: 'cms',
+          child: Builder(builder: (context) {
+            return CmsScreen(
+              cmsRepository: cmsRepository,
+              userRepository: userRepository,
+              navigateToFiles: (int folderId) => routerDelegate.push(
+                _PathConstants.filesPath(folderId: folderId),
+              ),
+            );
+          }),
+        ),
     _PathConstants.chatPath: (_) => MaterialPage(
           name: 'chat',
           child: ChatScreen(
@@ -162,7 +179,45 @@ Map<String, PageBuilder> buildRoutingTable({
           userRepository: userRepository,
           folderRepository: folderRepository,
           folderId: folderId,
-          downloadUrl: UrlBuilder.filesDownloadUrl,
+          navigateToFile: (int fileId) => routerDelegate.push(
+            _PathConstants.filePath(
+              folderId: folderId,
+              fileId: fileId,
+            ),
+          ),
+        ),
+      );
+    },
+    _PathConstants.filePath(): (info) {
+      final folderId = int.parse(
+        info.pathParameters['folderId'] ?? '',
+      );
+      final fileId = int.parse(
+        info.pathParameters['fileId'] ?? '',
+      );
+      return MaterialPage(
+        name: 'file',
+        child: FileScreen(
+          userRepository: userRepository,
+          folderRepository: folderRepository,
+          onCommentsTapped: () => routerDelegate.push(
+            _PathConstants.fileCommentsPath(
+              fileId: fileId,
+              folderId: folderId,
+            ),
+          ),
+        ),
+      );
+    },
+    _PathConstants.fileCommentsPath(): (info) {
+      final fileId = int.parse(
+        info.pathParameters['fileId'] ?? '',
+      );
+      return MaterialPage(
+        name: 'file-comments',
+        child: FileCommentsScreen(
+          folderRepository: folderRepository,
+          fileId: fileId,
         ),
       );
     },
@@ -517,10 +572,30 @@ class _PathConstants {
 
   static String get homePath => '${tabContainerPath}home';
 
+  static String get cmsPath => '${tabContainerPath}cms';
+
   static String get foldersPath => '${tabContainerPath}folders';
 
   static String filesPath({int? folderId}) {
     final completePath = '${tabContainerPath}folder/${folderId ?? ':folderId'}';
+    return completePath;
+  }
+
+  static String filePath({
+    int? folderId,
+    int? fileId,
+  }) {
+    final completePath =
+        '${filesPath(folderId: folderId)}/files/${fileId ?? ':fileId'}';
+    return completePath;
+  }
+
+  static String fileCommentsPath({
+    int? fileId,
+    int? folderId,
+  }) {
+    final completePath =
+        '${filesPath(folderId: folderId)}/files/${fileId ?? ':fileId'}/comments';
     return completePath;
   }
 

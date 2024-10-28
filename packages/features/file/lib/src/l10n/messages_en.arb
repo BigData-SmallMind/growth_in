@@ -1,19 +1,16 @@
 {
-  "changeEmailSuccessMessage": "Your email has been reset successfully",
-  "changeEmailScreenTitle": "Change Email",
-  "changeEmailScreenSubtitle": "Change Email",
-  "submissionInProgressButtonLabel": "Submitting",
-  "submitButtonLabel": "Submit",
-  "newEmailTextFieldLabel": "New Email",
-  "requiredFieldErrorMessage": "This field is required",
-  "emailTextFieldHint": "Enter your new email",
-  "newEmailConfirmationTextFieldLabel": "Confirm New Email",
-  "newEmailConfirmationTextFieldHint": "Re-enter your new email",
-  "emailConfirmationTextFieldDoesNotMatchError": "Emails do not match",
-  "generalErrorSnackBarMessage": "An error occurred. Please try again later",
-  "invalidEmailFormatErrorMessage": "The email you entered is incorrect",
-  "emailTextFieldAlreadyRegisteredError": "This email is already registered",
-  "passwordTextFieldLabel": "Password",
-  "invalidPasswordsErrorMessage": "Wrong password",
-  "passwordTextFieldHint": "Enter your password"
+"assetsSectionTitle": "Assets",
+"downloadAllTextButtonLabel": "Download all",
+
+"verifyFileButtonLabel": "Approve",
+"verifyFileMessageTitle": "Are you sure you want to approve the file?",
+"verifyFileMessageBody": "Modifications will be halted.",
+"rejectFileButtonLabel": "Reject",
+"rejectFileMessageTitle": "Rejection Notice",
+"rejectFileMessageBody": "Your comments will be reviewed and modifications will begin.",
+"cancelButtonLabel": "Cancel",
+  "fileApprovalSuccessSnackBarMessage": "Approval was successful.",
+  "fileRejectionSuccessSnackBarMessage": "The file has been rejected. The team will be notified."
+
+
 }

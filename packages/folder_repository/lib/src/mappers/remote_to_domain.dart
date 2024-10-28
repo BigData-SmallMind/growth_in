@@ -14,6 +14,17 @@ extension FolderRMtoDM on FolderRM {
       filesCount: filesCount,
       commentsCount: commentsCount,
       milestone: milestone.toDomainModel(),
+      project: project.toDomainModel(),
+    );
+  }
+}
+
+extension ProjectRMtoDM on ProjectRM {
+  Project toDomainModel() {
+    return Project(
+      id: id,
+      name: name,
+      description: description,
     );
   }
 }

@@ -1,10 +1,11 @@
 {
     "appBarTitle": "الملفات",
-    "activeFoldersTabLabel": "النشط",
-    "inActiveFoldersTabLabel": "المنتهي",
-    "noFoldersMessageTitle": "لا توجد رسائل!",
-    "noFoldersMessageSubtitle": "لا توجد رسائل",
-    "noFoldersButtonLabel": "حاول مرة أخرى",
+    "calendarTabLabel": "التقويم",
+    "timelineTabLabel": "الجدول الزمني",
+    "campaignsTabLabel": "الحملات الإعلانية",
+    "noCmsMessageTitle": "لا توجد رسائل!",
+    "noCmsMessageSubtitle": "لا توجد رسائل",
+    "noCmsButtonLabel": "حاول مرة أخرى",
     "emptyListIndicatorText": "القائمة فارغة",
     "folderDetailsBottomSheetTitle": "التفاصيل",
     "mileStoneSectionTitle": "الانجاز"

@@ -1,96 +1,84 @@
-import 'dart:ui';
+// "id": 1,
+// "channel": "[\"linked\"]",
+// "campaign": null,
+// "content_goal": "توعوي",
+// "content_type":"[\"\ق\ص\ة\"]",
+// "post_content": "ddg",
+// "content_image": "[\"670f6085041f9_1729060997.png\"]",
+// "publication_date": "Thu Oct 10 2024 00:00:00 GMT+0300",
+// "isPublished": 1,
+// "company_id": 1,
+// "campaign_id": null,
+// "creator_id": 1,
+// "client_status": "مقبول",
+// "operation_status": "مقبول",
+// "account_manager_status": "مقبول",
+// "isApproved": 1,
+// "show_red_dot_client": 0,
+// "show_red_dot_operation": 1,
+// "show_red_dot_manager": 1,
+// "isNew": 1,
+// "deleted_at": null,
+// "created_at": "2024-10-16T06:43:17.000000Z",
+// "updated_at": "2024-10-28T12:49:47.000000Z",
+// "show_red_dot_admin": 0
 
-import 'package:growth_in_api/growth_in_api.dart';
+import 'dart:convert';
+
 import 'package:domain_models/domain_models.dart';
+import 'package:growth_in_api/growth_in_api.dart';
 
-extension FolderRMtoDM on FolderRM {
-  Folder toDomainModel() {
-    return Folder(
-      id: id,
-      name: name,
-      dueDate: DateTime.parse(dueDate.replaceAll('/', '-')),
-      status: status,
-      forms: forms.map((e) => e.toDomainModel()).toList(),
-      filesCount: filesCount,
-      commentsCount: commentsCount,
-      milestone: milestone.toDomainModel(),
-      project: project.toDomainModel(),
-    );
-  }
-}
-
-extension ProjectRMtoDM on ProjectRM {
-  Project toDomainModel() {
-    return Project(
-      id: id,
-      name: name,
-      description: description,
-    );
-  }
-}
-
-extension FormRMtoDM on FormRM {
-  FormDM toDomainModel() {
-    return FormDM(
-      id: id,
-      name: name,
-    );
-  }
-}
-
-extension MileStoneRMtoDM on MileStoneRM {
-  MileStone toDomainModel() {
-    final Color? colorDM;
-    if (color != null) {
-      colorDM = Color(int.parse(color!, radix: 16));
-    } else {
-      colorDM = null;
+extension PostRMtoDM on PostRM {
+  SocialChannel channelRMtoDM(String channel) {
+    switch (channel) {
+      case 'snap':
+        return SocialChannel.snapchat;
+      case 'face':
+        return SocialChannel.facebook;
+      case 'insta':
+        return SocialChannel.instagram;
+      case 'linked':
+        return SocialChannel.linkedIn;
+      case 'x':
+        return SocialChannel.x;
+      default:
+        throw Exception('Invalid channel');
     }
-
-    return MileStone(
-      title: title,
-      order: order,
-      color: colorDM,
-    );
   }
-}
 
-extension FoldersRMtoDM on FoldersRM {
-  Folders toDomainModel() {
-    return Folders(
-      active: active.map((e) => e.toDomainModel()).toList(),
-      inactive: inactive.map((e) => e.toDomainModel()).toList(),
-    );
-  }
-}
-
-extension FileV2RMtoDM on FileV2RM {
-  FileV2DM toDomainModel() {
-    final typeIconDM = typeIcon == 'file'
-        ? FileV2Type.file
-        : typeIcon == 'folder'
-            ? FileV2Type.folder
-            : typeIcon == 'link'
-                ? FileV2Type.link
-                : throw Exception('Invalid typeIcon');
-    return FileV2DM(
+  Post toDomainModel() {
+    final channelsList =
+        channel != null ? List<String>.from(jsonDecode(channel!)) : null;
+    final channelsListDM =
+        channelsList?.map((channel) => channelRMtoDM(channel)).toList();
+    final imagesDM =
+        images != null ? List<String>.from(jsonDecode(images!)) : null;
+    //Thu Oct 10 2024 00:00:00 GMT+0300
+    final publicationDateDM =
+        DateTime.tryParse(publicationDate.replaceAll("GMT", "").trim());
+    final statusDM = status == 'مقبول'
+        ? PostStatus.accepted
+        : status == 'جديد'
+            ? PostStatus.newPost
+            : status == 'تعديلات'
+                ? PostStatus.editing
+                : throw Exception('Invalid status');
+    return Post(
       id: id,
-      name: name,
-      fileSize: fileSize,
-      typeIcon: typeIconDM,
-      linkName: linkName,
-      link: link,
-      status: status,
-      assets: asserts.map((e) => e.toDomainModel()).toList(),
+      channels: channelsListDM,
+      contentGoal: contentGoal,
+      contentType: contentType,
+      text: text,
+      images: imagesDM,
+      publicationDate: publicationDateDM,
+      status: statusDM,
+      shouldShowRedDot: shouldShowRedDot == 1 ? true : false,
     );
   }
 }
 
-extension AssetRMtoDM on AssetRM {
-  AssetDM toDomainModel() {
-    return AssetDM(
-      name: name,
-      size: size,
-    );
+extension PostsRMtoDM on List<PostRM> {
+  List<Post> toDomainModel() {
+    return map((post) => post.toDomainModel()).toList();
   }
 }

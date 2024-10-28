@@ -1,39 +1,46 @@
-class Company {
-  const Company({
+class Post {
+  const Post({
     required this.id,
-    required this.name,
-    required this.sector,
-    required this.isClosed,
-    this.isSelected = false,
-    this.profileImage,
-    this.email,
+    this.channels,
+    this.contentGoal,
+    this.contentType,
+    this.text,
+    this.images,
+    this.publicationDate,
+    required this.status,
+    required this.shouldShowRedDot,
   });
 
   final int id;
-  final String name;
-  final String sector;
-  final bool isClosed;
-  final bool isSelected;
-  final String? profileImage;
-  final String? email;
+  final List<SocialChannel>? channels;
+  final String? contentGoal;
+  final String? contentType;
+  final String? text;
+  final List<String>? images;
+  final DateTime? publicationDate;
+  final PostStatus status;
+  final bool shouldShowRedDot;
+}
 
-  Company copyWith({
-    int? id,
-    String? name,
-    String? sector,
-    bool? isClosed,
-    bool? isSelected,
-    String? profileImage,
-    String? email,
-  }) {
-    return Company(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      isClosed: isClosed ?? this.isClosed,
-      sector: sector ?? this.sector,
-      isSelected: isSelected ?? this.isSelected,
-      profileImage: profileImage ?? this.profileImage,
-      email: email ?? this.email,
-    );
-  }
+enum PostStatus {
+  accepted,
+  newPost,
+  editing,
+}
+
+enum SocialChannel {
+  facebook,
+  x,
+  instagram,
+  linkedIn,
+  snapchat,
+  tikTok,
+  youtube,
+  pinterest,
+  whatsapp,
+  telegram,
+  signal,
+  email,
+  sms,
+  other,
 }

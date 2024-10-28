@@ -1,23 +1,21 @@
+import 'package:cms_repository/cms_repository.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:folder_repository/folder_repository.dart';
 import 'package:cms/src/l10n/cms_localizations.dart';
 import 'package:cms/src/cms_cubit.dart';
 import 'package:user_repository/user_repository.dart';
-
-import 'components/components.dart';
 
 class CmsScreen extends StatelessWidget {
   const CmsScreen({
     super.key,
     required this.userRepository,
-    required this.folderRepository,
+    required this.cmsRepository,
     required this.navigateToFiles,
   });
 
   final UserRepository userRepository;
-  final FolderRepository folderRepository;
+  final CmsRepository cmsRepository;
   final ValueSetter<int> navigateToFiles;
 
   @override
@@ -25,8 +23,8 @@ class CmsScreen extends StatelessWidget {
     return BlocProvider<CmsCubit>(
       create: (_) => CmsCubit(
         userRepository: userRepository,
-        folderRepository: folderRepository,
-        navigateToFiles: navigateToFiles,
+        cmsRepository: cmsRepository,
+        navigateToPostDetails: navigateToFiles,
       ),
       child: const CmsView(),
     );
@@ -42,14 +40,13 @@ class CmsView extends StatefulWidget {
   State<CmsView> createState() => _CmsViewState();
 }
 
-class _CmsViewState extends State<CmsView>
-    with SingleTickerProviderStateMixin {
+class _CmsViewState extends State<CmsView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -66,43 +63,48 @@ class _CmsViewState extends State<CmsView>
         final l10n = CmsLocalizations.of(context);
         return Scaffold(
           appBar: AppBar(
-            title: Text(l10n.appBarTitle),
-            centerTitle: false,
-            automaticallyImplyLeading: false,
+            toolbarHeight: Spacing.xLarge,
             backgroundColor: Colors.white,
           ),
-          body: state.cms?.active.isEmpty == true &&
-                  state.cms?.inactive.isEmpty == true
-              ? const NoCmsIndicator()
-              : Column(
-                  children: [
-                    GrowthInTabBar(
-                      tabController: _tabController,
-                      tabs: [
-                        Tab(
-                          text: l10n.activeCmsTabLabel,
-                        ),
-                        Tab(
-                          text: l10n.inActiveCmsTabLabel,
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: theme.screenMargin,
-                        ),
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: const [
-                            CmsList(active: true),
-                            CmsList(active: false),
-                          ],
-                        ),
+          body: Column(
+            children: [
+              GrowthInTabBar(
+                tabController: _tabController,
+                tabs: [
+                  Tab(
+                    text: l10n.calendarTabLabel,
+                  ),
+                  Tab(
+                    text: l10n.timelineTabLabel,
+                  ),
+                  Tab(
+                    text: l10n.campaignsTabLabel,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: theme.screenMargin,
+                  ),
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      Center(
+                        child: Text('taqweem'),
                       ),
-                    ),
-                  ],
+                      Center(
+                        child: Text('time line'),
+                      ),
+                      Center(
+                        child: Text('campaigns'),
+                      ),
+                    ],
+                  ),
                 ),
+              ),
+            ],
+          ),
         );
       },
     );

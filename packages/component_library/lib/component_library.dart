@@ -11,6 +11,7 @@ export 'src/gap/gap.dart';
 export 'src/row_builder.dart';
 export 'src/meeting_slot_picker.dart';
 export 'src/file_card.dart';
+export 'src/folder_details.dart';
 export 'src/action_card.dart';
 export 'src/folder_card.dart';
 export 'src/comments.dart';

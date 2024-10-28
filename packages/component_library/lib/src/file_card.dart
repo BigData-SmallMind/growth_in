@@ -1,53 +1,24 @@
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 
 class FileCard extends StatelessWidget {
   const FileCard({
     super.key,
     required this.file,
     required this.onFileTapped,
-    required this.downloadUrl,
+    required this.downloadFiles,
   });
 
   final FileV2DM file;
   final ValueSetter<FileV2DM> onFileTapped;
-  final String downloadUrl;
-
+  final ValueSetter<List<String>> downloadFiles;
   @override
   Widget build(BuildContext context) {
     final l10n = ComponentLibraryLocalizations.of(context);
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
-    void downloadFiles(List<String> slugs) async {
-      try {
-        final downloadPermissionStatus = await Permission.storage.request();
-        if (downloadPermissionStatus.isGranted) {
-          for (final slug in slugs) {
-            final fileUrl = '$downloadUrl/$slug';
-            final downloadPath = await getExternalStorageDirectory();
-            final taskId = await FlutterDownloader.enqueue(
-              url: fileUrl,
-              savedDir: downloadPath?.path ?? '/storage/emulated/0/Download',
-              fileName: slug,
-              showNotification: true,
-              openFileFromNotification: true,
-            );
-            debugPrint(taskId.toString());
-            debugPrint(fileUrl.toString());
-          }
-
-          return;
-        } else {
-          debugPrint('Permission denied');
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    }
 
     return GestureDetector(
       onTap: () {

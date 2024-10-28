@@ -1,4 +1,4 @@
-name: action_comments
+name: file_comments
 publish_to: none
 
 environment:
@@ -13,8 +13,8 @@ dependencies:
     path: ../../component_library
   domain_models:
     path: ../../domain_models
-  request_repository:
-    path: ../../request_repository
+  folder_repository:
+    path: ../../folder_repository
 
   function_and_extension_library:
     path: ../../function_and_extension_library

@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:folder_repository/folder_repository.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:meeting_details/src/l10n/meeting_details_localizations.dart';
 import 'package:meeting_repository/meeting_repository.dart';
@@ -10,25 +11,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MeetingDetailsScreen extends StatelessWidget {
   const MeetingDetailsScreen({
     required this.meetingRepository,
+    required this.folderRepository,
     required this.onCancelMeetingTapped,
     required this.onScheduleMeetingTapped,
-    required this.downloadUrl,
     super.key,
   });
 
   final MeetingRepository meetingRepository;
+  final FolderRepository folderRepository;
   final ValueSetter<Meeting> onCancelMeetingTapped;
   final ValueSetter<Meeting> onScheduleMeetingTapped;
-  final String downloadUrl;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MeetingDetailsCubit>(
       create: (_) => MeetingDetailsCubit(
         meetingRepository: meetingRepository,
+        folderRepository: folderRepository,
         onCancelMeetingTapped: onCancelMeetingTapped,
         onScheduleMeetingTapped: onScheduleMeetingTapped,
-        downloadUrl: downloadUrl,
       ),
       child: const MeetingDetailsView(),
     );

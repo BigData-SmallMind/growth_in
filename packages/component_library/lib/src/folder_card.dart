@@ -80,8 +80,7 @@ class FolderCard extends StatelessWidget {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: theme.screenMargin),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
@@ -89,44 +88,7 @@ class FolderCard extends StatelessWidget {
                                               style: textTheme.titleMedium,
                                             ),
                                             VerticalGap.large(),
-                                            Text(
-                                              folder.name,
-                                              style: textTheme.titleMedium
-                                                  ?.copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            VerticalGap.small(),
-                                            if (folder.milestone.title !=
-                                                null) ...[
-                                              Text(
-                                                l10n.mileStoneSectionTitle,
-                                                style: textTheme.titleMedium,
-                                              ),
-                                              VerticalGap.small(),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.circle,
-                                                    color:
-                                                        folder.milestone.color,
-                                                  ),
-                                                  HorizontalGap.small(),
-                                                  Text(
-                                                    folder.milestone.title!,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                            VerticalGap.small(),
-                                            Text(l10n.dueDateSectionTitle),
-                                            VerticalGap.small(),
-                                            Text(
-                                              folder.dueDate
-                                                  .toIso8601String()
-                                                  .split('T')
-                                                  .first,
-                                            ),
+                                            FolderDetails(folder: folder),
                                             VerticalGap.small(),
                                             Row(
                                               children: [
@@ -137,24 +99,19 @@ class FolderCard extends StatelessWidget {
                                                 HorizontalGap.small(),
                                                 Text(
                                                   '${folder.filesCount}',
-                                                  style: textTheme.bodyMedium
-                                                      ?.copyWith(
-                                                    color:
-                                                        const Color(0xFF787486),
+                                                  style: textTheme.bodyMedium?.copyWith(
+                                                    color: const Color(0xFF787486),
                                                   ),
                                                 ),
                                                 HorizontalGap.small(),
                                                 const SvgAsset(
-                                                  AssetPathConstants
-                                                      .messagePath,
+                                                  AssetPathConstants.messagePath,
                                                 ),
                                                 HorizontalGap.small(),
                                                 Text(
                                                   '${folder.commentsCount}',
-                                                  style: textTheme.bodyMedium
-                                                      ?.copyWith(
-                                                    color:
-                                                        const Color(0xFF787486),
+                                                  style: textTheme.bodyMedium?.copyWith(
+                                                    color: const Color(0xFF787486),
                                                   ),
                                                 ),
                                               ],

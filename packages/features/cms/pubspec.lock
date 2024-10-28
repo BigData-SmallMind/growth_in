@@ -41,6 +41,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  cms_repository:
+    dependency: "direct main"
+    description:
+      path: "../../cms_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   collection:
     dependency: transitive
     description:
@@ -252,13 +259,6 @@ packages:
     dependency: transitive
     description: flutter
     source: sdk
-    version: "0.0.0"
-  folder_repository:
-    dependency: "direct main"
-    description:
-      path: "../../folder_repository"
-      relative: true
-    source: path
     version: "0.0.0"
   form_fields:
     dependency: transitive
@@ -560,6 +560,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  request_repository:
+    dependency: transitive
+    description:
+      path: "../../request_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   rxdart:
     dependency: transitive
     description:

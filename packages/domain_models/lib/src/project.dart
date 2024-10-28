@@ -1,9 +1,11 @@
 class Project {
   const Project({
     required this.id,
-    required this.name,
+    this.name,
+    this.description,
   });
 
   final int id;
-  final String name;
+  final String? name;
+  final String? description;
 }

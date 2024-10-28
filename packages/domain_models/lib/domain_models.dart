@@ -13,6 +13,8 @@ export 'src/folder.dart';
 export 'src/request.dart';
 export 'src/chat_messages.dart';
 export 'src/meeting.dart';
+export 'src/post.dart';
+export 'src/campaign.dart';
 export 'src/comment.dart';
 export 'src/action.dart';
 export 'src/project.dart';

@@ -3,25 +3,25 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_comments/src/file_comments_cubit.dart';
+import 'package:folder_repository/folder_repository.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
-import 'package:request_repository/request_repository.dart';
 
 class FileCommentsScreen extends StatelessWidget {
   const FileCommentsScreen({
     super.key,
-    required this.requestRepository,
-    required this.actionId,
+    required this.folderRepository,
+    required this.fileId,
   });
 
-  final RequestRepository requestRepository;
-  final int actionId;
+  final FolderRepository folderRepository;
+  final int fileId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FileCommentsCubit>(
       create: (_) => FileCommentsCubit(
-        requestRepository: requestRepository,
-        actionId: actionId,
+        folderRepository: folderRepository,
+        fileId: fileId,
       ),
       child: const FileCommentsView(),
     );
@@ -57,6 +57,7 @@ class FileCommentsView extends StatelessWidget {
                   child: loadingComments
                       ? const CenteredCircularProgressIndicator()
                       : ListView(
+                          shrinkWrap: true,
                           children: [
                             if (state.comments.isNotEmpty)
                               Comments(

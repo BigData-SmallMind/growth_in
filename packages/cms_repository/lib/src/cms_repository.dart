@@ -1,122 +1,69 @@
+import 'package:cms_repository/src/cms_change_notifier.dart';
+import 'package:cms_repository/src/mappers/remote_to_domain.dart';
 import 'package:domain_models/domain_models.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:cms_repository/src/folders_change_notifier.dart';
-import 'package:cms_repository/src/mappers/mappers.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:key_value_storage/key_value_storage.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:request_repository/request_repository.dart';
 
-class FolderRepository {
-  FolderRepository({
+class CmsRepository {
+  CmsRepository({
     required KeyValueStorage noSqlStorage,
     required this.remoteApi,
-    required this.downloadUrl,
-  }) : changeNotifier = FolderChangeNotifier();
+  }) : changeNotifier = CmsChangeNotifier();
 
   final GrowthInApi remoteApi;
-  final FolderChangeNotifier changeNotifier;
-  final String downloadUrl;
+  final CmsChangeNotifier changeNotifier;
 
-  Future<Folders> getFolders({
+  Future<List<Campaign>?> getCampaigns({
     required int companyId,
   }) async {
     try {
-      final folders = await remoteApi.filesAndFoldersApi.getFolders(
+      final remoteCampaigns = await remoteApi.cmsApi.getCampaigns(
         companyId: companyId,
       );
-
-      final domainFolders = folders.toDomainModel();
-      return domainFolders;
+      return null;
+      // final domainCampaigns = remoteCampaigns.toDomainModel();
+      // return domainCampaigns;
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<List<FileV2DM>> getFiles({
-    required int folderId,
-  }) async {
+  Future<List<Post>> getPosts() async {
     try {
-      final files = await remoteApi.filesAndFoldersApi.getFiles(
-        folderId: folderId,
-      );
-
-      final domainFiles = files.map((e) => e.toDomainModel()).toList();
-      return domainFiles;
+      final remotePosts = await remoteApi.cmsApi.getPosts();
+      final domainPosts = remotePosts.toDomainModel();
+      return domainPosts;
     } catch (error) {
       rethrow;
     }
   }
 
-  Future approveFile({
-    required int fileId,
-    required bool shouldApprove,
-  }) async {
-    try {
-      await remoteApi.filesAndFoldersApi.approveFile(
-        fileId: fileId,
-        shouldApprove: shouldApprove,
-      );
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future<List<Comment>> getFileComments({
-    required int fileId,
-  }) async {
-    try {
-      final comments = await remoteApi.filesAndFoldersApi.getFileComments(
-        fileId: fileId,
-      );
-
-      final domainComments = comments.map((e) => e.toDomainModel()).toList();
-      return domainComments;
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future addComment({
-    required int fileId,
-    required String comment,
-  }) async {
-    try {
-      remoteApi.filesAndFoldersApi.addComment(
-        fileId: fileId,
-        comment: comment,
-      );
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future downloadFiles(List<String> slugs) async {
-    try {
-      final downloadPermissionStatus = await Permission.storage.request();
-      if (downloadPermissionStatus.isGranted) {
-        for (final slug in slugs) {
-          final fileUrl = '$downloadUrl/$slug';
-          final downloadPath = await getExternalStorageDirectory();
-          final taskId = await FlutterDownloader.enqueue(
-            url: fileUrl,
-            savedDir: downloadPath?.path ?? '/storage/emulated/0/Download',
-            fileName: slug,
-            showNotification: true,
-            openFileFromNotification: true,
-          );
-          debugPrint(taskId.toString());
-          debugPrint(fileUrl.toString());
-        }
-        return;
-      } else {
-        debugPrint('Permission denied');
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-      rethrow;
-    }
-  }
+// Future<List<Comment>> getPostComments({
+//   required int fileId,
+// }) async {
+//   try {
+//     final comments = await remoteApi.cmsApi.getFileComments(
+//       fileId: fileId,
+//     );
+//
+//     final domainComments = comments.map((e) => e.toDomainModel()).toList();
+//     return domainComments;
+//   } catch (error) {
+//     rethrow;
+//   }
+// }
+//
+// Future addComment({
+//   required int fileId,
+//   required String comment,
+// }) async {
+//   try {
+//     remoteApi.cmsApi.addComment(
+//       fileId: fileId,
+//       comment: comment,
+//     );
+//   } catch (error) {
+//     rethrow;
+//   }
+// }
 }

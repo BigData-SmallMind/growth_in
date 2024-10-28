@@ -1,14 +1,18 @@
 import 'dart:io';
-import 'package:action_comments/action_comments.dart';
 import 'package:action/action.dart';
+import 'package:action_comments/action_comments.dart';
 import 'package:change_email/change_email.dart';
 import 'package:change_password/change_password.dart';
 import 'package:chat/chat.dart';
+import 'package:cms/cms.dart';
+import 'package:cms_repository/cms_repository.dart';
 import 'package:component_library/component_library.dart';
 import 'package:create_meeting/create_meeting.dart';
 import 'package:delete_meeting/delete_meeting.dart';
 import 'package:dio/dio.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:file/file.dart';
+import 'package:file_comments/file_comments.dart';
 import 'package:files/files.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +86,12 @@ final _meetingRepository = MeetingRepository(
 final _folderRepository = FolderRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
+  downloadUrl: UrlBuilder.filesDownloadUrl,
+);
+
+final _cmsRepository = CmsRepository(
+  remoteApi: _connectInApi,
+  noSqlStorage: _keyValueStorage,
 );
 
 final _keyValueStorage = KeyValueStorage();
@@ -147,6 +157,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
           requestRepository: _requestRepository,
           meetingRepository: _meetingRepository,
           folderRepository: _folderRepository,
+          cmsRepository: _cmsRepository,
           signInSuccessVN: _signInSuccessVN,
           isUserUnAuthSC: _isUserUnAuthVN,
         ),
@@ -260,6 +271,11 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
                 //Files and folders
                 FilesLocalizations.delegate,
                 FoldersLocalizations.delegate,
+                FileLocalizations.delegate,
+                FileCommentsLocalizations.delegate,
+
+                // CMS
+                CmsLocalizations.delegate,
               ],
               // locale: const Locale('en'),
               locale: localePreference?.toLocale(),

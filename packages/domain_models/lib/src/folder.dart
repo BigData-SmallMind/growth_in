@@ -53,6 +53,7 @@ class Folder {
     required this.filesCount,
     required this.commentsCount,
     required this.milestone,
+    required this.project,
   });
 
   final int id;
@@ -63,6 +64,7 @@ class Folder {
   final int filesCount;
   final int commentsCount;
   final MileStone milestone;
+  final Project project;
 }
 
 class MileStone {
@@ -76,3 +78,4 @@ class MileStone {
   final String? order;
   final Color? color;
 }
+

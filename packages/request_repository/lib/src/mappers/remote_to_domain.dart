@@ -168,12 +168,17 @@ extension StepRMtoDM on StepRM {
 extension CommentRMtoDM on CommentRM {
   Comment toDomainModel() {
     final dateCreatedDM = DateTime.parse(dateCreated.replaceAll('/', '-'));
+    final authorImageDM = profileImage != null
+        ? '${UrlBuilder.imageDownloadUrl}/$profileImage'
+        : commentImage != null
+            ? '${UrlBuilder.imageDownloadUrl}/$commentImage'
+            : null;
     return Comment(
       id: id,
       author: author,
-      text: comment,
+      text: comment ?? '',
       dateCreated: dateCreatedDM,
-      authorImage: image,
+      authorImage: authorImageDM,
     );
   }
 }

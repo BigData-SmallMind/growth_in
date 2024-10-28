@@ -45,6 +45,7 @@ class FoldersCubit extends Cubit<FoldersState> {
   }
 
   Future onFolderTapped(Folder folder) async {
+    folderRepository.changeNotifier.setFolder(folder);
     navigateToFiles(folder.id);
   }
 

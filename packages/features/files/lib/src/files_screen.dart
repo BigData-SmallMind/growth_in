@@ -14,13 +14,13 @@ class FilesScreen extends StatelessWidget {
     required this.userRepository,
     required this.folderRepository,
     required this.folderId,
-    required this.downloadUrl,
+    required this.navigateToFile,
   });
 
   final UserRepository userRepository;
   final FolderRepository folderRepository;
   final int folderId;
-  final String downloadUrl;
+  final ValueSetter<int> navigateToFile;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,8 @@ class FilesScreen extends StatelessWidget {
         userRepository: userRepository,
         folderRepository: folderRepository,
         folderId: folderId,
-        downloadUrl: downloadUrl,
+        navigateToFile: navigateToFile,
+
       ),
       child: const FilesView(),
     );
@@ -65,13 +66,13 @@ class _FilesViewState extends State<FilesView>
   Widget build(BuildContext context) {
     return BlocBuilder<FilesCubit, FilesState>(
       builder: (context, state) {
-        final theme = GrowthInTheme.of(context);
         final l10n = FilesLocalizations.of(context);
         final error = state.fetchingStatus == FilesFetchingStatus.failure;
         return Scaffold(
           appBar: GrowthInAppBar(
             logoVariation: false,
             title: Text(l10n.appBarTitle),
+
           ),
           body: error
               ? ExceptionIndicator(

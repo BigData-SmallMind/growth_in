@@ -105,4 +105,8 @@ class AssetPathConstants {
   static const String fileV2Path = '$iconsPath/file-v2.svg';
   static const String hyperlinkPath = '$iconsPath/hyperlink.svg';
   static const String exportPath = '$iconsPath/export.svg';
+  static const String fileV3Path = '$iconsPath/file-v3.svg';
+  static const String commentsButtonPath = '$iconsPath/comments-button.svg';
+  static const String verifyFilePath = '$iconsPath/verify-file.svg';
+  static const String rejectFilePath = '$iconsPath/reject-file.svg';
 }

@@ -4,28 +4,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cms/src/l10n/cms_localizations.dart';
 import 'package:cms/src/cms_cubit.dart';
 
-class CmsList extends StatelessWidget {
-  const CmsList({
+class CampaignsList extends StatelessWidget {
+  const CampaignsList({
     super.key,
-    required this.active,
   });
-
-  final bool active;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CmsCubit, CmsState>(
       builder: (context, state) {
-        final cms = active ? state.activeCms : state.inActiveCms;
-        final cubit = context.read<CmsCubit>();
         final l10n = CmsLocalizations.of(context);
-        return state.cms == null
+        final loading =
+            state.campaignsFetchingStatus == CampaignsFetchingStatus.inProgress;
+        return loading
             ? const CenteredCircularProgressIndicator()
             : RefreshIndicator(
                 onRefresh: () async {
-                  context.read<CmsCubit>().getCms();
+                  context.read<CmsCubit>().init();
                 },
-                child: cms.isEmpty
+                child: state.campaigns!.isEmpty
                     ? Center(
                         child: Text(
                           l10n.emptyListIndicatorText,
@@ -40,16 +37,17 @@ class CmsList extends StatelessWidget {
                           mainAxisSpacing: 16,
                           // childAspectRatio: 1.5,
                         ),
-                        itemCount: cms.length,
+                        itemCount: state.campaigns!.length,
                         padding: const EdgeInsets.symmetric(
                             vertical: Spacing.medium),
                         itemBuilder: (context, index) {
-                          final folder = cms[index];
-                          return FolderCard(
-                            folder: folder,
-                            onFolderTapped: (folder) =>
-                                cubit.onFolderTapped(folder),
-                          );
+                          // final campaign = state.campaigns![index];/
+                          return;
+                          // return CampaignCard(
+                          //   folder: campaign,
+                          //   onFolderTapped: (folder) =>
+                          //       cubit.onFolderTapped(folder),
+                          // );
                         },
                       ),
               );
