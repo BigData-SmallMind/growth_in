@@ -1,5 +1,4 @@
 import 'package:growth_in_api/growth_in_api.dart';
-import 'package:growth_in_api/src/models/response/src/form_rm.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'folder_rm.g.dart';
@@ -30,6 +29,7 @@ class FolderRM {
     required this.filesCount,
     required this.commentsCount,
     required this.milestone,
+    required this.project,
   });
 
   @JsonKey(name: 'id')
@@ -48,6 +48,8 @@ class FolderRM {
   final int commentsCount;
   @JsonKey(name: 'current_milestone')
   final MileStoneRM milestone;
+  @JsonKey(name: 'projects')
+  final ProjectRM project;
 
   static const fromJson = _$FolderRMFromJson;
 }
@@ -69,3 +71,4 @@ class MileStoneRM {
 
   static const fromJson = _$MileStoneRMFromJson;
 }
+

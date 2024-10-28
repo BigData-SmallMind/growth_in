@@ -6,8 +6,9 @@ part 'comment_rm.g.dart';
 class CommentRM {
   CommentRM({
     required this.id,
-    required this.comment,
-     this.image,
+    this.comment,
+    this.commentImage,
+    this.profileImage,
     required this.author,
     required this.dateCreated,
   });
@@ -15,14 +16,15 @@ class CommentRM {
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'comment')
-  final String comment;
+  final String? comment;
   @JsonKey(name: 'comment_image')
-  final String? image;
+  final String? commentImage;
+  @JsonKey(name: 'profile_image')
+  final String? profileImage;
   @JsonKey(name: 'user_name')
   final String author;
   @JsonKey(name: 'created_at')
   final String dateCreated;
-
 
   static const fromJson = _$CommentRMFromJson;
 }

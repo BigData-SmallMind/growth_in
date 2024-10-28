@@ -48,6 +48,8 @@ FolderRM _$FolderRMFromJson(Map<String, dynamic> json) => $checkedCreate(
               $checkedConvert('comments_count', (v) => (v as num).toInt()),
           milestone: $checkedConvert('current_milestone',
               (v) => MileStoneRM.fromJson(v as Map<String, dynamic>)),
+          project: $checkedConvert(
+              'projects', (v) => ProjectRM.fromJson(v as Map<String, dynamic>)),
         );
         return val;
       },
@@ -56,7 +58,8 @@ FolderRM _$FolderRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'dueDate': 'due_date',
         'filesCount': 'total_files',
         'commentsCount': 'comments_count',
-        'milestone': 'current_milestone'
+        'milestone': 'current_milestone',
+        'project': 'projects'
       },
     );
 

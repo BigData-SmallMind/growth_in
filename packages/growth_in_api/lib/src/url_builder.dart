@@ -138,6 +138,10 @@ class UrlBuilder {
     return '$_baseUrl/fetch-files/$folderId';
   }
 
+  String buildVerifyFileUrl(int fileId, bool isApproved) {
+    return '$_baseUrl/approve-reject-file/$fileId?is_approved=$isApproved';
+  }
+
   String buildGetCommentsUrl(int? requestId, int? actionId) {
     // assert (requestId != null || actionId != null);
     assert(requestId != null || actionId != null);
@@ -148,6 +152,16 @@ class UrlBuilder {
       return '$_baseUrl/fetch-comment-task/$actionId';
     }
     return '';
+  }
+
+  String buildGetFileCommentsUrl(int fileId) {
+    return '$_baseUrl/fetch-file-comments/$fileId';
+  }
+
+  String buildAddFileCommentUrl(
+    int fileId,
+  ) {
+    return '$_baseUrl/store-file-comment/$fileId';
   }
 
   String buildToggleRequestCompleteUrl(bool isComplete, int requestId) {
@@ -251,5 +265,13 @@ class UrlBuilder {
 
   String buildSaveFormAnswers() {
     return '$_baseUrl/save-answers';
+  }
+
+  String buildGetPostsUrl() {
+    return '$_baseUrl/posts';
+  }
+
+  String buildGetCampaignsUrl(int companyId) {
+    return '$_baseUrl/campaigns/$companyId';
   }
 }

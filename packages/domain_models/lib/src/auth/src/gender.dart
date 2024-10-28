@@ -1,5 +1,0 @@
-enum GenderDM {
-  male,
-  female,
-}
-

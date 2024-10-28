@@ -1,0 +1,12 @@
+{
+    "appBarTitle": "الملفات",
+    "activeFoldersTabLabel": "النشط",
+    "inActiveFoldersTabLabel": "المنتهي",
+    "noFoldersMessageTitle": "لا توجد رسائل!",
+    "noFoldersMessageSubtitle": "لا توجد رسائل",
+    "noFoldersButtonLabel": "حاول مرة أخرى",
+    "emptyListIndicatorText": "القائمة فارغة",
+    "folderDetailsBottomSheetTitle": "التفاصيل",
+    "mileStoneSectionTitle": "الانجاز"
+
+}

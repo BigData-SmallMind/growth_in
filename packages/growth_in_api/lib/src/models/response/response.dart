@@ -8,6 +8,8 @@ export 'src/form_rm.dart';
 export 'src/forms_rm.dart';
 export 'src/service_rm.dart';
 export 'src/meeting_rm.dart';
+export 'src/campaign_rm.dart';
+export 'src/post_rm.dart';
 export 'src/forms_sections_rm.dart';
 export 'src/project_rm.dart';
 export 'src/file_rm.dart';

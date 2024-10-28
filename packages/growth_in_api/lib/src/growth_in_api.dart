@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
 import 'package:growth_in_api/growth_in_api.dart';
+import 'package:growth_in_api/src/cms_api.dart';
 import 'package:growth_in_api/src/files_and_folders_api.dart';
 import 'package:growth_in_api/src/forms_api.dart';
 import 'package:growth_in_api/src/meetings_api.dart';
@@ -21,6 +22,7 @@ class GrowthInApi {
   })  : auth = AuthApi(dio, urlBuilder),
         requests = RequestsApi(dio, urlBuilder),
         filesAndFoldersApi = FilesAndFoldersApi(dio, urlBuilder),
+        cmsApi = CmsApi(dio, urlBuilder),
         meetings = MeetingsApi(dio, urlBuilder),
         openLineChatApi = OpenLineChatApi(dio, urlBuilder),
         formsApi = FormsApi(dio, urlBuilder),
@@ -52,6 +54,7 @@ class GrowthInApi {
   final AuthApi auth;
   final RequestsApi requests;
   final FilesAndFoldersApi filesAndFoldersApi;
+  final CmsApi cmsApi;
   final MeetingsApi meetings;
   final OpenLineChatApi openLineChatApi;
   final FormsApi formsApi;
