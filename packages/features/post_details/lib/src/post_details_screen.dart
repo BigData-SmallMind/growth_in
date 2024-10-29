@@ -54,7 +54,6 @@ class PostDetailsView extends StatelessWidget {
               Expanded(
                 child: PngAsset(
                   'post_details.png',
-
                 ),
               ),
             ],

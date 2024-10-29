@@ -15,12 +15,12 @@ class CmsScreen extends StatelessWidget {
     super.key,
     required this.userRepository,
     required this.cmsRepository,
-    required this.navigateToFiles,
+    required this.navigateToPostDetails,
   });
 
   final UserRepository userRepository;
   final CmsRepository cmsRepository;
-  final ValueSetter<int> navigateToFiles;
+  final ValueSetter<int> navigateToPostDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class CmsScreen extends StatelessWidget {
       create: (_) => CmsCubit(
         userRepository: userRepository,
         cmsRepository: cmsRepository,
-        navigateToPostDetails: navigateToFiles,
+        navigateToPostDetails: navigateToPostDetails,
       ),
       child: const CmsView(),
     );

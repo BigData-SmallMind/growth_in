@@ -146,13 +146,13 @@ Map<String, PageBuilder> buildRoutingTable({
             return CmsScreen(
               cmsRepository: cmsRepository,
               userRepository: userRepository,
-              navigateToFiles: (int folderId) => routerDelegate.push(
-                _PathConstants.filesPath(folderId: folderId),
+              navigateToPostDetails: (int postId) => routerDelegate.push(
+                _PathConstants.postDetailsPath(postId: postId),
               ),
             );
           }),
         ),
-    _PathConstants.postDetailsPath: (_) => MaterialPage(
+    _PathConstants.postDetailsPath(): (info) => MaterialPage(
           name: 'post-details',
           child: PostDetailsScreen(
             cmsRepository: cmsRepository,
@@ -582,7 +582,10 @@ class _PathConstants {
 
   static String get cmsPath => '${tabContainerPath}cms';
 
-  static String get postDetailsPath => '${tabContainerPath}post-details';
+  static String postDetailsPath({int? postId}) {
+    final completePath = '${tabContainerPath}post/${postId ?? ':postId'}';
+    return completePath;
+  }
 
   static String get foldersPath => '${tabContainerPath}folders';
 
