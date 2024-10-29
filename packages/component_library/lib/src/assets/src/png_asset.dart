@@ -20,6 +20,7 @@ class PngAsset extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/$assetPath',
+      fit: BoxFit.cover,
       width: width,
       height: height,
     );

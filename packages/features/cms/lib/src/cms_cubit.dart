@@ -121,6 +121,11 @@ class CmsCubit extends Cubit<CmsState> {
     emit(state.copyWith(calendarTabViewType: value));
   }
 
+  void onPostTapped(Post post) {
+    cmsRepository.changeNotifier.setPost(post);
+    navigateToPostDetails(post.id);
+  }
+
 // Future onPostTapped(Folder folder) async {
 //   cmsRepository.changeNotifier.setFolder(folder);
 //   navigateToFiles(folder.id);

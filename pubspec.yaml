@@ -103,6 +103,8 @@ dependencies:
   # CMS
   cms:
     path: packages/features/cms
+  post_details:
+    path: packages/features/post_details
 
 
     # Meetings

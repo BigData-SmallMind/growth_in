@@ -68,7 +68,11 @@ class DayFilteredPosts extends StatelessWidget {
                                                 state.dayFilteredPosts[index];
                                             return Column(
                                               children: [
-                                                PostCard(post: post),
+                                                PostCard(
+                                                  post: post,
+                                                  onTap: () =>
+                                                      cubit.onPostTapped(post),
+                                                ),
                                                 VerticalGap.medium(),
                                               ],
                                             );

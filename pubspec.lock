@@ -865,6 +865,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  post_details:
+    dependency: "direct main"
+    description:
+      path: "packages/features/post_details"
+      relative: true
+    source: path
+    version: "0.0.0"
   profile_info:
     dependency: "direct main"
     description:

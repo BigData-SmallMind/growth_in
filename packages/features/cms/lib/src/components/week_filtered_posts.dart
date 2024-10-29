@@ -154,6 +154,9 @@ class WeekFilteredPosts extends StatelessWidget {
                                                           flex: 6,
                                                           child: PostCard(
                                                             post: post,
+                                                            onTap: () => cubit
+                                                                .onPostTapped(
+                                                                    post),
                                                           ),
                                                         ),
                                                       ],

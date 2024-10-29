@@ -22,6 +22,7 @@ import 'package:meeting_details/meeting_details.dart';
 import 'package:meeting_repository/meeting_repository.dart';
 import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
+import 'package:post_details/post_details.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
 import 'package:request_actions/request_actions.dart';
@@ -150,6 +151,13 @@ Map<String, PageBuilder> buildRoutingTable({
               ),
             );
           }),
+        ),
+    _PathConstants.postDetailsPath: (_) => MaterialPage(
+          name: 'post-details',
+          child: PostDetailsScreen(
+            cmsRepository: cmsRepository,
+            onLogout: () => signInSuccessVN.value = false,
+          ),
         ),
     _PathConstants.chatPath: (_) => MaterialPage(
           name: 'chat',
@@ -573,6 +581,8 @@ class _PathConstants {
   static String get homePath => '${tabContainerPath}home';
 
   static String get cmsPath => '${tabContainerPath}cms';
+
+  static String get postDetailsPath => '${tabContainerPath}post-details';
 
   static String get foldersPath => '${tabContainerPath}folders';
 

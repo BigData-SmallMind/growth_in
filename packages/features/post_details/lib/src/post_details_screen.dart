@@ -1,34 +1,34 @@
+import 'package:cms_repository/cms_repository.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:home/src/home_cubit.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:post_details/src/post_details_cubit.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class PostDetailsScreen extends StatefulWidget {
+  const PostDetailsScreen({
     super.key,
-    required this.userRepository,
+    required this.cmsRepository,
     required this.onLogout,
   });
 
-  final UserRepository userRepository;
+  final CmsRepository cmsRepository;
   final VoidCallback onLogout;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<PostDetailsScreen> createState() => _PostDetailsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
+class _PostDetailsScreenState extends State<PostDetailsScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider<HomeCubit>(
-      create: (_) => HomeCubit(
-        userRepository: widget.userRepository,
+    return BlocProvider<PostDetailsCubit>(
+      create: (_) => PostDetailsCubit(
+        cmsRepository: widget.cmsRepository,
         onLogout: widget.onLogout,
       ),
-      child: const HomeView(),
+      child: const PostDetailsView(),
     );
   }
 
@@ -36,16 +36,16 @@ class _HomeScreenState extends State<HomeScreen>
   bool get wantKeepAlive => true;
 }
 
-class HomeView extends StatelessWidget {
-  const HomeView({
+class PostDetailsView extends StatelessWidget {
+  const PostDetailsView({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<PostDetailsCubit, PostDetailsState>(
       builder: (context, state) {
-        final cubit = context.read<HomeCubit>();
+        final cubit = context.read<PostDetailsCubit>();
         return Scaffold(
           appBar: AppBar(),
           body: const Column(
@@ -53,7 +53,7 @@ class HomeView extends StatelessWidget {
             children: [
               Expanded(
                 child: PngAsset(
-                  'home.png',
+                  'post_details.png',
 
                 ),
               ),

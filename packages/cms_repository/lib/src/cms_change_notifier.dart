@@ -5,22 +5,21 @@ import 'package:flutter/material.dart';
 class CmsChangeNotifier with ChangeNotifier, EquatableMixin {
   CmsChangeNotifier();
 
-  final ValueNotifier<FileV2DM?> _file = ValueNotifier(null);
+  final ValueNotifier<Post?> _post = ValueNotifier(null);
 
-  // This is a notifier of the file
-  FileV2DM? get file => _file.value;
-  void setFile(FileV2DM? file) {
-    _file.value = file;
+  // This is a notifier of the post
+  Post? get post => _post.value;
+  void setPost(Post? post) {
+    _post.value = post;
     notifyListeners();
   }
-  Future clearFile() async {
-    _file.value = null;
+  Future clearPost() async {
+    _post.value = null;
     notifyListeners();
   }
-
 
   @override
   List<Object?> get props => [
-        _file,
+        _post,
       ];
 }

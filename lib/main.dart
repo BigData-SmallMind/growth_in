@@ -33,6 +33,7 @@ import 'package:meeting_details/meeting_details.dart';
 import 'package:meeting_repository/meeting_repository.dart';
 import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
+import 'package:post_details/post_details.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
 import 'package:request_actions/request_actions.dart';
@@ -276,6 +277,7 @@ class GrowthInState extends State<GrowthIn> with WidgetsBindingObserver {
 
                 // CMS
                 CmsLocalizations.delegate,
+                PostDetailsLocalizations.delegate,
               ],
               // locale: const Locale('en'),
               locale: localePreference?.toLocale(),
