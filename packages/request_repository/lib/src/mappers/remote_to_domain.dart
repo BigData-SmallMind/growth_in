@@ -67,10 +67,11 @@ extension TicketMessagesRMtoDM on List<TicketMessageRM> {
 
 extension RequestV1RMtoDM on RequestV1RM {
   Request toDomainModel() {
-    //             "due_date": "2024/10/02",
-
+    String dueDateCleaned = dueDate.length > 10
+        ? dueDate.substring(0, 10)
+        : dueDate; // 2024-09-10T08:54:40.000000Z to 2024-09-10
     try {
-      final dueDateDM = DateTime.parse(dueDate.replaceAll('/', '-'));
+      final dueDateDM = DateTime.parse(dueDateCleaned.replaceAll('/', '-'));
       final startDateDM = DateTime.parse(startDate.replaceAll('/', '-'));
       return Request(
         id: id,
@@ -104,7 +105,8 @@ extension RequestsV1RMtoDM on RequestListPageRM {
 
 extension RequestRMtoDM on RequestRM {
   Request toDomainModel(List<Comment> comments) {
-    final dueDateDM = DateTime.parse(deadline.replaceAll('/', '-'));
+    final cleanDueDate = deadline.length >10 ? deadline.substring(0, 10) : deadline;
+    final dueDateDM = DateTime.parse(cleanDueDate.replaceAll('/', '-'));
     final startDateDM = DateTime.parse(dateCreated.replaceAll('/', '-'));
     final actionsDM = actions?.map((action) => action.toDomainModel()).toList();
     final completedActionStepsCount = actionsDM
