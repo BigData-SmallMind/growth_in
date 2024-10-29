@@ -22,6 +22,7 @@ import 'package:meeting_details/meeting_details.dart';
 import 'package:meeting_repository/meeting_repository.dart';
 import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
+import 'package:post_comments/post_comments.dart';
 import 'package:post_details/post_details.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
@@ -156,7 +157,21 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'post-details',
           child: PostDetailsScreen(
             cmsRepository: cmsRepository,
-            onLogout: () => signInSuccessVN.value = false,
+            onCommentsTapped: () => routerDelegate.push(
+              _PathConstants.postCommentsPath(
+                  postId: int.parse(
+                info.pathParameters['postId'] ?? '',
+              )),
+            ),
+          ),
+        ),
+    _PathConstants.postCommentsPath(): (info) => MaterialPage(
+          name: 'post-comments',
+          child: PostCommentsScreen(
+            cmsRepository: cmsRepository,
+            postId: int.parse(
+              info.pathParameters['postId'] ?? '',
+            ),
           ),
         ),
     _PathConstants.chatPath: (_) => MaterialPage(
@@ -584,6 +599,13 @@ class _PathConstants {
 
   static String postDetailsPath({int? postId}) {
     final completePath = '${tabContainerPath}post/${postId ?? ':postId'}';
+    return completePath;
+  }
+
+  static String postCommentsPath({
+    int? postId,
+  }) {
+    final completePath = '${postDetailsPath(postId: postId)}/comments';
     return completePath;
   }
 

@@ -17,6 +17,9 @@ class CommentRM {
   final int id;
   @JsonKey(name: 'comment')
   final String? comment;
+  //TODO: add this to this model for it to accept cms comments since they have a slightly different structre than other comment objects
+  // @JsonKey(name: 'comment_text')
+  // final String? commentText;
   @JsonKey(name: 'comment_image')
   final String? commentImage;
   @JsonKey(name: 'profile_image')

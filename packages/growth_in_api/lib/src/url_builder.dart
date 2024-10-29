@@ -142,7 +142,10 @@ class UrlBuilder {
     return '$_baseUrl/approve-reject-file/$fileId?is_approved=$isApproved';
   }
 
-  String buildGetCommentsUrl(int? requestId, int? actionId) {
+  String buildGetRequestCommentsUrl(
+    int? requestId,
+    int? actionId,
+  ) {
     // assert (requestId != null || actionId != null);
     assert(requestId != null || actionId != null);
     if (requestId != null) {
@@ -273,5 +276,13 @@ class UrlBuilder {
 
   String buildGetCampaignsUrl(int companyId) {
     return '$_baseUrl/campaigns/$companyId';
+  }
+
+  buildGetPostCommentsUrl(int postId) {
+    return '$_baseUrl/comments/$postId';
+  }
+
+  buildAddPostCommentUrl( ) {
+    return '$_baseUrl/comments';
   }
 }

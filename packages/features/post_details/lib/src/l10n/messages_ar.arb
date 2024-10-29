@@ -1,3 +1,9 @@
-{
 
+{
+    "appBarTitle":"معاينة المنشور",
+    "detailsExpansionTileTitle":"تفاصيل النشر",
+    "postPublicationDateRowTitle":"مواعيد النشر",
+    "postSocialChannelsRowTitle":"قنوات النشر",
+    "postContentTypeRowTitle":"نوع المحتوى",
+    "approvePostButtonLabel":"موافقة"
 }

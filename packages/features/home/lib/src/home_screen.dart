@@ -45,7 +45,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        final cubit = context.read<HomeCubit>();
         return Scaffold(
           appBar: AppBar(),
           body: const Column(

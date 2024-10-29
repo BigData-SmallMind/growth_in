@@ -105,6 +105,8 @@ dependencies:
     path: packages/features/cms
   post_details:
     path: packages/features/post_details
+  post_comments:
+    path: packages/features/post_comments
 
 
     # Meetings

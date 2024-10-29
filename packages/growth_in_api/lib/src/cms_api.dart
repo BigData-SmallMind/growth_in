@@ -7,6 +7,7 @@ class CmsApi {
   final UrlBuilder _urlBuilder;
   static const _postsJsonKey = 'posts';
   static const _campaignsJsonKey = 'campaigns';
+  static const _commentsJsonKey = 'comments';
 
   CmsApi(
     this._dio,
@@ -44,43 +45,42 @@ class CmsApi {
     } catch (_) {
       rethrow;
     }
+  }
 
-    // Future<List<CommentRM>> getPostComments({
-    //   required int fileId,
-    // }) async {
-    //   final url = _urlBuilder.buildGetPostCommentsUrl(
-    //     fileId,
-    //   );
-    //   try {
-    //     final response = await _dio.get(
-    //       url,
-    //     );
-    //     final comments = response.data[_commentsJsonKey] as List;
-    //     final commentsList =
-    //         comments.map((comment) => CommentRM.fromJson(comment)).toList();
-    //     return commentsList;
-    //   } catch (_) {
-    //     rethrow;
-    //   }
-    // }
-    //
-    // void addComment({
-    //   required int fileId,
-    //   required String comment,
-    // }) {
-    //   final url = _urlBuilder.buildAddPostCommentUrl(
-    //     fileId,
-    //   );
-    //   try {
-    //     _dio.post(
-    //       url,
-    //       data: {
-    //         'comment': comment,
-    //       },
-    //     );
-    //   } catch (_) {
-    //     rethrow;
-    //   }
-    // }
+  Future<List<CommentRM>> getPostComments({
+    required int postId,
+  }) async {
+    final url = _urlBuilder.buildGetPostCommentsUrl(
+      postId,
+    );
+    try {
+      final response = await _dio.get(
+        url,
+      );
+      final comments = response.data[_commentsJsonKey] as List;
+      final commentsList =
+          comments.map((comment) => CommentRM.fromJson(comment)).toList();
+      return commentsList;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  void addComment({
+    required int postId,
+    required String comment,
+  }) {
+    final url = _urlBuilder.buildAddPostCommentUrl();
+    try {
+      _dio.post(
+        url,
+        data: {
+          'post_id': postId,
+          'comment_text': comment,
+        },
+      );
+    } catch (_) {
+      rethrow;
+    }
   }
 }

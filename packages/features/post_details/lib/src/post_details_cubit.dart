@@ -9,11 +9,15 @@ part 'post_details_state.dart';
 class PostDetailsCubit extends Cubit<PostDetailsState> {
   PostDetailsCubit({
     required this.cmsRepository,
-    required this.onLogout,
-  }) : super(const PostDetailsState());
-  final CmsRepository cmsRepository;
-  final VoidCallback onLogout;
+    required this.onCommentsTapped,
+  }) : super(
+          PostDetailsState(
+            post: cmsRepository.changeNotifier.post,
+          ),
+        );
 
+  final CmsRepository cmsRepository;
+  final VoidCallback onCommentsTapped;
 
 // @override
 // Future<void> close() {

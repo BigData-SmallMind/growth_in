@@ -1,3 +1,8 @@
 {
-
+    "appBarTitle": "Post Preview",
+    "detailsExpansionTileTitle": "Publication Details",
+    "postPublicationDateRowTitle": "Publication Dates",
+    "postSocialChannelsRowTitle": "Publication Channels",
+    "postContentTypeRowTitle": "Content Type",
+    "approvePostButtonLabel": "Approve"
 }

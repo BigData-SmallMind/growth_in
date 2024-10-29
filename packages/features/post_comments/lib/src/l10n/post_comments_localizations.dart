@@ -5,22 +5,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'post_details_localizations_ar.dart';
-import 'post_details_localizations_en.dart';
+import 'post_comments_localizations_ar.dart';
+import 'post_comments_localizations_en.dart';
 
-/// Callers can lookup localized strings with an instance of PostDetailsLocalizations
-/// returned by `PostDetailsLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of PostCommentsLocalizations
+/// returned by `PostCommentsLocalizations.of(context)`.
 ///
-/// Applications need to include `PostDetailsLocalizations.delegate()` in their app's
+/// Applications need to include `PostCommentsLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'l10n/post_details_localizations.dart';
+/// import 'l10n/post_comments_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: PostDetailsLocalizations.localizationsDelegates,
-///   supportedLocales: PostDetailsLocalizations.supportedLocales,
+///   localizationsDelegates: PostCommentsLocalizations.localizationsDelegates,
+///   supportedLocales: PostCommentsLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -57,18 +57,18 @@ import 'post_details_localizations_en.dart';
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the PostDetailsLocalizations.supportedLocales
+/// be consistent with the languages listed in the PostCommentsLocalizations.supportedLocales
 /// property.
-abstract class PostDetailsLocalizations {
-  PostDetailsLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+abstract class PostCommentsLocalizations {
+  PostCommentsLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static PostDetailsLocalizations of(BuildContext context) {
-    return Localizations.of<PostDetailsLocalizations>(context, PostDetailsLocalizations)!;
+  static PostCommentsLocalizations of(BuildContext context) {
+    return Localizations.of<PostCommentsLocalizations>(context, PostCommentsLocalizations)!;
   }
 
-  static const LocalizationsDelegate<PostDetailsLocalizations> delegate = _PostDetailsLocalizationsDelegate();
+  static const LocalizationsDelegate<PostCommentsLocalizations> delegate = _PostCommentsLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -96,66 +96,54 @@ abstract class PostDetailsLocalizations {
   /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Post Preview'**
+  /// **'Requests'**
   String get appBarTitle;
 
-  /// No description provided for @detailsExpansionTileTitle.
+  /// No description provided for @detailsSectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Publication Details'**
-  String get detailsExpansionTileTitle;
+  /// **'Details'**
+  String get detailsSectionTitle;
 
-  /// No description provided for @postPublicationDateRowTitle.
+  /// No description provided for @stepsSectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Publication Dates'**
-  String get postPublicationDateRowTitle;
+  /// **'Steps'**
+  String get stepsSectionTitle;
 
-  /// No description provided for @postSocialChannelsRowTitle.
+  /// No description provided for @noCommentsIndicatorText.
   ///
   /// In en, this message translates to:
-  /// **'Publication Channels'**
-  String get postSocialChannelsRowTitle;
-
-  /// No description provided for @postContentTypeRowTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Content Type'**
-  String get postContentTypeRowTitle;
-
-  /// No description provided for @approvePostButtonLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Approve'**
-  String get approvePostButtonLabel;
+  /// **'No Comments'**
+  String get noCommentsIndicatorText;
 }
 
-class _PostDetailsLocalizationsDelegate extends LocalizationsDelegate<PostDetailsLocalizations> {
-  const _PostDetailsLocalizationsDelegate();
+class _PostCommentsLocalizationsDelegate extends LocalizationsDelegate<PostCommentsLocalizations> {
+  const _PostCommentsLocalizationsDelegate();
 
   @override
-  Future<PostDetailsLocalizations> load(Locale locale) {
-    return SynchronousFuture<PostDetailsLocalizations>(lookupPostDetailsLocalizations(locale));
+  Future<PostCommentsLocalizations> load(Locale locale) {
+    return SynchronousFuture<PostCommentsLocalizations>(lookupPostCommentsLocalizations(locale));
   }
 
   @override
   bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_PostDetailsLocalizationsDelegate old) => false;
+  bool shouldReload(_PostCommentsLocalizationsDelegate old) => false;
 }
 
-PostDetailsLocalizations lookupPostDetailsLocalizations(Locale locale) {
+PostCommentsLocalizations lookupPostCommentsLocalizations(Locale locale) {
 
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return PostDetailsLocalizationsAr();
-    case 'en': return PostDetailsLocalizationsEn();
+    case 'ar': return PostCommentsLocalizationsAr();
+    case 'en': return PostCommentsLocalizationsEn();
   }
 
   throw FlutterError(
-    'PostDetailsLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'PostCommentsLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.'

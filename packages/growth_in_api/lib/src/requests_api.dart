@@ -75,7 +75,7 @@ class RequestsApi {
     int? requestId,
     int? actionId,
   ) async {
-    final url = _urlBuilder.buildGetCommentsUrl(
+    final url = _urlBuilder.buildGetRequestCommentsUrl(
       requestId,
       actionId,
     );

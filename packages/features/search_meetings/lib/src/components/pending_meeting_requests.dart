@@ -46,10 +46,15 @@ class PendingMeetingRequests extends StatelessWidget {
                       ColumnBuilder(
                         itemBuilder: (context, index) {
                           final meeting = pendingRequests[month]![index];
-                          return MeetingCard(
-                            meeting: meeting,
-                            type: MeetingCardVariation.awaitingAction,
-                            onTap: () => cubit.onMeetingDetailsTapped(meeting),
+                          return Column(
+                            children: [
+                              MeetingCard(
+                                meeting: meeting,
+                                type: MeetingCardVariation.awaitingAction,
+                                onTap: () => cubit.onMeetingDetailsTapped(meeting),
+                              ),
+                              VerticalGap.medium(),
+                            ],
                           );
                         },
                         itemCount: pendingRequests[month]!.length,
