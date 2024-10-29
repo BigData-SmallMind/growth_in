@@ -29,7 +29,7 @@ class FolderRM {
     required this.filesCount,
     required this.commentsCount,
     required this.milestone,
-    required this.project,
+    this.project,
   });
 
   @JsonKey(name: 'id')
@@ -41,15 +41,15 @@ class FolderRM {
   @JsonKey(name: 'status')
   final String status;
   @JsonKey(name: 'forms')
-  final List<FormRM> forms;
+  final List<FormRM>? forms;
   @JsonKey(name: 'total_files')
   final int filesCount;
   @JsonKey(name: 'comments_count')
-  final int commentsCount;
+  final int? commentsCount;
   @JsonKey(name: 'current_milestone')
-  final MileStoneRM milestone;
+  final MileStoneRM? milestone;
   @JsonKey(name: 'projects')
-  final ProjectRM project;
+  final ProjectRM? project;
 
   static const fromJson = _$FolderRMFromJson;
 }
@@ -71,4 +71,3 @@ class MileStoneRM {
 
   static const fromJson = _$MileStoneRMFromJson;
 }
-

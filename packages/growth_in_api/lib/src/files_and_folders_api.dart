@@ -42,8 +42,10 @@ class FilesAndFoldersApi {
         url,
       );
       final responseJsonBody =
-          (response.data[_filesJsonKey] as List)[0][_filesJsonKey] as List;
-      final files = responseJsonBody.map((e) => FileV2RM.fromJson(e)).toList();
+          (response.data[_filesJsonKey] as List) /*[0][_filesJsonKey] as List*/;
+      if (responseJsonBody.isEmpty) return [];
+      final list = responseJsonBody[0][_filesJsonKey] as List;
+      final files = list.map((e) => FileV2RM.fromJson(e)).toList();
 
       return files;
     } catch (_) {

@@ -85,7 +85,7 @@ class FileView extends StatelessWidget {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
-                  child: Text(state.folder!.project.name!),
+                  child: Text(state.folder!.project?.name ?? ''),
                 ),
                 const Spacer(),
                 IconButton(

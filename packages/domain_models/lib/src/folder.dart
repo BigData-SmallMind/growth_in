@@ -51,9 +51,9 @@ class Folder {
     required this.status,
     this.forms = const [],
     required this.filesCount,
-    required this.commentsCount,
-    required this.milestone,
-    required this.project,
+    this.commentsCount,
+     this.milestone,
+    this.project,
   });
 
   final int id;
@@ -62,9 +62,9 @@ class Folder {
   final String status;
   final List<FormDM> forms;
   final int filesCount;
-  final int commentsCount;
-  final MileStone milestone;
-  final Project project;
+  final int? commentsCount;
+  final MileStone? milestone;
+  final Project? project;
 }
 
 class MileStone {
@@ -78,4 +78,3 @@ class MileStone {
   final String? order;
   final Color? color;
 }
-

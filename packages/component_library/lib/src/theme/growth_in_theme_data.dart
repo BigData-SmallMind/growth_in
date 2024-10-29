@@ -15,9 +15,15 @@ abstract class GrowthInThemeData {
   final successContainerColor = const Color(0xFFE3FFEC);
   final successOnContainerColor = const Color(0xFF19B100);
   final successTextColor = const Color(0xFF19B100);
+  final acceptedPostColor = const Color(0xFF2EA154);
+  final acceptedPostBgColor = const Color(0xFFEDFFEB);
 
   final errorColor = const Color(0xFFF56342);
   final errorContainerColor = const Color(0xFFFFF0ED);
+  final newPostColor = const Color(0xFFC00E0E);
+  final newPostBgColor = const Color(0xFFFEF3F2);
+  final editingPostColor = const Color(0xFFDA952D);
+  final editingPostBgColor = const Color(0xFFFDFFEB);
 
   final secondaryContainerBgColor = const Color(0xFFDCE3F6);
   final tertiaryContainerBgColor = const Color.fromRGBO(228, 240, 232, 0.44);

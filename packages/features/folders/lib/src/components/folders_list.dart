@@ -19,40 +19,46 @@ class FoldersList extends StatelessWidget {
         final folders = active ? state.activeFolders : state.inActiveFolders;
         final cubit = context.read<FoldersCubit>();
         final l10n = FoldersLocalizations.of(context);
-        return state.folders == null
+        final error = state.fetchingStatus == FoldersFetchingStatus.failure;
+        final loading = state.fetchingStatus == FoldersFetchingStatus.inProgress;
+        return loading
             ? const CenteredCircularProgressIndicator()
-            : RefreshIndicator(
-                onRefresh: () async {
-                  context.read<FoldersCubit>().getFolders();
-                },
-                child: folders.isEmpty
-                    ? Center(
-                        child: Text(
-                          l10n.emptyListIndicatorText,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      )
-                    : GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          // childAspectRatio: 1.5,
-                        ),
-                        itemCount: folders.length,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: Spacing.medium),
-                        itemBuilder: (context, index) {
-                          final folder = folders[index];
-                          return FolderCard(
-                            folder: folder,
-                            onFolderTapped: (folder) =>
-                                cubit.onFolderTapped(folder),
-                          );
-                        },
-                      ),
-              );
+            : error
+                ? ExceptionIndicator(
+                    onTryAgain: () => cubit.getFolders(),
+                  )
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<FoldersCubit>().getFolders();
+                    },
+                    child: folders.isEmpty
+                        ? Center(
+                            child: Text(
+                              l10n.emptyListIndicatorText,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          )
+                        : GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              // childAspectRatio: 1.5,
+                            ),
+                            itemCount: folders.length,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: Spacing.medium),
+                            itemBuilder: (context, index) {
+                              final folder = folders[index];
+                              return FolderCard(
+                                folder: folder,
+                                onFolderTapped: (folder) =>
+                                    cubit.onFolderTapped(folder),
+                              );
+                            },
+                          ),
+                  );
       },
     );
   }

@@ -133,20 +133,20 @@ class MoreView extends StatelessWidget {
                     ),
                     const Divider(),
                     // plans and services tile
-                    ListTile(
-                      title: Text(l10n.plansAndServicesTileTitle),
-                      onTap: () {},
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.grey,
-                      ),
-                      leading: const SvgAsset(
-                        AssetPathConstants.walletPath,
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: theme.screenMargin),
-                    ),
-                    const Divider(),
+                    // ListTile(
+                    //   title: Text(l10n.plansAndServicesTileTitle),
+                    //   onTap: () {},
+                    //   trailing: const Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     color: Colors.grey,
+                    //   ),
+                    //   leading: const SvgAsset(
+                    //     AssetPathConstants.walletPath,
+                    //   ),
+                    //   contentPadding:
+                    //       EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                    // ),
+                    // const Divider(),
                     //settings tile
                     ListTile(
                       title: Text(l10n.settingsTileTitle),

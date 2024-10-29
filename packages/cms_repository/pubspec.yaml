@@ -19,6 +19,7 @@ dependencies:
     path: ../request_repository
 
   equatable: ^2.0.5
+  intl: ^0.19.0
 
 
 dev_dependencies:

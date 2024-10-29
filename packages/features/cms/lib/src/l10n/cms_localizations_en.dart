@@ -2,7 +2,7 @@ import 'cms_localizations.dart';
 
 /// The translations for English (`en`).
 class CmsLocalizationsEn extends CmsLocalizations {
-  CmsLocalizationsEn([String locale = 'en']) : super(locale);
+  CmsLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Files';
@@ -33,4 +33,13 @@ class CmsLocalizationsEn extends CmsLocalizations {
 
   @override
   String get mileStoneSectionTitle => 'Milestone';
+
+  @override
+  String get weekNumber => 'Week';
+
+  @override
+  String get weekDropdownItemLabel => 'Week';
+
+  @override
+  String get monthDropdownItemLabel => 'Month';
 }

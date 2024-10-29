@@ -43,7 +43,8 @@ class _SendMessageState extends State<SendMessage> {
                     Expanded(
                       child: TextField(
                         scrollPadding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom + 16*4),
+                            bottom: MediaQuery.of(context).viewInsets.bottom +
+                                16 * 4),
                         controller: cubit.messageController,
                         enabled: !submissionInProgress,
                         decoration: InputDecoration(
@@ -62,35 +63,35 @@ class _SendMessageState extends State<SendMessage> {
                       ),
                     ),
                     HorizontalGap.medium(),
-                    Stack(
-                      children: [
-                        IconButton(
-                          icon: const SvgAsset(
-                            AssetPathConstants.addPath,
-                          ),
-                          onPressed: () {
-                            attachVisible = !attachVisible;
-                            setState(() {});
-                          },
-                        ),
-                        if (state.files != null)
-                          PositionedDirectional(
-                            start: 0,
-                            top: 0,
-                            child: Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.attach_file,
-                                  size: 10,
-                                  color: Colors.white,
-                                )),
-                          )
-                      ],
-                    ),
+                    // Stack(
+                    //   children: [
+                    //     IconButton(
+                    //       icon: const SvgAsset(
+                    //         AssetPathConstants.addPath,
+                    //       ),
+                    //       onPressed: () {
+                    //         attachVisible = !attachVisible;
+                    //         setState(() {});
+                    //       },
+                    //     ),
+                    //     if (state.files != null)
+                    //       PositionedDirectional(
+                    //         start: 0,
+                    //         top: 0,
+                    //         child: Container(
+                    //             padding: const EdgeInsets.all(2),
+                    //             decoration: const BoxDecoration(
+                    //               color: Colors.green,
+                    //               shape: BoxShape.circle,
+                    //             ),
+                    //             child: const Icon(
+                    //               Icons.attach_file,
+                    //               size: 10,
+                    //               color: Colors.white,
+                    //             )),
+                    //       )
+                    //   ],
+                    // ),
                     submissionInProgress
                         ? Transform.scale(
                             scale: 0.5,
@@ -108,8 +109,9 @@ class _SendMessageState extends State<SendMessage> {
                               ),
                             ),
                             icon: const SvgAsset(AssetPathConstants.sendPath),
-                            onPressed:
-                                state.isSendButtonDisabled ? null : cubit.sendMessage,
+                            onPressed: state.isSendButtonDisabled
+                                ? null
+                                : cubit.sendMessage,
                           ),
                   ],
                 ),

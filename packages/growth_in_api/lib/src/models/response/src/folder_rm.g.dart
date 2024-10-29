@@ -45,11 +45,17 @@ FolderRM _$FolderRMFromJson(Map<String, dynamic> json) => $checkedCreate(
                   const []),
           filesCount: $checkedConvert('total_files', (v) => (v as num).toInt()),
           commentsCount:
-              $checkedConvert('comments_count', (v) => (v as num).toInt()),
-          milestone: $checkedConvert('current_milestone',
-              (v) => MileStoneRM.fromJson(v as Map<String, dynamic>)),
+              $checkedConvert('comments_count', (v) => (v as num?)?.toInt()),
+          milestone: $checkedConvert(
+              'current_milestone',
+              (v) => v == null
+                  ? null
+                  : MileStoneRM.fromJson(v as Map<String, dynamic>)),
           project: $checkedConvert(
-              'projects', (v) => ProjectRM.fromJson(v as Map<String, dynamic>)),
+              'projects',
+              (v) => v == null
+                  ? null
+                  : ProjectRM.fromJson(v as Map<String, dynamic>)),
         );
         return val;
       },

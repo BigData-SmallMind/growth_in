@@ -12,7 +12,12 @@ class CmsCubit extends Cubit<CmsState> {
     required this.userRepository,
     required this.cmsRepository,
     required this.navigateToPostDetails,
-  }) : super(const CmsState()) {
+  }) : super(
+          CmsState(
+            timelineTabDate: DateTime.now(),
+            calendarTabDate: DateTime.now(),
+          ),
+        ) {
     init();
   }
 
@@ -23,9 +28,33 @@ class CmsCubit extends Cubit<CmsState> {
   // get cms
 
   Future init() async {
+    getPosts();
+    getCampaigns();
+  }
+
+  Future getPosts() async {
+    final loadingState = state.copyWith(
+      postsFetchingStatus: PostsFetchingStatus.inProgress,
+    );
+    emit(loadingState);
+    try {
+      final posts = await cmsRepository.getPosts();
+      final successState = state.copyWith(
+        posts: posts,
+        postsFetchingStatus: PostsFetchingStatus.success,
+      );
+      emit(successState);
+    } catch (_) {
+      final failureState = state.copyWith(
+        postsFetchingStatus: PostsFetchingStatus.failure,
+      );
+      emit(failureState);
+    }
+  }
+
+  Future getCampaigns() async {
     final loadingState = state.copyWith(
       campaignsFetchingStatus: CampaignsFetchingStatus.inProgress,
-      postsFetchingStatus: PostsFetchingStatus.inProgress,
     );
     emit(loadingState);
     final user = await userRepository.getUser().first;
@@ -33,46 +62,6 @@ class CmsCubit extends Cubit<CmsState> {
         user!.companies.firstWhere((company) => company.isSelected).id;
     try {
       final campaigns = await cmsRepository.getCampaigns(companyId: companyId);
-      final posts = await cmsRepository.getPosts();
-      final successState = state.copyWith(
-        campaigns: campaigns,
-        posts: posts,
-        campaignsFetchingStatus: CampaignsFetchingStatus.success,
-        postsFetchingStatus: PostsFetchingStatus.success,
-      );
-      emit(successState);
-    } catch (_) {
-      final failureState = state.copyWith(
-        campaignsFetchingStatus: CampaignsFetchingStatus.failure,
-        postsFetchingStatus: PostsFetchingStatus.failure,
-      );
-      emit(failureState);
-    }
-  }
-
-  void onRefreshPosts() async {
-
-    try {
-      final posts = await cmsRepository.getPosts();
-      final successState = state.copyWith(
-        posts: posts,
-        postsFetchingStatus: PostsFetchingStatus.success,
-      );
-      emit(successState);
-    } catch (_) {
-      final failureState = state.copyWith(
-        postsFetchingStatus: PostsFetchingStatus.failure,
-      );
-      emit(failureState);
-    }
-  }
-
-  void onRefreshCampaigns() async {
-    final user = await userRepository.getUser().first;
-    final companyId =
-        user!.companies.firstWhere((company) => company.isSelected).id;
-    try {
-      final campaigns = await cmsRepository.getCampaigns(companyId: companyId);
       final successState = state.copyWith(
         campaigns: campaigns,
         campaignsFetchingStatus: CampaignsFetchingStatus.success,
@@ -84,6 +73,52 @@ class CmsCubit extends Cubit<CmsState> {
       );
       emit(failureState);
     }
+  }
+
+  void setTimelineTabMonth(DateTime dateTime) {
+    emit(state.copyWith(
+      timelineTabDate: dateTime,
+    ));
+  }
+
+  bool hasPost(DateTime date) {
+    // Check if the date is in the list of post dates
+    return state.postDates.any((postDate) =>
+        postDate.year == date.year &&
+        postDate.month == date.month &&
+        postDate.day == date.day);
+  }
+
+  bool hasAcceptedPost(DateTime date) {
+    return state.posts!.any((post) =>
+        post.publicationDate.year == date.year &&
+        post.publicationDate.month == date.month &&
+        post.publicationDate.day == date.day &&
+        post.status == PostStatus.accepted);
+  }
+
+  bool hasNewPost(DateTime date) {
+    return state.posts!.any((post) =>
+        post.publicationDate.year == date.year &&
+        post.publicationDate.month == date.month &&
+        post.publicationDate.day == date.day &&
+        post.status == PostStatus.newPost);
+  }
+
+  bool hasEditingPost(DateTime date) {
+    return state.posts!.any((post) =>
+        post.publicationDate.year == date.year &&
+        post.publicationDate.month == date.month &&
+        post.publicationDate.day == date.day &&
+        post.status == PostStatus.editing);
+  }
+
+  void setCalendarTabDate(DateTime value) {
+    emit(state.copyWith(calendarTabDate: value));
+  }
+
+  void setCalendarTabViewType(CalendarTabViewType? value) {
+    emit(state.copyWith(calendarTabViewType: value));
   }
 
 // Future onPostTapped(Folder folder) async {

@@ -5,17 +5,21 @@ import 'package:domain_models/domain_models.dart';
 
 extension FolderRMtoDM on FolderRM {
   Folder toDomainModel() {
-    return Folder(
-      id: id,
-      name: name,
-      dueDate: DateTime.parse(dueDate.replaceAll('/', '-')),
-      status: status,
-      forms: forms.map((e) => e.toDomainModel()).toList(),
-      filesCount: filesCount,
-      commentsCount: commentsCount,
-      milestone: milestone.toDomainModel(),
-      project: project.toDomainModel(),
-    );
+    try {
+      return Folder(
+        id: id,
+        name: name,
+        dueDate: DateTime.parse(dueDate.replaceAll('/', '-')),
+        status: status,
+        forms: forms?.map((e) => e.toDomainModel()).toList() ?? [],
+        filesCount: filesCount,
+        commentsCount: commentsCount,
+        milestone: milestone?.toDomainModel(),
+        project: project?.toDomainModel(),
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 }
 

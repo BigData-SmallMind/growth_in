@@ -6,20 +6,22 @@ class Post {
     this.contentType,
     this.text,
     this.images,
-    this.publicationDate,
+    required this.publicationDate,
     required this.status,
     required this.shouldShowRedDot,
+    required this.hour
   });
 
   final int id;
   final List<SocialChannel>? channels;
   final String? contentGoal;
-  final String? contentType;
+  final List<String>? contentType;
   final String? text;
   final List<String>? images;
-  final DateTime? publicationDate;
+  final DateTime publicationDate;
   final PostStatus status;
   final bool shouldShowRedDot;
+  final String hour;
 }
 
 enum PostStatus {

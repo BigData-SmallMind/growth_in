@@ -8,6 +8,10 @@
     "noCmsButtonLabel": "حاول مرة أخرى",
     "emptyListIndicatorText": "القائمة فارغة",
     "folderDetailsBottomSheetTitle": "التفاصيل",
-    "mileStoneSectionTitle": "الانجاز"
+    "mileStoneSectionTitle": "الانجاز",
+    "weekNumber": "أسبوع",
+    "weekDropdownItemLabel": "أسبوع",
+    "monthDropdownItemLabel": "شهر"
+
 
 }

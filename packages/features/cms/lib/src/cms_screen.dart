@@ -1,3 +1,5 @@
+import 'package:cms/src/components/campaigns_list.dart';
+import 'package:cms/src/components/week_filtered_posts.dart';
 import 'package:cms_repository/cms_repository.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cms/src/l10n/cms_localizations.dart';
 import 'package:cms/src/cms_cubit.dart';
 import 'package:user_repository/user_repository.dart';
+
+import 'components/components.dart';
 
 class CmsScreen extends StatelessWidget {
   const CmsScreen({
@@ -90,15 +94,9 @@ class _CmsViewState extends State<CmsView> with SingleTickerProviderStateMixin {
                   child: TabBarView(
                     controller: _tabController,
                     children: const [
-                      Center(
-                        child: Text('taqweem'),
-                      ),
-                      Center(
-                        child: Text('time line'),
-                      ),
-                      Center(
-                        child: Text('campaigns'),
-                      ),
+                      DayFilteredPosts(),
+                      WeekFilteredPosts(),
+                      CampaignsList(),
                     ],
                   ),
                 ),

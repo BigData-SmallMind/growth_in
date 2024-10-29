@@ -27,11 +27,11 @@ class FolderDetails extends StatelessWidget {
         ),
         VerticalGap.small(),
         Text(
-          folder.project.description ?? '',
+          folder.project?.description ?? '',
           style: textTheme.bodyMedium?.copyWith(color: const Color(0xFF797979)),
         ),
         VerticalGap.small(),
-        if (folder.milestone.title != null)
+        if (folder.milestone?.title != null)
           Row(
             children: [
               SizedBox(
@@ -43,11 +43,11 @@ class FolderDetails extends StatelessWidget {
               ),
               Icon(
                 Icons.circle,
-                color: folder.milestone.color,
+                color: folder.milestone?.color,
               ),
               HorizontalGap.small(),
               Text(
-                folder.milestone.title!,
+                folder.milestone!.title!,
               ),
             ],
           ),

@@ -16,41 +16,45 @@ class CampaignsList extends StatelessWidget {
         final l10n = CmsLocalizations.of(context);
         final loading =
             state.campaignsFetchingStatus == CampaignsFetchingStatus.inProgress;
+        final error =
+            state.campaignsFetchingStatus == CampaignsFetchingStatus.failure;
+        final isEmptyList = state.campaigns?.isEmpty == true;
+        final cubit = context.read<CmsCubit>();
         return loading
             ? const CenteredCircularProgressIndicator()
-            : RefreshIndicator(
-                onRefresh: () async {
-                  context.read<CmsCubit>().init();
-                },
-                child: state.campaigns!.isEmpty
-                    ? Center(
-                        child: Text(
-                          l10n.emptyListIndicatorText,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
+            : error
+                ? ExceptionIndicator(
+                    onTryAgain: cubit.getCampaigns,
+                  )
+                : isEmptyList
+                    ? EmptyListIndicator(
+                        onRefresh: cubit.getCampaigns,
                       )
-                    : GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          // childAspectRatio: 1.5,
-                        ),
-                        itemCount: state.campaigns!.length,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: Spacing.medium),
-                        itemBuilder: (context, index) {
-                          // final campaign = state.campaigns![index];/
-                          return;
-                          // return CampaignCard(
-                          //   folder: campaign,
-                          //   onFolderTapped: (folder) =>
-                          //       cubit.onFolderTapped(folder),
-                          // );
-                        },
-                      ),
-              );
+                    : RefreshIndicator(
+                        onRefresh: cubit.getCampaigns,
+                        child: state.campaigns!.isEmpty
+                            ? Center(
+                                child: Text(
+                                  l10n.emptyListIndicatorText,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
+                              )
+                            : ListView.separated(
+                                itemCount: state.campaigns!.length,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: Spacing.medium,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final campaign = state.campaigns![index];
+                                  return CampaignCard(
+                                    campaign: campaign,
+                                  );
+                                },
+                                separatorBuilder: (context, index) =>
+                                    VerticalGap.medium(),
+                              ),
+                      );
       },
     );
   }

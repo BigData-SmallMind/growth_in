@@ -152,6 +152,24 @@ abstract class CmsLocalizations {
   /// In en, this message translates to:
   /// **'Milestone'**
   String get mileStoneSectionTitle;
+
+  /// No description provided for @weekNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get weekNumber;
+
+  /// No description provided for @weekDropdownItemLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get weekDropdownItemLabel;
+
+  /// No description provided for @monthDropdownItemLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get monthDropdownItemLabel;
 }
 
 class _CmsLocalizationsDelegate extends LocalizationsDelegate<CmsLocalizations> {

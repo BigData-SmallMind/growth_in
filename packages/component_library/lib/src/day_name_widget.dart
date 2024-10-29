@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 
 import 'package:flutter/material.dart';
 
@@ -19,8 +19,11 @@ class DayNameWidget extends StatelessWidget {
     return Column(
       children: [
         Text(
-          DateFormat('EEEE').format(dateTime),
+          '${intl.DateFormat('EEEE').format(dateTime).substring(0, 3)}.',
           style: textTheme.titleMedium,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textDirection: TextDirection.ltr,
         ),
         Text(dateTime.day.toString(), style: textTheme.titleMedium),
       ],

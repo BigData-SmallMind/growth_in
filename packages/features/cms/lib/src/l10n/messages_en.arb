@@ -8,5 +8,8 @@
     "noCmsButtonLabel": "Try Again",
     "emptyListIndicatorText": "List is empty",
     "folderDetailsBottomSheetTitle": "Details",
-    "mileStoneSectionTitle": "Milestone"
+    "mileStoneSectionTitle": "Milestone",
+    "weekNumber": "Week",
+    "weekDropdownItemLabel": "Week",
+    "monthDropdownItemLabel": "Month"
 }

@@ -27,6 +27,7 @@ import 'dart:convert';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:growth_in_api/growth_in_api.dart';
+import 'package:intl/intl.dart';
 
 extension PostRMtoDM on PostRM {
   SocialChannel channelRMtoDM(String channel) {
@@ -51,11 +52,16 @@ extension PostRMtoDM on PostRM {
         channel != null ? List<String>.from(jsonDecode(channel!)) : null;
     final channelsListDM =
         channelsList?.map((channel) => channelRMtoDM(channel)).toList();
-    final imagesDM =
-        images != null ? List<String>.from(jsonDecode(images!)) : null;
+    final imagesUrls = images != null
+        ? List<String>.from(jsonDecode(images!))
+            .map((image) => '${UrlBuilder.imageDownloadUrl}/$image')
+            .toList()
+        : null;
     //Thu Oct 10 2024 00:00:00 GMT+0300
+    DateFormat format = DateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z");
+
     final publicationDateDM =
-        DateTime.tryParse(publicationDate.replaceAll("GMT", "").trim());
+        format.parse(publicationDate..replaceFirst('GMT', '').trim());
     final statusDM = status == 'مقبول'
         ? PostStatus.accepted
         : status == 'جديد'
@@ -63,22 +69,52 @@ extension PostRMtoDM on PostRM {
             : status == 'تعديلات'
                 ? PostStatus.editing
                 : throw Exception('Invalid status');
+    final contentTypeDM = contentType != null
+        ? List<String>.from(jsonDecode(contentType!))
+            .map((type) => (type).toString())
+            .toList()
+        : null;
+
+    int hour = publicationDateDM.hour % 12; // Convert to 12-hour format
+    hour = hour == 0 ? 12 : hour; // Handle midnight case
+    int minute = publicationDateDM.minute;
+    String period = publicationDateDM.hour >= 12 ? 'PM' : 'AM';
+    final hourDM =
+        '${hour < 10 ? '0$hour' : hour}:${minute < 10 ? '0$minute' : minute} $period';
     return Post(
-      id: id,
-      channels: channelsListDM,
-      contentGoal: contentGoal,
-      contentType: contentType,
-      text: text,
-      images: imagesDM,
-      publicationDate: publicationDateDM,
-      status: statusDM,
-      shouldShowRedDot: shouldShowRedDot == 1 ? true : false,
-    );
+        id: id,
+        channels: channelsListDM,
+        contentGoal: contentGoal,
+        contentType: contentTypeDM,
+        text: text,
+        images: imagesUrls,
+        publicationDate: publicationDateDM,
+        status: statusDM,
+        shouldShowRedDot: shouldShowRedDot == 1 ? true : false,
+        hour: hourDM);
   }
 }
 
 extension PostsRMtoDM on List<PostRM> {
   List<Post> toDomainModel() {
     return map((post) => post.toDomainModel()).toList();
+  }
+}
+
+extension CampaignRMtoDM on CampaignRM {
+  Campaign toDomainModel() {
+    return Campaign(
+      id: id,
+      name: name,
+      contentGoal: contentGoal,
+      summary: summary,
+      postCount: postCount,
+    );
+  }
+}
+
+extension CampaignsRMtoDM on List<CampaignRM> {
+  List<Campaign> toDomainModel() {
+    return map((campaign) => campaign.toDomainModel()).toList();
   }
 }

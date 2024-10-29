@@ -2,7 +2,7 @@ import 'cms_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class CmsLocalizationsAr extends CmsLocalizations {
-  CmsLocalizationsAr([String locale = 'ar']) : super(locale);
+  CmsLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get appBarTitle => 'الملفات';
@@ -33,4 +33,13 @@ class CmsLocalizationsAr extends CmsLocalizations {
 
   @override
   String get mileStoneSectionTitle => 'الانجاز';
+
+  @override
+  String get weekNumber => 'أسبوع';
+
+  @override
+  String get weekDropdownItemLabel => 'أسبوع';
+
+  @override
+  String get monthDropdownItemLabel => 'شهر';
 }

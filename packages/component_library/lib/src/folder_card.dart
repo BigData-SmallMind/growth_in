@@ -32,7 +32,7 @@ class FolderCard extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               children: [
@@ -80,7 +80,8 @@ class FolderCard extends StatelessWidget {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: theme.screenMargin),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
@@ -99,19 +100,24 @@ class FolderCard extends StatelessWidget {
                                                 HorizontalGap.small(),
                                                 Text(
                                                   '${folder.filesCount}',
-                                                  style: textTheme.bodyMedium?.copyWith(
-                                                    color: const Color(0xFF787486),
+                                                  style: textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                    color:
+                                                        const Color(0xFF787486),
                                                   ),
                                                 ),
                                                 HorizontalGap.small(),
                                                 const SvgAsset(
-                                                  AssetPathConstants.messagePath,
+                                                  AssetPathConstants
+                                                      .messagePath,
                                                 ),
                                                 HorizontalGap.small(),
                                                 Text(
                                                   '${folder.commentsCount}',
-                                                  style: textTheme.bodyMedium?.copyWith(
-                                                    color: const Color(0xFF787486),
+                                                  style: textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                    color:
+                                                        const Color(0xFF787486),
                                                   ),
                                                 ),
                                               ],
@@ -142,6 +148,7 @@ class FolderCard extends StatelessWidget {
             Text(
               folder.name,
             ),
+            const Spacer(),
             Row(
               children: [
                 const SvgAsset(
@@ -172,20 +179,21 @@ class FolderCard extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              children: [
-                const SvgAsset(
-                  AssetPathConstants.messagePath,
-                ),
-                HorizontalGap.small(),
-                Text(
-                  '${folder.commentsCount}',
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFF787486),
+            if (folder.commentsCount != null)
+              Row(
+                children: [
+                  const SvgAsset(
+                    AssetPathConstants.messagePath,
                   ),
-                ),
-              ],
-            ),
+                  HorizontalGap.small(),
+                  Text(
+                    folder.commentsCount.toString(),
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: const Color(0xFF787486),
+                    ),
+                  ),
+                ],
+              ),
           ],
         ),
       ),

@@ -32,6 +32,7 @@ class MeetingSlotPicker extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SfDateRangePicker(
+
           backgroundColor: colorScheme.surface,
           showNavigationArrow: true,
           allowViewNavigation: true,

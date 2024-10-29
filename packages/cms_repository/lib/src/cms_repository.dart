@@ -20,9 +20,8 @@ class CmsRepository {
       final remoteCampaigns = await remoteApi.cmsApi.getCampaigns(
         companyId: companyId,
       );
-      return null;
-      // final domainCampaigns = remoteCampaigns.toDomainModel();
-      // return domainCampaigns;
+      final domainCampaigns = remoteCampaigns.toDomainModel();
+      return domainCampaigns;
     } catch (error) {
       rethrow;
     }

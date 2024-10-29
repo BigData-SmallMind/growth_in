@@ -13,7 +13,7 @@ CampaignRM _$CampaignRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = CampaignRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           name: $checkedConvert('name', (v) => v as String),
-          contentGoal: $checkedConvert('content_goal', (v) => v as String),
+          contentGoal: $checkedConvert('content_goal', (v) => v as String?),
           summary: $checkedConvert('summary', (v) => v as String?),
           postCount: $checkedConvert('post_count', (v) => (v as num).toInt()),
         );

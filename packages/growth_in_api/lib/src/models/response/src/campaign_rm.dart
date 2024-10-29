@@ -17,7 +17,7 @@ class CampaignRM {
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'content_goal')
-  final String contentGoal;
+  final String? contentGoal;
   @JsonKey(name: 'summary')
   final String? summary;
   @JsonKey(name: 'post_count')
