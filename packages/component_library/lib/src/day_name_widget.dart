@@ -16,17 +16,20 @@ class DayNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Column(
-      children: [
-        Text(
-          '${intl.DateFormat('EEEE').format(dateTime).substring(0, 3)}.',
-          style: textTheme.titleMedium,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          textDirection: TextDirection.ltr,
-        ),
-        Text(dateTime.day.toString(), style: textTheme.titleMedium),
-      ],
+    return SizedBox(
+      width: 35,
+      child: Column(
+        children: [
+          Text(
+            '${intl.DateFormat('EEEE').format(dateTime).substring(0, 3)}.',
+            style: textTheme.titleMedium,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textDirection: TextDirection.ltr,
+          ),
+          Text(dateTime.day.toString(), style: textTheme.titleMedium),
+        ],
+      ),
     );
   }
 }
