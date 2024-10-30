@@ -24,18 +24,7 @@ class PastMeeting extends StatelessWidget {
           ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Text(
-                      DateFormat('EEEE').format(meeting!.startDate!),
-                      style: textTheme.titleMedium,
-                    ),
-                    Text(
-                      meeting.startDate!.day.toString(),
-                      style: textTheme.titleMedium,
-                    ),
-                  ],
-                ),
+                DayNameWidget(dateTime: meeting!.startDate!),
                 HorizontalGap.medium(),
                 Expanded(
                   child: MeetingCard(

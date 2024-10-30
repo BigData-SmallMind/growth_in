@@ -179,7 +179,6 @@ extension FormsSectionsRMtoDM on FormsSectionsRM {
     return FormsSections(
       id: id,
       list: sectionsDM,
-      isCompleted: isCompleted,
       formName: formName,
       serviceName: serviceName,
     );

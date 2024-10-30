@@ -5,16 +5,14 @@ class FormsSections {
   FormsSections({
     required this.id,
     required this.list,
-    required this.isCompleted,
     required this.formName,
-    required this.serviceName,
+    this.serviceName,
   });
 
   final List<FormSection> list;
   final String id;
-  final bool isCompleted;
   final String formName;
-  final String serviceName;
+  final String? serviceName;
 }
 
 class FormSection {
