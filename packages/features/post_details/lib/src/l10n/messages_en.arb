@@ -4,5 +4,12 @@
     "postPublicationDateRowTitle": "Publication Dates",
     "postSocialChannelsRowTitle": "Publication Channels",
     "postContentTypeRowTitle": "Content Type",
-    "approvePostButtonLabel": "Approve"
+    "approvePostButtonLabel": "Approve",
+    "approvePostButtonLabel": "Approve",
+    "approvePostBottomSheetTitle": "By approving the post, the achievement will be determined",
+    "approvePostBottomSheetBody": "And the modifications will be finalized",
+    "approvePostBottomSheetButtonLabel": "Approve",
+    "cancelPostBottomSheetButtonLabel": "There are still comments",
+    "postApprovalSuccessSnackBarMessage": "Post approved successfully"
+
 }

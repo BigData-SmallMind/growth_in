@@ -887,6 +887,20 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  post_version_details:
+    dependency: "direct main"
+    description:
+      path: "packages/features/post_version_details"
+      relative: true
+    source: path
+    version: "0.0.0"
+  post_versions:
+    dependency: "direct main"
+    description:
+      path: "packages/features/post_versions"
+      relative: true
+    source: path
+    version: "0.0.0"
   profile_info:
     dependency: "direct main"
     description:

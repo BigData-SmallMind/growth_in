@@ -107,6 +107,10 @@ dependencies:
     path: packages/features/post_details
   post_comments:
     path: packages/features/post_comments
+  post_versions:
+    path: packages/features/post_versions
+  post_version_details:
+    path: packages/features/post_version_details
 
 
     # Meetings

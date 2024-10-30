@@ -105,7 +105,8 @@ extension RequestsV1RMtoDM on RequestListPageRM {
 
 extension RequestRMtoDM on RequestRM {
   Request toDomainModel(List<Comment> comments) {
-    final cleanDueDate = deadline.length >10 ? deadline.substring(0, 10) : deadline;
+    final cleanDueDate =
+        deadline.length > 10 ? deadline.substring(0, 10) : deadline;
     final dueDateDM = DateTime.parse(cleanDueDate.replaceAll('/', '-'));
     final startDateDM = DateTime.parse(dateCreated.replaceAll('/', '-'));
     final actionsDM = actions?.map((action) => action.toDomainModel()).toList();
@@ -178,7 +179,7 @@ extension CommentRMtoDM on CommentRM {
     return Comment(
       id: id,
       author: author,
-      text: comment ?? '',
+      text: comment ?? commentText ?? '',
       dateCreated: dateCreatedDM,
       authorImage: authorImageDM,
     );

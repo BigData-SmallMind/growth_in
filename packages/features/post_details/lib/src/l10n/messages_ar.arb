@@ -5,5 +5,10 @@
     "postPublicationDateRowTitle":"مواعيد النشر",
     "postSocialChannelsRowTitle":"قنوات النشر",
     "postContentTypeRowTitle":"نوع المحتوى",
-    "approvePostButtonLabel":"موافقة"
+    "approvePostButtonLabel":"موافقة",
+    "approvePostBottomSheetTitle": "بمواقتك علي المنشور سيتم التحديد الإنجاز",
+    "approvePostBottomSheetBody": "ويتم إنهاء التعديلات",
+    "approvePostBottomSheetButtonLabel": "موافقة",
+    "cancelPostBottomSheetButtonLabel": "لازال هناك تعليقات",
+    "postApprovalSuccessSnackBarMessage": "تمت الموافقة علي المنشور بنجاح"
 }

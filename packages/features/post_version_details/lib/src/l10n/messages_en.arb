@@ -1,0 +1,9 @@
+{
+  "approvePostButtonLabel": "Approve",
+  "approvePostBottomSheetTitle": "Are you sure you want to approve this version?",
+  "approvePostBottomSheetBody": "This version will be finalized and edits will be closed.",
+  "approvePostBottomSheetButtonLabel": "Approve",
+  "cancelPostBottomSheetButtonLabel": "There are still edits",
+  "postApprovalSuccessSnackBarMessage": "Post approved successfully"
+
+}

@@ -5,7 +5,7 @@ class PostCommentsLocalizationsEn extends PostCommentsLocalizations {
   PostCommentsLocalizationsEn([super.locale = 'en']);
 
   @override
-  String get appBarTitle => 'Requests';
+  String get appBarTitle => 'Comments';
 
   @override
   String get detailsSectionTitle => 'Details';

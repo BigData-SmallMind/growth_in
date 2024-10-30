@@ -13,6 +13,7 @@ CommentRM _$CommentRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = CommentRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           comment: $checkedConvert('comment', (v) => v as String?),
+          commentText: $checkedConvert('comment_text', (v) => v as String?),
           commentImage: $checkedConvert('comment_image', (v) => v as String?),
           profileImage: $checkedConvert('profile_image', (v) => v as String?),
           author: $checkedConvert('user_name', (v) => v as String),
@@ -21,6 +22,7 @@ CommentRM _$CommentRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         return val;
       },
       fieldKeyMap: const {
+        'commentText': 'comment_text',
         'commentImage': 'comment_image',
         'profileImage': 'profile_image',
         'author': 'user_name',

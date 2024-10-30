@@ -22,6 +22,7 @@ PostRM _$PostRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           status: $checkedConvert('client_status', (v) => v as String),
           shouldShowRedDot:
               $checkedConvert('show_red_dot_client', (v) => (v as num).toInt()),
+          isApproved: $checkedConvert('isApproved', (v) => (v as num).toInt()),
         );
         return val;
       },

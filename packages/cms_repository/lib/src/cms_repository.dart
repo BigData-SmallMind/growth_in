@@ -38,6 +38,43 @@ class CmsRepository {
     }
   }
 
+  Future<List<PostVersion>> getPostVersions({
+    required int postId,
+  }) async {
+    try {
+      final remotePostVersionDetails = await remoteApi.cmsApi.getPostVersions(
+        postId: postId,
+      );
+      final domainPostVersionDetails = remotePostVersionDetails.toDomainModel();
+      return domainPostVersionDetails;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future approvePost({
+    required int postId,
+  }) async {
+    try {
+      await remoteApi.cmsApi.approvePost(
+        postId: postId,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+  Future approvePostVersion({
+    required int versionId,
+  }) async {
+    try {
+      await remoteApi.cmsApi.approvePostVersion(
+        versionId: versionId,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<List<Comment>> getPostComments({
     required int postId,
   }) async {
@@ -58,10 +95,23 @@ class CmsRepository {
     required String comment,
   }) async {
     try {
-      remoteApi.cmsApi.addComment(
+      await remoteApi.cmsApi.addComment(
         postId: postId,
         comment: comment,
       );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<Post> getPostVersionDetails({
+    required int versionId,
+  }) async {
+    try {
+      final postVersion = await remoteApi.cmsApi.getPostVersionDetails(
+        versionId: versionId,
+      );
+      return postVersion.toDomainModel();
     } catch (error) {
       rethrow;
     }

@@ -81,7 +81,7 @@ class PostCommentsView extends StatelessWidget {
                 AddComment(
                   enabled: state.comment?.isNotEmpty == true,
                   onCommentChanged: cubit.onCommentChanged,
-                  onSubmit: cubit.addComment,
+                  onSubmit: () => cubit.addComment(),
                   isLoading: state.addCommentStatus == AddCommentStatus.loading,
                   controller: cubit.commentController,
                 )

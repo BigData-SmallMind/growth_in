@@ -7,8 +7,11 @@ export 'src/nav_bar_tab.dart';
 export 'src/profile_image.dart';
 export 'src/form_questions/form_questions.dart';
 export 'src/indicators/indicators.dart';
+export 'src/post_version_tile.dart';
 export 'src/gap/gap.dart';
 export 'src/row_builder.dart';
+export 'src/post_images.dart';
+export 'src/post_summary.dart';
 export 'src/meeting_slot_picker.dart';
 export 'src/file_card.dart';
 export 'src/post_card.dart';
@@ -31,4 +34,3 @@ export 'src/day_name_widget.dart';
 export 'src/files.dart';
 export 'src/meeting_card.dart';
 export 'src/l10n/component_library_localizations.dart';
-

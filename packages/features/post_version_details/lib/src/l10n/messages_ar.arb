@@ -1,0 +1,8 @@
+{
+  "approvePostButtonLabel": "موافقة",
+  "approvePostBottomSheetTitle": "متأكد من الموافقة على هذة النسخة؟",
+  "approvePostBottomSheetBody": "يتم إعتماد هذة النسخة وإغلاق التعديلات ",
+  "approvePostBottomSheetButtonLabel": "موافقة",
+  "cancelPostBottomSheetButtonLabel": "لازال هناك تعديلات",
+  "postApprovalSuccessSnackBarMessage": "تمت الموافقة على المنشور بنجاح"
+}

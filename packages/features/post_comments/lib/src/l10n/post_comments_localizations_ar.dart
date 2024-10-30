@@ -5,7 +5,7 @@ class PostCommentsLocalizationsAr extends PostCommentsLocalizations {
   PostCommentsLocalizationsAr([super.locale = 'ar']);
 
   @override
-  String get appBarTitle => 'الطلبات';
+  String get appBarTitle => 'التعليقات';
 
   @override
   String get detailsSectionTitle => 'التفاصيل';

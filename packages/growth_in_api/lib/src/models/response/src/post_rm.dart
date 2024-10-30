@@ -14,6 +14,7 @@ class PostRM {
     required this.publicationDate,
     required this.status,
     required this.shouldShowRedDot,
+    required this.isApproved,
   });
 
   @JsonKey(name: 'id')
@@ -34,6 +35,8 @@ class PostRM {
   final String status;
   @JsonKey(name: 'show_red_dot_client')
   final int shouldShowRedDot;
+  @JsonKey(name: 'isApproved')
+  final int isApproved;
 
   static const fromJson = _$PostRMFromJson;
 }

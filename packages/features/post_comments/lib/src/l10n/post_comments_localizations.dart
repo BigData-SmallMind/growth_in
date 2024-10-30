@@ -96,7 +96,7 @@ abstract class PostCommentsLocalizations {
   /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Requests'**
+  /// **'Comments'**
   String get appBarTitle;
 
   /// No description provided for @detailsSectionTitle.

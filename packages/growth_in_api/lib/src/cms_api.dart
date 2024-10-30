@@ -6,6 +6,7 @@ class CmsApi {
   final Dio _dio;
   final UrlBuilder _urlBuilder;
   static const _postsJsonKey = 'posts';
+  static const _postVersionsJsonKey = 'postVersions';
   static const _campaignsJsonKey = 'campaigns';
   static const _commentsJsonKey = 'comments';
 
@@ -47,6 +48,74 @@ class CmsApi {
     }
   }
 
+  Future approvePost({
+    required int postId,
+  }) async {
+    final url = _urlBuilder.buildApprovePostUrl(
+      postId,
+    );
+    try {
+      await _dio.post(
+        url,
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<PostVersionRM>> getPostVersions({
+    required int postId,
+  }) async {
+    final url = _urlBuilder.buildGetPostVersionsUrl(
+      postId,
+    );
+    try {
+      final response = await _dio.get(
+        url,
+      );
+      final postVersions = response.data[_postVersionsJsonKey] as List;
+      final postVersionsList = postVersions
+          .map((postVersion) => PostVersionRM.fromJson(postVersion))
+          .toList();
+      return postVersionsList;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<PostRM> getPostVersionDetails({
+    required int versionId,
+  }) async {
+    final url = _urlBuilder.buildGetPostVersionDetailsUrl(
+      versionId,
+    );
+    try {
+      final response = await _dio.get(
+        url,
+      );
+      final postVersionJson = response.data[_postsJsonKey];
+      final postVersion = PostRM.fromJson(postVersionJson);
+      return postVersion;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future approvePostVersion({
+    required int versionId,
+  }) async {
+    final url = _urlBuilder.buildApprovePostVersionUrl(
+      versionId,
+    );
+    try {
+      await _dio.post(
+        url,
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<List<CommentRM>> getPostComments({
     required int postId,
   }) async {
@@ -66,13 +135,13 @@ class CmsApi {
     }
   }
 
-  void addComment({
+  Future addComment({
     required int postId,
     required String comment,
-  }) {
+  }) async {
     final url = _urlBuilder.buildAddPostCommentUrl();
     try {
-      _dio.post(
+      await _dio.post(
         url,
         data: {
           'post_id': postId,

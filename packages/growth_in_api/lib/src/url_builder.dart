@@ -278,11 +278,27 @@ class UrlBuilder {
     return '$_baseUrl/campaigns/$companyId';
   }
 
-  buildGetPostCommentsUrl(int postId) {
+  String buildGetPostCommentsUrl(int postId) {
     return '$_baseUrl/comments/$postId';
   }
 
-  buildAddPostCommentUrl( ) {
+  String buildAddPostCommentUrl() {
     return '$_baseUrl/comments';
+  }
+
+  String buildApprovePostUrl(int postId) {
+    return '$_baseUrl/approve-content/$postId';
+  }
+
+  String buildGetPostVersionsUrl(int versionId) {
+    return '$_baseUrl/fetch_content_version/$versionId';
+  }
+
+  String buildGetPostVersionDetailsUrl(int versionId) {
+    return '$_baseUrl/fetch_content/$versionId';
+  }
+
+  String buildApprovePostVersionUrl(int versionId) {
+    return '$_baseUrl/approve-version/$versionId';
   }
 }

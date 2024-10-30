@@ -48,20 +48,23 @@ extension PostRMtoDM on PostRM {
   }
 
   Post toDomainModel() {
-    final channelsList =
-        channel != null ? List<String>.from(jsonDecode(channel!)) : null;
-    final channelsListDM =
-        channelsList?.map((channel) => channelRMtoDM(channel)).toList();
-    final imagesUrls = images != null
-        ? List<String>.from(jsonDecode(images!))
+    final channelRM = channel == null ? null : jsonDecode(channel!);
+    final channelsList = channelRM is List
+        ? channelRM.map((channel) => channelRMtoDM(channel)).toList()
+        : [channelRMtoDM(channelRM)];
+
+    final imagesRM = images == null ? null : jsonDecode(images!);
+    final imagesUrls = imagesRM is List
+        ? imagesRM
             .map((image) => '${UrlBuilder.imageDownloadUrl}/$image')
             .toList()
-        : null;
-    //Thu Oct 10 2024 00:00:00 GMT+0300
+        : [imagesRM as String];
+
     DateFormat format = DateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z");
 
     final publicationDateDM =
-        format.parse(publicationDate..replaceFirst('GMT', '').trim());
+        format.tryParse(publicationDate..replaceFirst('GMT', '').trim()) ??
+            DateTime.now();
     final statusDM = status == 'مقبول'
         ? PostStatus.accepted
         : status == 'جديد'
@@ -69,11 +72,11 @@ extension PostRMtoDM on PostRM {
             : status == 'تعديلات'
                 ? PostStatus.editing
                 : throw Exception('Invalid status');
-    final contentTypeDM = contentType != null
-        ? List<String>.from(jsonDecode(contentType!))
-            .map((type) => (type).toString())
-            .toList()
-        : null;
+    final contentTypeRM = contentType == null ? null : jsonDecode(contentType!);
+
+    final contentTypes = contentTypeRM is List
+        ? contentTypeRM.map((type) => (type).toString()).toList()
+        : [contentTypeRM as String];
 
     int hour = publicationDateDM.hour % 12; // Convert to 12-hour format
     hour = hour == 0 ? 12 : hour; // Handle midnight case
@@ -82,22 +85,42 @@ extension PostRMtoDM on PostRM {
     final hourDM =
         '${hour < 10 ? '0$hour' : hour}:${minute < 10 ? '0$minute' : minute} $period';
     return Post(
-        id: id,
-        channels: channelsListDM,
-        contentGoal: contentGoal,
-        contentType: contentTypeDM,
-        text: text,
-        images: imagesUrls,
-        publicationDate: publicationDateDM,
-        status: statusDM,
-        shouldShowRedDot: shouldShowRedDot == 1 ? true : false,
-        hour: hourDM);
+      id: id,
+      channels: channelsList,
+      contentGoal: contentGoal,
+      contentType: contentTypes,
+      text: text,
+      images: imagesUrls,
+      publicationDate: publicationDateDM,
+      status: statusDM,
+      shouldShowRedDot: shouldShowRedDot == 1 ? true : false,
+      hour: hourDM,
+      isApproved: isApproved == 1 ? true : false,
+    );
   }
 }
 
 extension PostsRMtoDM on List<PostRM> {
   List<Post> toDomainModel() {
     return map((post) => post.toDomainModel()).toList();
+  }
+}
+
+extension PostVersionRMtoDM on PostVersionRM {
+  PostVersion toDomainModel() {
+    return PostVersion(
+      id: id,
+      postId: postId,
+      isSelected: isSelected == 1 ? true : false,
+      username: username,
+      dateSubmitted: DateTime.parse(dateSubmitted),
+    );
+  }
+}
+
+extension PostVersionDetailsRMtoDM on List<PostVersionRM> {
+  List<PostVersion> toDomainModel() {
+    return map((postVersion) => postVersion.toDomainModel()).toList();
   }
 }
 

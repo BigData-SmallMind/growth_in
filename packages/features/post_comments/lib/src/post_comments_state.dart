@@ -4,21 +4,18 @@ class PostCommentsState extends Equatable {
   const PostCommentsState({
     this.comments = const [],
     this.commentsFetchStatus = CommentsFetchStatus.initial,
-    this.actionId,
     this.addCommentStatus = AddCommentStatus.initial,
     this.comment,
   });
 
   final List<dm.Comment> comments;
   final CommentsFetchStatus commentsFetchStatus;
-  final int? actionId;
   final AddCommentStatus addCommentStatus;
   final String? comment;
 
 
 
   PostCommentsState copyWith({
-    dm.Request? request,
     List<dm.Comment>? comments,
     CommentsFetchStatus? commentsFetchStatus,
     AddCommentStatus? addCommentStatus,
@@ -28,8 +25,6 @@ class PostCommentsState extends Equatable {
     return PostCommentsState(
       comments: comments ?? this.comments,
       commentsFetchStatus: commentsFetchStatus ?? this.commentsFetchStatus,
-      actionId: actionId,
-
       addCommentStatus: addCommentStatus ?? this.addCommentStatus,
       comment: comment ?? this.comment,
     );
@@ -39,7 +34,6 @@ class PostCommentsState extends Equatable {
   List<Object?> get props => [
         comments,
         commentsFetchStatus,
-        actionId,
         addCommentStatus,
         comment,
       ];

@@ -128,6 +128,36 @@ abstract class PostDetailsLocalizations {
   /// In en, this message translates to:
   /// **'Approve'**
   String get approvePostButtonLabel;
+
+  /// No description provided for @approvePostBottomSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By approving the post, the achievement will be determined'**
+  String get approvePostBottomSheetTitle;
+
+  /// No description provided for @approvePostBottomSheetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'And the modifications will be finalized'**
+  String get approvePostBottomSheetBody;
+
+  /// No description provided for @approvePostBottomSheetButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve'**
+  String get approvePostBottomSheetButtonLabel;
+
+  /// No description provided for @cancelPostBottomSheetButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'There are still comments'**
+  String get cancelPostBottomSheetButtonLabel;
+
+  /// No description provided for @postApprovalSuccessSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Post approved successfully'**
+  String get postApprovalSuccessSnackBarMessage;
 }
 
 class _PostDetailsLocalizationsDelegate extends LocalizationsDelegate<PostDetailsLocalizations> {

@@ -24,6 +24,8 @@ import 'package:meetings/meetings.dart';
 import 'package:more/more.dart';
 import 'package:post_comments/post_comments.dart';
 import 'package:post_details/post_details.dart';
+import 'package:post_version_details/post_version_details.dart';
+import 'package:post_versions/post_versions.dart';
 import 'package:profile_info/profile_info.dart';
 import 'package:profile_settings/profile_settings.dart';
 import 'package:request_actions/request_actions.dart';
@@ -163,7 +165,35 @@ Map<String, PageBuilder> buildRoutingTable({
                 info.pathParameters['postId'] ?? '',
               )),
             ),
+            onPostVersionDetailsTapped: () => routerDelegate.push(
+              _PathConstants.postVersionsPath(
+                postId: int.parse(
+                  info.pathParameters['postId'] ?? '',
+                ),
+              ),
+            ),
           ),
+        ),
+    _PathConstants.postVersionsPath(): (info) => MaterialPage(
+          name: 'post-versions',
+          child: Builder(builder: (context) {
+            return PostVersionDetailsScreen(
+              cmsRepository: cmsRepository,
+              onPostVersionTapped: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                showDragHandle: true,
+                enableDrag: true,
+                builder: (context) => PostVersionDetailsBottomSheet(
+                  cmsRepository: cmsRepository,
+                ),
+              ),
+              postId: int.parse(
+                info.pathParameters['postId'] ?? '',
+              ),
+            );
+          }),
         ),
     _PathConstants.postCommentsPath(): (info) => MaterialPage(
           name: 'post-comments',
@@ -599,6 +629,11 @@ class _PathConstants {
 
   static String postDetailsPath({int? postId}) {
     final completePath = '${tabContainerPath}post/${postId ?? ':postId'}';
+    return completePath;
+  }
+
+  static String postVersionsPath({int? postId}) {
+    final completePath = '${postDetailsPath(postId: postId)}/versions';
     return completePath;
   }
 

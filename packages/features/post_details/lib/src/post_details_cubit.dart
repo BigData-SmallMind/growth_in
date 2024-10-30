@@ -10,6 +10,7 @@ class PostDetailsCubit extends Cubit<PostDetailsState> {
   PostDetailsCubit({
     required this.cmsRepository,
     required this.onCommentsTapped,
+    required this.onPostVersionDetailsTapped,
   }) : super(
           PostDetailsState(
             post: cmsRepository.changeNotifier.post,
@@ -18,6 +19,29 @@ class PostDetailsCubit extends Cubit<PostDetailsState> {
 
   final CmsRepository cmsRepository;
   final VoidCallback onCommentsTapped;
+  final VoidCallback onPostVersionDetailsTapped;
+
+  void approvePost() async {
+    try {
+      final loading = state.copyWith(
+        approvalStatus: ApprovalStatus.inProgress,
+      );
+      emit(loading);
+      await cmsRepository.approvePost(
+        postId: state.post!.id,
+      );
+
+      final successState = state.copyWith(
+        approvalStatus: ApprovalStatus.success,
+      );
+      emit(successState);
+    } catch (error) {
+      final errorState = state.copyWith(
+        approvalStatus: ApprovalStatus.failure,
+      );
+      emit(errorState);
+    }
+  }
 
 // @override
 // Future<void> close() {

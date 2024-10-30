@@ -45,7 +45,7 @@ class PostCommentsCubit extends Cubit<PostCommentsState> {
     emit(state.copyWith(comment: newValue));
   }
 
-  void addComment() async {
+  Future addComment() async {
     final loadingState = state.copyWith(
       addCommentStatus: AddCommentStatus.loading,
     );
@@ -58,8 +58,12 @@ class PostCommentsCubit extends Cubit<PostCommentsState> {
       );
       final successState = state.copyWith(
         addCommentStatus: AddCommentStatus.success,
+        comment: ''
       );
       emit(successState);
+      commentController.clear();
+      getComments();
+
     } catch (error) {
       final errorState = state.copyWith(
         addCommentStatus: AddCommentStatus.error,

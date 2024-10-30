@@ -9,7 +9,8 @@ class Post {
     required this.publicationDate,
     required this.status,
     required this.shouldShowRedDot,
-    required this.hour
+    required this.hour,
+    required this.isApproved,
   });
 
   final int id;
@@ -22,6 +23,7 @@ class Post {
   final PostStatus status;
   final bool shouldShowRedDot;
   final String hour;
+  final bool isApproved;
 }
 
 enum PostStatus {
