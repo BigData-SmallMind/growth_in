@@ -10,7 +10,7 @@ import 'package:user_repository/user_repository.dart';
 
 import 'components/components.dart';
 
-class CmsScreen extends StatelessWidget {
+class CmsScreen extends StatefulWidget {
   const CmsScreen({
     super.key,
     required this.userRepository,
@@ -23,16 +23,26 @@ class CmsScreen extends StatelessWidget {
   final ValueSetter<int> navigateToPostDetails;
 
   @override
+  State<CmsScreen> createState() => _CmsScreenState();
+}
+
+class _CmsScreenState extends State<CmsScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider<CmsCubit>(
       create: (_) => CmsCubit(
-        userRepository: userRepository,
-        cmsRepository: cmsRepository,
-        navigateToPostDetails: navigateToPostDetails,
+        userRepository: widget.userRepository,
+        cmsRepository: widget.cmsRepository,
+        navigateToPostDetails: widget.navigateToPostDetails,
       ),
       child: const CmsView(),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class CmsView extends StatefulWidget {
