@@ -8,7 +8,7 @@ import 'package:user_repository/user_repository.dart';
 
 import 'components/components.dart';
 
-class FoldersScreen extends StatelessWidget {
+class FoldersScreen extends StatefulWidget {
   const FoldersScreen({
     super.key,
     required this.userRepository,
@@ -21,16 +21,25 @@ class FoldersScreen extends StatelessWidget {
   final ValueSetter<int> navigateToFiles;
 
   @override
+  State<FoldersScreen> createState() => _FoldersScreenState();
+}
+
+class _FoldersScreenState extends State<FoldersScreen> with AutomaticKeepAliveClientMixin{
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider<FoldersCubit>(
       create: (_) => FoldersCubit(
-        userRepository: userRepository,
-        folderRepository: folderRepository,
-        navigateToFiles: navigateToFiles,
+        userRepository: widget.userRepository,
+        folderRepository: widget.folderRepository,
+        navigateToFiles: widget.navigateToFiles,
       ),
       child: const FoldersView(),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class FoldersView extends StatefulWidget {
