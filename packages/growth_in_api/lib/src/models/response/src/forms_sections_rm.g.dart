@@ -18,15 +18,13 @@ FormsSectionsRM _$FormsSectionsRMFromJson(Map<String, dynamic> json) =>
               (v) => (v as List<dynamic>)
                   .map((e) => FormSectionRM.fromJson(e as Map<String, dynamic>))
                   .toList()),
-          isCompleted: $checkedConvert('is_completed', (v) => v as bool),
           formName: $checkedConvert('form_name', (v) => v as String),
-          serviceName: $checkedConvert('service_name', (v) => v as String),
+          serviceName: $checkedConvert('service_name', (v) => v as String?),
         );
         return val;
       },
       fieldKeyMap: const {
         'id': 'form_id',
-        'isCompleted': 'is_completed',
         'formName': 'form_name',
         'serviceName': 'service_name'
       },

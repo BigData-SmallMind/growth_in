@@ -7,21 +7,18 @@ class FormsSectionsRM {
   FormsSectionsRM({
     required this.id,
     required this.sections,
-    required this.isCompleted,
     required this.formName,
-    required this.serviceName,
+     this.serviceName,
   });
 
   @JsonKey(name: 'sections')
   final List<FormSectionRM> sections;
   @JsonKey(name: 'form_id')
   final String id;
-  @JsonKey(name: 'is_completed')
-  final bool isCompleted;
   @JsonKey(name: 'form_name')
   final String formName;
   @JsonKey(name: 'service_name')
-  final String serviceName;
+  final String? serviceName;
 
   static const fromJson = _$FormsSectionsRMFromJson;
 }

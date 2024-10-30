@@ -262,8 +262,8 @@ class UrlBuilder {
     return '$_baseUrl/forms';
   }
 
-  String buildGetFormSectionsUrl(int companyId) {
-    return '$_baseUrl/fetch-answers/$companyId';
+  String buildGetFormSectionsUrl(int formId) {
+    return '$_baseUrl/fetch-answers/$formId';
   }
 
   String buildSaveFormAnswers() {
