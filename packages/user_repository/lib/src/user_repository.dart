@@ -542,6 +542,7 @@ class UserRepository {
     yield* _chatSubject.stream;
   }
 
+  //TODO: craete forms repo for these
   Future<FormsDM> getForms() async {
     try {
       final formsRM = await remoteApi.formsApi.getForms();
@@ -567,6 +568,17 @@ class UserRepository {
   }) async {
     try {
       await remoteApi.formsApi.saveFormAnswers(answers);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  //TODO:create home repo for this
+  Future<Home> getHome() async {
+    try {
+      final homeRM = await remoteApi.cmsApi.getHome();
+      final home = homeRM.toDomainModel();
+      return home;
     } catch (error) {
       rethrow;
     }

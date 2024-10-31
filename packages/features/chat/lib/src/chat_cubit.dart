@@ -19,6 +19,44 @@ class ChatCubit extends Cubit<ChatState> {
     userRepository.initPusher().then((_) {
       userRepository.subscribeToChat();
     });
+    //TODO: do this in a more elegant way using a stream builder
+    int? chatId;
+    userRepository.chatStream().distinct().listen((dateGroupedChat) {
+      chatId = dateGroupedChat.list.first.messages.first.id;
+      if(chatId == dateGroupedChat.list.first.messages.first.id) return;
+      final currentDateGroupedChatsList = state.dateGroupedChats?.list ?? [];
+      final newChat = dateGroupedChat.list.first;
+      final newChatDateIsInCurrentList = currentDateGroupedChatsList.any(
+        (chat) => chat.date.year == newChat.date.year &&
+            chat.date.month == newChat.date.month &&
+            chat.date.day == newChat.date.day,
+      );
+      if (newChatDateIsInCurrentList) {
+        final newDateGroupedChats = currentDateGroupedChatsList.map((chat) {
+          if (chat.date.year == newChat.date.year &&
+              chat.date.month == newChat.date.month &&
+              chat.date.day == newChat.date.day) {
+            return chat.copyWith(
+              messages: [...chat.messages, ...newChat.messages],
+            );
+          }
+          return chat;
+        }).toList();
+        final newState = state.copyWith(
+          dateGroupedChats: state.dateGroupedChats?.copyWith(
+            list: newDateGroupedChats,
+          ),
+        );
+        emit(newState);
+      } else {
+        final newState = state.copyWith(
+          dateGroupedChats: state.dateGroupedChats?.copyWith(
+            list: [...currentDateGroupedChatsList, newChat],
+          ),
+        );
+        emit(newState);
+      }
+    });
   }
 
   final scrollController = ScrollController();

@@ -9,6 +9,7 @@ class MeetingsApi {
   final UrlBuilder _urlBuilder;
   static const _meetingTypeJsonKey = 'meeting_type';
   static const _slotsJsonKey = 'slots';
+  static const _latestUpcomingMeetingJsonKey = 'latestUpcomingMeeting';
 
   MeetingsApi(
     this._dio,
@@ -22,7 +23,16 @@ class MeetingsApi {
         url,
       );
       final meetings = response.data;
-      final meetingsRM = MeetingsRM.fromJson(meetings);
+      final latestUpcomingMeetingJson =
+          response.data[_latestUpcomingMeetingJsonKey];
+      final latestUpcomingMeeting = latestUpcomingMeetingJson == null ||
+              (latestUpcomingMeetingJson is List &&
+                  latestUpcomingMeetingJson.isEmpty)
+          ? null
+          : MeetingRM.fromJson(latestUpcomingMeetingJson);
+      final meetingsRM = MeetingsRM.fromJson(meetings).copyWith(
+        latest: latestUpcomingMeeting,
+      );
       return meetingsRM;
     } catch (_) {
       rethrow;
@@ -127,11 +137,11 @@ class MeetingsApi {
     final formData = FormData.fromMap(requestJsonBody);
 
     try {
-     final response =  await _dio.post(
+      final response = await _dio.post(
         url,
         data: formData,
       );
-     debugPrint('response: $response');
+      debugPrint('response: $response');
     } catch (_) {
       rethrow;
     }

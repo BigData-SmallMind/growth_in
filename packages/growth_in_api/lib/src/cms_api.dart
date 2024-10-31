@@ -5,6 +5,7 @@ import 'package:growth_in_api/growth_in_api.dart';
 class CmsApi {
   final Dio _dio;
   final UrlBuilder _urlBuilder;
+  static const _dataJsonKey = 'data';
   static const _postsJsonKey = 'posts';
   static const _postVersionsJsonKey = 'postVersions';
   static const _campaignsJsonKey = 'campaigns';
@@ -156,6 +157,19 @@ class CmsApi {
           'comment_text': comment,
         },
       );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<HomeRM> getHome() async {
+    final url = _urlBuilder.buildGetHomeUrl();
+    try {
+      final response = await _dio.get(
+        url,
+      );
+      final home = HomeRM.fromJson(response.data[_dataJsonKey]);
+      return home;
     } catch (_) {
       rethrow;
     }

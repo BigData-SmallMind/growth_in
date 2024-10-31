@@ -301,4 +301,8 @@ class UrlBuilder {
   String buildApprovePostVersionUrl(int versionId) {
     return '$_baseUrl/approve-version/$versionId';
   }
+
+  String buildGetHomeUrl() {
+    return '$_baseUrl/client-area';
+  }
 }

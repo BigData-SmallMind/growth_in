@@ -93,6 +93,53 @@ abstract class HomeLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @appBarGreetingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get appBarGreetingMessage;
+
+  /// No description provided for @recentPostsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Posts'**
+  String get recentPostsSectionTitle;
+
+  /// No description provided for @viewAllButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAllButtonLabel;
+
+  /// No description provided for @upcomingMeetingSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Upcoming Meeting'**
+  String get upcomingMeetingSectionTitle;
+
+  /// No description provided for @unpublishedPostsContainerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpublished Content'**
+  String get unpublishedPostsContainerTitle;
+
+  /// No description provided for @continuePublishingButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continuePublishingButtonLabel;
+
+  /// No description provided for @unapprovedFilesContainerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Files Pending Approval'**
+  String get unapprovedFilesContainerTitle;
+
+  /// No description provided for @dashboardContainerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboardContainerTitle;
 }
 
 class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {

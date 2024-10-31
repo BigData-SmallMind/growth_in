@@ -1,3 +1,10 @@
 {
-
+  "appBarGreetingMessage": "Good morning",
+  "recentPostsSectionTitle": "Recent Posts",
+  "viewAllButtonLabel": "View All",
+  "upcomingMeetingSectionTitle": "Your Upcoming Meeting",
+  "unpublishedPostsContainerTitle": "Unpublished Content",
+  "continuePublishingButtonLabel": "Continue",
+  "unapprovedFilesContainerTitle": "Files Pending Approval",
+  "dashboardContainerTitle": "Dashboard"
 }

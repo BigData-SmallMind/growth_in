@@ -141,3 +141,5 @@ extension CampaignsRMtoDM on List<CampaignRM> {
     return map((campaign) => campaign.toDomainModel()).toList();
   }
 }
+
+

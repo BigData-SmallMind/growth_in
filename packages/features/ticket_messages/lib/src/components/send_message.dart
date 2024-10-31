@@ -60,35 +60,35 @@ class _SendMessageState extends State<SendMessage> {
                       ),
                     ),
                     HorizontalGap.medium(),
-                    Stack(
-                      children: [
-                        IconButton(
-                          icon: const SvgAsset(
-                            AssetPathConstants.addPath,
-                          ),
-                          onPressed: () {
-                            attachVisible = !attachVisible;
-                            setState(() {});
-                          },
-                        ),
-                        if (state.file != null)
-                          PositionedDirectional(
-                            start: 0,
-                            top: 0,
-                            child: Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.attach_file,
-                                  size: 10,
-                                  color: Colors.white,
-                                )),
-                          )
-                      ],
-                    ),
+                    // Stack(
+                    //   children: [
+                    //     IconButton(
+                    //       icon: const SvgAsset(
+                    //         AssetPathConstants.addPath,
+                    //       ),
+                    //       onPressed: () {
+                    //         attachVisible = !attachVisible;
+                    //         setState(() {});
+                    //       },
+                    //     ),
+                    //     if (state.file != null)
+                    //       PositionedDirectional(
+                    //         start: 0,
+                    //         top: 0,
+                    //         child: Container(
+                    //             padding: const EdgeInsets.all(2),
+                    //             decoration: const BoxDecoration(
+                    //               color: Colors.green,
+                    //               shape: BoxShape.circle,
+                    //             ),
+                    //             child: const Icon(
+                    //               Icons.attach_file,
+                    //               size: 10,
+                    //               color: Colors.white,
+                    //             )),
+                    //       )
+                    //   ],
+                    // ),
                     submissionInProgress
                         ? Transform.scale(
                             scale: 0.5,

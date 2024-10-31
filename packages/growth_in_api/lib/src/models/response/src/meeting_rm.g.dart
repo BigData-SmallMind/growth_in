@@ -45,7 +45,7 @@ MeetingsRM _$MeetingsRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = MeetingsRM(
           latest: $checkedConvert(
-              'latestUpcomingMeeting',
+              'latest',
               (v) => v == null
                   ? null
                   : MeetingRM.fromJson(v as Map<String, dynamic>)),
@@ -68,7 +68,6 @@ MeetingsRM _$MeetingsRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         return val;
       },
       fieldKeyMap: const {
-        'latest': 'latestUpcomingMeeting',
         'all': 'AllMeetingRequests',
         'upcoming': 'AllUpcomingMeeting',
         'past': 'historyMeeting'

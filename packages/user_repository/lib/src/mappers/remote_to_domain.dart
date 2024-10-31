@@ -1,6 +1,8 @@
+import 'package:cms_repository/cms_repository.dart';
 import 'package:company_repository/company_repository.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:meeting_repository/meeting_repository.dart';
 
 extension UserRMtoDM on UserRM {
   User toDomainModel() {
@@ -286,5 +288,14 @@ extension QuestionRMtoDM on QuestionRM {
     } catch (error) {
       rethrow;
     }
+  }
+}
+
+extension HomeRMtoDM on HomeRM {
+  Home toDomainModel() {
+    return Home(
+      meeting: meeting?.toDomainModel(),
+      post: post?.toDomainModel(),
+    );
   }
 }

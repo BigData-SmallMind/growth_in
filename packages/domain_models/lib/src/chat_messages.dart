@@ -1,9 +1,10 @@
 import 'package:domain_models/src/file_dm.dart';
+import 'package:equatable/equatable.dart';
 
-class DateGroupedChats {
+class DateGroupedChats extends Equatable {
   final List<Chat> list;
 
-  DateGroupedChats({
+  const DateGroupedChats({
     required this.list,
   });
 
@@ -14,6 +15,9 @@ class DateGroupedChats {
       list: list ?? this.list,
     );
   }
+
+  @override
+  List<Object?> get props => [list];
 }
 
 class Chat {

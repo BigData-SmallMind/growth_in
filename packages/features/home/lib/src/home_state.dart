@@ -1,19 +1,33 @@
 part of 'home_cubit.dart';
 
 class HomeState extends Equatable {
-  const HomeState();
+  const HomeState({
+    this.user,
+    this.home,
+    this.fetchingStatus = HomeFetchingStatus.initial,
+  });
 
+  final User? user;
+  final Home? home;
+  final HomeFetchingStatus fetchingStatus;
 
-
-  HomeState copyWith() {
-    return const HomeState(
-
+  HomeState copyWith({
+    User? user,
+    Home? home,
+    HomeFetchingStatus? fetchingStatus,
+  }) {
+    return HomeState(
+      user: user ?? this.user,
+      home: home ?? this.home,
+      fetchingStatus: fetchingStatus ?? this.fetchingStatus,
     );
   }
 
   @override
   List<Object?> get props => [
-
+        user,
+        home,
+        fetchingStatus,
       ];
 }
 

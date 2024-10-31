@@ -8,6 +8,7 @@ export 'src/otp_verification.dart';
 export 'src/locale_preference.dart';
 export 'src/file_dm.dart';
 export 'src/file_v2_dm.dart';
+export 'src/home.dart';
 export 'src/forms_sections.dart';
 export 'src/folder.dart';
 export 'src/request.dart';

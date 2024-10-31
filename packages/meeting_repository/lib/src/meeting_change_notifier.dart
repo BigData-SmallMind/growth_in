@@ -25,12 +25,10 @@ class MeetingChangeNotifier with ChangeNotifier, EquatableMixin {
 
   // This is a notifier of the meeting
   Meeting? get meeting => _meeting.value;
-
   void setMeeting(Meeting? meeting) {
     _meeting.value = meeting;
     notifyListeners();
   }
-
   Future clearMeetings() async {
     _meeting.value = null;
     notifyListeners();
@@ -38,12 +36,10 @@ class MeetingChangeNotifier with ChangeNotifier, EquatableMixin {
 
   // This is a notifier of the meetings
   bool? get shouldReFetchMeetings => _shouldReFetchMeetings.value;
-
   void setShouldReFetchMeetings(bool? shouldReFetchMeetings) {
     _shouldReFetchMeetings.value = shouldReFetchMeetings;
     notifyListeners();
   }
-
   Future clearShouldReFetchMeetings() async {
     _shouldReFetchMeetings.value = null;
     notifyListeners();

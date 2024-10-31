@@ -15,6 +15,10 @@ dependencies:
     path: ../../domain_models
   user_repository:
     path: ../../user_repository
+  cms_repository:
+    path: ../../cms_repository
+  meeting_repository:
+    path: ../../meeting_repository
   flutter_localizations:
     sdk: flutter
   intl: ^0.19.0

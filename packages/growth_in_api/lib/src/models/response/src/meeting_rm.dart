@@ -53,7 +53,6 @@ class MeetingsRM {
     this.past,
   });
 
-  @JsonKey(name: 'latestUpcomingMeeting')
   final MeetingRM? latest;
   @JsonKey(name: 'AllMeetingRequests')
   final List<MeetingRM> all;
@@ -63,6 +62,17 @@ class MeetingsRM {
   final List<MeetingRM>? past;
 
   static const fromJson = _$MeetingsRMFromJson;
+
+  MeetingsRM copyWith({
+    MeetingRM? latest,
+  }) {
+    return MeetingsRM(
+      latest: latest,
+      all: all,
+      upcoming: upcoming,
+      past: past,
+    );
+  }
 }
 
 @JsonSerializable(createToJson: false)

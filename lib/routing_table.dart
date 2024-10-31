@@ -140,7 +140,43 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'home',
           child: HomeScreen(
             userRepository: userRepository,
-            onLogout: () => signInSuccessVN.value = false,
+            cmsRepository: cmsRepository,
+            meetingRepository: meetingRepository,
+            onViewAllPostsTapped: () => routerDelegate.push(
+              _PathConstants.cmsPath,
+            ),
+            onViewAlMeetingsTapped: () => routerDelegate.push(
+              _PathConstants.meetingsPath,
+            ),
+            onPostTapped: (int postId) => routerDelegate.push(
+              _PathConstants.homePostDetailsPath(postId: postId),
+            ),
+            onMeetingTapped: (int meetingId) => routerDelegate.push(
+              _PathConstants.homeMeetingDetailsPath(meetingId: meetingId),
+            ),
+          ),
+        ),
+    _PathConstants.homeMeetingDetailsPath(): (info) => MaterialPage(
+          name: 'home-meeting-details',
+          child: meetingDetailsScreen,
+        ),
+    _PathConstants.homePostDetailsPath(): (info) => MaterialPage(
+          name: 'home-post-details',
+          child: PostDetailsScreen(
+            cmsRepository: cmsRepository,
+            onCommentsTapped: () => routerDelegate.push(
+              _PathConstants.postCommentsPath(
+                  postId: int.parse(
+                info.pathParameters['postId'] ?? '',
+              )),
+            ),
+            onPostVersionDetailsTapped: () => routerDelegate.push(
+              _PathConstants.postVersionsPath(
+                postId: int.parse(
+                  info.pathParameters['postId'] ?? '',
+                ),
+              ),
+            ),
           ),
         ),
     _PathConstants.cmsPath: (_) => MaterialPage(
@@ -692,6 +728,20 @@ class _PathConstants {
   static String get searchMeetingsPath => '$meetingsPath/search';
 
   static String get meetingIdPathParameter => 'meetingId';
+
+  static String homeMeetingDetailsPath({int? meetingId}) {
+    final completePath = '$tabContainerPath'
+        'meeting'
+        '/${meetingId ?? ':$meetingIdPathParameter'}';
+    return completePath;
+  }
+
+  static String homePostDetailsPath({int? postId}) {
+    final completePath = '$tabContainerPath'
+        'post'
+        '/${postId ?? ':postId'}';
+    return completePath;
+  }
 
   static String meetingDetailsPath({
     int? meetingId,

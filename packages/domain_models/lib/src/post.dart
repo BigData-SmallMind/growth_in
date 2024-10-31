@@ -48,3 +48,4 @@ enum SocialChannel {
   sms,
   other,
 }
+
