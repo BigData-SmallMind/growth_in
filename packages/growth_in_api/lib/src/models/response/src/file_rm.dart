@@ -18,7 +18,7 @@ class FileV2RM {
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'file_name')
-  final String name;
+  final String? name;
   @JsonKey(name: 'file_size')
   final int fileSize;
   @JsonKey(name: 'file_type_icon')

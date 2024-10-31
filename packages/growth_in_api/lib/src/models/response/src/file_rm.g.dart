@@ -12,7 +12,7 @@ FileV2RM _$FileV2RMFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = FileV2RM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
-          name: $checkedConvert('file_name', (v) => v as String),
+          name: $checkedConvert('file_name', (v) => v as String?),
           fileSize: $checkedConvert('file_size', (v) => (v as num).toInt()),
           typeIcon: $checkedConvert('file_type_icon', (v) => v as String),
           linkName: $checkedConvert('link_name', (v) => v as String?),

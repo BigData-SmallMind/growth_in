@@ -2,7 +2,7 @@ import 'folders_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class FoldersLocalizationsAr extends FoldersLocalizations {
-  FoldersLocalizationsAr([super.locale = 'ar']);
+  FoldersLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'الملفات';
@@ -14,14 +14,20 @@ class FoldersLocalizationsAr extends FoldersLocalizations {
   String get inActiveFoldersTabLabel => 'المنتهي';
 
   @override
-  String get noFoldersMessageTitle => 'لا توجد رسائل!';
+  String get noFoldersMessageTitle => 'لا توجد ملفات!';
 
   @override
-  String get noFoldersMessageSubtitle => 'لا توجد رسائل';
+  String get noFoldersMessageSubtitle => 'لا توجد ملفات';
 
   @override
   String get noFoldersButtonLabel => 'حاول مرة أخرى';
 
   @override
   String get emptyListIndicatorText => 'القائمة فارغة';
+
+  @override
+  String get folderDetailsBottomSheetTitle => 'التفاصيل';
+
+  @override
+  String get mileStoneSectionTitle => 'الانجاز';
 }

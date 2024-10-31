@@ -71,7 +71,29 @@ class _CmsViewState extends State<CmsView> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CmsCubit, CmsState>(
+    return BlocConsumer<CmsCubit, CmsState>(
+      listener: (context, state) {
+        if (state.postsFetchingStatus == PostsFetchingStatus.failure &&
+            state.errorMessage != null) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: state.errorMessage!,
+            ),
+          );
+        }
+        if (state.campaignsFetchingStatus == CampaignsFetchingStatus.failure &&
+            state.errorMessage != null) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: state.errorMessage!,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         final theme = GrowthInTheme.of(context);
         final l10n = CmsLocalizations.of(context);

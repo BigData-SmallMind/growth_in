@@ -72,6 +72,7 @@ class RequestDetailsCubit extends Cubit<RequestDetailsState> {
         request: updatedRequest,
       );
       emit(successState);
+      requestRepository.changeNotifier.setRequest(updatedRequest);
     } catch (error) {
       final errorState = state.copyWith(
         toggleRequestCompleteStatus: ToggleRequestCompleteStatus.error,
@@ -109,9 +110,10 @@ class RequestDetailsCubit extends Cubit<RequestDetailsState> {
     }
   }
 
-// @override
-// Future<void> close() {
-//   requestRepository.changeNotifier.clearRequest();
-//   return super.close();
-// }
+  // @override
+  // Future<void> onChange(change) async {
+  //   super.onChange(change);
+  //   print('+++++++${change.currentState.request?.isComplete}');
+  //   print('-------${change.nextState.request?.isComplete}');
+  // }
 }

@@ -134,6 +134,18 @@ abstract class FoldersLocalizations {
   /// In en, this message translates to:
   /// **'List is empty'**
   String get emptyListIndicatorText;
+
+  /// No description provided for @folderDetailsBottomSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get folderDetailsBottomSheetTitle;
+
+  /// No description provided for @mileStoneSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone'**
+  String get mileStoneSectionTitle;
 }
 
 class _FoldersLocalizationsDelegate extends LocalizationsDelegate<FoldersLocalizations> {

@@ -9,6 +9,8 @@ class CmsApi {
   static const _postVersionsJsonKey = 'postVersions';
   static const _campaignsJsonKey = 'campaigns';
   static const _commentsJsonKey = 'comments';
+  static const _statusJsonKey = 'status';
+  static const _errorJsonKey = 'error';
 
   CmsApi(
     this._dio,
@@ -21,6 +23,9 @@ class CmsApi {
       final response = await _dio.get(
         url,
       );
+      if (response.data[_statusJsonKey] == 404) {
+        throw (response.data[_errorJsonKey]);
+      }
       final posts = response.data[_postsJsonKey] as List;
       final postsList = posts.map((post) => PostRM.fromJson(post)).toList();
       return postsList;
@@ -39,6 +44,9 @@ class CmsApi {
       final response = await _dio.get(
         url,
       );
+      if (response.data[_statusJsonKey] == 404) {
+        throw (response.data[_errorJsonKey]);
+      }
       final campaigns = response.data[_campaignsJsonKey] as List;
       final campaignsList =
           campaigns.map((campaign) => CampaignRM.fromJson(campaign)).toList();

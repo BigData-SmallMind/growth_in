@@ -44,9 +44,10 @@ class CmsCubit extends Cubit<CmsState> {
         postsFetchingStatus: PostsFetchingStatus.success,
       );
       emit(successState);
-    } catch (_) {
+    } catch (error) {
       final failureState = state.copyWith(
         postsFetchingStatus: PostsFetchingStatus.failure,
+        errorMessage: error.toString(),
       );
       emit(failureState);
     }
@@ -67,9 +68,10 @@ class CmsCubit extends Cubit<CmsState> {
         campaignsFetchingStatus: CampaignsFetchingStatus.success,
       );
       emit(successState);
-    } catch (_) {
+    } catch (error) {
       final failureState = state.copyWith(
         campaignsFetchingStatus: CampaignsFetchingStatus.failure,
+        errorMessage: error.toString(),
       );
       emit(failureState);
     }

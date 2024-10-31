@@ -24,7 +24,8 @@ class FoldersScreen extends StatefulWidget {
   State<FoldersScreen> createState() => _FoldersScreenState();
 }
 
-class _FoldersScreenState extends State<FoldersScreen> with AutomaticKeepAliveClientMixin{
+class _FoldersScreenState extends State<FoldersScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -73,6 +74,10 @@ class _FoldersViewState extends State<FoldersView>
       builder: (context, state) {
         final theme = GrowthInTheme.of(context);
         final l10n = FoldersLocalizations.of(context);
+        final cubit = context.read<FoldersCubit>();
+        final error = state.fetchingStatus == FoldersFetchingStatus.failure;
+        final loading =
+            state.fetchingStatus == FoldersFetchingStatus.inProgress;
         return Scaffold(
           appBar: AppBar(
             title: Text(l10n.appBarTitle),
@@ -80,38 +85,46 @@ class _FoldersViewState extends State<FoldersView>
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
           ),
-          body: state.folders?.active.isEmpty == true &&
-                  state.folders?.inactive.isEmpty == true
-              ? const NoFoldersIndicator()
-              : Column(
-                  children: [
-                    GrowthInTabBar(
-                      tabController: _tabController,
-                      tabs: [
-                        Tab(
-                          text: l10n.activeFoldersTabLabel,
-                        ),
-                        Tab(
-                          text: l10n.inActiveFoldersTabLabel,
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: theme.screenMargin,
-                        ),
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: const [
-                            FoldersList(active: true),
-                            FoldersList(active: false),
+          body: loading
+              ? const CenteredCircularProgressIndicator()
+              : state.folders?.active.isEmpty == true &&
+                      state.folders?.inactive.isEmpty == true
+                  ? NoFoldersIndicator(
+                      onTryAgain: cubit.getFolders,
+                    )
+                  : error
+                      ? ExceptionIndicator(
+                          onTryAgain: cubit.getFolders,
+                        )
+                      : Column(
+                          children: [
+                            GrowthInTabBar(
+                              tabController: _tabController,
+                              tabs: [
+                                Tab(
+                                  text: l10n.activeFoldersTabLabel,
+                                ),
+                                Tab(
+                                  text: l10n.inActiveFoldersTabLabel,
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: theme.screenMargin,
+                                ),
+                                child: TabBarView(
+                                  controller: _tabController,
+                                  children: const [
+                                    FoldersList(active: true),
+                                    FoldersList(active: false),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                    ),
-                  ],
-                ),
         );
       },
     );

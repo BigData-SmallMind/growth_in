@@ -9,6 +9,7 @@ class CmsState extends Equatable {
     this.calendarTabViewType = CalendarTabViewType.month,
     this.campaignsFetchingStatus = CampaignsFetchingStatus.initial,
     this.postsFetchingStatus = PostsFetchingStatus.initial,
+    this.errorMessage,
   });
 
   final List<Post>? posts;
@@ -18,6 +19,7 @@ class CmsState extends Equatable {
   final CalendarTabViewType calendarTabViewType;
   final PostsFetchingStatus postsFetchingStatus;
   final CampaignsFetchingStatus campaignsFetchingStatus;
+  final String? errorMessage;
 
   List<List<Post>> get postsByWeek =>
       splitPostsByWeek(timelineTabDate, posts ?? []);
@@ -42,6 +44,7 @@ class CmsState extends Equatable {
     CalendarTabViewType? calendarTabViewType,
     PostsFetchingStatus? postsFetchingStatus,
     CampaignsFetchingStatus? campaignsFetchingStatus,
+    String? errorMessage,
   }) {
     return CmsState(
       posts: posts ?? this.posts,
@@ -52,6 +55,7 @@ class CmsState extends Equatable {
       postsFetchingStatus: postsFetchingStatus ?? this.postsFetchingStatus,
       campaignsFetchingStatus:
           campaignsFetchingStatus ?? this.campaignsFetchingStatus,
+      errorMessage: errorMessage,
     );
   }
 
@@ -96,6 +100,7 @@ class CmsState extends Equatable {
         calendarTabViewType,
         postsFetchingStatus,
         campaignsFetchingStatus,
+        errorMessage,
       ];
 }
 

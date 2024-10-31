@@ -2,7 +2,7 @@ import 'folders_localizations.dart';
 
 /// The translations for English (`en`).
 class FoldersLocalizationsEn extends FoldersLocalizations {
-  FoldersLocalizationsEn([super.locale = 'en']);
+  FoldersLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Files';
@@ -24,4 +24,10 @@ class FoldersLocalizationsEn extends FoldersLocalizations {
 
   @override
   String get emptyListIndicatorText => 'List is empty';
+
+  @override
+  String get folderDetailsBottomSheetTitle => 'Details';
+
+  @override
+  String get mileStoneSectionTitle => 'Milestone';
 }

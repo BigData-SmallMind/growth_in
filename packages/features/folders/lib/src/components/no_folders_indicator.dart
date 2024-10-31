@@ -2,13 +2,13 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:folders/src/l10n/folders_localizations.dart';
 
-
-
-
 class NoFoldersIndicator extends StatelessWidget {
   const NoFoldersIndicator({
     super.key,
+    required this.onTryAgain,
   });
+
+  final VoidCallback onTryAgain;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +39,10 @@ class NoFoldersIndicator extends StatelessWidget {
           GrowthInElevatedButton(
             height: 40,
             label: l10n.noFoldersButtonLabel,
-            onTap: () {},
+            onTap: onTryAgain,
           ),
         ],
       ),
     );
   }
 }
-

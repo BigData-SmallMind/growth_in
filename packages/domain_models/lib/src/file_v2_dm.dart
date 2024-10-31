@@ -1,7 +1,7 @@
 class FileV2DM {
   FileV2DM({
     required this.id,
-    required this.name,
+     this.name,
     required this.fileSize,
     required this.typeIcon,
     this.linkName,
@@ -11,7 +11,7 @@ class FileV2DM {
   });
 
   final int id;
-  final String name;
+  final String? name;
   final int fileSize;
   final FileV2Type typeIcon;
   final String? linkName;

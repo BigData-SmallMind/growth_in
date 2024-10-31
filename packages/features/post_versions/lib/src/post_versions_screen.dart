@@ -54,7 +54,6 @@ class PostVersionDetailsView extends StatelessWidget {
         final error = state.postVersionsFetchingStatus ==
             PostVersionDetailsFetchingStatus.failure;
         final cubit = context.read<PostVersionDetailsCubit>();
-        final textTheme = Theme.of(context).textTheme;
         return Scaffold(
           appBar: const GrowthInAppBar(
             title: SizedBox(),

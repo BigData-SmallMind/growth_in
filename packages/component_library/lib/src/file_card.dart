@@ -2,7 +2,6 @@ import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 
-
 class FileCard extends StatelessWidget {
   const FileCard({
     super.key,
@@ -14,6 +13,7 @@ class FileCard extends StatelessWidget {
   final FileV2DM file;
   final ValueSetter<FileV2DM> onFileTapped;
   final ValueSetter<List<String>> downloadFiles;
+
   @override
   Widget build(BuildContext context) {
     final l10n = ComponentLibraryLocalizations.of(context);
@@ -63,49 +63,54 @@ class FileCard extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: theme.screenMargin),
-                                child: Text(
-                                  file.name,
-                                  style: textTheme.titleMedium,
+                              if (file.name != null) ...[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: theme.screenMargin,
+                                  ),
+                                  child: Text(
+                                    file.name!,
+                                    style: textTheme.titleMedium,
+                                  ),
                                 ),
-                              ),
-                              VerticalGap.large(),
+                                VerticalGap.large(),
+                              ],
                               ListTile(
                                 title: Text(l10n.detailsTileTitle),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  showModalBottomSheet(
-                                    context: context,
-                                    showDragHandle: true,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: theme.screenMargin),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              l10n.folderDetailsBottomSheetTitle,
-                                              style: textTheme.titleMedium,
-                                            ),
-                                            VerticalGap.large(),
-                                            Text(
-                                              file.name,
-                                              style: textTheme.titleMedium
-                                                  ?.copyWith(
-                                                fontWeight: FontWeight.bold,
+                                  if(file.name != null){
+                                    showModalBottomSheet(
+                                      context: context,
+                                      showDragHandle: true,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: theme.screenMargin),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                l10n.folderDetailsBottomSheetTitle,
+                                                style: textTheme.titleMedium,
                                               ),
-                                            ),
-                                            VerticalGap.small(),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
+                                              VerticalGap.large(),
+                                              Text(
+                                                file.name!,
+                                                style: textTheme.titleMedium
+                                                    ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              VerticalGap.small(),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
                                 leading: const SvgAsset(
                                   AssetPathConstants.filePath,
@@ -115,7 +120,7 @@ class FileCard extends StatelessWidget {
                                 title: Text(l10n.downloadAllTileTitle),
                                 onTap: () {
                                   final slugs = [
-                                    file.name,
+                                    if (file.name != null) file.name!,
                                     if (file.assets.isNotEmpty)
                                       ...file.assets.map((asset) => asset.name),
                                   ];
@@ -146,12 +151,13 @@ class FileCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if(file.name != null)
                     SizedBox(
                       width: 120,
                       child: Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        file.name,
+                        file.name!,
                         style: textTheme.titleMedium,
                       ),
                     ),

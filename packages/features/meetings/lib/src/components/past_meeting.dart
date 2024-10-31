@@ -1,5 +1,4 @@
 import 'package:domain_models/domain_models.dart';
-import 'package:intl/intl.dart';
 import 'package:meetings/src/l10n/meetings_localizations.dart';
 import 'package:meetings/src/meetings_cubit.dart';
 import 'package:component_library/component_library.dart';
@@ -14,7 +13,6 @@ class PastMeeting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MeetingsCubit, MeetingsState>(builder: (context, state) {
-      final textTheme = Theme.of(context).textTheme;
       final l10n = MeetingsLocalizations.of(context);
       final cubit = context.read<MeetingsCubit>();
 
