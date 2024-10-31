@@ -296,6 +296,7 @@ extension HomeRMtoDM on HomeRM {
     return Home(
       meeting: meeting?.toDomainModel(),
       post: post?.toDomainModel(),
+      dashboardLink: dashboardLink,
     );
   }
 }

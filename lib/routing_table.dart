@@ -142,6 +142,9 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
             cmsRepository: cmsRepository,
             meetingRepository: meetingRepository,
+            onNavigateToFolders: () => routerDelegate.push(
+              _PathConstants.foldersPath,
+            ),
             onViewAllPostsTapped: () => routerDelegate.push(
               _PathConstants.cmsPath,
             ),

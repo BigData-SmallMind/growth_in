@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
     required this.cmsRepository,
     required this.meetingRepository,
     required this.onViewAllPostsTapped,
+    required this.onNavigateToFolders,
     required this.onViewAlMeetingsTapped,
     required this.onMeetingTapped,
     required this.onPostTapped,
@@ -24,6 +25,7 @@ class HomeScreen extends StatefulWidget {
   final CmsRepository cmsRepository;
   final MeetingRepository meetingRepository;
   final VoidCallback onViewAllPostsTapped;
+  final VoidCallback onNavigateToFolders;
   final VoidCallback onViewAlMeetingsTapped;
   final ValueSetter<int> onMeetingTapped;
   final ValueSetter<int> onPostTapped;
@@ -42,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen>
         cmsRepository: widget.cmsRepository,
         userRepository: widget.userRepository,
         meetingRepository: widget.meetingRepository,
+        onNavigateToFolders: widget.onNavigateToFolders,
         onViewAllPostsTapped: widget.onViewAllPostsTapped,
         onViewAllMeetingsTapped: widget.onViewAlMeetingsTapped,
         onMeetingTapped: widget.onMeetingTapped,
@@ -101,224 +104,245 @@ class HomeView extends StatelessWidget {
                         context.read<HomeCubit>().getHome();
                       },
                     )
-                  : ListView(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: theme.screenMargin,
-                        vertical: Spacing.medium,
-                      ),
-                      children: [
-                        SizedBox(
-                          height: 160,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  padding: const EdgeInsets.all(Spacing.medium),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: kElevationToShadow[1]),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        l10n.unpublishedPostsContainerTitle,
-                                        style: textTheme.titleMedium?.copyWith(
-                                          color: theme.primaryColor,
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<HomeCubit>().getHome();
+                      },
+                      child: ListView(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: theme.screenMargin,
+                          vertical: Spacing.medium,
+                        ),
+                        children: [
+                          SizedBox(
+                            height: 160,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    padding:
+                                        const EdgeInsets.all(Spacing.medium),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: kElevationToShadow[1]),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          l10n.unpublishedPostsContainerTitle,
+                                          style:
+                                              textTheme.titleMedium?.copyWith(
+                                            color: theme.primaryColor,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        '25',
-                                        style: textTheme.titleMedium?.copyWith(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const Spacer(),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Expanded(
-                                              child: Text(
-                                            'تبقى 5 منشورات لم تحمل بعد',
-                                            style: textTheme.bodyMedium
-                                                ?.copyWith(
-                                                    color: const Color(
-                                                        0xFF797979)),
-                                          )),
-                                          TextButton(
-                                            onPressed: () {},
-                                            child: Row(
+                                        Text(
+                                          '25',
+                                          style: textTheme.titleMedium
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                        const Spacer(),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Expanded(
+                                                child: Text(
+                                              'تبقى 5 منشورات لم تحمل بعد',
+                                              style: textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                      color: const Color(
+                                                          0xFF797979)),
+                                            )),
+                                            TextButton(
+                                              onPressed: cubit.onViewAllPostsTapped,
+                                              child: Row(
+                                                children: [
+                                                  Text(l10n
+                                                      .continuePublishingButtonLabel),
+                                                  const Icon(
+                                                      Icons.arrow_forward)
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                HorizontalGap.smallMedium(),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: 110,
+                                        padding:
+                                            const EdgeInsetsDirectional.only(
+                                          top: Spacing.medium,
+                                          start: Spacing.medium,
+                                        ),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white.withOpacity(1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: kElevationToShadow[1]),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              l10n.unapprovedFilesContainerTitle,
+                                              style: textTheme.titleMedium
+                                                  ?.copyWith(
+                                                color: theme.primaryColor,
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            Row(
                                               children: [
-                                                Text(l10n
-                                                    .continuePublishingButtonLabel),
-                                                const Icon(Icons.arrow_forward)
+                                                Text(
+                                                  '4',
+                                                  style: textTheme.titleMedium
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                ),
+                                                const Spacer(),
+                                                IconButton(
+                                                  onPressed: cubit.onNavigateToFolders,
+                                                  icon: Icon(
+                                                    Icons.arrow_forward,
+                                                    color: theme.primaryColor,
+                                                  ),
+                                                ),
                                               ],
                                             ),
-                                          ),
-                                        ],
-                                      )
+                                          ],
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Container(
+                                        height: 40,
+                                        padding:
+                                            const EdgeInsetsDirectional.only(
+                                          start: Spacing.medium,
+                                        ),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white.withOpacity(1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: kElevationToShadow[1]),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              l10n.dashboardContainerTitle,
+                                              style: textTheme.titleMedium
+                                                  ?.copyWith(
+                                                color: theme.primaryColor,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            IconButton(
+                                              onPressed: state.home
+                                                          ?.dashboardLink !=
+                                                      null
+                                                  ? () =>
+                                                      cubit.onGoToDashboard()
+                                                  : null,
+                                              icon: Icon(
+                                                Icons.arrow_forward,
+                                                color: theme.primaryColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      // Container(
+                                      //   height: 90,
+                                      //   decoration: BoxDecoration(
+                                      //     color: Colors.black.withOpacity(0.3),
+                                      //     borderRadius: BorderRadius.circular(10),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              HorizontalGap.smallMedium(),
-                              Expanded(
-                                flex: 2,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: 110,
-                                      padding: const EdgeInsetsDirectional.only(
-                                        top: Spacing.medium,
-                                        start: Spacing.medium,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(1),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          boxShadow: kElevationToShadow[1]),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            l10n.unapprovedFilesContainerTitle,
-                                            style:
-                                                textTheme.titleMedium?.copyWith(
-                                              color: theme.primaryColor,
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                '4',
-                                                style: textTheme.titleMedium
-                                                    ?.copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                              ),
-                                              const Spacer(),
-                                              IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                    Icons.arrow_forward),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Container(
-                                      height: 40,
-                                      padding: const EdgeInsetsDirectional.only(
-                                        start: Spacing.medium,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(1),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          boxShadow: kElevationToShadow[1]),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            l10n.dashboardContainerTitle,
-                                            style:
-                                                textTheme.bodyMedium?.copyWith(
-                                              color: theme.primaryColor,
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon:
-                                                const Icon(Icons.arrow_forward),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Container(
-                                    //   height: 90,
-                                    //   decoration: BoxDecoration(
-                                    //     color: Colors.black.withOpacity(0.3),
-                                    //     borderRadius: BorderRadius.circular(10),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        VerticalGap.large(),
-                        if (state.home!.post != null) ...[
-                          Row(
-                            children: [
-                              Text(l10n.recentPostsSectionTitle),
-                              const Spacer(),
-                              TextButton(
-                                onPressed: cubit.onViewAllPostsTapped,
-                                child: Text(
-                                  l10n.viewAllButtonLabel,
-                                  style: textTheme.bodyMedium?.copyWith(
-                                      decoration: TextDecoration.underline,
-                                      color: theme.primaryColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                          VerticalGap.medium(),
-                          Row(children: [
-                            DayNameWidget(
-                              dateTime: state.home!.post!.publicationDate,
+                              ],
                             ),
-                            HorizontalGap.medium(),
-                            Expanded(
-                              child: PostCard(
-                                post: state.home!.post!,
-                                onTap: () =>
-                                    cubit.onNavigateToPost(state.home!.post!),
-                              ),
-                            ),
-                          ]),
+                          ),
                           VerticalGap.large(),
-                        ],
-                        if (state.home!.meeting != null) ...[
-                          Row(
-                            children: [
-                              Text(l10n.upcomingMeetingSectionTitle),
-                              const Spacer(),
-                              TextButton(
-                                onPressed: cubit.onViewAllMeetingsTapped,
-                                child: Text(
-                                  l10n.viewAllButtonLabel,
-                                  style: textTheme.bodyMedium?.copyWith(
-                                    decoration: TextDecoration.underline,
-                                    color: theme.primaryColor,
+                          if (state.home!.post != null) ...[
+                            Row(
+                              children: [
+                                Text(l10n.recentPostsSectionTitle),
+                                const Spacer(),
+                                TextButton(
+                                  onPressed: cubit.onViewAllPostsTapped,
+                                  child: Text(
+                                    l10n.viewAllButtonLabel,
+                                    style: textTheme.bodyMedium?.copyWith(
+                                        decoration: TextDecoration.underline,
+                                        color: theme.primaryColor),
                                   ),
                                 ),
+                              ],
+                            ),
+                            VerticalGap.medium(),
+                            Row(children: [
+                              DayNameWidget(
+                                dateTime: state.home!.post!.publicationDate,
                               ),
-                            ],
-                          ),
-                          VerticalGap.medium(),
-                          MeetingCard(
-                            meeting: state.home!.meeting!,
-                            type: MeetingCardVariation.upcoming,
-                            onTap: () =>
-                                cubit.onNavigateToMeeting(state.home!.meeting!),
-                          )
+                              HorizontalGap.medium(),
+                              Expanded(
+                                child: PostCard(
+                                  post: state.home!.post!,
+                                  onTap: () =>
+                                      cubit.onNavigateToPost(state.home!.post!),
+                                ),
+                              ),
+                            ]),
+                            VerticalGap.large(),
+                          ],
+                          if (state.home!.meeting != null) ...[
+                            Row(
+                              children: [
+                                Text(l10n.upcomingMeetingSectionTitle),
+                                const Spacer(),
+                                TextButton(
+                                  onPressed: cubit.onViewAllMeetingsTapped,
+                                  child: Text(
+                                    l10n.viewAllButtonLabel,
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      decoration: TextDecoration.underline,
+                                      color: theme.primaryColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            VerticalGap.medium(),
+                            MeetingCard(
+                              meeting: state.home!.meeting!,
+                              type: MeetingCardVariation.upcoming,
+                              onTap: () => cubit
+                                  .onNavigateToMeeting(state.home!.meeting!),
+                            )
+                          ],
                         ],
-                      ],
+                      ),
                     ),
         );
       },

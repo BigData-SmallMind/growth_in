@@ -79,7 +79,6 @@ class FileCard extends StatelessWidget {
                                 title: Text(l10n.detailsTileTitle),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  if(file.name != null){
                                     showModalBottomSheet(
                                       context: context,
                                       showDragHandle: true,
@@ -97,6 +96,7 @@ class FileCard extends StatelessWidget {
                                                 style: textTheme.titleMedium,
                                               ),
                                               VerticalGap.large(),
+                                              if(file.name != null)
                                               Text(
                                                 file.name!,
                                                 style: textTheme.titleMedium
@@ -110,7 +110,7 @@ class FileCard extends StatelessWidget {
                                         );
                                       },
                                     );
-                                  }
+
                                 },
                                 leading: const SvgAsset(
                                   AssetPathConstants.filePath,

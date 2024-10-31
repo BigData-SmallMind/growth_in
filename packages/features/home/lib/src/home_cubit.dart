@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meeting_repository/meeting_repository.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'home_state.dart';
@@ -17,6 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.onViewAllMeetingsTapped,
     required this.onMeetingTapped,
     required this.onPostTapped,
+    required this.onNavigateToFolders,
   }) : super(const HomeState()) {
     userRepository.getUser().listen((user) {
       emit(state.copyWith(user: user));
@@ -29,8 +31,10 @@ class HomeCubit extends Cubit<HomeState> {
   final MeetingRepository meetingRepository;
   final VoidCallback onViewAllPostsTapped;
   final VoidCallback onViewAllMeetingsTapped;
+  final VoidCallback onNavigateToFolders;
   final ValueSetter<int> onMeetingTapped;
   final ValueSetter<int> onPostTapped;
+
   void getHome() async {
     final loading =
         state.copyWith(fetchingStatus: HomeFetchingStatus.inProgress);
@@ -58,8 +62,22 @@ class HomeCubit extends Cubit<HomeState> {
     onMeetingTapped(meeting.id);
   }
 
+  void onGoToDashboard() async {
+    try {
+      final Uri url = Uri.parse(state.home!.dashboardLink!);
+
+      if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+      }
+    } catch (e) {
+      debugPrint('cant launch url!!!');
+    }
+  }
+
 // @override
 // Future<void> close() {
 //   return super.close();
 // }
+
+
 }

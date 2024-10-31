@@ -105,6 +105,8 @@ class _CmsViewState extends State<CmsView> with SingleTickerProviderStateMixin {
           body: Column(
             children: [
               GrowthInTabBar(
+                tabAlignment: TabAlignment.center,
+                isScrollable: true,
                 tabController: _tabController,
                 tabs: [
                   Tab(

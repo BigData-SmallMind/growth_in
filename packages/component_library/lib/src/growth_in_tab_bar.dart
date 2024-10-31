@@ -1,22 +1,25 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-
-
 class GrowthInTabBar extends StatelessWidget {
-  const GrowthInTabBar({
-    super.key,
-    required this.tabController,
-    required this.tabs,
-  });
+  const GrowthInTabBar(
+      {super.key,
+      required this.tabController,
+      required this.tabs,
+      this.isScrollable,
+      this.tabAlignment});
 
   final TabController tabController;
   final List<Widget> tabs;
+  final bool? isScrollable;
+  final TabAlignment? tabAlignment;
 
   @override
   Widget build(BuildContext context) {
     final theme = GrowthInTheme.of(context);
     return Container(
+      width: double.infinity,
+      height: 45,
       padding: const EdgeInsets.symmetric(
         horizontal: Spacing.small,
         vertical: Spacing.xSmall,
@@ -28,8 +31,10 @@ class GrowthInTabBar extends StatelessWidget {
         color: Colors.grey.withOpacity(0.2),
         borderRadius: BorderRadius.circular(5),
       ),
-      height: 45,
       child: TabBar(
+        tabAlignment: tabAlignment,
+        physics: const NeverScrollableScrollPhysics(),
+        isScrollable: isScrollable ?? false,
         labelPadding: EdgeInsets.symmetric(
           horizontal: theme.screenMargin,
           vertical: 0,
