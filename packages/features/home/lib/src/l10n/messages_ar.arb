@@ -1,10 +1,13 @@
 {
   "appBarGreetingMessage": "صباح الخير",
-  "recentPostsSectionTitle": "المشاركات الأخيرة",
+  "recentPostsSectionTitle": "المحتوي",
   "viewAllButtonLabel": "عرض الكل",
   "upcomingMeetingSectionTitle": "اجتماعك القادم",
   "unpublishedPostsContainerTitle": "محتوي غير منشور",
   "continuePublishingButtonLabel": "اكمل النشر",
   "unapprovedFilesContainerTitle": "ملفات قيد الموافقة",
-  "dashboardContainerTitle": "لوحة القيادة"
+  "dashboardContainerTitle": "لوحة القيادة",
+  "postsSectionTitle": "المحتوي",
+  "requestsSectionTitle": "الطلبات المتأخرة"
+
 }

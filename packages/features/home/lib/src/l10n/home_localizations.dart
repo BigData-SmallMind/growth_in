@@ -102,7 +102,7 @@ abstract class HomeLocalizations {
   /// No description provided for @recentPostsSectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Recent Posts'**
+  /// **'Posts'**
   String get recentPostsSectionTitle;
 
   /// No description provided for @viewAllButtonLabel.
@@ -140,6 +140,18 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Dashboard'**
   String get dashboardContainerTitle;
+
+  /// No description provided for @postsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Posts'**
+  String get postsSectionTitle;
+
+  /// No description provided for @requestsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Late Requests'**
+  String get requestsSectionTitle;
 }
 
 class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {

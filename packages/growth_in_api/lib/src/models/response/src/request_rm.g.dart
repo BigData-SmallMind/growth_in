@@ -11,7 +11,7 @@ RequestRM _$RequestRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = RequestRM(
-          id: $checkedConvert('task_id', (v) => (v as num).toInt()),
+          id: $checkedConvert('task_id', (v) => (v as num?)?.toInt()),
           name: $checkedConvert('task_name', (v) => v as String),
           serviceName: $checkedConvert('service_name', (v) => v as String?),
           projectName: $checkedConvert('project_name', (v) => v as String?),

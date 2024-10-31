@@ -18,7 +18,7 @@ class RequestRM {
   });
 
   @JsonKey(name: 'task_id')
-  final int id;
+  final int? id;
   @JsonKey(name: 'task_name')
   final String name;
   @JsonKey(name: 'service_name')

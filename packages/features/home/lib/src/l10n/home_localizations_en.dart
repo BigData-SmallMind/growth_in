@@ -8,7 +8,7 @@ class HomeLocalizationsEn extends HomeLocalizations {
   String get appBarGreetingMessage => 'Good morning';
 
   @override
-  String get recentPostsSectionTitle => 'Recent Posts';
+  String get recentPostsSectionTitle => 'Posts';
 
   @override
   String get viewAllButtonLabel => 'View All';
@@ -27,4 +27,10 @@ class HomeLocalizationsEn extends HomeLocalizations {
 
   @override
   String get dashboardContainerTitle => 'Dashboard';
+
+  @override
+  String get postsSectionTitle => 'Posts';
+
+  @override
+  String get requestsSectionTitle => 'Late Requests';
 }

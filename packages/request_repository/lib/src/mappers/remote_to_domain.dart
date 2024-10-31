@@ -1,70 +1,6 @@
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:domain_models/domain_models.dart';
 
-extension TicketRMtoDM on TicketRM {
-  TicketStatus ticketStatusRMtoDM(String ticketStatus) {
-    // مفتوحة , محلولة , مغلقة
-    switch (ticketStatus) {
-      case 'مفتوحة':
-        return TicketStatus.open;
-      case 'محلولة':
-        return TicketStatus.solved;
-      case 'مغلقة':
-        return TicketStatus.closed;
-      default:
-        return TicketStatus.open;
-    }
-  }
-
-  Ticket toDomainModel() {
-    //2024-09-10T08:54:40.000000Z to date time
-    final createdAtDM = DateTime.parse(createdAt);
-    final statusDM = ticketStatusRMtoDM(status);
-    return Ticket(
-      id: id,
-      title: title,
-      subject: subject,
-      status: statusDM,
-      createdAt: createdAtDM,
-    );
-  }
-}
-
-extension TicketTypeRMtoDM on TicketTypeRM {
-  TicketType toDomainModel() {
-    return TicketType(
-      id: id,
-      name: name,
-    );
-  }
-}
-
-extension TicketTypesRMtoDM on List<TicketTypeRM> {
-  List<TicketType> toDomainModel() {
-    return map((ticketType) => ticketType.toDomainModel()).toList();
-  }
-}
-
-extension TicketMessageRMtoDM on TicketMessageRM {
-  TicketMessage toDomainModel() {
-    final createdAtDM = DateTime.parse(createdAt);
-    return TicketMessage(
-      id: id,
-      text: text,
-      file: file,
-      createdAt: createdAtDM,
-      profileImage: profileImage,
-      companyName: companyName,
-    );
-  }
-}
-
-extension TicketMessagesRMtoDM on List<TicketMessageRM> {
-  List<TicketMessage> toDomainModel() {
-    return map((ticketMessage) => ticketMessage.toDomainModel()).toList();
-  }
-}
-
 extension RequestV1RMtoDM on RequestV1RM {
   Request toDomainModel() {
     String dueDateCleaned = dueDate.length > 10
@@ -117,7 +53,7 @@ extension RequestRMtoDM on RequestRM {
         ?.map((action) => action.steps.length)
         .fold(0, (previousValue, element) => previousValue + element);
     return Request(
-      id: id,
+      id: id ?? id!,
       name: name,
       serviceName: serviceName,
       projectName: projectName,

@@ -148,14 +148,14 @@ Map<String, PageBuilder> buildRoutingTable({
             onViewAllPostsTapped: () => routerDelegate.push(
               _PathConstants.cmsPath,
             ),
-            onViewAlMeetingsTapped: () => routerDelegate.push(
-              _PathConstants.meetingsPath,
-            ),
             onPostTapped: (int postId) => routerDelegate.push(
               _PathConstants.homePostDetailsPath(postId: postId),
             ),
             onMeetingTapped: (int meetingId) => routerDelegate.push(
               _PathConstants.homeMeetingDetailsPath(meetingId: meetingId),
+            ),
+            onRequestTapped: (int requestId) => routerDelegate.push(
+              _PathConstants.requestDetailsPath(requestId: requestId),
             ),
           ),
         ),

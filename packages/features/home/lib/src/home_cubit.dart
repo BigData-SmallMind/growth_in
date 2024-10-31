@@ -15,9 +15,9 @@ class HomeCubit extends Cubit<HomeState> {
     required this.cmsRepository,
     required this.meetingRepository,
     required this.onViewAllPostsTapped,
-    required this.onViewAllMeetingsTapped,
     required this.onMeetingTapped,
     required this.onPostTapped,
+    required this.onRequestTapped,
     required this.onNavigateToFolders,
   }) : super(const HomeState()) {
     userRepository.getUser().listen((user) {
@@ -30,10 +30,10 @@ class HomeCubit extends Cubit<HomeState> {
   final CmsRepository cmsRepository;
   final MeetingRepository meetingRepository;
   final VoidCallback onViewAllPostsTapped;
-  final VoidCallback onViewAllMeetingsTapped;
   final VoidCallback onNavigateToFolders;
   final ValueSetter<int> onMeetingTapped;
   final ValueSetter<int> onPostTapped;
+  final ValueSetter<int> onRequestTapped;
 
   void getHome() async {
     final loading =
@@ -41,8 +41,11 @@ class HomeCubit extends Cubit<HomeState> {
     emit(loading);
     try {
       final home = await userRepository.getHome();
+      final homeWith3PostsOnly = home.copyWith(
+        posts: home.posts.length > 3 ? home.posts.sublist(0, 3) : home.posts,
+      );
       final success = state.copyWith(
-        home: home,
+        home: homeWith3PostsOnly,
         fetchingStatus: HomeFetchingStatus.success,
       );
       emit(success);
@@ -59,6 +62,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onNavigateToMeeting(Meeting meeting) {
     meetingRepository.changeNotifier.setMeeting(meeting);
+    meetingRepository.changeNotifier.setMeetingsVariation(MeetingCardVariation.upcoming);
     onMeetingTapped(meeting.id);
   }
 
@@ -78,6 +82,4 @@ class HomeCubit extends Cubit<HomeState> {
 // Future<void> close() {
 //   return super.close();
 // }
-
-
 }

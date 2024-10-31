@@ -8,7 +8,7 @@ class HomeLocalizationsAr extends HomeLocalizations {
   String get appBarGreetingMessage => 'صباح الخير';
 
   @override
-  String get recentPostsSectionTitle => 'المشاركات الأخيرة';
+  String get recentPostsSectionTitle => 'المحتوي';
 
   @override
   String get viewAllButtonLabel => 'عرض الكل';
@@ -27,4 +27,10 @@ class HomeLocalizationsAr extends HomeLocalizations {
 
   @override
   String get dashboardContainerTitle => 'لوحة القيادة';
+
+  @override
+  String get postsSectionTitle => 'المحتوي';
+
+  @override
+  String get requestsSectionTitle => 'الطلبات المتأخرة';
 }

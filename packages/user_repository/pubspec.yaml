@@ -19,6 +19,8 @@ dependencies:
     path: ../meeting_repository
   cms_repository:
     path: ../cms_repository
+  request_repository:
+    path: ../request_repository
   rxdart: ^0.27.1
   flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5

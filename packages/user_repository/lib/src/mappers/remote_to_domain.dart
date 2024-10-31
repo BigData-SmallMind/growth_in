@@ -291,12 +291,34 @@ extension QuestionRMtoDM on QuestionRM {
   }
 }
 
+extension HomeRequestRMtoDM on HomeRequestRM {
+  Request toDomainModel() {
+    final startDateDM = DateTime.parse(startDate.replaceAll('/', '-'));
+    final dueDateDM = DateTime.parse(dueDate.replaceAll('/', '-'));
+    return Request(
+      id: id,
+      name: name,
+      startDate: startDateDM,
+      dueDate: dueDateDM,
+      actions: [],
+    );
+  }
+}
+
+extension HomeRequestsRMtoDM on List<HomeRequestRM> {
+  List<Request> toDomainModel() {
+    return map((request) => request.toDomainModel()).toList();
+  }
+}
+
 extension HomeRMtoDM on HomeRM {
   Home toDomainModel() {
     return Home(
       meeting: meeting?.toDomainModel(),
-      post: post?.toDomainModel(),
+      posts: posts.toDomainModel(),
+      requests: requests.toDomainModel(),
       dashboardLink: dashboardLink,
+      filesCount: filesCount,
     );
   }
 }

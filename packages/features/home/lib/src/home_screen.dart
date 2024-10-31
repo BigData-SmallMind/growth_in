@@ -1,6 +1,5 @@
 import 'package:cms_repository/cms_repository.dart';
 import 'package:component_library/component_library.dart';
-import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home/src/home_cubit.dart';
@@ -16,9 +15,9 @@ class HomeScreen extends StatefulWidget {
     required this.meetingRepository,
     required this.onViewAllPostsTapped,
     required this.onNavigateToFolders,
-    required this.onViewAlMeetingsTapped,
     required this.onMeetingTapped,
     required this.onPostTapped,
+    required this.onRequestTapped,
   });
 
   final UserRepository userRepository;
@@ -26,9 +25,9 @@ class HomeScreen extends StatefulWidget {
   final MeetingRepository meetingRepository;
   final VoidCallback onViewAllPostsTapped;
   final VoidCallback onNavigateToFolders;
-  final VoidCallback onViewAlMeetingsTapped;
   final ValueSetter<int> onMeetingTapped;
   final ValueSetter<int> onPostTapped;
+  final ValueSetter<int> onRequestTapped;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -46,9 +45,9 @@ class _HomeScreenState extends State<HomeScreen>
         meetingRepository: widget.meetingRepository,
         onNavigateToFolders: widget.onNavigateToFolders,
         onViewAllPostsTapped: widget.onViewAllPostsTapped,
-        onViewAllMeetingsTapped: widget.onViewAlMeetingsTapped,
         onMeetingTapped: widget.onMeetingTapped,
         onPostTapped: widget.onPostTapped,
+        onRequestTapped: widget.onRequestTapped,
       ),
       child: const HomeView(),
     );
@@ -121,57 +120,67 @@ class HomeView extends StatelessWidget {
                               children: [
                                 Expanded(
                                   flex: 3,
-                                  child: Container(
-                                    padding:
-                                        const EdgeInsets.all(Spacing.medium),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: kElevationToShadow[1]),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          l10n.unpublishedPostsContainerTitle,
-                                          style:
-                                              textTheme.titleMedium?.copyWith(
-                                            color: theme.primaryColor,
-                                          ),
-                                        ),
-                                        Text(
-                                          '25',
-                                          style: textTheme.titleMedium
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                        const Spacer(),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Expanded(
-                                                child: Text(
-                                              'تبقى 5 منشورات لم تحمل بعد',
-                                              style: textTheme.bodyMedium
-                                                  ?.copyWith(
-                                                      color: const Color(
-                                                          0xFF797979)),
-                                            )),
-                                            TextButton(
-                                              onPressed: cubit.onViewAllPostsTapped,
-                                              child: Row(
-                                                children: [
-                                                  Text(l10n
-                                                      .continuePublishingButtonLabel),
-                                                  const Icon(
-                                                      Icons.arrow_forward)
-                                                ],
+                                  child: GestureDetector(
+                                    onTap: () => cubit.onNavigateToMeeting(
+                                        state.home!.meeting!),
+                                    child: Container(
+                                      padding:
+                                          const EdgeInsets.all(Spacing.medium),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: kElevationToShadow[1]),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(l10n
+                                                  .upcomingMeetingSectionTitle),
+                                              const Spacer(),
+                                              SvgAsset(
+                                                AssetPathConstants.videoPath,
+                                                color: theme.primaryColor,
                                               ),
+                                            ],
+                                          ),
+                                          Text(
+                                            state.home!.meeting?.title ?? '',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style:
+                                                textTheme.titleMedium?.copyWith(
+                                              color: theme.primaryColor,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        )
-                                      ],
+                                          ),
+                                          // state.home.meeting.type
+                                          VerticalGap.small(),
+                                          Text(
+                                            state.home!.meeting?.type ?? '',
+                                            style:
+                                                textTheme.labelSmall?.copyWith(
+                                              color: theme.dimmedTextColor,
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          Text(
+                                            state.home!.meeting?.startDate
+                                                    ?.toIso8601String()
+                                                    .split('T')
+                                                    .first ??
+                                                '',
+                                            style:
+                                                textTheme.bodyMedium?.copyWith(
+                                              color: theme.dimmedTextColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -211,7 +220,8 @@ class HomeView extends StatelessWidget {
                                             Row(
                                               children: [
                                                 Text(
-                                                  '4',
+                                                  (state.home!.filesCount ?? 0)
+                                                      .toString(),
                                                   style: textTheme.titleMedium
                                                       ?.copyWith(
                                                           fontWeight:
@@ -219,7 +229,8 @@ class HomeView extends StatelessWidget {
                                                 ),
                                                 const Spacer(),
                                                 IconButton(
-                                                  onPressed: cubit.onNavigateToFolders,
+                                                  onPressed:
+                                                      cubit.onNavigateToFolders,
                                                   icon: Icon(
                                                     Icons.arrow_forward,
                                                     color: theme.primaryColor,
@@ -270,13 +281,6 @@ class HomeView extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      // Container(
-                                      //   height: 90,
-                                      //   decoration: BoxDecoration(
-                                      //     color: Colors.black.withOpacity(0.3),
-                                      //     borderRadius: BorderRadius.circular(10),
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                 ),
@@ -284,45 +288,68 @@ class HomeView extends StatelessWidget {
                             ),
                           ),
                           VerticalGap.large(),
-                          if (state.home!.post != null) ...[
+                          if (state.home!.requests.isNotEmpty) ...[
+                            Text(
+                              l10n.requestsSectionTitle,
+                              style: textTheme.titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            VerticalGap.medium(),
+                            GestureDetector(
+                              onTap: () => cubit
+                                  .onRequestTapped(state.home!.requests[0].id),
+                              child: Container(
+                                padding: const EdgeInsets.all(Spacing.medium),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: theme.errorColor,
+                                      width: 5,
+                                    ),
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: kElevationToShadow[1],
+                                ),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          state.home!.requests[0].name,
+                                          style: textTheme.titleMedium,
+                                        ),
+                                        Text(
+                                          state.home!.requests[0].startDate
+                                              .toIso8601String()
+                                              .split('T')
+                                              .first,
+                                          style: textTheme.bodyMedium?.copyWith(
+                                              color: theme.dimmedTextColor),
+                                        )
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    const Icon(Icons.arrow_forward),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            VerticalGap.large(),
+                          ],
+                          if (state.home!.posts.isNotEmpty) ...[
                             Row(
                               children: [
-                                Text(l10n.recentPostsSectionTitle),
+                                Text(
+                                  l10n.postsSectionTitle,
+                                  style: textTheme.titleMedium
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                ),
                                 const Spacer(),
                                 TextButton(
                                   onPressed: cubit.onViewAllPostsTapped,
-                                  child: Text(
-                                    l10n.viewAllButtonLabel,
-                                    style: textTheme.bodyMedium?.copyWith(
-                                        decoration: TextDecoration.underline,
-                                        color: theme.primaryColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            VerticalGap.medium(),
-                            Row(children: [
-                              DayNameWidget(
-                                dateTime: state.home!.post!.publicationDate,
-                              ),
-                              HorizontalGap.medium(),
-                              Expanded(
-                                child: PostCard(
-                                  post: state.home!.post!,
-                                  onTap: () =>
-                                      cubit.onNavigateToPost(state.home!.post!),
-                                ),
-                              ),
-                            ]),
-                            VerticalGap.large(),
-                          ],
-                          if (state.home!.meeting != null) ...[
-                            Row(
-                              children: [
-                                Text(l10n.upcomingMeetingSectionTitle),
-                                const Spacer(),
-                                TextButton(
-                                  onPressed: cubit.onViewAllMeetingsTapped,
                                   child: Text(
                                     l10n.viewAllButtonLabel,
                                     style: textTheme.bodyMedium?.copyWith(
@@ -334,12 +361,32 @@ class HomeView extends StatelessWidget {
                               ],
                             ),
                             VerticalGap.medium(),
-                            MeetingCard(
-                              meeting: state.home!.meeting!,
-                              type: MeetingCardVariation.upcoming,
-                              onTap: () => cubit
-                                  .onNavigateToMeeting(state.home!.meeting!),
-                            )
+                            ColumnBuilder(
+                                itemBuilder: (context, index) {
+                                  final post = state.home!.posts[index];
+                                  return Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          DayNameWidget(
+                                            dateTime: post.publicationDate,
+                                          ),
+                                          HorizontalGap.medium(),
+                                          Expanded(
+                                            child: PostCard(
+                                              post: post,
+                                              onTap: () =>
+                                                  cubit.onNavigateToPost(post),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      VerticalGap.medium(),
+                                    ],
+                                  );
+                                },
+                                itemCount: state.home!.posts.length),
+                            VerticalGap.large(),
                           ],
                         ],
                       ),
