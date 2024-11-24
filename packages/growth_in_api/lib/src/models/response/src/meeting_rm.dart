@@ -31,7 +31,7 @@ class MeetingRM {
   @JsonKey(name: 'meeting_plan')
   final String? plan;
   @JsonKey(name: 'files')
-  final String? files;
+  final List? files;
   @JsonKey(name: 'meeting_link')
   final String? link;
   @JsonKey(name: 'meeting_summary')

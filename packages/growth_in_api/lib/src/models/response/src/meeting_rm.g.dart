@@ -17,7 +17,7 @@ MeetingRM _$MeetingRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           startDate: $checkedConvert('meeting_start_date', (v) => v as String?),
           endDate: $checkedConvert('meeting_end_date', (v) => v as String?),
           plan: $checkedConvert('meeting_plan', (v) => v as String?),
-          files: $checkedConvert('files', (v) => v as String?),
+          files: $checkedConvert('files', (v) => v as List<dynamic>?),
           link: $checkedConvert('meeting_link', (v) => v as String?),
           summary: $checkedConvert('meeting_summary', (v) => v as String?),
           cancellationReason:

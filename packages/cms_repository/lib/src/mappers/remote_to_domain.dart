@@ -1,30 +1,3 @@
-// "id": 1,
-// "channel": "[\"linked\"]",
-// "campaign": null,
-// "content_goal": "توعوي",
-// "content_type":"[\"\ق\ص\ة\"]",
-// "post_content": "ddg",
-// "content_image": "[\"670f6085041f9_1729060997.png\"]",
-// "publication_date": "Thu Oct 10 2024 00:00:00 GMT+0300",
-// "isPublished": 1,
-// "company_id": 1,
-// "campaign_id": null,
-// "creator_id": 1,
-// "client_status": "مقبول",
-// "operation_status": "مقبول",
-// "account_manager_status": "مقبول",
-// "isApproved": 1,
-// "show_red_dot_client": 0,
-// "show_red_dot_operation": 1,
-// "show_red_dot_manager": 1,
-// "isNew": 1,
-// "deleted_at": null,
-// "created_at": "2024-10-16T06:43:17.000000Z",
-// "updated_at": "2024-10-28T12:49:47.000000Z",
-// "show_red_dot_admin": 0
-
-import 'dart:convert';
-
 import 'package:domain_models/domain_models.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:intl/intl.dart';
@@ -42,23 +15,20 @@ extension PostRMtoDM on PostRM {
         return SocialChannel.linkedIn;
       case 'x':
         return SocialChannel.x;
+      case 'tiktok':
+        return SocialChannel.tiktok;
       default:
         throw Exception('Invalid channel');
     }
   }
 
   Post toDomainModel() {
-    final channelRM = channel == null ? null : jsonDecode(channel!);
-    final channelsList = channelRM is List
-        ? channelRM.map((channel) => channelRMtoDM(channel)).toList()
-        : [channelRMtoDM(channelRM)];
+    final channelsList =
+        channel?.map((channel) => channelRMtoDM(channel)).toList();
 
-    final imagesRM = images == null ? null : jsonDecode(images!);
-    final imagesUrls = imagesRM is List
-        ? imagesRM
-            .map((image) => '${UrlBuilder.imageDownloadUrl}/$image')
-            .toList()
-        : [imagesRM as String];
+    final imagesUrls = images
+        ?.map((image) => '${UrlBuilder.imageDownloadUrl}/$image')
+        .toList();
 
     DateFormat format = DateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z");
 
@@ -72,11 +42,8 @@ extension PostRMtoDM on PostRM {
             : status == 'تعديلات'
                 ? PostStatus.editing
                 : throw Exception('Invalid status');
-    final contentTypeRM = contentType == null ? null : jsonDecode(contentType!);
 
-    final contentTypes = contentTypeRM is List
-        ? contentTypeRM.map((type) => (type).toString()).toList()
-        : [contentTypeRM as String];
+    final contentTypes = contentType?.map((type) => (type).toString()).toList();
 
     int hour = publicationDateDM.hour % 12; // Convert to 12-hour format
     hour = hour == 0 ? 12 : hour; // Handle midnight case
@@ -141,5 +108,3 @@ extension CampaignsRMtoDM on List<CampaignRM> {
     return map((campaign) => campaign.toDomainModel()).toList();
   }
 }
-
-

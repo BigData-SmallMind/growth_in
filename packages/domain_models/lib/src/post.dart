@@ -38,7 +38,7 @@ enum SocialChannel {
   instagram,
   linkedIn,
   snapchat,
-  tikTok,
+  tiktok,
   youtube,
   pinterest,
   whatsapp,

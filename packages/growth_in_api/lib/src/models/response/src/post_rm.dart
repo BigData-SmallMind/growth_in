@@ -20,15 +20,15 @@ class PostRM {
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'channel')
-  final String? channel;
+  final List? channel;
   @JsonKey(name: 'content_goal')
   final String? contentGoal;
   @JsonKey(name: 'content_type')
-  final String? contentType;
+  final List? contentType;
   @JsonKey(name: 'post_content')
   final String? text;
   @JsonKey(name: 'content_image')
-  final String? images;
+  final List? images;
   @JsonKey(name: 'publication_date')
   final String publicationDate;
   @JsonKey(name: 'client_status')

@@ -61,8 +61,6 @@
 //   static const fromJson = _$MeetingsRMFromJson;
 // }
 
-import 'dart:convert';
-
 import 'package:domain_models/domain_models.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:intl/intl.dart';
@@ -75,14 +73,17 @@ extension MeetingRMtoDM on MeetingRM {
   // "2024-09-02 14:30:00" to date time
   Meeting toDomainModel() {
     try {
-      final filesMap =
-          files == null ? null : json.decode(files!) as List<dynamic>;
-      final filesDM = filesMap
+      // final filesMap =
+      //     files == null ? null : json.decode(files!) as List<dynamic>;
+      // final filesMap = files;
+      final filesDM = files
           ?.map(
             (e) => FileDM(
               name: e['file_name'],
               extension: e['file_type'],
-              size: e['file_size'],
+              size: e['file_size'] is String
+                  ? int.parse(e['file_size'])
+                  : e['file_size'],
             ),
           )
           .toList();
@@ -157,4 +158,3 @@ extension ListMeetingSlotStringtoDM on List<String> {
     return map((e) => e.toDomainModel()).toList();
   }
 }
-
