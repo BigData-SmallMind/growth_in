@@ -1,8 +1,8 @@
 {
-  "homeTabLabel": "Contacts",
-  "cmsTabLabel": "Dashboard",
-  "messagesTabLabel": "Companies",
-  "filesTabLabel": "Deals",
+  "homeTabLabel": "Home",
+  "cmsTabLabel": "CMS",
+  "messagesTabLabel": "Chat",
+  "filesTabLabel": "Files",
   "menuTabLabel": "Menu"
 
 }

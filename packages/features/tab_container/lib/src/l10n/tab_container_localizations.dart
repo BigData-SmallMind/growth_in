@@ -96,25 +96,25 @@ abstract class TabContainerLocalizations {
   /// No description provided for @homeTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Contacts'**
+  /// **'Home'**
   String get homeTabLabel;
 
   /// No description provided for @cmsTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Dashboard'**
+  /// **'CMS'**
   String get cmsTabLabel;
 
   /// No description provided for @messagesTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Companies'**
+  /// **'Chat'**
   String get messagesTabLabel;
 
   /// No description provided for @filesTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Deals'**
+  /// **'Files'**
   String get filesTabLabel;
 
   /// No description provided for @menuTabLabel.

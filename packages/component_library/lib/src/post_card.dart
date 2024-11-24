@@ -41,8 +41,8 @@ class PostCard extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border(
-              right: BorderSide(color: borderColor, width: 10),
+            border: BorderDirectional(
+              start: BorderSide(color: borderColor, width: 10),
             ),
             borderRadius: BorderRadius.circular(10),
             boxShadow: kElevationToShadow[1],

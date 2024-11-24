@@ -2,19 +2,19 @@ import 'tab_container_localizations.dart';
 
 /// The translations for English (`en`).
 class TabContainerLocalizationsEn extends TabContainerLocalizations {
-  TabContainerLocalizationsEn([super.locale = 'en']);
+  TabContainerLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get homeTabLabel => 'Contacts';
+  String get homeTabLabel => 'Home';
 
   @override
-  String get cmsTabLabel => 'Dashboard';
+  String get cmsTabLabel => 'CMS';
 
   @override
-  String get messagesTabLabel => 'Companies';
+  String get messagesTabLabel => 'Chat';
 
   @override
-  String get filesTabLabel => 'Deals';
+  String get filesTabLabel => 'Files';
 
   @override
   String get menuTabLabel => 'Menu';
