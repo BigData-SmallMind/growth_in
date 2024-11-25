@@ -8,6 +8,7 @@
   "unapprovedFilesContainerTitle": "ملفات قيد الموافقة",
   "dashboardContainerTitle": "لوحة القيادة",
   "postsSectionTitle": "المحتوي",
-  "requestsSectionTitle": "الطلبات المتأخرة"
+  "requestsSectionTitle": "الطلبات المتأخرة",
+    "noUpcomingMeetingSectionTitle": "لا توجد اجتماعات قادمة"
 
 }

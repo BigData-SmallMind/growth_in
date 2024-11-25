@@ -22,7 +22,7 @@ class SuccessSnackBar extends SnackBar {
       action: snackBarAction,
     ),
     showCloseIcon: showClose,
-    margin: marginalSpace,
+    margin: marginalSpace ?? GrowthInTheme.of(context).snackBarMargin,
     backgroundColor: bgColor ??
         GrowthInTheme.of(context).successContainerColor,
     closeIconColor: closeColor,

@@ -1,5 +1,6 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
+const _screenMargin = Spacing.mediumLarge;
 
 // If the number of properties get too big, we can start grouping them in
 // classes like Flutter does with TextTheme, ButtonTheme, etc, inside ThemeData.
@@ -32,7 +33,7 @@ abstract class GrowthInThemeData {
   final secondaryIconColor = const Color(0xFF8B8B8B);
   final  questionDescriptionColor = const Color(0xFF797979);
 
-  final screenMargin = Spacing.mediumLarge;
+  final screenMargin = _screenMargin;
   final listViewVerticalSpacing = Spacing.medium;
   final textFieldBorderRadius = 10.0;
   final searchTextFieldBorderRadius = 25.0;
@@ -56,6 +57,12 @@ abstract class GrowthInThemeData {
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: const Color(0xFF1F1F1F).withOpacity(0.5),
+  );
+
+  final snackBarMargin = const EdgeInsets.only(
+    bottom: Spacing.huge,
+    left: _screenMargin,
+    right: _screenMargin,
   );
 
 }

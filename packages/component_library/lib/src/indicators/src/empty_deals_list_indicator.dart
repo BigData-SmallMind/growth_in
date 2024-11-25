@@ -20,26 +20,24 @@ class EmptyListIndicator extends StatelessWidget {
 
     return RefreshIndicator(
       onRefresh: onRefresh,
-      child: Expanded(
-        child: ListView(
-          children: [
-            VerticalGap.xxxLarge(),
-            VerticalGap.xxxLarge(),
-            VerticalGap.xxxLarge(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-              child: Center(
-                child: Text(
-                  l10n.emptyListIndicatorText,
-                  style: textTheme.titleLarge?.copyWith(
-                      color: textColor ?? theme.primaryColor,
-                      fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
-                ),
+      child: ListView(
+        children: [
+          VerticalGap.xxxLarge(),
+          VerticalGap.xxxLarge(),
+          VerticalGap.xxxLarge(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
+            child: Center(
+              child: Text(
+                l10n.emptyListIndicatorText,
+                style: textTheme.titleLarge?.copyWith(
+                    color: textColor ?? theme.primaryColor,
+                    fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

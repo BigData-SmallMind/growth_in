@@ -13,7 +13,7 @@ class ErrorSnackBar extends SnackBar {
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: const Color(0xFFFFF0ED),
-          margin: marginalSpace,
+          margin: marginalSpace ?? GrowthInTheme.of(context).snackBarMargin,
         );
 
   final String? message;

@@ -327,7 +327,10 @@ Map<String, PageBuilder> buildRoutingTable({
                   userRepository: userRepository,
                 ),
               ),
-              onLogout: () => signInSuccessVN.value = false,
+              onLogout: () {
+                routerDelegate.push(_PathConstants.homePath);
+                signInSuccessVN.value = false;
+              },
               onProfileSettingsTapped: () =>
                   routerDelegate.push(_PathConstants.profileSettingsPath),
               onRequestsTapped: () =>

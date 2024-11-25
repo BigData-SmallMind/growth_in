@@ -2,7 +2,7 @@ import 'chat_localizations.dart';
 
 /// The translations for English (`en`).
 class ChatLocalizationsEn extends ChatLocalizations {
-  ChatLocalizationsEn([super.locale = 'en']);
+  ChatLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Open Line Chat';
@@ -18,4 +18,7 @@ class ChatLocalizationsEn extends ChatLocalizations {
 
   @override
   String get deleteFileIconLabel => 'Delete';
+
+  @override
+  String get noMessagesIndicator => 'No messages yet';
 }

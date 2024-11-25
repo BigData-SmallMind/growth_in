@@ -152,6 +152,12 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Late Requests'**
   String get requestsSectionTitle;
+
+  /// No description provided for @noUpcomingMeetingSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No upcoming meetings'**
+  String get noUpcomingMeetingSectionTitle;
 }
 
 class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {

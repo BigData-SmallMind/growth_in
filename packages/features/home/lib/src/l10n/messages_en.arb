@@ -8,5 +8,6 @@
   "unapprovedFilesContainerTitle": "Files Pending Approval",
   "dashboardContainerTitle": "Dashboard",
   "postsSectionTitle": "Posts",
-  "requestsSectionTitle": "Late Requests"
+  "requestsSectionTitle": "Late Requests",
+    "noUpcomingMeetingSectionTitle": "No upcoming meetings"
 }

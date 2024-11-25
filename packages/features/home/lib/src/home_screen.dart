@@ -122,7 +122,8 @@ class HomeView extends StatelessWidget {
                                   flex: 3,
                                   child: GestureDetector(
                                     onTap: () => cubit.onNavigateToMeeting(
-                                        state.home!.meeting!),
+                                      state.home!.meeting!,
+                                    ),
                                     child: Container(
                                       padding:
                                           const EdgeInsets.all(Spacing.medium),
@@ -139,8 +140,9 @@ class HomeView extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(l10n
-                                                  .upcomingMeetingSectionTitle),
+                                              Text(
+                                                l10n.upcomingMeetingSectionTitle,
+                                              ),
                                               const Spacer(),
                                               SvgAsset(
                                                 AssetPathConstants.videoPath,
@@ -159,7 +161,9 @@ class HomeView extends StatelessWidget {
                                             ),
                                           ),
                                           // state.home.meeting.type
+
                                           VerticalGap.small(),
+
                                           Text(
                                             state.home!.meeting?.type ?? '',
                                             style:
@@ -167,6 +171,17 @@ class HomeView extends StatelessWidget {
                                               color: theme.dimmedTextColor,
                                             ),
                                           ),
+                                          if (state.home!.meeting == null)
+                                            Center(
+                                              child: Text(
+                                                l10n.noUpcomingMeetingSectionTitle,
+                                                textAlign: TextAlign.center,
+                                                style: textTheme.titleMedium
+                                                    ?.copyWith(
+                                                  color: theme.dimmedTextColor,
+                                                ),
+                                              ),
+                                            ),
                                           const Spacer(),
                                           Text(
                                             state.home!.meeting?.startDate

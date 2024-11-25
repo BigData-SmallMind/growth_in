@@ -33,4 +33,7 @@ class HomeLocalizationsEn extends HomeLocalizations {
 
   @override
   String get requestsSectionTitle => 'Late Requests';
+
+  @override
+  String get noUpcomingMeetingSectionTitle => 'No upcoming meetings';
 }

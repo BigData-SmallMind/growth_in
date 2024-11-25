@@ -3,5 +3,7 @@
     "uploadFileIconLabel": "File",
     "uploadImageFromGalleryIconLabel": "Gallery",
     "captureImageIconLabel": "Capture",
-    "deleteFileIconLabel": "Delete"
+    "deleteFileIconLabel": "Delete",
+    "noMessagesIndicator": "No messages yet",
+    "noUpcomingMeetingSectionTitle": "No upcoming meetings"
 }

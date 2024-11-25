@@ -1,4 +1,5 @@
 import 'package:chat/src/chat_cubit.dart';
+import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class MessagesList extends StatelessWidget {
         final error = state.fetchingStatus == ChatFetchingStatus.failure;
         final textTheme = Theme.of(context).textTheme;
         final cubit = context.read<ChatCubit>();
+        final l10n = ChatLocalizations.of(context);
         return Expanded(
           child: loading
               ? const CenteredCircularProgressIndicator()
@@ -26,52 +28,60 @@ class MessagesList extends StatelessWidget {
                   ? ExceptionIndicator(
                       onTryAgain: context.read<ChatCubit>().getChat,
                     )
-                  : RefreshIndicator(
-                      onRefresh: () async {
-                        context.read<ChatCubit>().getChat();
-                      },
-                      child: ListView.builder(
-                        controller: cubit.scrollController,
-                        itemCount: state.dateGroupedChats!.list.length,
-                        itemBuilder: (context, index) {
-                          final chat = state.dateGroupedChats!.list[index];
-                          return Column(
-                            children: [
-                              Text(
-                                intl.DateFormat('yyyy-MM-dd').format(chat.date),
-                                style: textTheme.titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              ColumnBuilder(
-                                itemBuilder: (context, index) {
-                                  final message = chat.messages[index];
-                                  return MessageCard(
-                                    message: message,
-                                    isFirstElement: index == 0,
-                                  );
-                                },
-                                itemCount: chat.messages.length,
-                              ),
-                              StreamBuilder<DateGroupedChats>(
-                                  stream: cubit.chatStream,
-                                  builder: (context, snapshot) {
-                                    return snapshot.hasData
-                                        ? MessageCard(
-                                            message: (snapshot.data
-                                                    as DateGroupedChats)
-                                                .list
-                                                .first
-                                                .messages
-                                                .first,
-                                            isFirstElement: false,
-                                          )
-                                        : const SizedBox();
-                                  }),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
+                  : state.dateGroupedChats!.list.isEmpty
+                      ? Center(
+                          child: Text(
+                            l10n.noMessagesIndicator,
+                            style: textTheme.titleLarge,
+                          ),
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            context.read<ChatCubit>().getChat();
+                          },
+                          child: ListView.builder(
+                            controller: cubit.scrollController,
+                            itemCount: state.dateGroupedChats!.list.length,
+                            itemBuilder: (context, index) {
+                              final chat = state.dateGroupedChats!.list[index];
+                              return Column(
+                                children: [
+                                  Text(
+                                    intl.DateFormat('yyyy-MM-dd')
+                                        .format(chat.date),
+                                    style: textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  ColumnBuilder(
+                                    itemBuilder: (context, index) {
+                                      final message = chat.messages[index];
+                                      return MessageCard(
+                                        message: message,
+                                        isFirstElement: index == 0,
+                                      );
+                                    },
+                                    itemCount: chat.messages.length,
+                                  ),
+                                  StreamBuilder<DateGroupedChats>(
+                                      stream: cubit.chatStream,
+                                      builder: (context, snapshot) {
+                                        return snapshot.hasData
+                                            ? MessageCard(
+                                                message: (snapshot.data
+                                                        as DateGroupedChats)
+                                                    .list
+                                                    .first
+                                                    .messages
+                                                    .first,
+                                                isFirstElement: false,
+                                              )
+                                            : const SizedBox();
+                                      }),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
         );
       },
     );

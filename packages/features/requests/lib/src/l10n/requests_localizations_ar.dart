@@ -2,13 +2,13 @@ import 'requests_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class RequestsLocalizationsAr extends RequestsLocalizations {
-  RequestsLocalizationsAr([super.locale = 'ar']);
+  RequestsLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'الطلبات';
 
   @override
-  String get noItemsFoundMessage => 'No requests';
+  String get noItemsFoundMessage => 'لا توجد طلبات';
 
   @override
   String get aboutToExpireStatusText => 'قرب التجاوز';

@@ -33,4 +33,7 @@ class HomeLocalizationsAr extends HomeLocalizations {
 
   @override
   String get requestsSectionTitle => 'الطلبات المتأخرة';
+
+  @override
+  String get noUpcomingMeetingSectionTitle => 'لا توجد اجتماعات قادمة';
 }

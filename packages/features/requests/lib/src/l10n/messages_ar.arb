@@ -1,5 +1,6 @@
 {
 "appBarTitle": "الطلبات",
+    "noItemsFoundMessage": "لا توجد طلبات",
   "emptyRequestsListIndicator": "لا توجد طلبات",
   "aboutToExpireStatusText": "قرب التجاوز",
   "expiredStatusText": "لم يتم البدء",

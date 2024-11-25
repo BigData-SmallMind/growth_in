@@ -21,7 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.onNavigateToFolders,
   }) : super(const HomeState()) {
     userRepository.getUser().listen((user) {
-      emit(state.copyWith(user: user));
+      if (!isClosed) emit(state.copyWith(user: user));
     });
     getHome();
   }
@@ -62,7 +62,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onNavigateToMeeting(Meeting meeting) {
     meetingRepository.changeNotifier.setMeeting(meeting);
-    meetingRepository.changeNotifier.setMeetingsVariation(MeetingCardVariation.upcoming);
+    meetingRepository.changeNotifier
+        .setMeetingsVariation(MeetingCardVariation.upcoming);
     onMeetingTapped(meeting.id);
   }
 

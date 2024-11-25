@@ -122,6 +122,12 @@ abstract class ChatLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get deleteFileIconLabel;
+
+  /// No description provided for @noMessagesIndicator.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get noMessagesIndicator;
 }
 
 class _ChatLocalizationsDelegate extends LocalizationsDelegate<ChatLocalizations> {
