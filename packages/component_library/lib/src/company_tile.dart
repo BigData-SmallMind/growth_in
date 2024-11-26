@@ -42,10 +42,9 @@ class CompanyTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 85),
-                  child: Text(company.name)),
+              Expanded(child: Text(company.name)),
               HorizontalGap.medium(),
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 150),

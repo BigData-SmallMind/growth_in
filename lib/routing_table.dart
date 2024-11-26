@@ -247,6 +247,7 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'chat',
           child: ChatScreen(
             userRepository: userRepository,
+            folderRepository: folderRepository,
           ),
         ),
     _PathConstants.foldersPath: (_) => MaterialPage(
@@ -318,6 +319,7 @@ Map<String, PageBuilder> buildRoutingTable({
           child: Builder(builder: (context) {
             return MoreScreen(
               userRepository: userRepository,
+
               onCompanyTileTap: () => showModalBottomSheet(
                 context: context,
                 enableDrag: true,

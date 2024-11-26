@@ -2,6 +2,7 @@ import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat/src/chat_cubit.dart';
+import 'package:folder_repository/folder_repository.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -11,9 +12,11 @@ class ChatScreen extends StatefulWidget {
   const ChatScreen({
     super.key,
     required this.userRepository,
+    required this.folderRepository,
   });
 
   final UserRepository userRepository;
+  final FolderRepository folderRepository;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -27,6 +30,7 @@ class _ChatScreenState extends State<ChatScreen>
     return BlocProvider<ChatCubit>(
       create: (_) => ChatCubit(
         userRepository: widget.userRepository,
+        folderRepository: widget.folderRepository,
       ),
       child: const ChatView(),
     );

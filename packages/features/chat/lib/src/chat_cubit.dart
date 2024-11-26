@@ -5,7 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:folder_repository/folder_repository.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'chat_state.dart';
@@ -13,6 +15,7 @@ part 'chat_state.dart';
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit({
     required this.userRepository,
+    required this.folderRepository,
   })  : _imagePicker = ImagePicker(),
         super(const ChatState()) {
     getChat();
@@ -20,14 +23,23 @@ class ChatCubit extends Cubit<ChatState> {
       userRepository.subscribeToChat();
     });
     //TODO: do this in a more elegant way using a stream builder
-    int? chatId;
-    userRepository.chatStream().distinct().listen((dateGroupedChat) {
-      chatId = dateGroupedChat.list.first.messages.first.id;
-      if(chatId == dateGroupedChat.list.first.messages.first.id) return;
+    userRepository.chatStream().distinct().listen((dateGroupedChats) {
+      final messageId = dateGroupedChats.list.first.messages.first.id;
+      //if message id already exists return;
+      for (int i = 0; i < state.dateGroupedChats!.list.length; i++) {
+        for (int j = 0;
+            j < state.dateGroupedChats!.list[i].messages.length;
+            j++) {
+          if (state.dateGroupedChats!.list[i].messages[j].id == messageId) {
+            return;
+          }
+        }
+      }
       final currentDateGroupedChatsList = state.dateGroupedChats?.list ?? [];
-      final newChat = dateGroupedChat.list.first;
+      final newChat = dateGroupedChats.list.first;
       final newChatDateIsInCurrentList = currentDateGroupedChatsList.any(
-        (chat) => chat.date.year == newChat.date.year &&
+        (chat) =>
+            chat.date.year == newChat.date.year &&
             chat.date.month == newChat.date.month &&
             chat.date.day == newChat.date.day,
       );
@@ -36,9 +48,13 @@ class ChatCubit extends Cubit<ChatState> {
           if (chat.date.year == newChat.date.year &&
               chat.date.month == newChat.date.month &&
               chat.date.day == newChat.date.day) {
-            return chat.copyWith(
-              messages: [...chat.messages, ...newChat.messages],
+            final updatedChat = chat.copyWith(
+              messages: [
+                ...chat.messages,
+                ...newChat.messages,
+              ],
             );
+            return updatedChat;
           }
           return chat;
         }).toList();
@@ -51,7 +67,10 @@ class ChatCubit extends Cubit<ChatState> {
       } else {
         final newState = state.copyWith(
           dateGroupedChats: state.dateGroupedChats?.copyWith(
-            list: [...currentDateGroupedChatsList, newChat],
+            list: [
+              ...currentDateGroupedChatsList,
+              newChat,
+            ],
           ),
         );
         emit(newState);
@@ -61,6 +80,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   final scrollController = ScrollController();
   final UserRepository userRepository;
+  final FolderRepository folderRepository;
   final ImagePicker _imagePicker;
   final TextEditingController messageController = TextEditingController();
 
@@ -100,7 +120,7 @@ class ChatCubit extends Cubit<ChatState> {
       final files =
           result.files.map((platformFile) => File(platformFile.path!)).toList();
       final newState = state.copyWith(
-        files: files,
+        files: [...?state.files, ...files],
       );
       emit(newState);
     } else {
@@ -117,7 +137,7 @@ class ChatCubit extends Cubit<ChatState> {
         xFile.path.toString(),
       );
       final newState = state.copyWith(
-        files: [file],
+        files: [...?state.files, file],
       );
       emit(newState);
     }
@@ -132,7 +152,7 @@ class ChatCubit extends Cubit<ChatState> {
         xFile.path.toString(),
       );
       final newState = state.copyWith(
-        files: [file],
+        files: [...?state.files, file],
       );
       emit(newState);
     }
@@ -163,7 +183,7 @@ class ChatCubit extends Cubit<ChatState> {
     emit(newState);
     try {
       await userRepository.sendChatMessage(
-        message: state.message!,
+        message: state.message,
         files: state.files,
       );
       final newState = state.copyWith(
@@ -190,4 +210,23 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   Stream<DateGroupedChats> get chatStream => userRepository.chatStream();
+
+  void openDocument(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalNonBrowserApplication,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void downloadFile(FileDM file) async {
+    try {
+      folderRepository.downloadFiles([file.name]);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }

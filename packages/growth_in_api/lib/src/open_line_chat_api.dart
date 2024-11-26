@@ -28,7 +28,7 @@ class OpenLineChatApi {
 
   Future sendMessage({
     required int companyId,
-    required String message,
+    String? message,
     List<File>? files,
   }) async {
     final url = _urlBuilder.buildSendChatMessageUrl(companyId: companyId);
@@ -39,16 +39,24 @@ class OpenLineChatApi {
         final fileExtension = file.path.split('.').last;
         final multipartFile = await MultipartFile.fromFile(
           file.path,
-          filename: 'CHAT_FILE_$now.$fileExtension',
+          filename:
+              '${file.path.split('.')[file.path.split('.').length - 2]}$now.$fileExtension',
         );
         multipartFiles.add(multipartFile);
       }
     }
+
     final requestJsonBody = {
-      if (files != null) 'message_file[]': multipartFiles,
-      'content': message,
+      if (files != null)
+        for (var i = 0; i < multipartFiles.length; i++)
+          'message_file[$i]': multipartFiles[i],
+      'content': message ?? '',
     };
-    final formData = FormData.fromMap(requestJsonBody);
+
+    final formData = FormData.fromMap(
+      requestJsonBody,
+      ListFormat.multiCompatible,
+    );
     try {
       await _dio.post(
         url,

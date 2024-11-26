@@ -154,16 +154,19 @@ class SignInCubit extends Cubit<SignInState> {
         } else {
           userRepository.deleteRememberedCredentials();
         }
+
         final newState = state.copyWith(
           user: user,
-          companyChoiceStatus: user.companies.length > 1
-              ? CompanyChoiceStatus.inProgress
-              : CompanyChoiceStatus.initial,
+          companyChoiceStatus: /*user.companies.length > 1
+              ? */CompanyChoiceStatus.inProgress
+              /*: CompanyChoiceStatus.initial*/,
           submissionStatus: user.companies.length < 2
-              ? FormzSubmissionStatus.success
+              ? FormzSubmissionStatus.initial
               : FormzSubmissionStatus.inProgress,
         );
+
         emit(newState);
+
       } catch (error) {
         final newState = state.copyWith(
           password: Password.validated(password.value,

@@ -1,14 +1,16 @@
-
 class FileDM {
   final String name;
   final String extension;
   final int size;
+  final String? dlUrl;
+
   FileType get type => categorizeFileType(extension);
 
   FileDM({
     required this.name,
     required this.extension,
     required this.size,
+    this.dlUrl,
   });
 }
 

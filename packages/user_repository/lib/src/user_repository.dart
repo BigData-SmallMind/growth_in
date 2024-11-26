@@ -473,7 +473,7 @@ class UserRepository {
   }
 
   Future sendChatMessage({
-    required String message,
+    String? message,
     List<File>? files,
   }) async {
     final user = await getUser().first;

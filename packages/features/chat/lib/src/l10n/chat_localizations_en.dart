@@ -21,4 +21,7 @@ class ChatLocalizationsEn extends ChatLocalizations {
 
   @override
   String get noMessagesIndicator => 'No messages yet';
+
+  @override
+  String get messageSentByMeCardTitle => 'You';
 }

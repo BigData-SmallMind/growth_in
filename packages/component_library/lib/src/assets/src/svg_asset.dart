@@ -111,4 +111,5 @@ class AssetPathConstants {
   static const String rejectFilePath = '$iconsPath/reject-file.svg';
   static const String clockButtonPath = '$iconsPath/clock-button.svg';
   static const String appBarBgPath = '$iconsPath/app-bar-bg.svg';
+  static const String downloadPath = '$iconsPath/download.svg';
 }

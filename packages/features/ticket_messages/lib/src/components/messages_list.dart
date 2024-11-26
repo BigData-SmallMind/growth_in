@@ -105,6 +105,8 @@ class MessageCard extends StatelessWidget {
               style: textTheme.bodyMedium,
             ),
           ),
+          VerticalGap.medium(),
+
         ],
       ),
     );

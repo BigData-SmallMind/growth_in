@@ -12,6 +12,8 @@ class UrlBuilder {
   static const String imageDownloadUrl =
       'https://laravel.growth-in.net/subgrowthin/public/images';
 
+  static const String dlUrl = 'https://laravel.growth-in.net/subgrowthin/public';
+
   static final UrlBuilder _instance = UrlBuilder._internal();
 
   factory UrlBuilder() {

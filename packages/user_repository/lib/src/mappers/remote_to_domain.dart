@@ -139,6 +139,7 @@ extension FileRMtoDM on FileRM {
       name: name,
       extension: name.split('.').last,
       size: size,
+      dlUrl: '${UrlBuilder.dlUrl}/$path',
     );
   }
 }

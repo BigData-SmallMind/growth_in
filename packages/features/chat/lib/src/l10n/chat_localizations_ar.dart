@@ -21,4 +21,7 @@ class ChatLocalizationsAr extends ChatLocalizations {
 
   @override
   String get noMessagesIndicator => 'لا توجد رسائل بعد';
+
+  @override
+  String get messageSentByMeCardTitle => 'أنت';
 }

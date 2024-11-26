@@ -21,6 +21,7 @@ class MessagesList extends StatelessWidget {
         final textTheme = Theme.of(context).textTheme;
         final cubit = context.read<ChatCubit>();
         final l10n = ChatLocalizations.of(context);
+
         return Expanded(
           child: loading
               ? const CenteredCircularProgressIndicator()
@@ -57,26 +58,36 @@ class MessagesList extends StatelessWidget {
                                       final message = chat.messages[index];
                                       return MessageCard(
                                         message: message,
+                                        downloadFile: (file) {
+                                          cubit.downloadFile(file);
+                                        },
+                                        openDocument: (url) {
+                                          cubit.openDocument(url);
+                                        },
                                         isFirstElement: index == 0,
                                       );
                                     },
                                     itemCount: chat.messages.length,
                                   ),
-                                  StreamBuilder<DateGroupedChats>(
-                                      stream: cubit.chatStream,
-                                      builder: (context, snapshot) {
-                                        return snapshot.hasData
-                                            ? MessageCard(
-                                                message: (snapshot.data
-                                                        as DateGroupedChats)
-                                                    .list
-                                                    .first
-                                                    .messages
-                                                    .first,
-                                                isFirstElement: false,
-                                              )
-                                            : const SizedBox();
-                                      }),
+                                  // StreamBuilder<DateGroupedChats>(
+                                  //   stream: cubit.chatStream,
+                                  //   builder: (context, snapshot) {
+                                  //     return snapshot.hasData
+                                  //         ? MessageCard(
+                                  //             message: (snapshot.data
+                                  //                     as DateGroupedChats)
+                                  //                 .list
+                                  //                 .first
+                                  //                 .messages
+                                  //                 .first,
+                                  //             openDocument: (url) {
+                                  //               cubit.openDocument(url);
+                                  //             },
+                                  //             isFirstElement: false,
+                                  //           )
+                                  //         : const SizedBox();
+                                  //   },
+                                  // ),
                                 ],
                               );
                             },
@@ -93,65 +104,161 @@ class MessageCard extends StatelessWidget {
     super.key,
     required this.message,
     required this.isFirstElement,
+    required this.openDocument,
+    required this.downloadFile,
   });
 
   final ChatMessage message;
   final bool isFirstElement;
+  final Function(String) openDocument;
+  final Function(FileDM) downloadFile;
 
   @override
   Widget build(BuildContext context) {
     final theme = GrowthInTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     final isSentByMe = message.isSentByMe;
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(
-        left: Spacing.medium,
-        right: Spacing.medium,
-        top: Spacing.small,
-        bottom: Spacing.xSmall,
-      ),
-      margin: EdgeInsets.only(
-        top: isFirstElement ? Spacing.medium : 0,
-        bottom: Spacing.medium,
-        left: isSentByMe ? theme.screenMargin : theme.screenMargin * 2,
-        right: isSentByMe ? theme.screenMargin * 2 : theme.screenMargin,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: theme.borderColor),
-        borderRadius: BorderRadius.circular(10),
-        color: isSentByMe ? const Color(0xFFEFEFEF) : theme.secondaryColor,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (message.text != null) ...[
-            SelectableText(
-              message.text!,
+    final l10n = ChatLocalizations.of(context);
+    final hasImageOrVideo = message.files?.any((file) =>
+            file.type == FileType.image || file.type == FileType.video) ==
+        true;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (isFirstElement) VerticalGap.medium(),
+        Row(
+          children: [
+            HorizontalGap.custom(theme.screenMargin * 2),
+            Text(
+              isSentByMe ? l10n.messageSentByMeCardTitle : message.sender.name,
               style: textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
                 color: isSentByMe
-                    ? null
+                    ? theme.materialThemeData.colorScheme.secondary
                     : theme.materialThemeData.colorScheme.surface,
               ),
             ),
-            VerticalGap.small(),
           ],
-          Row(
+        ),
+        VerticalGap.xSmall(),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.only(
+            left: Spacing.medium,
+            right: Spacing.medium,
+            top: Spacing.small,
+            bottom: Spacing.xSmall,
+          ),
+          margin: EdgeInsetsDirectional.only(
+            bottom: Spacing.medium,
+            end: isSentByMe ? theme.screenMargin : theme.screenMargin * 2,
+            start: isSentByMe ? theme.screenMargin * 2 : theme.screenMargin,
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(color: theme.borderColor),
+            borderRadius: BorderRadius.circular(10),
+            color: isSentByMe ? const Color(0xFFEFEFEF) : theme.secondaryColor,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Spacer(),
-              SelectableText(
-                message.date.formatDateTimeTo12Hour()!,
-                textDirection: TextDirection.ltr,
-                style: textTheme.bodySmall?.copyWith(
-                  color: isSentByMe
-                      ? const Color(0xFF797979)
-                      : theme.materialThemeData.colorScheme.surface,
+              if (message.text != null && message.text?.isNotEmpty == true) ...[
+                SelectableText(
+                  message.text!,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: isSentByMe
+                        ? null
+                        : theme.materialThemeData.colorScheme.surface,
+                  ),
                 ),
+                VerticalGap.small(),
+              ],
+              if (message.files?.isNotEmpty == true) ...[
+                Column(
+                  children: [
+                    if (message.files![0].type == FileType.image)
+                      GestureDetector(
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            contentPadding: EdgeInsets.zero,
+                            insetPadding: EdgeInsets.zero,
+                            content: InteractiveViewer(
+                              child: Image.network(
+                                message.files![0].dlUrl!,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            alignment: Alignment.bottomCenter,
+                            actionsAlignment: MainAxisAlignment.spaceBetween,
+                            actionsPadding: const EdgeInsets.only(
+                              top: Spacing.large,
+                            ),
+                            actions: [
+                              IconButton(
+                                onPressed: () {
+                                  downloadFile(message.files![0]);
+                                },
+                                icon: const SvgAsset(
+                                    AssetPathConstants.downloadPath),
+                              ),
+                              IconButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  icon: const Icon(Icons.arrow_forward_ios))
+                            ],
+                          ),
+                        ),
+                        child: Image.network(
+                          message.files![0].dlUrl!,
+                          fit: BoxFit.fitHeight,
+                          height: 100,
+                        ),
+                      ),
+                    if (message.files![0].type == FileType.document)
+                      IconButton(
+                        icon: const Icon(Icons.insert_drive_file),
+                        onPressed: () {
+                          openDocument(message.files![0].dlUrl!);
+                        },
+                      ),
+                    VerticalGap.xSmall(),
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        message.files![0].name,
+                        style: textTheme.bodySmall,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      message.files![0].extension.toUpperCase(),
+                      style: textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+                VerticalGap.small(),
+              ],
+              Row(
+                children: [
+                  const Spacer(),
+                  SelectableText(
+                    message.date.formatDateTimeTo12Hour()!,
+                    textDirection: TextDirection.ltr,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: isSentByMe
+                          ? const Color(0xFF797979)
+                          : theme.materialThemeData.colorScheme.surface,
+                    ),
+                  ),
+                ],
               ),
             ],
-          )
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 }

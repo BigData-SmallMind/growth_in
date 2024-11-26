@@ -128,6 +128,12 @@ abstract class ChatLocalizations {
   /// In en, this message translates to:
   /// **'No messages yet'**
   String get noMessagesIndicator;
+
+  /// No description provided for @messageSentByMeCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get messageSentByMeCardTitle;
 }
 
 class _ChatLocalizationsDelegate extends LocalizationsDelegate<ChatLocalizations> {
