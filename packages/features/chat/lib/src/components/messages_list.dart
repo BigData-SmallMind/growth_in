@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:video_player/video_player.dart';
 
 class MessagesList extends StatelessWidget {
   const MessagesList({
@@ -119,9 +120,7 @@ class MessageCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final isSentByMe = message.isSentByMe;
     final l10n = ChatLocalizations.of(context);
-    final hasImageOrVideo = message.files?.any((file) =>
-            file.type == FileType.image || file.type == FileType.video) ==
-        true;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -224,6 +223,38 @@ class MessageCard extends StatelessWidget {
                           openDocument(message.files![0].dlUrl!);
                         },
                       ),
+                    if (message.files![0].type == FileType.video)
+                      GestureDetector(
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (dialogContext) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            contentPadding: EdgeInsets.zero,
+                            insetPadding: EdgeInsets.zero,
+                            content: Video(url: message.files![0].dlUrl!),
+                            alignment: Alignment.bottomCenter,
+                            actionsAlignment: MainAxisAlignment.spaceBetween,
+                            actionsPadding: const EdgeInsets.only(
+                              top: Spacing.large,
+                            ),
+                            actions: [
+                              IconButton(
+                                onPressed: () {
+                                  downloadFile(message.files![0]);
+                                },
+                                icon: const SvgAsset(
+                                    AssetPathConstants.downloadPath),
+                              ),
+                              IconButton(
+                                  onPressed: () => Navigator.pop(dialogContext),
+                                  icon: const Icon(Icons.arrow_forward_ios))
+                            ],
+                          ),
+                        ),
+                        child: const Icon(Icons.video_camera_front_sharp),
+                      ),
                     VerticalGap.xSmall(),
                     SizedBox(
                       width: 100,
@@ -260,5 +291,82 @@ class MessageCard extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class Video extends StatefulWidget {
+  const Video({
+    super.key,
+    required this.url,
+  });
+
+  final String url;
+
+  @override
+  VideoState createState() => VideoState();
+}
+
+class VideoState extends State<Video> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse(widget.url),
+      videoPlayerOptions: VideoPlayerOptions(),
+    )..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: _controller.value.isInitialized
+          ? AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: Stack(
+                children: [
+                  VideoPlayer(_controller),
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                      child: IconButton(
+                        color: Colors.white,
+                        icon: Icon(
+                          _controller.value.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (_controller.value.isPlaying) {
+                              _controller.pause();
+                            } else {
+                              _controller.play();
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          : const CenteredCircularProgressIndicator(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
