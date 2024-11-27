@@ -158,3 +158,18 @@ extension ListMeetingSlotStringtoDM on List<String> {
     return map((e) => e.toDomainModel()).toList();
   }
 }
+
+extension MeetingSlotRMtoDM on MeetingSlotRM {
+  MeetingSlotAvailable toDomainModel() {
+    return MeetingSlotAvailable(
+      date: DateTime.parse(day),
+      hasFreeSlots: hasFreeSlots,
+    );
+  }
+}
+
+extension ListMeetingSlottoDM on List<MeetingSlotRM> {
+  List<MeetingSlotAvailable> toDomainModel() {
+    return map((e) => e.toDomainModel()).toList();
+  }
+}

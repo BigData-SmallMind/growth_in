@@ -255,6 +255,9 @@ class UrlBuilder {
   String buildGetChatMessagesUrl() {
     return '$_baseUrl/fetch-open-chat-messages';
   }
+  String buildGetGetAvailableMeetingSlotsUrl() {
+    return '$_baseUrl/slots-month-year';
+  }
 
   String buildSendChatMessageUrl({required int companyId}) {
     return '$_baseUrl/send-open-chat-messages/$companyId';

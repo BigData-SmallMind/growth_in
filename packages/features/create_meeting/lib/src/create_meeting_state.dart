@@ -9,8 +9,12 @@ class CreateMeetingState extends Equatable {
     this.files = const [],
     this.meetingTypes = const [],
     this.selectedType = const Dynamic<MeetingType?>.unvalidated(),
-    this.availableSlotsFetchStatus = AvailableSlotsFetchStatus.initial,
-    this.availableSlots,
+    this.availableSlotsInADayFetchStatus =
+        AvailableSlotsInADayFetchStatus.initial,
+    this.availableSlotsInADay,
+    this.availableSlotsInAMonthFetchStatus =
+        AvailableSlotsInAMonthFetchStatus.initial,
+    this.availableSlotsInAMonth = const [],
     this.selectedDay,
     this.selectedSlot,
     this.submissionStatus = FormzSubmissionStatus.initial,
@@ -23,8 +27,10 @@ class CreateMeetingState extends Equatable {
   final List<File> files;
   final List<MeetingType> meetingTypes;
   final Dynamic<MeetingType?> selectedType;
-  final AvailableSlotsFetchStatus availableSlotsFetchStatus;
-  final List<MeetingSlot>? availableSlots;
+  final AvailableSlotsInADayFetchStatus availableSlotsInADayFetchStatus;
+  final List<MeetingSlot>? availableSlotsInADay;
+  final AvailableSlotsInAMonthFetchStatus availableSlotsInAMonthFetchStatus;
+  final List<MeetingSlotAvailable> availableSlotsInAMonth;
   final DateTime? selectedDay;
   final MeetingSlot? selectedSlot;
   final FormzSubmissionStatus submissionStatus;
@@ -47,8 +53,8 @@ class CreateMeetingState extends Equatable {
     List<File>? files,
     List<MeetingType>? meetingTypes,
     Dynamic<MeetingType?>? selectedType,
-    AvailableSlotsFetchStatus? availableSlotsFetchStatus,
-    List<MeetingSlot>? availableSlots,
+    AvailableSlotsInADayFetchStatus? availableSlotsInADayFetchStatus,
+    List<MeetingSlot>? availableSlotsInADay,
     DateTime? selectedDay,
     MeetingSlot? selectedSlot,
     FormzSubmissionStatus? submissionStatus,
@@ -61,9 +67,9 @@ class CreateMeetingState extends Equatable {
       description: description ?? this.description,
       files: files ?? this.files,
       meetingTypes: meetingTypes ?? this.meetingTypes,
-      availableSlotsFetchStatus:
-          availableSlotsFetchStatus ?? this.availableSlotsFetchStatus,
-      availableSlots: availableSlots ?? this.availableSlots,
+      availableSlotsInADayFetchStatus: availableSlotsInADayFetchStatus ??
+          this.availableSlotsInADayFetchStatus,
+      availableSlotsInADay: availableSlotsInADay ?? this.availableSlotsInADay,
       selectedType: selectedType ?? this.selectedType,
       selectedDay: selectedDay ?? this.selectedDay,
       selectedSlot: selectedSlot ?? this.selectedSlot,
@@ -71,8 +77,8 @@ class CreateMeetingState extends Equatable {
     );
   }
 
-  CreateMeetingState copyWithAvailableSlotsStatus({
-    AvailableSlotsFetchStatus? availableSlotsFetchStatus,
+  CreateMeetingState copyWithAvailableSlotsInADayStatus({
+    AvailableSlotsInADayFetchStatus? availableSlotsFetchStatus,
     List<MeetingSlot>? availableSlots,
     DateTime? selectedDay,
   }) {
@@ -84,12 +90,37 @@ class CreateMeetingState extends Equatable {
       files: files,
       meetingTypes: meetingTypes,
       selectedType: selectedType,
-      availableSlotsFetchStatus:
-          availableSlotsFetchStatus ?? AvailableSlotsFetchStatus.loading,
-      availableSlots: availableSlots,
+      availableSlotsInADayFetchStatus:
+          availableSlotsFetchStatus ?? AvailableSlotsInADayFetchStatus.loading,
+      availableSlotsInAMonth: availableSlotsInAMonth,
+      availableSlotsInAMonthFetchStatus: availableSlotsInAMonthFetchStatus,
+      availableSlotsInADay: availableSlots,
       selectedDay: selectedDay,
       selectedSlot: null,
       submissionStatus: submissionStatus,
+    );
+  }
+
+  CreateMeetingState copyWithAvailableSlotsInMonthStatus({
+    required AvailableSlotsInAMonthFetchStatus availableSlotsInMonthFetchStatus,
+    required List<MeetingSlotAvailable> availableSlotsInAMonth,
+  }) {
+    return CreateMeetingState(
+      currentStep: currentStep,
+      meetingTypesFetchStatus: meetingTypesFetchStatus,
+      title: title,
+      description: description,
+      files: files,
+      meetingTypes: meetingTypes,
+      selectedType: selectedType,
+      availableSlotsInADayFetchStatus: availableSlotsInADayFetchStatus,
+      availableSlotsInADay: availableSlotsInADay,
+      availableSlotsInAMonthFetchStatus: availableSlotsInMonthFetchStatus,
+      availableSlotsInAMonth: availableSlotsInAMonth,
+      selectedDay: selectedDay,
+      selectedSlot: null,
+      submissionStatus: submissionStatus,
+
     );
   }
 
@@ -102,8 +133,10 @@ class CreateMeetingState extends Equatable {
         files,
         meetingTypes,
         selectedType,
-        availableSlotsFetchStatus,
-        availableSlots,
+        availableSlotsInADayFetchStatus,
+        availableSlotsInADay,
+        availableSlotsInAMonthFetchStatus,
+        availableSlotsInAMonth,
         selectedDay,
         selectedSlot,
         submissionStatus,
@@ -117,7 +150,14 @@ enum MeetingTypesFetchStatus {
   failure,
 }
 
-enum AvailableSlotsFetchStatus {
+enum AvailableSlotsInADayFetchStatus {
+  initial,
+  loading,
+  success,
+  failure,
+}
+
+enum AvailableSlotsInAMonthFetchStatus {
   initial,
   loading,
   success,

@@ -68,6 +68,9 @@ class ScheduleMeetingView extends StatelessWidget {
                   availableSlots: state.availableSlots,
                   selectedMeetingSlot: state.selectedSlot,
                   selectMeetingSlot: cubit.selectMeetingSlot,
+                  //TODO: implement getAvailableSlotsInMonth
+                  // getAvailableSlotsInMonth: (){},
+                  // availableSlotsInMonth: state.availableSlotsInMonth,
                 ),
               ),
               schedulingInProgress

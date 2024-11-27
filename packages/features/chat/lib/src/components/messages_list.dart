@@ -315,18 +315,24 @@ class VideoState extends State<Video> {
 
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.url),
-      videoPlayerOptions: VideoPlayerOptions(),
-    )..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
+    );
+    _controller.initialize().then((_) {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: _controller.value.isInitialized
-          ? AspectRatio(
+    return _controller.value.isInitialized
+        ? GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_controller.value.isPlaying) {
+                  _controller.pause();
+                }
+              });
+            },
+            child: AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
               child: Stack(
                 children: [
@@ -337,31 +343,26 @@ class VideoState extends State<Video> {
                         shape: BoxShape.circle,
                         color: Colors.black.withOpacity(0.5),
                       ),
-                      child: IconButton(
-                        color: Colors.white,
-                        icon: Icon(
-                          _controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            if (_controller.value.isPlaying) {
-                              _controller.pause();
-                            } else {
-                              _controller.play();
-                            }
-                          });
-                        },
-                      ),
+                      child: !_controller.value.isPlaying
+                          ? IconButton(
+                              icon: const Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _controller.play();
+                                });
+                              },
+                            )
+                          : const SizedBox(),
                     ),
                   ),
-
                 ],
               ),
-            )
-          : const CenteredCircularProgressIndicator(),
-    );
+            ),
+          )
+        : const CenteredCircularProgressIndicator();
   }
 
   @override

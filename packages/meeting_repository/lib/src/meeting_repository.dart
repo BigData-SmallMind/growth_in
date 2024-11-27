@@ -56,7 +56,7 @@ class MeetingRepository {
     required DateTime date,
   }) async {
     try {
-      final availableSlotsDM = await remoteApi.meetings.getAvailableSlots(
+      final availableSlotsDM = await remoteApi.meetings.getAvailableSlotsInADay(
         date: date.millisecondsSinceEpoch,
       );
       final availableSlots = availableSlotsDM.toDomainModel();
@@ -110,6 +110,24 @@ class MeetingRepository {
         files: files,
       );
       changeNotifier.setShouldReFetchMeetings(true);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<MeetingSlotAvailable>> getAvailableMeetingSlotsInAMonth({
+    required DateTime date,
+  }) async {
+    //date to timestamp
+    final timestamp = date.millisecondsSinceEpoch;
+    try {
+      final availableSlotsDM =
+          await remoteApi.meetings.getAvailableSlotsInAMonth(
+        timestamp: timestamp,
+      );
+      final availableSlots = availableSlotsDM.toDomainModel();
+
+      return availableSlots;
     } catch (error) {
       rethrow;
     }

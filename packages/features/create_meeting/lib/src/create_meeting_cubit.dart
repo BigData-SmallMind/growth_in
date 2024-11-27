@@ -118,6 +118,66 @@ class CreateMeetingCubit extends Cubit<CreateMeetingState> {
     emit(newState);
   }
 
+  void getAvailableSlotsForSelectedMonth(DateTime date) async {
+    final loading = state.copyWithAvailableSlotsInMonthStatus(
+      availableSlotsInMonthFetchStatus:
+          AvailableSlotsInAMonthFetchStatus.loading,
+      availableSlotsInAMonth: const [],
+    );
+    emit(loading);
+    try {
+      final availableSlotsInAMonth =
+          await meetingRepository.getAvailableMeetingSlotsInAMonth(date: date);
+      final success = state.copyWithAvailableSlotsInMonthStatus(
+        availableSlotsInMonthFetchStatus:
+            AvailableSlotsInAMonthFetchStatus.success,
+        availableSlotsInAMonth: availableSlotsInAMonth,
+      );
+      emit(success);
+    } catch (error) {
+      final failure = state.copyWithAvailableSlotsInMonthStatus(
+        availableSlotsInMonthFetchStatus:
+            AvailableSlotsInAMonthFetchStatus.failure,
+        availableSlotsInAMonth: const [],
+      );
+      emit(failure);
+    }
+  }
+
+  void getAvailableSlots(DateTime date) async {
+    final loadingAvailableSlots = state.copyWithAvailableSlotsInADayStatus(
+      availableSlotsFetchStatus: AvailableSlotsInADayFetchStatus.loading,
+      availableSlots: const [],
+      selectedDay: date,
+    );
+    emit(loadingAvailableSlots);
+    try {
+      final availableSlots = await meetingRepository.getAvailableSlots(
+        date: date,
+      );
+      final successAvailableSlots = state.copyWithAvailableSlotsInADayStatus(
+        availableSlots: availableSlots,
+        selectedDay: state.selectedDay,
+        availableSlotsFetchStatus: AvailableSlotsInADayFetchStatus.success,
+      );
+      emit(successAvailableSlots);
+    } catch (error) {
+      final failureAvailableSlots = state.copyWithAvailableSlotsInADayStatus(
+        availableSlotsFetchStatus: AvailableSlotsInADayFetchStatus.failure,
+        selectedDay: state.selectedDay,
+        availableSlots: const [],
+      );
+      emit(failureAvailableSlots);
+    }
+  }
+
+  void selectMeetingSlot(MeetingSlot meetingSlot) {
+    final newState = state.copyWith(
+      selectedSlot: meetingSlot,
+    );
+    emit(newState);
+  }
+
   void onFirstStepSubmit() async {
     final title = Dynamic<String>.validated(
       state.title.value,
@@ -145,41 +205,9 @@ class CreateMeetingCubit extends Cubit<CreateMeetingState> {
         currentStep: 1,
       );
       emit(newState);
+      getAvailableSlotsForSelectedMonth(state.selectedDay ?? DateTime.now());
+      // getAvailableSlots(state.selectedDay ?? DateTime.now());
     }
-  }
-
-  void getAvailableSlots(DateTime date) async {
-    final loadingAvailableSlots = state.copyWithAvailableSlotsStatus(
-      availableSlotsFetchStatus: AvailableSlotsFetchStatus.loading,
-      availableSlots: const [],
-      selectedDay: date,
-    );
-    emit(loadingAvailableSlots);
-    try {
-      final availableSlots = await meetingRepository.getAvailableSlots(
-        date: date,
-      );
-      final successAvailableSlots = state.copyWithAvailableSlotsStatus(
-        availableSlots: availableSlots,
-        selectedDay: state.selectedDay,
-        availableSlotsFetchStatus: AvailableSlotsFetchStatus.success,
-      );
-      emit(successAvailableSlots);
-    } catch (error) {
-      final failureAvailableSlots = state.copyWithAvailableSlotsStatus(
-        availableSlotsFetchStatus: AvailableSlotsFetchStatus.failure,
-        selectedDay: state.selectedDay,
-        availableSlots: const [],
-      );
-      emit(failureAvailableSlots);
-    }
-  }
-
-  void selectMeetingSlot(MeetingSlot meetingSlot) {
-    final newState = state.copyWith(
-      selectedSlot: meetingSlot,
-    );
-    emit(newState);
   }
 
   void onSecondStepSubmit() async {

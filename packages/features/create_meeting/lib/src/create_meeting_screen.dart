@@ -55,8 +55,8 @@ class CreateMeetingView extends StatelessWidget {
         final fetchingMeetingTypes =
             state.meetingTypesFetchStatus == MeetingTypesFetchStatus.inProgress;
         final cubit = context.read<CreateMeetingCubit>();
-        final isLoadingSlots = state.availableSlotsFetchStatus ==
-            AvailableSlotsFetchStatus.loading;
+        final isLoadingSlots = state.availableSlotsInADayFetchStatus ==
+            AvailableSlotsInADayFetchStatus.loading;
         final textTheme = Theme.of(context).textTheme;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
@@ -130,9 +130,16 @@ class CreateMeetingView extends StatelessWidget {
                               expandCalendar: false,
                               isLoadingSlots: isLoadingSlots,
                               getAvailableSlots: cubit.getAvailableSlots,
-                              availableSlots: state.availableSlots,
+                              availableSlots: state.availableSlotsInADay,
                               selectedMeetingSlot: state.selectedSlot,
                               selectMeetingSlot: cubit.selectMeetingSlot,
+                              isLoadingAvailableSlotsInAMonth:
+                                  state.availableSlotsInAMonthFetchStatus ==
+                                      AvailableSlotsInAMonthFetchStatus.loading,
+                              fetchAvailableSlotsInMonth: (date) =>
+                                  cubit.getAvailableSlotsForSelectedMonth(date),
+                              availableSlotsInMonth: state.availableSlotsInAMonth,
+                              selectedDate: state.selectedDay,
                             ),
                             label: state.currentStep == 1
                                 ? Text(l10n.stepTwoLabel)
@@ -261,8 +268,9 @@ class CreateMeetingView extends StatelessWidget {
                                   : l10n.nextStepButtonLabel,
                               onTap: (state.currentStep == 1 &&
                                           state.selectedSlot == null) ||
-                                      (state.availableSlotsFetchStatus ==
-                                          AvailableSlotsFetchStatus.loading)
+                                      (state.availableSlotsInADayFetchStatus ==
+                                          AvailableSlotsInADayFetchStatus
+                                              .loading)
                                   ? null
                                   : cubit.onStepContinue,
                             ),

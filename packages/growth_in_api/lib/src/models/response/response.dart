@@ -14,6 +14,7 @@ export 'src/campaign_rm.dart';
 export 'src/post_rm.dart';
 export 'src/forms_sections_rm.dart';
 export 'src/project_rm.dart';
+export 'src/meeting_slot_rm.dart';
 export 'src/file_rm.dart';
 export 'src/folder_rm.dart';
 export 'src/ticket_message_rm.dart';

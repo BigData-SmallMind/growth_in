@@ -9,6 +9,7 @@ class MeetingsApi {
   final UrlBuilder _urlBuilder;
   static const _meetingTypeJsonKey = 'meeting_type';
   static const _slotsJsonKey = 'slots';
+  static const _daysJsonKey = 'days';
   static const _latestUpcomingMeetingJsonKey = 'latestUpcomingMeeting';
 
   MeetingsApi(
@@ -73,7 +74,7 @@ class MeetingsApi {
     }
   }
 
-  Future<List<String>> getAvailableSlots({required int date}) async {
+  Future<List<String>> getAvailableSlotsInADay({required int date}) async {
     final url = _urlBuilder.buildGetAvailableSlotsUrl();
     try {
       final response = await _dio.get(
@@ -142,6 +143,24 @@ class MeetingsApi {
         data: formData,
       );
       debugPrint('response: $response');
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<MeetingSlotRM>> getAvailableSlotsInAMonth({
+    required int timestamp,
+  }) async {
+    final url = _urlBuilder.buildGetGetAvailableMeetingSlotsUrl();
+    try {
+      final response = await _dio.get(
+        url,
+        queryParameters: {'timestamp': timestamp},
+      );
+      final slots = response.data[_daysJsonKey] as List;
+      final slotsRM =
+          slots.map((slot) => MeetingSlotRM.fromJson(slot)).toList();
+      return slotsRM;
     } catch (_) {
       rethrow;
     }

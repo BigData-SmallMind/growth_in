@@ -14,6 +14,7 @@ export 'src/folder.dart';
 export 'src/request.dart';
 export 'src/chat_messages.dart';
 export 'src/meeting.dart';
+export 'src/meeting_slot_available.dart';
 export 'src/post.dart';
 export 'src/post_version.dart';
 export 'src/campaign.dart';
