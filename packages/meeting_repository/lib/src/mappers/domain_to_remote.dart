@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:growth_in_api/growth_in_api.dart';
 import 'package:intl/intl.dart';
 
 extension MeetingSlotDMtoRM on MeetingSlot {
@@ -35,5 +36,15 @@ extension MeetingSlotDMtoRM on MeetingSlot {
     } catch (error) {
       rethrow;
     }
+  }
+}
+
+extension MeetingTypeDMtoRM on MeetingType {
+  MeetingTypeRM toRemoteModel() {
+    return MeetingTypeRM(
+      id: id,
+      name: name,
+      color: color,
+    );
   }
 }

@@ -6,7 +6,7 @@ part 'meeting_rm.g.dart';
 class MeetingRM {
   MeetingRM({
     required this.id,
-    required this.type,
+    this.type,
     required this.title,
     this.startDate,
     this.endDate,
@@ -21,7 +21,7 @@ class MeetingRM {
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'meeting_type')
-  final String type;
+  final String? type;
   @JsonKey(name: 'meeting_title')
   final String title;
   @JsonKey(name: 'meeting_start_date')
@@ -80,12 +80,15 @@ class MeetingTypeRM {
   MeetingTypeRM({
     required this.id,
     required this.name,
+    required this.color,
   });
 
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'name')
   final String name;
+  @JsonKey(name: 'color')
+  final String color;
 
   static const fromJson = _$MeetingTypeRMFromJson;
 }

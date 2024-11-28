@@ -12,7 +12,7 @@ MeetingRM _$MeetingRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = MeetingRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
-          type: $checkedConvert('meeting_type', (v) => v as String),
+          type: $checkedConvert('meeting_type', (v) => v as String?),
           title: $checkedConvert('meeting_title', (v) => v as String),
           startDate: $checkedConvert('meeting_start_date', (v) => v as String?),
           endDate: $checkedConvert('meeting_end_date', (v) => v as String?),
@@ -82,6 +82,7 @@ MeetingTypeRM _$MeetingTypeRMFromJson(Map<String, dynamic> json) =>
         final val = MeetingTypeRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           name: $checkedConvert('name', (v) => v as String),
+          color: $checkedConvert('color', (v) => v as String),
         );
         return val;
       },

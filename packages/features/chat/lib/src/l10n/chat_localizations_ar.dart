@@ -2,7 +2,7 @@ import 'chat_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ChatLocalizationsAr extends ChatLocalizations {
-  ChatLocalizationsAr([String locale = 'ar']) : super(locale);
+  ChatLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get appBarTitle => 'الرسائل';

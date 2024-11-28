@@ -2,7 +2,7 @@ import 'post_version_details_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class PostVersionDetailsLocalizationsAr extends PostVersionDetailsLocalizations {
-  PostVersionDetailsLocalizationsAr([String locale = 'ar']) : super(locale);
+  PostVersionDetailsLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get approvePostButtonLabel => 'موافقة';

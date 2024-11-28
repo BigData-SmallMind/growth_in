@@ -27,13 +27,10 @@ class MeetingCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height:
-            type == MeetingCardVariation.past ? null : 130,
+        height: type == MeetingCardVariation.past ? null : 130,
         padding: EdgeInsets.only(
           top: Spacing.medium,
-          bottom: type == MeetingCardVariation.past
-              ? Spacing.medium
-              : 0,
+          bottom: type == MeetingCardVariation.past ? Spacing.medium : 0,
         ),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -49,18 +46,20 @@ class MeetingCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spacing.medium),
-              child: Text(
-                meeting.type,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.labelMedium?.copyWith(
-                  color: const Color(0xFF797979),
+            if (meeting.type != null) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Spacing.medium),
+                child: Text(
+                  meeting.type!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.labelMedium?.copyWith(
+                    color: const Color(0xFF797979),
+                  ),
                 ),
               ),
-            ),
-            VerticalGap.small(),
+              VerticalGap.small(),
+            ],
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: Spacing.medium),
               child: Text(

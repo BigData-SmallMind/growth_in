@@ -14,7 +14,6 @@ class MeetingsCubit extends Cubit<MeetingsState> {
     required this.onCancelMeetingTapped,
     required this.onCreateMeetingTapped,
     required this.onScheduleMeetingTapped,
-
   }) : super(
           const MeetingsState(),
         ) {
@@ -64,9 +63,9 @@ class MeetingsCubit extends Cubit<MeetingsState> {
     onMeetingTapped(meeting.id);
   }
 
-  // @override
-  // Future<void> close() async {
-  //   debugPrint('asdasdas');
-  //   return super.close();
-  // }
+// @override
+// Future<void> close() async {
+//   debugPrint('asdasdas');
+//   return super.close();
+// }
 }

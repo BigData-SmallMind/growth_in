@@ -48,7 +48,7 @@ class ScheduleMeetingView extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final cubit = context.read<ScheduleMeetingCubit>();
-        final isLoadingSlots = state.availableSlotsFetchStatus ==
+        final isLoadingSlots = state.availableSlotsInADayFetchStatus ==
             AvailableSlotsFetchStatus.loading;
         final schedulingInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
@@ -65,12 +65,16 @@ class ScheduleMeetingView extends StatelessWidget {
                   expandCalendar: true,
                   isLoadingSlots: isLoadingSlots,
                   getAvailableSlots: cubit.getAvailableSlots,
-                  availableSlots: state.availableSlots,
+                  availableSlots: state.availableSlotsInADay,
                   selectedMeetingSlot: state.selectedSlot,
                   selectMeetingSlot: cubit.selectMeetingSlot,
-                  //TODO: implement getAvailableSlotsInMonth
-                  // getAvailableSlotsInMonth: (){},
-                  // availableSlotsInMonth: state.availableSlotsInMonth,
+                  isLoadingAvailableSlotsInAMonth:
+                      state.availableSlotsInAMonthFetchStatus ==
+                          AvailableSlotsInAMonthFetchStatus.loading,
+                  fetchAvailableSlotsInMonth: (date) =>
+                      cubit.getAvailableSlotsForSelectedMonth(date),
+                  availableSlotsInMonth: state.availableSlotsInAMonth,
+                  selectedDate: state.selectedDay,
                 ),
               ),
               schedulingInProgress

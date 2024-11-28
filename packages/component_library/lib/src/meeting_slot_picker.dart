@@ -14,10 +14,10 @@ class MeetingSlotPicker extends StatefulWidget {
     required this.selectedMeetingSlot,
     required this.selectMeetingSlot,
     required this.expandCalendar,
-    this.fetchAvailableSlotsInMonth,
-    this.availableSlotsInMonth = const [],
-    this.isLoadingAvailableSlotsInAMonth = false,
-    this.selectedDate,
+    required this.fetchAvailableSlotsInMonth,
+    required this.availableSlotsInMonth ,
+    required this.isLoadingAvailableSlotsInAMonth,
+    required this.selectedDate,
   });
 
   final bool isLoadingSlots;
@@ -48,94 +48,85 @@ class _MeetingSlotPickerState extends State<MeetingSlotPicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.35,
-          child: /*widget.isLoadingAvailableSlotsInAMonth
-              ? const CenteredCircularProgressIndicator()
-              : */
-              SfDateRangePicker(
-            backgroundColor: colorScheme.surface,
-            selectionColor: Colors.transparent,
-            showNavigationArrow: true,
-            allowViewNavigation: true,
-            headerStyle: DateRangePickerHeaderStyle(
-              textAlign: TextAlign.center,
-              backgroundColor: Colors.transparent,
-              textStyle:
-                  textTheme.titleMedium?.copyWith(color: theme.primaryColor),
-            ),
-            onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-              widget.getAvailableSlots(args.value as DateTime);
-            },
-            onViewChanged: (DateRangePickerViewChangedArgs args) {
-              widget.fetchAvailableSlotsInMonth!(
-                args.visibleDateRange.startDate!,
-              );
-            },
-            cellBuilder: (context, cellDetails) {
-              final hasFreeSlots = widget.availableSlotsInMonth?.any(
-                (meetingSlotAvailable) =>
-                    meetingSlotAvailable.date.year == cellDetails.date.year &&
-                    meetingSlotAvailable.date.month == cellDetails.date.month &&
-                    meetingSlotAvailable.date.day == cellDetails.date.day &&
-                    meetingSlotAvailable.hasFreeSlots,
-              );
-              final isSelected =
-                  widget.selectedDate?.year == cellDetails.date.year &&
-                      widget.selectedDate?.month == cellDetails.date.month &&
-                      widget.selectedDate?.day == cellDetails.date.day;
-              final isPastDate = cellDetails.date
-                  .isBefore(DateTime.now().subtract(const Duration(days: 1)));
-              return widget.isLoadingAvailableSlotsInAMonth
-                  ? const SizedBox()
-                  : Stack(
-                      children: [
-                        Container(
-                          width: cellDetails.bounds.width,
-                          height: cellDetails.bounds.height,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: isSelected ? theme.primaryColor : null,
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            cellDetails.date.day.toString(),
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: isPastDate
-                                  ? Colors.grey
-                                  : isSelected
-                                      ? colorScheme.surface
-                                      : colorScheme.onSurface,
-                            ),
+        SfDateRangePicker(
+          backgroundColor: colorScheme.surface,
+          selectionColor: Colors.transparent,
+          showNavigationArrow: true,
+          allowViewNavigation: true,
+          headerStyle: DateRangePickerHeaderStyle(
+            textAlign: TextAlign.center,
+            backgroundColor: Colors.transparent,
+            textStyle:
+                textTheme.titleMedium?.copyWith(color: theme.primaryColor),
+          ),
+          onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+            widget.getAvailableSlots(args.value as DateTime);
+          },
+          onViewChanged: (DateRangePickerViewChangedArgs args) {
+            if (widget.fetchAvailableSlotsInMonth == null) return;
+            widget.fetchAvailableSlotsInMonth!(
+              args.visibleDateRange.startDate!,
+            );
+          },
+          cellBuilder: (context, cellDetails) {
+            final hasFreeSlots = widget.availableSlotsInMonth?.any(
+              (meetingSlotAvailable) =>
+                  meetingSlotAvailable.date.year == cellDetails.date.year &&
+                  meetingSlotAvailable.date.month == cellDetails.date.month &&
+                  meetingSlotAvailable.date.day == cellDetails.date.day &&
+                  meetingSlotAvailable.hasFreeSlots,
+            );
+            final isSelected =
+                widget.selectedDate?.year == cellDetails.date.year &&
+                    widget.selectedDate?.month == cellDetails.date.month &&
+                    widget.selectedDate?.day == cellDetails.date.day;
+            final isPastDate = cellDetails.date
+                .isBefore(DateTime.now().subtract(const Duration(days: 1)));
+            return widget.isLoadingAvailableSlotsInAMonth
+                ? const SizedBox()
+                : Stack(
+                    children: [
+                      Container(
+                        width: cellDetails.bounds.width,
+                        height: cellDetails.bounds.height,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: isSelected ? theme.primaryColor : null,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          cellDetails.date.day.toString(),
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: isPastDate
+                                ? Colors.grey
+                                : isSelected
+                                    ? colorScheme.surface
+                                    : colorScheme.onSurface,
                           ),
                         ),
-                        hasFreeSlots == true
-                            ? Positioned.fill(
-                                bottom: 5,
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Icon(
-                                    Icons.circle,
-                                    size: 5,
-                                    color: isSelected
-                                        ? colorScheme.surface
-                                        : Colors.green,
-                                  ),
+                      ),
+                      hasFreeSlots == true
+                          ? Positioned.fill(
+                              bottom: 5,
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 5,
+                                  color: isSelected
+                                      ? colorScheme.surface
+                                      : Colors.green,
                                 ),
-                              )
-                            : const SizedBox()
-                      ],
-                    );
-            },
-            enablePastDates: false,
-            selectionMode: DateRangePickerSelectionMode.single,
-          ),
+                              ),
+                            )
+                          : const SizedBox()
+                    ],
+                  );
+          },
+          enablePastDates: false,
+          selectionMode: DateRangePickerSelectionMode.single,
         ),
         VerticalGap.medium(),
-        ElevatedButton(
-          onPressed: () => widget.fetchAvailableSlotsInMonth!(DateTime.now()),
-          child: const Text('asdasd'),
-        ),
         Text(l10n.timeSlotsSectionTitle),
         VerticalGap.medium(),
         if (widget.expandCalendar)

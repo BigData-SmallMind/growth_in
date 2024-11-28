@@ -12,7 +12,8 @@ class UrlBuilder {
   static const String imageDownloadUrl =
       'https://laravel.growth-in.net/subgrowthin/public/images';
 
-  static const String dlUrl = 'https://laravel.growth-in.net/subgrowthin/public';
+  static const String dlUrl =
+      'https://laravel.growth-in.net/subgrowthin/public';
 
   static final UrlBuilder _instance = UrlBuilder._internal();
 
@@ -232,29 +233,24 @@ class UrlBuilder {
 
   String buildCreateMeetingUrl({
     required String title,
-    required String type,
     String? description,
     required String startDate,
-    required int userId,
   }) {
     final meetingPlanSlug =
         description != null ? '&meeting_plan=$description' : '';
-    final titleSlug = '&meeting_title=$title';
-    final typeSlug = '&meeting_type=$type';
+    final titleSlug = 'meeting_title=$title';
     final dateSlug = '&meeting_date=$startDate';
-    final userIdSlug = '&user_id=$userId';
     final completeUrl = '$_baseUrl/meetings?'
         '$titleSlug'
         '$meetingPlanSlug'
-        '$typeSlug'
-        '$dateSlug'
-        '$userIdSlug';
+        '$dateSlug';
     return completeUrl;
   }
 
   String buildGetChatMessagesUrl() {
     return '$_baseUrl/fetch-open-chat-messages';
   }
+
   String buildGetGetAvailableMeetingSlotsUrl() {
     return '$_baseUrl/slots-month-year';
   }

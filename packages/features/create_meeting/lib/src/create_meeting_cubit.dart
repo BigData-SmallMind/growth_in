@@ -224,16 +224,14 @@ class CreateMeetingCubit extends Cubit<CreateMeetingState> {
 
     emit(newState);
 
-    final user = await userRepository.getUser().first;
     try {
       await meetingRepository.createMeeting(
         title: state.title.value!,
         description: state.description,
         files: state.files,
-        type: state.selectedType.value!.name,
+        type: state.selectedType.value!,
         meetingSlot: state.selectedSlot!,
         selectedDay: state.selectedDay!,
-        userId: user!.id,
       );
 
       final newState = state.copyWith(

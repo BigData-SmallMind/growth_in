@@ -73,6 +73,8 @@ class CreateMeetingState extends Equatable {
       selectedType: selectedType ?? this.selectedType,
       selectedDay: selectedDay ?? this.selectedDay,
       selectedSlot: selectedSlot ?? this.selectedSlot,
+      availableSlotsInAMonthFetchStatus: availableSlotsInAMonthFetchStatus,
+      availableSlotsInAMonth: availableSlotsInAMonth,
       submissionStatus: submissionStatus ?? this.submissionStatus,
     );
   }

@@ -93,20 +93,18 @@ class MeetingRepository {
 
   Future createMeeting({
     required String title,
-    required String type,
+    required MeetingType type,
     String? description,
     required MeetingSlot meetingSlot,
     required DateTime selectedDay,
-    required int userId,
     List<File>? files,
   }) async {
     try {
       await remoteApi.meetings.createMeeting(
         title: title,
-        type: type,
+        type: type.toRemoteModel(),
         description: description,
         startDate: meetingSlot.toRemoteModel(selectedDay),
-        userId: userId,
         files: files,
       );
       changeNotifier.setShouldReFetchMeetings(true);

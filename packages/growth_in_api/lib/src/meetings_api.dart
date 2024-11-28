@@ -107,16 +107,13 @@ class MeetingsApi {
 
   Future createMeeting({
     required String title,
-    required String type,
+    required MeetingTypeRM type,
     String? description,
     required String startDate,
-    required int userId,
     List<File>? files,
   }) async {
     final url = _urlBuilder.buildCreateMeetingUrl(
-      userId: userId,
       title: title,
-      type: type,
       startDate: startDate,
       description: description,
     );
@@ -134,6 +131,8 @@ class MeetingsApi {
     }
     final requestJsonBody = {
       if (files != null) 'files[]': multipartFiles,
+      'meeting_type[name]': type.name,
+      'meeting_type[color]': type.color,
     };
     final formData = FormData.fromMap(requestJsonBody);
 

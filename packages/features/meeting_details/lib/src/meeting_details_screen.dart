@@ -148,12 +148,14 @@ class MeetingDetailsView extends StatelessWidget {
                               ),
                               VerticalGap.medium(),
                               const Text('--'),
-                              VerticalGap.medium(),
-                              Text(
-                                meeting.type,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                              if (meeting.type != null) ...[
+                                VerticalGap.medium(),
+                                Text(
+                                  meeting.type!,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                               VerticalGap.medium(),
                               Text(
                                 meeting.link ?? '--',
@@ -267,4 +269,3 @@ class MeetingDetailsView extends StatelessWidget {
     );
   }
 }
-

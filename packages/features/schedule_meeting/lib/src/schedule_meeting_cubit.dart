@@ -22,8 +22,8 @@ class ScheduleMeetingCubit extends Cubit<ScheduleMeetingState> {
   final VoidCallback onSchedulingSuccess;
 
   void getAvailableSlots(DateTime date) async {
-    final loadingAvailableSlots = ScheduleMeetingState(
-      availableSlotsFetchStatus: AvailableSlotsFetchStatus.loading,
+    final loadingAvailableSlots = state.copyWith(
+      availableSlotsInADayFetchStatus: AvailableSlotsFetchStatus.loading,
       selectedDay: date,
     );
     emit(loadingAvailableSlots);
@@ -31,17 +31,17 @@ class ScheduleMeetingCubit extends Cubit<ScheduleMeetingState> {
       final availableSlots = await meetingRepository.getAvailableSlots(
         date: date,
       );
-      final successAvailableSlots = ScheduleMeetingState(
-        availableSlots: availableSlots,
+      final successAvailableSlots = state.copyWith(
+        availableSlotsInADay: availableSlots,
         selectedDay: state.selectedDay,
-        availableSlotsFetchStatus: AvailableSlotsFetchStatus.success,
+        availableSlotsInADayFetchStatus: AvailableSlotsFetchStatus.success,
       );
       emit(successAvailableSlots);
     } catch (error) {
-      final failureAvailableSlots = ScheduleMeetingState(
-        availableSlotsFetchStatus: AvailableSlotsFetchStatus.failure,
+      final failureAvailableSlots = state.copyWith(
+        availableSlotsInADayFetchStatus: AvailableSlotsFetchStatus.failure,
         selectedDay: state.selectedDay,
-        availableSlots: const [],
+        availableSlotsInADay: const [],
       );
       emit(failureAvailableSlots);
     }
@@ -74,6 +74,32 @@ class ScheduleMeetingCubit extends Cubit<ScheduleMeetingState> {
     } catch (error) {
       final failure = state.copyWith(
         submissionStatus: FormzSubmissionStatus.failure,
+      );
+      emit(failure);
+    }
+  }
+
+  void getAvailableSlotsForSelectedMonth(DateTime date) async {
+    final loading = state.copyWith(
+      availableSlotsInAMonthFetchStatus:
+          AvailableSlotsInAMonthFetchStatus.loading,
+      availableSlotsInAMonth: const [],
+    );
+    emit(loading);
+    try {
+      final availableSlotsInAMonth =
+          await meetingRepository.getAvailableMeetingSlotsInAMonth(date: date);
+      final success = state.copyWith(
+        availableSlotsInAMonthFetchStatus:
+            AvailableSlotsInAMonthFetchStatus.success,
+        availableSlotsInAMonth: availableSlotsInAMonth,
+      );
+      emit(success);
+    } catch (error) {
+      final failure = state.copyWith(
+        availableSlotsInAMonthFetchStatus:
+            AvailableSlotsInAMonthFetchStatus.failure,
+        availableSlotsInAMonth: const [],
       );
       emit(failure);
     }

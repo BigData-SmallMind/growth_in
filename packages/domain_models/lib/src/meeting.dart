@@ -3,7 +3,7 @@ import 'package:domain_models/domain_models.dart';
 class Meeting {
   const Meeting({
     required this.id,
-    required this.type,
+    this.type,
     required this.title,
     this.startDate,
     this.endDate,
@@ -16,7 +16,7 @@ class Meeting {
   });
 
   final int id;
-  final String type;
+  final String? type;
   final String title;
   final DateTime? startDate;
   final DateTime? endDate;
@@ -85,10 +85,12 @@ class MeetingType {
   const MeetingType({
     required this.id,
     required this.name,
+    required this.color,
   });
 
   final int id;
   final String name;
+  final String color;
 }
 
 enum MeetingCancellationReason {
@@ -143,5 +145,3 @@ class MeetingSlot {
     );
   }
 }
-
-

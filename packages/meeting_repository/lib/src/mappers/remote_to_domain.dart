@@ -129,6 +129,7 @@ extension MeetingTypeRMtoDM on MeetingTypeRM {
     return MeetingType(
       id: id,
       name: name,
+      color: color,
     );
   }
 }

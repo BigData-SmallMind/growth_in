@@ -2,7 +2,7 @@ import 'folders_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class FoldersLocalizationsAr extends FoldersLocalizations {
-  FoldersLocalizationsAr([String locale = 'ar']) : super(locale);
+  FoldersLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get appBarTitle => 'الملفات';

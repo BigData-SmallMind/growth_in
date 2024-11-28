@@ -2,7 +2,7 @@ import 'post_version_details_localizations.dart';
 
 /// The translations for English (`en`).
 class PostVersionDetailsLocalizationsEn extends PostVersionDetailsLocalizations {
-  PostVersionDetailsLocalizationsEn([String locale = 'en']) : super(locale);
+  PostVersionDetailsLocalizationsEn([super.locale = 'en']);
 
   @override
   String get approvePostButtonLabel => 'Approve';
