@@ -119,6 +119,7 @@ extension ChatMessageRMtoDM on ChatMessageRM {
       files: files?.map((file) => file.toDomainModel()).toList(),
       date: dateDM,
       sender: sender.toDomainModel(),
+      messageRepliedTo: messageRepliedTo?.toDomainModel(),
     );
   }
 }

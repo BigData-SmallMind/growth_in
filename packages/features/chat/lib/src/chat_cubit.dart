@@ -176,39 +176,6 @@ class ChatCubit extends Cubit<ChatState> {
     emit(newState);
   }
 
-  void sendMessage() async {
-    final newState = state.copyWith(
-      submissionStatus: ChatSubmissionStatus.inProgress,
-    );
-    emit(newState);
-    try {
-      await userRepository.sendChatMessage(
-        message: state.message,
-        files: state.files,
-      );
-      final newState = state.copyWith(
-        submissionStatus: ChatSubmissionStatus.success,
-      );
-      emit(newState);
-      final initialState = ChatState(
-        dateGroupedChats: state.dateGroupedChats,
-        fetchingStatus: ChatFetchingStatus.initial,
-        submissionStatus: ChatSubmissionStatus.initial,
-        message: null,
-        files: null,
-      );
-      emit(initialState);
-      messageController.clear();
-      // getChat();
-    } catch (e) {
-      final failureState = state.copyWith(
-        submissionStatus: ChatSubmissionStatus.failure,
-      );
-      emit(failureState);
-      rethrow;
-    }
-  }
-
   Stream<DateGroupedChats> get chatStream => userRepository.chatStream();
 
   void openDocument(String url) async {
@@ -228,5 +195,45 @@ class ChatCubit extends Cubit<ChatState> {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  void sendMessage() async {
+    final newState = state.copyWith(
+      submissionStatus: ChatSubmissionStatus.inProgress,
+    );
+    emit(newState);
+    try {
+      await userRepository.sendChatMessage(
+        messageId: state.messageBeingRepliedTo?.id,
+        message: state.message,
+        files: state.files,
+      );
+      final newState = state.copyWith(
+        submissionStatus: ChatSubmissionStatus.success,
+      );
+      emit(newState);
+      final initialState = ChatState(
+        dateGroupedChats: state.dateGroupedChats,
+      );
+      emit(initialState);
+      messageController.clear();
+      // getChat();
+    } catch (e) {
+      final failureState = state.copyWith(
+        submissionStatus: ChatSubmissionStatus.failure,
+      );
+      emit(failureState);
+      rethrow;
+    }
+  }
+
+  void selectMessageToReply(ChatMessage? message) {
+    final newState = ChatState(
+      dateGroupedChats: state.dateGroupedChats,
+      fetchingStatus: state.fetchingStatus,
+      submissionStatus: state.submissionStatus,
+      messageBeingRepliedTo: message,
+    );
+    emit(newState);
   }
 }

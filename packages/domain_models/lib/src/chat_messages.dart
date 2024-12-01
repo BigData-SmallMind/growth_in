@@ -47,6 +47,7 @@ class ChatMessage {
   final DateTime date;
   final Sender sender;
   final bool isSentByMe;
+  final ChatMessage? messageRepliedTo;
 
   ChatMessage({
     required this.id,
@@ -55,10 +56,12 @@ class ChatMessage {
     required this.date,
     required this.sender,
     this.isSentByMe = false,
+    this.messageRepliedTo,
   });
 
   ChatMessage copyWith({
     bool? isSentByMe,
+    ChatMessage? messageRepliedTo,
   }) {
     return ChatMessage(
       id: id,
@@ -67,6 +70,7 @@ class ChatMessage {
       date: date,
       sender: sender,
       isSentByMe: isSentByMe ?? this.isSentByMe,
+      messageRepliedTo: messageRepliedTo ?? this.messageRepliedTo,
     );
   }
 }

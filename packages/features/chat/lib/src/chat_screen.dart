@@ -1,3 +1,4 @@
+import 'package:chat/src/components/message_card.dart';
 import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,23 +49,35 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final isTablet = !View.of(context).isSmallTabletOrLess;
-
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
         final l10n = ChatLocalizations.of(context);
+        final cubit = context.read<ChatCubit>();
+        final isSubmissionInProgress =
+            state.submissionStatus == ChatSubmissionStatus.inProgress;
         return GestureDetector(
           onTap: context.releaseFocus,
-
           child: Scaffold(
             appBar: AppBar(
               centerTitle: false,
               backgroundColor: Colors.white,
               title: Text(l10n.appBarTitle),
             ),
-            body: const Column(
+            body: Column(
               children: [
-                MessagesList(),
-                SendMessage(),
+                const MessagesList(),
+                if (state.messageBeingRepliedTo != null)
+                  MessageCard(
+                    isSubmissionInProgress: isSubmissionInProgress,
+                    message: state.messageBeingRepliedTo!,
+                    isFirstElement: false,
+                    openDocument: (_) {},
+                    downloadFile: (_) {},
+                    selectMessageToReply: cubit.selectMessageToReply,
+                    isMessageBeingRepliedTo: true,
+                    shouldShowDeleteIcon: true,
+                  ),
+                const SendMessage(),
               ],
             ),
           ),

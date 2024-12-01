@@ -457,8 +457,13 @@ class UserRepository {
                   (message) {
                     final isSentByMe =
                         message.sender.id == userSelectedCompanyId;
+                    final messageRepliedToSentByMe =
+                        message.messageRepliedTo?.sender.id == userSelectedCompanyId;
                     return message.copyWith(
                       isSentByMe: isSentByMe,
+                      messageRepliedTo: message.messageRepliedTo?.copyWith(
+                        isSentByMe: messageRepliedToSentByMe,
+                      ),
                     );
                   },
                 ).toList(),
@@ -473,6 +478,7 @@ class UserRepository {
   }
 
   Future sendChatMessage({
+    int? messageId,
     String? message,
     List<File>? files,
   }) async {
@@ -485,6 +491,7 @@ class UserRepository {
     try {
       await remoteApi.openLineChatApi.sendMessage(
         companyId: companyId,
+        messageId: messageId,
         message: message,
         files: files,
       );
@@ -517,7 +524,7 @@ class UserRepository {
           (company) => company.isSelected,
         )
         .id;
-    remoteApi.pusherApi.chatSC.listen((event) {
+    remoteApi.pusherApi.chatSC.listen((DateGroupedChatsRM event) {
       final dateGroupedChatsRM = event;
       final dateGroupedChats = dateGroupedChatsRM.toDomainModel();
       final dateGroupedChatsDM = dateGroupedChats.copyWith(
@@ -528,8 +535,13 @@ class UserRepository {
                   (message) {
                     final isSentByMe =
                         message.sender.id == userSelectedCompanyId;
+                    final messageRepliedToSentByMe =
+                        message.messageRepliedTo?.sender.id == userSelectedCompanyId;
                     return message.copyWith(
                       isSentByMe: isSentByMe,
+                      messageRepliedTo: message.messageRepliedTo?.copyWith(
+                        isSentByMe: messageRepliedToSentByMe,
+                      ),
                     );
                   },
                 ).toList(),

@@ -5,6 +5,7 @@ class ChatState extends Equatable {
     this.files,
     this.message,
     this.dateGroupedChats,
+    this.messageBeingRepliedTo,
     this.fetchingStatus = ChatFetchingStatus.initial,
     this.submissionStatus = ChatSubmissionStatus.initial,
   });
@@ -12,6 +13,7 @@ class ChatState extends Equatable {
   final List<File>? files;
   final String? message;
   final DateGroupedChats? dateGroupedChats;
+  final ChatMessage? messageBeingRepliedTo;
   final ChatFetchingStatus fetchingStatus;
   final ChatSubmissionStatus submissionStatus;
 
@@ -23,6 +25,7 @@ class ChatState extends Equatable {
     List<File>? files,
     String? message,
     DateGroupedChats? dateGroupedChats,
+    ChatMessage? messageBeingRepliedTo,
     ChatFetchingStatus? fetchingStatus,
     ChatSubmissionStatus? submissionStatus,
   }) {
@@ -30,6 +33,8 @@ class ChatState extends Equatable {
       files: files ?? this.files,
       message: message ?? this.message,
       dateGroupedChats: dateGroupedChats ?? this.dateGroupedChats,
+      messageBeingRepliedTo:
+          messageBeingRepliedTo ?? this.messageBeingRepliedTo,
       fetchingStatus: fetchingStatus ?? this.fetchingStatus,
       submissionStatus: submissionStatus ?? this.submissionStatus,
     );
@@ -40,6 +45,7 @@ class ChatState extends Equatable {
         files,
         message,
         dateGroupedChats,
+        messageBeingRepliedTo,
         fetchingStatus,
         submissionStatus,
       ];

@@ -14,8 +14,7 @@ class FileLocalizationsEn extends FileLocalizations {
   String get verifyFileButtonLabel => 'Approve';
 
   @override
-  String get verifyFileMessageTitle =>
-      'Are you sure you want to approve the file?';
+  String get verifyFileMessageTitle => 'Are you sure you want to approve the file?';
 
   @override
   String get verifyFileMessageBody => 'Modifications will be halted.';
@@ -27,8 +26,7 @@ class FileLocalizationsEn extends FileLocalizations {
   String get rejectFileMessageTitle => 'Rejection Notice';
 
   @override
-  String get rejectFileMessageBody =>
-      'Your comments will be reviewed and modifications will begin.';
+  String get rejectFileMessageBody => 'Your comments will be reviewed and modifications will begin.';
 
   @override
   String get cancelButtonLabel => 'Cancel';
@@ -37,6 +35,5 @@ class FileLocalizationsEn extends FileLocalizations {
   String get fileApprovalSuccessSnackBarMessage => 'Approval was successful.';
 
   @override
-  String get fileRejectionSuccessSnackBarMessage =>
-      'The file has been rejected. The team will be notified.';
+  String get fileRejectionSuccessSnackBarMessage => 'The file has been rejected. The team will be notified.';
 }

@@ -55,13 +55,19 @@ ChatMessageRM _$ChatMessageRMFromJson(Map<String, dynamic> json) =>
           date: $checkedConvert('sent_at', (v) => v as String),
           sender: $checkedConvert(
               'sender', (v) => SenderRM.fromJson(v as Map<String, dynamic>)),
+          messageRepliedTo: $checkedConvert(
+              'message_reply',
+              (v) => v == null
+                  ? null
+                  : ChatMessageRM.fromJson(v as Map<String, dynamic>)),
         );
         return val;
       },
       fieldKeyMap: const {
         'text': 'content',
         'files': 'message_file',
-        'date': 'sent_at'
+        'date': 'sent_at',
+        'messageRepliedTo': 'message_reply'
       },
     );
 

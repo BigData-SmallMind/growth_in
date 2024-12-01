@@ -33,10 +33,11 @@ class ChatRM {
 class ChatMessageRM {
   ChatMessageRM({
     required this.id,
-     this.text,
+    this.text,
     this.files,
     required this.date,
     required this.sender,
+    this.messageRepliedTo,
   });
 
   @JsonKey(name: 'id')
@@ -49,6 +50,8 @@ class ChatMessageRM {
   final String date;
   @JsonKey(name: 'sender')
   final SenderRM sender;
+  @JsonKey(name: 'message_reply')
+  final ChatMessageRM? messageRepliedTo;
 
   static const fromJson = _$ChatMessageRMFromJson;
 }
