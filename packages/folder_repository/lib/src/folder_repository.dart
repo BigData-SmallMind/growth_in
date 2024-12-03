@@ -103,13 +103,14 @@ class FolderRepository {
           final fileUrl = '$downloadUrl/$slug';
           final downloadPath = Platform.isAndroid
               ? await getExternalStorageDirectory() //FOR ANDROID
-              : await getApplicationSupportDirectory(); //FOR iOS
+              : await getDownloadsDirectory(); //FOR iOS
           final taskId = await FlutterDownloader.enqueue(
             url: fileUrl,
             savedDir: downloadPath?.path ?? '/storage/emulated/0/Download',
             fileName: slug,
             showNotification: true,
             openFileFromNotification: true,
+            saveInPublicStorage: true,
           );
           debugPrint(taskId.toString());
           debugPrint(fileUrl.toString());
