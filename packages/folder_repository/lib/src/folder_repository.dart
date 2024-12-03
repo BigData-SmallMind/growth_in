@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -99,7 +101,9 @@ class FolderRepository {
       if (downloadPermissionStatus.isGranted) {
         for (final slug in slugs) {
           final fileUrl = '$downloadUrl/$slug';
-          final downloadPath = await getExternalStorageDirectory();
+          final downloadPath = Platform.isAndroid
+              ? await getExternalStorageDirectory() //FOR ANDROID
+              : await getApplicationSupportDirectory(); //FOR iOS
           final taskId = await FlutterDownloader.enqueue(
             url: fileUrl,
             savedDir: downloadPath?.path ?? '/storage/emulated/0/Download',

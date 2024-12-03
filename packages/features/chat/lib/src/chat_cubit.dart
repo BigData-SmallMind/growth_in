@@ -182,7 +182,7 @@ class ChatCubit extends Cubit<ChatState> {
     if (await canLaunchUrl(Uri.parse(url))) {
       launchUrl(
         Uri.parse(url),
-        mode: LaunchMode.externalNonBrowserApplication,
+        mode: LaunchMode.externalApplication,
       );
     } else {
       throw 'Could not launch $url';
