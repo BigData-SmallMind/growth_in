@@ -62,9 +62,9 @@ class MessagesList extends StatelessWidget {
                                         isMessageBeingRepliedTo: false,
                                         shouldShowDeleteIcon: false,
                                         message: message,
-                                        downloadFile: (file) {
-                                          cubit.downloadFile(file);
-                                        },
+                                        // downloadFile: (file) {
+                                        //   cubit.downloadFile(file);
+                                        // },
                                         openDocument: (url) {
                                           cubit.openDocument(url);
                                         },

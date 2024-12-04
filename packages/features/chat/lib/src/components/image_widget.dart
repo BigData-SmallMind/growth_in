@@ -2,17 +2,19 @@ import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 
-
-class ImageWidget extends StatelessWidget {
+class ImageWidget extends StatefulWidget {
   const ImageWidget({
     super.key,
     required this.message,
-    required this.downloadFile,
   });
 
   final ChatMessage message;
-  final Function(FileDM p1) downloadFile;
 
+  @override
+  State<ImageWidget> createState() => _ImageWidgetState();
+}
+
+class _ImageWidgetState extends State<ImageWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +28,7 @@ class ImageWidget extends StatelessWidget {
           insetPadding: EdgeInsets.zero,
           content: InteractiveViewer(
             child: Image.network(
-              message.files![0].dlUrl!,
+              widget.message.files![0].dlUrl!,
               fit: BoxFit.fitHeight,
             ),
           ),
@@ -36,12 +38,7 @@ class ImageWidget extends StatelessWidget {
             top: Spacing.large,
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                downloadFile(message.files![0]);
-              },
-              icon: const SvgAsset(AssetPathConstants.downloadPath),
-            ),
+            DownloadWidget(urls: [widget.message.files![0].dlUrl!]),
             IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.arrow_forward_ios))
@@ -49,7 +46,7 @@ class ImageWidget extends StatelessWidget {
         ),
       ),
       child: Image.network(
-        message.files![0].dlUrl!,
+        widget.message.files![0].dlUrl!,
         fit: BoxFit.fitHeight,
         height: 100,
       ),

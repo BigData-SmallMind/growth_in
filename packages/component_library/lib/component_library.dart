@@ -10,6 +10,7 @@ export 'src/indicators/indicators.dart';
 export 'src/post_version_tile.dart';
 export 'src/gap/gap.dart';
 export 'src/row_builder.dart';
+export 'src/download_widget.dart';
 export 'src/post_images.dart';
 export 'src/post_summary.dart';
 export 'src/meeting_slot_picker.dart';

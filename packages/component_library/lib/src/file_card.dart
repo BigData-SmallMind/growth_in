@@ -7,12 +7,12 @@ class FileCard extends StatelessWidget {
     super.key,
     required this.file,
     required this.onFileTapped,
-    required this.downloadFiles,
+    // required this.downloadFiles,
   });
 
   final FileV2DM file;
   final ValueSetter<FileV2DM> onFileTapped;
-  final ValueSetter<List<String>> downloadFiles;
+  // final ValueSetter<List<String>> downloadFiles;
 
   @override
   Widget build(BuildContext context) {
@@ -116,19 +116,26 @@ class FileCard extends StatelessWidget {
                                   AssetPathConstants.filePath,
                                 ),
                               ),
-                              ListTile(
-                                title: Text(l10n.downloadAllTileTitle),
-                                onTap: () {
-                                  final slugs = [
-                                    if (file.name != null) file.name!,
-                                    if (file.assets.isNotEmpty)
-                                      ...file.assets.map((asset) => asset.name),
-                                  ];
-                                  // debugPrint(slugs.toString());
-                                  downloadFiles(slugs);
-                                },
-                                leading: const SvgAsset(
-                                  AssetPathConstants.exportPath,
+                              DownloadWidget(
+                                urls: [
+                                  if (file.name != null) file.name!,
+                                  if (file.assets.isNotEmpty)
+                                    ...file.assets.map((asset) => asset.name),
+                                ],
+                                child: ListTile(
+                                  title: Text(l10n.downloadAllTileTitle),
+                                  // onTap: () {
+                                  //   final slugs = [
+                                  //     if (file.name != null) file.name!,
+                                  //     if (file.assets.isNotEmpty)
+                                  //       ...file.assets.map((asset) => asset.name),
+                                  //   ];
+                                  //   // debugPrint(slugs.toString());
+                                  //   downloadFiles(slugs);
+                                  // },
+                                  leading: const SvgAsset(
+                                    AssetPathConstants.exportPath,
+                                  ),
                                 ),
                               ),
                             ],

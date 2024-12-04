@@ -13,7 +13,7 @@ class MessageCard extends StatelessWidget {
     required this.message,
     required this.isFirstElement,
     required this.openDocument,
-    required this.downloadFile,
+    // required this.downloadFile,
     required this.selectMessageToReply,
     required this.isMessageBeingRepliedTo,
     required this.shouldShowDeleteIcon,
@@ -23,7 +23,7 @@ class MessageCard extends StatelessWidget {
   final ChatMessage message;
   final bool isFirstElement;
   final Function(String) openDocument;
-  final Function(FileDM) downloadFile;
+  // final Function(FileDM) downloadFile;
   final Function(ChatMessage?) selectMessageToReply;
   final bool isMessageBeingRepliedTo;
   final bool shouldShowDeleteIcon;
@@ -121,7 +121,7 @@ class MessageCard extends StatelessWidget {
                       if (message.files?.isNotEmpty == true) ...[
                         MessageFileWidget(
                           message: message,
-                          downloadFile: downloadFile,
+                          // downloadFile: downloadFile,
                           openDocument: openDocument,
                         ),
                         VerticalGap.small(),

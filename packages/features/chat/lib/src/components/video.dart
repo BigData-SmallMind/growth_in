@@ -1,4 +1,3 @@
-
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +8,9 @@ class Video extends StatelessWidget {
   const Video({
     super.key,
     required this.message,
-    required this.downloadFile,
   });
 
   final ChatMessage message;
-  final Function(FileDM p1) downloadFile;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +30,7 @@ class Video extends StatelessWidget {
             top: Spacing.large,
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                downloadFile(message.files![0]);
-              },
-              icon: const SvgAsset(AssetPathConstants.downloadPath),
-            ),
+            DownloadWidget(urls: [message.files![0].dlUrl!]),
             IconButton(
                 onPressed: () => Navigator.pop(dialogContext),
                 icon: const Icon(Icons.arrow_forward_ios))
@@ -49,7 +41,6 @@ class Video extends StatelessWidget {
     );
   }
 }
-
 
 class VideoDialogContent extends StatefulWidget {
   const VideoDialogContent({

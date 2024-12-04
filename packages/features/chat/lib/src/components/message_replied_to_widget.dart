@@ -47,7 +47,7 @@ class MessageRepliedToWidget extends StatelessWidget {
           if (messageRepliedTo.files?.isNotEmpty == true) ...[
             MessageFileWidget(
               message: messageRepliedTo,
-              downloadFile: (_) {},
+              // downloadFile: (_) {},
               openDocument: (_) {},
             ),
           ],

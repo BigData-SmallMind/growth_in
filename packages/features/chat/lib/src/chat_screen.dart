@@ -72,7 +72,7 @@ class ChatView extends StatelessWidget {
                     message: state.messageBeingRepliedTo!,
                     isFirstElement: false,
                     openDocument: (_) {},
-                    downloadFile: (_) {},
+                    // downloadFile: (_) {},
                     selectMessageToReply: cubit.selectMessageToReply,
                     isMessageBeingRepliedTo: true,
                     shouldShowDeleteIcon: true,

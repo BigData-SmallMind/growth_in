@@ -114,8 +114,9 @@ class FileView extends StatelessWidget {
                     const Spacer(),
                     TextButton(
                       onPressed: () {
-                        cubit.downloadFiles(
-                            state.file!.assets.map((e) => e.name).toList());
+                        //TODO: implement bulk download files
+                        // cubit.downloadFiles(
+                        //     state.file!.assets.map((e) => e.name).toList());
                       },
                       child: Text(
                         l10n.downloadAllTextButtonLabel,
@@ -139,10 +140,9 @@ class FileView extends StatelessWidget {
                               childAspectRatio: 2.5),
                       itemBuilder: (context, index) {
                         final asset = state.file!.assets[index];
-                        return InkWell(
-                          onTap: () {
-                            cubit.downloadFiles([asset.name]);
-                          },
+                        return DownloadWidget(
+                          //TODO:implement download file
+                          urls: [asset.name],
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),

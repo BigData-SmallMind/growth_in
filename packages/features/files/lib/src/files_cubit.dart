@@ -53,11 +53,11 @@ class FilesCubit extends Cubit<FilesState> {
 //   return super.close();
 // }
 
-  void downloadFiles(List<String> slugs) async {
-    try {
-      await folderRepository.downloadFiles(slugs);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
+  // void downloadFiles(List<String> slugs) async {
+  //   try {
+  //     await folderRepository.downloadFiles(slugs);
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
 }

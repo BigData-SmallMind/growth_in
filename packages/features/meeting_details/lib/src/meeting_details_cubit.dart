@@ -34,13 +34,13 @@ class MeetingDetailsCubit extends Cubit<MeetingDetailsState> {
   final ValueSetter<Meeting> onCancelMeetingTapped;
   final ValueSetter<Meeting> onScheduleMeetingTapped;
 
-  void downloadFile(FileDM file) async {
-    try {
-      folderRepository.downloadFiles([file.name]);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
+  // void downloadFile(FileDM file) async {
+  //   try {
+  //     folderRepository.downloadFiles([file.name]);
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
 
 // @override
 // Future<void> close() async {

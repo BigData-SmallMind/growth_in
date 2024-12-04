@@ -24,13 +24,13 @@ class FileCubit extends Cubit<FileState> {
   final FolderRepository folderRepository;
   final VoidCallback onCommentsTapped;
 
-  void downloadFiles(List<String> slugs) {
-    try {
-      folderRepository.downloadFiles(slugs);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
+  // void downloadFiles(List<String> slugs) {
+  //   try {
+  //     folderRepository.downloadFiles(slugs);
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
 
   void approveFile({
     required bool shouldApprove,

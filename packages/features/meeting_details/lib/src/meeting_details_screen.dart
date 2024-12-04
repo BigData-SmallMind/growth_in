@@ -186,7 +186,7 @@ class MeetingDetailsView extends StatelessWidget {
                     if (meeting.files != null)
                       Files(
                         files: meeting.files,
-                        onFileTapped: cubit.downloadFile,
+                        // onFileTapped: cubit.downloadFile,
                       ),
                     if (meeting.summary != null) ...[
                       Text(

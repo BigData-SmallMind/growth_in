@@ -25,8 +25,8 @@ class Files extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           final file = files![index];
-          return InkWell(
-            onTap: onFileTapped != null ? () => onFileTapped!(file) : null,
+          return DownloadWidget(
+            urls: [file.dlUrl!],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

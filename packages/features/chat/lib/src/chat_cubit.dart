@@ -189,13 +189,13 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  void downloadFile(FileDM file) async {
-    try {
-      folderRepository.downloadFiles([file.name]);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
+  // void downloadFile(FileDM file) async {
+  //   try {
+  //     folderRepository.downloadFiles([file.name]);
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
 
   void sendMessage() async {
     final newState = state.copyWith(

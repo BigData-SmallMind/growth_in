@@ -4,18 +4,16 @@ import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 
-
-
 class MessageFileWidget extends StatelessWidget {
   const MessageFileWidget({
     super.key,
     required this.message,
-    required this.downloadFile,
+    // required this.downloadFile,
     required this.openDocument,
   });
 
   final ChatMessage message;
-  final Function(FileDM p1) downloadFile;
+  // final Function(FileDM p1) downloadFile;
   final Function(String p1) openDocument;
 
   @override
@@ -26,7 +24,6 @@ class MessageFileWidget extends StatelessWidget {
         if (message.files![0].type == FileType.image)
           ImageWidget(
             message: message,
-            downloadFile: downloadFile,
           ),
         if (message.files![0].type == FileType.document)
           IconButton(
@@ -38,7 +35,6 @@ class MessageFileWidget extends StatelessWidget {
         if (message.files![0].type == FileType.video)
           Video(
             message: message,
-            downloadFile: downloadFile,
           ),
         VerticalGap.xSmall(),
         SizedBox(

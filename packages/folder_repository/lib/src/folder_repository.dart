@@ -1,14 +1,8 @@
-import 'dart:io';
-
 import 'package:domain_models/domain_models.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:folder_repository/src/folders_change_notifier.dart';
 import 'package:folder_repository/src/mappers/mappers.dart';
 import 'package:growth_in_api/growth_in_api.dart';
 import 'package:key_value_storage/key_value_storage.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:request_repository/request_repository.dart';
 
 class FolderRepository {
@@ -95,33 +89,33 @@ class FolderRepository {
     }
   }
 
-  Future downloadFiles(List<String> slugs) async {
-    try {
-      final downloadPermissionStatus = await Permission.storage.request();
-      if (downloadPermissionStatus.isGranted) {
-        for (final slug in slugs) {
-          final fileUrl = '$downloadUrl/$slug';
-          final downloadPath = Platform.isAndroid
-              ? await getExternalStorageDirectory() //FOR ANDROID
-              : await getDownloadsDirectory(); //FOR iOS
-          final taskId = await FlutterDownloader.enqueue(
-            url: fileUrl,
-            savedDir: downloadPath?.path ?? '/storage/emulated/0/Download',
-            fileName: slug,
-            showNotification: true,
-            openFileFromNotification: true,
-            saveInPublicStorage: true,
-          );
-          debugPrint(taskId.toString());
-          debugPrint(fileUrl.toString());
-        }
-        return;
-      } else {
-        debugPrint('Permission denied');
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-      rethrow;
-    }
-  }
+  // Future downloadFiles(List<String> slugs) async {
+  //   try {
+  //     final downloadPermissionStatus = await Permission.storage.request();
+  //     if (downloadPermissionStatus.isGranted) {
+  //       for (final slug in slugs) {
+  //         final fileUrl = '$downloadUrl/$slug';
+  //         final downloadPath = Platform.isAndroid
+  //             ? await getExternalStorageDirectory() //FOR ANDROID
+  //             : await getApplicationDocumentsDirectory(); //FOR iOS
+  //         final taskId = await FlutterDownloader.enqueue(
+  //           url: fileUrl,
+  //           savedDir: downloadPath?.path ?? '/storage/emulated/0/Download',
+  //           fileName: slug,
+  //           showNotification: true,
+  //           openFileFromNotification: true,
+  //           saveInPublicStorage: true,
+  //         );
+  //         debugPrint(taskId.toString());
+  //         debugPrint(fileUrl.toString());
+  //       }
+  //       return;
+  //     } else {
+  //       debugPrint('Permission denied');
+  //     }
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     rethrow;
+  //   }
+  // }
 }
