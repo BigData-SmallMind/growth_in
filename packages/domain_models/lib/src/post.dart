@@ -16,7 +16,7 @@ class Post {
   final int id;
   final List<SocialChannel>? channels;
   final String? contentGoal;
-  final List<String>? contentType;
+  final dynamic contentType;
   final String? text;
   final List<String>? images;
   final DateTime publicationDate;

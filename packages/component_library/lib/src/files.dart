@@ -1,6 +1,7 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
+import 'package:growth_in_api/growth_in_api.dart';
 
 
 
@@ -26,7 +27,7 @@ class Files extends StatelessWidget {
         itemBuilder: (context, index) {
           final file = files![index];
           return DownloadWidget(
-            urls: [file.dlUrl!],
+            urls: ['${UrlBuilder.filesDownloadUrl}/${file.name}'],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

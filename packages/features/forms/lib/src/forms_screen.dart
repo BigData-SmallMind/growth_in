@@ -66,7 +66,8 @@ class FormsView extends StatelessWidget {
                       onRefresh: cubit.fetchForms,
                       child: ListView(
                         padding: EdgeInsets.symmetric(
-                            horizontal: theme.screenMargin),
+                          horizontal: theme.screenMargin,
+                        ),
                         children: [
                           if (state.forms!.list.isNotEmpty) ...[
                             Text(

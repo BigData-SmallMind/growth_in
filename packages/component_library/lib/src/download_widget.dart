@@ -9,14 +9,12 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DownloadWidget extends StatefulWidget {
-  const DownloadWidget({
-    super.key,
-    required this.urls,
-    this.child,
-  });
+  const DownloadWidget(
+      {super.key, required this.urls, this.child, this.padding});
 
   final List<String> urls;
   final Widget? child;
+  final EdgeInsetsDirectional? padding;
 
   @override
   State<DownloadWidget> createState() => _DownloadWidgetState();
@@ -94,6 +92,7 @@ class _DownloadWidgetState extends State<DownloadWidget> {
         } else {
           isDownloading = false;
         }
+        setState(() {});
       });
       await FlutterDownloader.registerCallback(registerCallback);
     }
@@ -193,6 +192,7 @@ class _DownloadWidgetState extends State<DownloadWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = GrowthInTheme.of(context);
     return GestureDetector(
       onTap: () {
         for (String url in widget.urls) {
@@ -200,18 +200,13 @@ class _DownloadWidgetState extends State<DownloadWidget> {
         }
       },
       child: isDownloading
-          ? Stack(
-              children: [
-                CircularProgressIndicator(
-                  value: downloadTaskProgress.toDouble() / 100,
-                ),
-                Center(
-                  child: Text(
-                    '$downloadTaskProgress%',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-              ],
+          ? Transform.scale(
+              scale: 0.5,
+              child: CircularProgressIndicator(
+                value: downloadTaskProgress.toDouble(),
+                color: theme.primaryColor,
+                backgroundColor: theme.primaryColor.withOpacity(0.2),
+              ),
             )
           : widget.child ?? const SvgAsset(AssetPathConstants.downloadPath),
     );

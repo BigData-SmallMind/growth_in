@@ -184,11 +184,14 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                                 ),
                               ),
                               HorizontalGap.medium(),
-                              ...state.post!.contentType!.map(
-                                (contentTypeName) => Text(
-                                  contentTypeName,
+                              if (state.post?.contentType is List)
+                                ...state.post!.contentType!.map(
+                                  (contentTypeName) => Text(
+                                    contentTypeName,
+                                  ),
                                 ),
-                              ),
+                              if(state.post?.contentType is String)
+                                Text(state.post!.contentType as String),
                             ],
                           ),
                         ],

@@ -1,6 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
+import 'package:growth_in_api/growth_in_api.dart';
 
 class FileCard extends StatelessWidget {
   const FileCard({
@@ -118,9 +119,9 @@ class FileCard extends StatelessWidget {
                               ),
                               DownloadWidget(
                                 urls: [
-                                  if (file.name != null) file.name!,
+                                  if (file.name != null) '${UrlBuilder.filesDownloadUrl}/${file.name!}',
                                   if (file.assets.isNotEmpty)
-                                    ...file.assets.map((asset) => asset.name),
+                                    ...file.assets.map((asset) => '${UrlBuilder.filesDownloadUrl}/${asset.name}'),
                                 ],
                                 child: ListTile(
                                   title: Text(l10n.downloadAllTileTitle),

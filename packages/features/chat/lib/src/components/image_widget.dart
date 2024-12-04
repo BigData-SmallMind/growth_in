@@ -17,6 +17,7 @@ class ImageWidget extends StatefulWidget {
 class _ImageWidgetState extends State<ImageWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = GrowthInTheme.of(context);
     return GestureDetector(
       onTap: () => showDialog(
         context: context,
@@ -34,11 +35,13 @@ class _ImageWidgetState extends State<ImageWidget> {
           ),
           alignment: Alignment.bottomCenter,
           actionsAlignment: MainAxisAlignment.spaceBetween,
-          actionsPadding: const EdgeInsets.only(
+          actionsPadding:  EdgeInsetsDirectional.only(
             top: Spacing.large,
+            start: theme.screenMargin
           ),
           actions: [
             DownloadWidget(urls: [widget.message.files![0].dlUrl!]),
+            // CircularProgressIndicator(),
             IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.arrow_forward_ios))

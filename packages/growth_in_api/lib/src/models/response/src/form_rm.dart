@@ -3,12 +3,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'form_rm.g.dart';
 
-
-
 @JsonSerializable(createToJson: false)
 class FormRM {
   FormRM({
-    required this.id,
+    this.id = -1,
     required this.name,
     required this.status,
     required this.totalQuestions,
@@ -31,4 +29,3 @@ class FormRM {
 
   static const fromJson = _$FormRMFromJson;
 }
-

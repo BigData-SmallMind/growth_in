@@ -11,7 +11,7 @@ FormRM _$FormRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = FormRM(
-          id: $checkedConvert('form_id', (v) => (v as num).toInt()),
+          id: $checkedConvert('form_id', (v) => (v as num?)?.toInt() ?? -1),
           name: $checkedConvert('form_name', (v) => v as String),
           status: $checkedConvert('status', (v) => v as String?),
           totalQuestions:

@@ -43,7 +43,7 @@ extension PostRMtoDM on PostRM {
                 ? PostStatus.editing
                 : throw Exception('Invalid status');
 
-    final contentTypes = contentType?.map((type) => (type).toString()).toList();
+    // final contentTypes = contentType?.map((type) => (type).toString()).toList();
 
     int hour = publicationDateDM.hour % 12; // Convert to 12-hour format
     hour = hour == 0 ? 12 : hour; // Handle midnight case
@@ -55,7 +55,7 @@ extension PostRMtoDM on PostRM {
       id: id,
       channels: channelsList,
       contentGoal: contentGoal,
-      contentType: contentTypes,
+      contentType: contentType,
       text: text,
       images: imagesUrls,
       publicationDate: publicationDateDM,

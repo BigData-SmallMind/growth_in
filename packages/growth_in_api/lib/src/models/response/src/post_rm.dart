@@ -24,7 +24,7 @@ class PostRM {
   @JsonKey(name: 'content_goal')
   final String? contentGoal;
   @JsonKey(name: 'content_type')
-  final List? contentType;
+  final dynamic contentType;
   @JsonKey(name: 'post_content')
   final String? text;
   @JsonKey(name: 'content_image')

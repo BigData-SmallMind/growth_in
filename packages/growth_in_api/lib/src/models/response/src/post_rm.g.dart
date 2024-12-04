@@ -14,8 +14,7 @@ PostRM _$PostRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           channel: $checkedConvert('channel', (v) => v as List<dynamic>?),
           contentGoal: $checkedConvert('content_goal', (v) => v as String?),
-          contentType:
-              $checkedConvert('content_type', (v) => v as List<dynamic>?),
+          contentType: $checkedConvert('content_type', (v) => v),
           text: $checkedConvert('post_content', (v) => v as String?),
           images: $checkedConvert('content_image', (v) => v as List<dynamic>?),
           publicationDate:
