@@ -13,6 +13,7 @@ class MessageFileWidget extends StatelessWidget {
   });
 
   final ChatMessage message;
+
   // final Function(FileDM p1) downloadFile;
   final Function(String p1) openDocument;
 
@@ -20,6 +21,7 @@ class MessageFileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (message.files![0].type == FileType.image)
           ImageWidget(
@@ -41,13 +43,16 @@ class MessageFileWidget extends StatelessWidget {
           width: 100,
           child: Text(
             message.files![0].name,
-            style: textTheme.bodySmall,
+            style: textTheme.bodySmall
+                ?.copyWith(color: message.isSentByMe ? null : Colors.white),
             overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
           ),
         ),
         Text(
           message.files![0].extension.toUpperCase(),
-          style: textTheme.bodySmall,
+          style: textTheme.bodySmall
+              ?.copyWith(color: message.isSentByMe ? null : Colors.white),
         ),
       ],
     );

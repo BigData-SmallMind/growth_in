@@ -29,7 +29,7 @@ FileType categorizeFileType(String extension) {
   // Get the file extension
 
   // Determine the file category based on the extension using switch
-  switch (extension) {
+  switch (extension.toLowerCase()) {
     case 'txt':
     case 'csv':
     case 'doc':
